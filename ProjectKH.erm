@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2017-04-12 03:15:24</creation_date>
-			<updated_date>2017-04-12 05:01:23</updated_date>
+			<updated_date>2017-04-12 15:57:02</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -328,8 +328,8 @@
 			<args></args>
 			<char_semantics>false</char_semantics>
 			<description></description>
-			<logical_name>MENU_INFO</logical_name>
-			<physical_name>MENU_INFO</physical_name>
+			<logical_name>MENU_NAME</logical_name>
+			<physical_name>MENU_NAME</physical_name>
 			<type></type>
 		</word>
 		<word>
