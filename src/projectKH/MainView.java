@@ -3,6 +3,7 @@ package projectKH;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -18,8 +19,10 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 public class MainView extends JFrame implements ActionListener, MouseListener, KeyListener, FocusListener{
@@ -30,6 +33,8 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 	private JButton button2 = new JButton(" 주문 관리");
 	private JButton button3 = new JButton(" 직원 관리");
 	private JButton button4 = new JButton(" 데이터 분석");
+	
+	private JButton button5 = new JButton("고객 등록");
 	
 	private JTextArea textArea1 = new JTextArea("textArea1");
 	private JTextArea textArea2 = new JTextArea("textArea2");
@@ -42,7 +47,7 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 		this.init();
 		this.start();
 		this.setSize(1000,600);
-		this.setResizable(false);
+		this.setResizable(true);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension di = tk.getScreenSize();
 		Dimension di1 = this.getSize();
@@ -76,26 +81,72 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 		button2.addMouseListener(this);
 		button3.addMouseListener(this);
 		button4.addMouseListener(this);
+		
+		JTextField jTextField1 = new JTextField("1");
+		JTextField jTextField2 = new JTextField("2");
+		JTextField jTextField3 = new JTextField("3");
+		JTextField jTextField4 = new JTextField("4");
+		JTextField jTextField5 = new JTextField("5");
+		JTextField jTextField6 = new JTextField("6");
+		JTextField jTextField7 = new JTextField("7");
+		JTextField jTextField8 = new JTextField("8");
+		JTextField jTextField9 = new JTextField("9");
+		JTextField jTextField10 = new JTextField("10");
+		
+		JLabel jLabel1 = new JLabel("1");
+		JLabel jLabel2 = new JLabel("2");
+		JLabel jLabel3 = new JLabel("3");
+		JLabel jLabel4 = new JLabel("4");
+		JLabel jLabel5 = new JLabel("5");
+		JLabel jLabel6 = new JLabel("6");
+		JLabel jLabel7 = new JLabel("7");
+		JLabel jLabel8 = new JLabel("8");
+		JLabel jLabel9 = new JLabel("9");
+		JLabel jLabel10 = new JLabel("10");
+		
+		JPanel jPanel1 = new JPanel(new GridLayout(1,4));
+		JPanel jPanel2 = new JPanel(new GridLayout(10,2));
+		JPanel jPanel3 = new JPanel(new GridLayout(1,4));
+		JPanel jPanel4 = new JPanel(new GridLayout(1,4));
+		jPanel1.add("North", button1);
+		jPanel1.add("North", button2);
+		jPanel1.add("North", button3);
+		jPanel1.add("North", button4);
+				
+		jPanel2.add(jLabel1);
+		jPanel2.add(jTextField1);
+		jPanel2.add(jLabel2);
+		jPanel2.add(jTextField2);
+		jPanel2.add(jLabel3);
+		jPanel2.add(jTextField3);
+		jPanel2.add(jLabel4);
+		jPanel2.add(jTextField4);
+		jPanel2.add(jLabel5);
+		jPanel2.add(jTextField5);
+		jPanel2.add(jLabel6);
+		jPanel2.add(jTextField6);
+		jPanel2.add(jLabel7);
+		jPanel2.add(jTextField7);
+		jPanel2.add(jLabel8);
+		jPanel2.add(jTextField8);
+		jPanel2.add(jLabel9);
+		jPanel2.add(jTextField9);
+		jPanel2.add(jLabel10);
+		jPanel2.add(jTextField10);		
 
-		JPanel jPanel = new JPanel(new GridLayout(1,4));
-		jPanel.add("North", button1);
-		jPanel.add("North", button2);
-		jPanel.add("North", button3);
-		jPanel.add("North", button4);
-
-		con.add("North", jPanel);
+		con.add("North", jPanel1);
 		
 		//메인 보더레이아웃의 south영역 설정
-		con.add("South", textArea1);
+		con.add("South", button5);
 		
 		//메인 보더레이아웃의 center영역 설정
-		con.add("Center", textArea2);
+		con.add("Center", jPanel2);
 		
 		//메인 보더레이아웃의 west영역 설정
-		con.add("West", textArea3);
+		//con.add("West", textArea2);
 		
 		//메인 보더레이아웃의 east영역 설정
-		con.add("East", textArea4);
+		con.add("East", textArea3);
 		
 	}
 
@@ -178,6 +229,5 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 		// TODO Auto-generated method stub
 		
 	}
-	
 	
 }

@@ -3,40 +3,39 @@ package projectKH;
 public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정보를 set, get 함
 
 	//주문정보에 필요한 변수 지정
-	private int orderinfoNum;
-	private String oderinfoPackCompletion;
-	private String oderinfoDeliveryCompletion;
-	private String oderinfoOrderCompletion;
-	private String oderinfoMoneyCollection;
-	private String oderinfoDeliveryPredict;
-	private String oderinfoDate;
-	private String oderinfoLocPossiblity;
-	private String oderinfoOrderPossiblity;
-	private String oderinfoMenuNum;
-	private String oderinfoMenuAmount;
-	private String oderinfoRequestInfo;
-	private String oderinfoChannelNum;
-	private String oderinfoRequestDelivery;
+	private int orderInfoNum;
+	private String orderInfoPackCompletion;
+	private String orderInfoDeliveryCompletion;
+	private String orderInfoOrderCompletion;
+	private String orderInfoMoneyCollection;
+	private String orderInfoDeliveryPredict;
+	private String orderInfoDate;
+	private String orderInfoLocPossiblity;
+	private String orderInfoOrderPossiblity;
+	private int orderInfoMenuNum;
+	private int orderInfoMenuAmount;
+	private String orderInfoRequestInfo;
+	private int orderInfoChannelNum;
+	private String orderInfoRequestDelivery;
 
-	public OrderInfo(int orderinfoNum, String oderinfoPackCompletion, String oderinfoDeliveryCompletion,
-			String oderinfoOrderCompletion, String oderinfoMoneyCollection, String oderinfoDeliveryPredict,
-			String oderinfoDate, String oderinfoLocPossiblity, String oderinfoOrderPossiblity, String oderinfoMenuNum,
-			String oderinfoMenuAmount, String oderinfoRequestInfo, String oderinfoChannelNum, String oderinfoRequestDelivery) {
+	public OrderInfo(int orderInfoNum, String orderInfoDate, String orderInfoLocPossiblity, String orderInfoOrderPossiblity, int orderInfoMenuNum, int orderInfoMenuAmount,
+			String orderInfoRequestInfo, int orderInfoChannelNum, String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
+			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict) {
 
-		this.orderinfoNum = orderinfoNum;
-		this.oderinfoPackCompletion = oderinfoPackCompletion;
-		this.oderinfoDeliveryCompletion = oderinfoDeliveryCompletion;
-		this.oderinfoOrderCompletion = oderinfoOrderCompletion;
-		this.oderinfoMoneyCollection = oderinfoMoneyCollection;
-		this.oderinfoDeliveryPredict = oderinfoDeliveryPredict;
-		this.oderinfoDate = oderinfoDate;
-		this.oderinfoLocPossiblity = oderinfoLocPossiblity;
-		this.oderinfoOrderPossiblity = oderinfoOrderPossiblity;
-		this.oderinfoMenuNum = oderinfoMenuNum;
-		this.oderinfoMenuAmount = oderinfoMenuAmount;
-		this.oderinfoRequestInfo = oderinfoRequestInfo;
-		this.oderinfoChannelNum = oderinfoChannelNum;
-		this.oderinfoRequestDelivery = oderinfoRequestDelivery;
+		this.orderInfoNum = orderInfoNum;
+		this.orderInfoPackCompletion = orderInfoPackCompletion;
+		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
+		this.orderInfoOrderCompletion = orderInfoOrderCompletion;
+		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
+		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
+		this.orderInfoDate = orderInfoDate;
+		this.orderInfoLocPossiblity = orderInfoLocPossiblity;
+		this.orderInfoOrderPossiblity = orderInfoOrderPossiblity;
+		this.orderInfoMenuNum = orderInfoMenuNum;
+		this.orderInfoMenuAmount = orderInfoMenuAmount;
+		this.orderInfoRequestInfo = orderInfoRequestInfo;
+		this.orderInfoChannelNum = orderInfoChannelNum;
+		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
 	}
 
 	// 디폴트 생성자 명시적으로 생성
@@ -45,116 +44,116 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 	}
 
 	//각 변수 get, set 메소드 시작 지점
-	public int getOrderinfoNum() {
-		return orderinfoNum;
+	public int getOrderInfoNum() {
+		return orderInfoNum;
 	}
 
-	public void setOrderinfoNum(int orderinfoNum) {
-		this.orderinfoNum = orderinfoNum;
+	public void setOrderInfoNum(int orderInfoNum) {
+		this.orderInfoNum = orderInfoNum;
 	}
 
-	public String getOderinfoPackCompletion() {
-		return oderinfoPackCompletion;
+	public String getOrderInfoPackCompletion() {
+		return orderInfoPackCompletion;
 	}
 
-	public void setOderinfoPackCompletion(String oderinfoPackCompletion) {
-		this.oderinfoPackCompletion = oderinfoPackCompletion;
+	public void setOrderInfoPackCompletion(String orderInfoPackCompletion) {
+		this.orderInfoPackCompletion = orderInfoPackCompletion;
 	}
 
-	public String getOderinfoDeliveryCompletion() {
-		return oderinfoDeliveryCompletion;
+	public String getOrderInfoDeliveryCompletion() {
+		return orderInfoDeliveryCompletion;
 	}
 
-	public void setOderinfoDeliveryCompletion(String oderinfoDeliveryCompletion) {
-		this.oderinfoDeliveryCompletion = oderinfoDeliveryCompletion;
+	public void setOrderInfoDeliveryCompletion(String orderInfoDeliveryCompletion) {
+		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
 	}
 
-	public String getOderinfoOrderCompletion() {
-		return oderinfoOrderCompletion;
+	public String getOrderInfoOrderCompletion() {
+		return orderInfoOrderCompletion;
 	}
 
-	public void setOderinfoOrderCompletion(String oderinfoOrderCompletion) {
-		this.oderinfoOrderCompletion = oderinfoOrderCompletion;
+	public void setOrderInfoOrderCompletion(String orderInfoOrderCompletion) {
+		this.orderInfoOrderCompletion = orderInfoOrderCompletion;
 	}
 
-	public String getOderinfoMoneyCollection() {
-		return oderinfoMoneyCollection;
+	public String getOrderInfoMoneyCollection() {
+		return orderInfoMoneyCollection;
 	}
 
-	public void setOderinfoMoneyCollection(String oderinfoMoneyCollection) {
-		this.oderinfoMoneyCollection = oderinfoMoneyCollection;
+	public void setOrderInfoMoneyCollection(String orderInfoMoneyCollection) {
+		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
 	}
 
-	public String getOderinfoDeliveryPredict() {
-		return oderinfoDeliveryPredict;
+	public String getOrderInfoDeliveryPredict() {
+		return orderInfoDeliveryPredict;
 	}
 
-	public void setOderinfoDeliveryPredict(String oderinfoDeliveryPredict) {
-		this.oderinfoDeliveryPredict = oderinfoDeliveryPredict;
+	public void setOrderInfoDeliveryPredict(String orderInfoDeliveryPredict) {
+		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 	}
 
-	public String getOderinfoDate() {
-		return oderinfoDate;
+	public String getOrderInfoDate() {
+		return orderInfoDate;
 	}
 
-	public void setOderinfoDate(String oderinfoDate) {
-		this.oderinfoDate = oderinfoDate;
+	public void setOrderInfoDate(String orderInfoDate) {
+		this.orderInfoDate = orderInfoDate;
 	}
 
-	public String getOderinfoLocPossiblity() {
-		return oderinfoLocPossiblity;
+	public String getOrderInfoLocPossiblity() {
+		return orderInfoLocPossiblity;
 	}
 
-	public void setOderinfoLocPossiblity(String oderinfoLocPossiblity) {
-		this.oderinfoLocPossiblity = oderinfoLocPossiblity;
+	public void setOrderInfoLocPossiblity(String orderInfoLocPossiblity) {
+		this.orderInfoLocPossiblity = orderInfoLocPossiblity;
 	}
 
-	public String getOderinfoOrderPossiblity() {
-		return oderinfoOrderPossiblity;
+	public String getOrderInfoOrderPossiblity() {
+		return orderInfoOrderPossiblity;
 	}
 
-	public void setOderinfoOrderPossiblity(String oderinfoOrderPossiblity) {
-		this.oderinfoOrderPossiblity = oderinfoOrderPossiblity;
+	public void setOrderInfoOrderPossiblity(String orderInfoOrderPossiblity) {
+		this.orderInfoOrderPossiblity = orderInfoOrderPossiblity;
 	}
 
-	public String getOderinfoMenuNum() {
-		return oderinfoMenuNum;
+	public int getOrderInfoMenuNum() {
+		return orderInfoMenuNum;
 	}
 
-	public void setOderinfoMenuNum(String oderinfoMenuNum) {
-		this.oderinfoMenuNum = oderinfoMenuNum;
+	public void setOrderInfoMenuNum(int orderInfoMenuNum) {
+		this.orderInfoMenuNum = orderInfoMenuNum;
 	}
 
-	public String getOderinfoMenuAmount() {
-		return oderinfoMenuAmount;
+	public int getOrderInfoMenuAmount() {
+		return orderInfoMenuAmount;
 	}
 
-	public void setOderinfoMenuAmount(String oderinfoMenuAmount) {
-		this.oderinfoMenuAmount = oderinfoMenuAmount;
+	public void setOrderInfoMenuAmount(int orderInfoMenuAmount) {
+		this.orderInfoMenuAmount = orderInfoMenuAmount;
 	}
 
-	public String getOderinfoRequestInfo() {
-		return oderinfoRequestInfo;
+	public String getOrderInfoRequestInfo() {
+		return orderInfoRequestInfo;
 	}
 
-	public void setOderinfoRequestInfo(String oderinfoRequestInfo) {
-		this.oderinfoRequestInfo = oderinfoRequestInfo;
+	public void setOrderInfoRequestInfo(String orderInfoRequestInfo) {
+		this.orderInfoRequestInfo = orderInfoRequestInfo;
 	}
 
-	public String getOderinfoChannelNum() {
-		return oderinfoChannelNum;
+	public int getOrderInfoChannelNum() {
+		return orderInfoChannelNum;
 	}
 
-	public void setOderinfoChannelNum(String oderinfoChannelNum) {
-		this.oderinfoChannelNum = oderinfoChannelNum;
+	public void setOrderInfoChannelNum(int orderInfoChannelNum) {
+		this.orderInfoChannelNum = orderInfoChannelNum;
 	}
 
-	public String getOderinfoRequestDelivery() {
-		return oderinfoRequestDelivery;
+	public String getOrderInfoRequestDelivery() {
+		return orderInfoRequestDelivery;
 	}
 
-	public void setOderinfoRequestDelivery(String oderinfoRequestDelivery) {
-		this.oderinfoRequestDelivery = oderinfoRequestDelivery;
+	public void setOrderInfoRequestDelivery(String orderInfoRequestDelivery) {
+		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
 	}
 	// 각 변수 get, set 메소드 종료 지점 
 

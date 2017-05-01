@@ -27,7 +27,6 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 		this.customerAddRest = customerAddRest;
 		this.customerFrequent = customerFrequent;
 		this.customerAgePredict = customerAgePredict;
-
 	}
 
 	// 디폴트 생성자 명시적으로 생성
@@ -108,5 +107,4 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 		this.customerAgePredict = customerAgePredict;
 	}
 	// 각 변수 get, set 메소드 종료 지점 
-
 }

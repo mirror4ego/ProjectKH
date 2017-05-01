@@ -15,5 +15,5 @@ public class TestConnectionMaker implements ConnectionMaker {
 				"jdbc:oracle:thin:@mirror4ego.iptime.org:1521:orcl", "kh", "kh");
 		return c;
 	}
-
+	
 }
