@@ -61,7 +61,7 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 		button3.setIcon(new ImageIcon("employee.png"));
 		button4.setIcon(new ImageIcon("data.png"));
 		
-		Font menuFont = new Font("Serif", Font.BOLD, 15);
+		Font menuFont = new Font("맑은 고딕", Font.BOLD, 15);
 		button1.setFont(menuFont);
 		button2.setFont(menuFont);
 		button3.setFont(menuFont);

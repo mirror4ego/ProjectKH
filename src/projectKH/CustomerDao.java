@@ -15,21 +15,21 @@ public class CustomerDao {
 	public void add(Customer customer) throws ClassNotFoundException, SQLException { // 고객을 추가하는 메소드, 매개변수는  Customer클래스의 객체
 		Connection c = connectionMaker.makeConnection(); // data소스에 저장된 커넥션 정보를 c에 저장 
 		
-		PreparedStatement ps = c.prepareStatement("insert into customer values (?,?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = c.prepareStatement("insert into customer values (SEQ_customer_num.nextval,?,?,?,?,?,?,?,?)");
 		//PreparedStatement ps = c.prepareStatement("insert into customer(customer_Num, customer_Reg_Date, customer_Phone_Num, customer_Add_State, customer_Add_City, customer_Add_Street, customer_Add_Rest, customer_Frequent, customer_Age_Predict) values(?,?,?,?,?,?,?,?,?)");
 		// c 객체의 메소드인 prepareaStatement를 이용해서 db에 쿼리를 날림
 		// 각 칼럼값에 집어넣을 low값을 ?로 설정
 		
 		// 각 물음표 값에 들어갈 값을 지정하고 set
-		ps.setInt(1, customer.getCustomerNum());
-		ps.setString(2, customer.getCustomerRegDate());
-		ps.setString(3, customer.getCustomerPhoneNum());
-		ps.setString(4, customer.getCustomerAddState());
-		ps.setString(5, customer.getCustomerAddCity());
-		ps.setString(6, customer.getCustomerAddStreet());
-		ps.setString(7, customer.getCustomerAddRest());
-		ps.setInt(8, customer.getCustomerFrequent());
-		ps.setInt(9, customer.getCustomerAgePredict());
+		//ps.setInt(1, customer.getCustomerNum());
+		ps.setString(1, customer.getCustomerRegDate());
+		ps.setString(2, customer.getCustomerPhoneNum());
+		ps.setString(3, customer.getCustomerAddState());
+		ps.setString(4, customer.getCustomerAddCity());
+		ps.setString(5, customer.getCustomerAddStreet());
+		ps.setString(6, customer.getCustomerAddRest());
+		ps.setInt(7, customer.getCustomerFrequent());
+		ps.setInt(8, customer.getCustomerAgePredict());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는 sql문은
 		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
@@ -54,7 +54,7 @@ public class CustomerDao {
 		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이 메소드를 꼭 한번 실행해야 한다
 		Customer customer = new Customer(); // 고객정보 클래스의 객체를 생성
 		
-		customer.setCustomerNum(rs.getInt("customerNum"));
+		//customer.setCustomerNum(rs.getInt("customerNum"));
 		customer.setCustomerRegDate(rs.getString("customerRegDate"));
 		customer.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
 		customer.setCustomerAddState(rs.getString("customerAddState"));
