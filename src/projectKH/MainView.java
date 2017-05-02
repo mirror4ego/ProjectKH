@@ -3,7 +3,6 @@ package projectKH;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -40,6 +39,16 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 	private JTextArea textArea2 = new JTextArea("textArea2");
 	private JTextArea textArea3 = new JTextArea("textArea3");
 	private JTextArea textArea4 = new JTextArea("textArea4");
+	
+	private JTextField jTextField1 = new JTextField("");
+	private JTextField jTextField2 = new JTextField("");
+	private JTextField jTextField3 = new JTextField("");
+	private JTextField jTextField4 = new JTextField("");
+	private JTextField jTextField5 = new JTextField("");
+	private JTextField jTextField6 = new JTextField("");
+	private JTextField jTextField7 = new JTextField("");
+	private JTextField jTextField8 = new JTextField("");
+	private JTextField jTextField9 = new JTextField("");
 
 
 	MainView (String viewTitle) {
@@ -81,31 +90,22 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 		button2.addMouseListener(this);
 		button3.addMouseListener(this);
 		button4.addMouseListener(this);
+		button5.addMouseListener(this);
 		
-		JTextField jTextField1 = new JTextField("1");
-		JTextField jTextField2 = new JTextField("2");
-		JTextField jTextField3 = new JTextField("3");
-		JTextField jTextField4 = new JTextField("4");
-		JTextField jTextField5 = new JTextField("5");
-		JTextField jTextField6 = new JTextField("6");
-		JTextField jTextField7 = new JTextField("7");
-		JTextField jTextField8 = new JTextField("8");
-		JTextField jTextField9 = new JTextField("9");
-		JTextField jTextField10 = new JTextField("10");
+
 		
-		JLabel jLabel1 = new JLabel("1");
-		JLabel jLabel2 = new JLabel("2");
-		JLabel jLabel3 = new JLabel("3");
-		JLabel jLabel4 = new JLabel("4");
-		JLabel jLabel5 = new JLabel("5");
-		JLabel jLabel6 = new JLabel("6");
-		JLabel jLabel7 = new JLabel("7");
-		JLabel jLabel8 = new JLabel("8");
-		JLabel jLabel9 = new JLabel("9");
-		JLabel jLabel10 = new JLabel("10");
+		JLabel jLabel1 = new JLabel("고객 번호");
+		JLabel jLabel2 = new JLabel("고객 등록일");
+		JLabel jLabel3 = new JLabel("고객 전화번호");
+		JLabel jLabel4 = new JLabel("주소(특별시,광역시,도)");
+		JLabel jLabel5 = new JLabel("주소(시군구)");
+		JLabel jLabel6 = new JLabel("주소(동면읍리)");
+		JLabel jLabel7 = new JLabel("주소(나머지)");
+		JLabel jLabel8 = new JLabel("고객 누적 주문 횟수");
+		JLabel jLabel9 = new JLabel("고객 나이 예측");
 		
 		JPanel jPanel1 = new JPanel(new GridLayout(1,4));
-		JPanel jPanel2 = new JPanel(new GridLayout(10,2));
+		JPanel jPanel2 = new JPanel(new GridLayout(9,2));
 		JPanel jPanel3 = new JPanel(new GridLayout(1,4));
 		JPanel jPanel4 = new JPanel(new GridLayout(1,4));
 		jPanel1.add("North", button1);
@@ -131,8 +131,7 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 		jPanel2.add(jTextField8);
 		jPanel2.add(jLabel9);
 		jPanel2.add(jTextField9);
-		jPanel2.add(jLabel10);
-		jPanel2.add(jTextField10);		
+
 
 		con.add("North", jPanel1);
 		
@@ -187,17 +186,31 @@ public class MainView extends JFrame implements ActionListener, MouseListener, K
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==button1){
-			System.out.println("1번 버튼 클릭");
-		}else if(e.getSource()==button2){
-			System.out.println("2번 버튼 클릭");
-		}else if(e.getSource()==button3){
-			System.out.println("3번 버튼 클릭");
-		}else if(e.getSource()==button4){
-			System.out.println("4번 버튼 클릭");
+
+		if(e.getSource()==button5){
+			System.out.println("회원 등록 버튼 클릭");
+			int customerNum = Integer.parseInt(jTextField1.getText().trim());
+			String customerRegDate = jTextField2.getText().trim();
+			String customerPhoneNum = jTextField3.getText().trim();
+			String customerAddState = jTextField4.getText().trim();
+			String customerAddCity = jTextField5.getText().trim();
+			String customerAddStreet = jTextField6.getText().trim();
+			String customerAddRest = jTextField7.getText().trim();
+			int customerFrequent = Integer.parseInt(jTextField8.getText().trim());
+			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim());
+
+			CustomerDao customerDao = new DaoFactory().customerDao();
+			Customer customer01= new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
+			try{
+				customerDao.add(customer01);
+				System.out.println("등록완료");
+			}catch(Exception e1){System.out.println("이상동작 발생");};
+
 		}else{
 			System.out.println("이상동작 발생");
-		}
+		
+	}
 	}
 
 	@Override
