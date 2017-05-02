@@ -34,6 +34,7 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 
 	}
 
+	
 	//각 변수 get, set 메소드 시작 지점
 	public int getCustomerNum() {
 		return customerNum;
