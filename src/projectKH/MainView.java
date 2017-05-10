@@ -45,6 +45,9 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 	private JButton jButton7 = new JButton("수정");
 	private JButton jButton8 = new JButton("삭제");
 	private JButton jButton9 = new JButton("Clear");
+	private JButton jButton10 = new JButton("검색"); // 회원번호 검색 버튼
+	private JButton jButton11 = new JButton("검색"); // 전화번호 검색 버튼
+	private JButton jButton12 = new JButton("검색"); // 주소 검색 버튼
 	
 	//라벨 객체 생성
 	private JLabel jLabel1 = new JLabel("회원번호 : ", JLabel.RIGHT);
@@ -176,8 +179,8 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 		jButton7.setEnabled(true);
 		jButton8.setEnabled(true);
 		jButton9.setEnabled(true);
-		jPanel2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문내역확인"));
 		
+		jPanel2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문내역확인"));
 		con.add("Center", jPanel2);
 		//메인 보더레이아웃의 east영역 설정 끝
 		
@@ -201,6 +204,8 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 		jPanel6.add(jTextField8);	//고객 누적 주문 횟수의 입력창
 		jPanel6.add(jLabel9);  //고객 나이 예측라벨
 		jPanel6.add(jTextField9);	//고객 누적 주문 횟수의 입력창
+		
+		jPanel6.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "고객정보"));
 		//고객 관리 패널 구성 끝	
 
 		//주문 관리 패널 구성 시작
@@ -227,9 +232,12 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 		jPanel8.add(jPanel9);
 		jPanel8.add(jPanel10);
 	
-		jPanel5.add("Center", jPanel6);
-		jPanel5.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "고객정보"));
+		jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
 		//주문 관리 패널 구성 끝
+		
+
+		jPanel5.add("Center", jPanel6);
+		jPanel5.add("South", jPanel8);
 		
 		con.add("West", jPanel5);
 		jTextArea1.setEnabled(true);

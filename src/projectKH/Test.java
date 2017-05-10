@@ -7,6 +7,7 @@ public class Test {
 
 		CustomerDao customerDao = new DaoFactory().customerDao();
 		OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
+		EmployeeInfoDao employeeInfoDao = new DaoFactory().employeeInfoDao();
 		
 		//메인뷰 생성 테스트
 		MainView ex = new MainView("매장관리"); 
@@ -22,6 +23,8 @@ public class Test {
 		OrderInfo orderInfo03 = new OrderInfo(3, "20170430", "0", "1", 2, 2, "오늘 10시까지 배달", 3, "20170403", "1", "1", "1", "1", "20170403");
 		OrderInfo orderInfo04 = new OrderInfo(4, "20170420", "1", "1", 2, 9, "오는 길에 콜라", 3, "20170403", "1", "1", "0", "0", "20170502");		
 		
+		
+		EmployeeInfo employeeInfo01 = new EmployeeInfo(1, "김길동");
 		//테이블 데이터 삭제 테스트
 		customerDao.deleteAll();
 		System.out.println("Customer 테이블 Truncate 완료");
@@ -38,6 +41,8 @@ public class Test {
 		orderInfoDao.add(orderInfo02);
 		orderInfoDao.add(orderInfo03);
 		orderInfoDao.add(orderInfo04);
+		
+		employeeInfoDao.add(employeeInfo01);
 		
 		System.out.println(customer01.getCustomerNum() + "번 고객 등록 성공");
 		System.out.println(customer02.getCustomerNum() + "번 고객 등록 성공");
