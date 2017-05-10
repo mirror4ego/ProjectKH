@@ -10,7 +10,8 @@ public class Test {
 		EmployeeInfoDao employeeInfoDao = new DaoFactory().employeeInfoDao();
 		
 		//메인뷰 생성 테스트
-		MainView ex = new MainView("매장관리"); 
+		//MainView ex = new MainView("매장관리"); 
+		//OrderView_sub a = new OrderView_sub("1");
 		System.out.println("메인 뷰 생성 완료");
 		
 		Customer customer01 = new Customer(8, "19990904",	"01023303333", "서울", "금천구", "금천동", "162-33 9층 202호", 2, 44);
@@ -24,7 +25,7 @@ public class Test {
 		OrderInfo orderInfo04 = new OrderInfo(4, "20170420", "1", "1", 2, 9, "오는 길에 콜라", 3, "20170403", "1", "1", "0", "0", "20170502");		
 		
 		
-		EmployeeInfo employeeInfo01 = new EmployeeInfo(1, "김길동");
+		EmployeeInfo employeeInfo01 = new EmployeeInfo(3, "길동");
 		//테이블 데이터 삭제 테스트
 		customerDao.deleteAll();
 		System.out.println("Customer 테이블 Truncate 완료");
@@ -43,6 +44,9 @@ public class Test {
 		orderInfoDao.add(orderInfo04);
 		
 		employeeInfoDao.add(employeeInfo01);
+		employeeInfoDao.get(30);
+
+		
 		
 		System.out.println(customer01.getCustomerNum() + "번 고객 등록 성공");
 		System.out.println(customer02.getCustomerNum() + "번 고객 등록 성공");

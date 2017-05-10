@@ -40,7 +40,7 @@ private ConnectionMaker connectionMaker;
 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 		
-		PreparedStatement ps = c.prepareStatement("select * from employeeinfo where employeeInfoNum = ?");
+		PreparedStatement ps = c.prepareStatement("select * from employeeinfo where employeeinfo_num = ?");
 		// preparestatement메소드를 통해서 쿼리문을 날릴 준비를 함
 		ps.setInt(1, employeeInfoNum);
 		// ? 에 매개변수로 받아온 id를 입력해서 쿼리문 완성
@@ -51,7 +51,7 @@ private ConnectionMaker connectionMaker;
 		EmployeeInfo employeeInfo = new EmployeeInfo(); // 고객정보 클래스의 객체를 생성
 		
 		//customer.setCustomerNum(rs.getInt("customerNum"));
-		employeeInfo.setEmployeeInfoName(rs.getString("employeeInfoName"));
+		employeeInfo.setEmployeeInfoName(rs.getString("employeeinfo_name"));
 
 		
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
