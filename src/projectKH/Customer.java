@@ -17,7 +17,6 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 	public Customer(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
 			String customerAddCity, String customerAddStreet, String customerAddRest, int customerFrequent,
 			int customerAgePredict) {
-
 		this.customerNum = customerNum;
 		this.customerRegDate = customerRegDate;
 		this.customerPhoneNum = customerPhoneNum;
@@ -30,11 +29,8 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 	}
 
 	// 디폴트 생성자 명시적으로 생성
-	public Customer() {
+	public Customer() {}
 
-	}
-
-	
 	//각 변수 get, set 메소드 시작 지점
 	public int getCustomerNum() {
 		return customerNum;
