@@ -15,6 +15,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -46,8 +48,10 @@ import javax.swing.border.TitledBorder;
 
 
 
+
+
 class OrderView_sub extends JFrame
-implements ActionListener, KeyListener, FocusListener
+implements ActionListener, KeyListener, FocusListener, MouseListener
 {
 	private Container con; // 컨테이너
 	private BorderLayout mainBorderLayout = new BorderLayout(5, 5);
@@ -88,6 +92,7 @@ implements ActionListener, KeyListener, FocusListener
 	private JButton jbt2 = new JButton("수정");
 	private JButton jbt3 = new JButton("삭제");
 	private JButton jbt4 = new JButton("Clear");
+	private JButton adlgbt = new JButton("선택항목보기");
 	//private JButton jbt5 = new JButton("저장");
 	//private JButton jbt6 = new JButton("로드");
 	//private JButton jbt7 = new JButton("종료");
@@ -121,14 +126,25 @@ implements ActionListener, KeyListener, FocusListener
 	private Choice qty2=new Choice();//음료 수량(quantity의 약자) 선택 choice
 	
 	//작성글 목록
-	private JDialog adlg = new JDialog(this, "리스트목록", true);
-	private Container adlgcon;
-	private JLabel adlglb = new JLabel("리스트목록", JLabel.CENTER);
-	private Vector adlgvc = new Vector();
-	private JList adlgli = new JList();
-	private JScrollPane adlgjsp = new JScrollPane(adlgli);
-	private JButton adlgbt = new JButton("선택항목보기");
-	private JButton adlgbt1 = new JButton("닫기");
+		private JDialog adlg = new JDialog(this, "리스트목록", true);
+		private Container adlgcon;
+		private JLabel adlglb = new JLabel("리스트목록", JLabel.CENTER);
+		private Vector adlgvc = new Vector();
+		private JList adlgli = new JList();
+		private JScrollPane adlgjsp = new JScrollPane(adlgli);
+		//private JButton adlgbt = new JButton("선택항목보기");
+		//private JButton adlgbt1 = new JButton("닫기");
+		
+		//선택된 글의 전체 내용 보기
+		private JDialog bdlg = new JDialog(this, "글보기", true);
+		private Container bdlgcon;
+		private JLabel bdlglb = new JLabel("제목 : ", JLabel.RIGHT);
+		private JLabel bdlglb1 = new JLabel("작성자 : ", JLabel.RIGHT);
+		private JLabel bdlgtf = new JLabel();
+		private JLabel bdlgtf1 = new JLabel();
+		private JTextArea bdlgta = new JTextArea();
+		private JScrollPane bdlgjsp = new JScrollPane(bdlgta);
+		private JButton bdlgbt = new JButton("확인");
 
 	/*
 //삭제 버튼을 눌렀을 경우-변수
@@ -170,6 +186,7 @@ private JButton bbtdlg1 = new JButton("취소");
 		super(viewTitle);
 		this.init();
 		this.start();
+		
 		this.setSize(1000,600);
 		this.setResizable(true);
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -189,6 +206,9 @@ private JButton bbtdlg1 = new JButton("취소");
 		tf3.addKeyListener(this);
 		tf4.addFocusListener(this); //주소 필드
 		tf4.addKeyListener(this);
+		adlgli.addMouseListener(this);//주문내역확인버튼...
+		adlgbt.addActionListener(this);//리스트목록 다이얼로그의 선택목록보기 버튼...
+		bdlgbt.addActionListener(this);//상세보기 다이얼로그의 확인버튼...
 		
 
 		jbt1.addActionListener(this); //등록
@@ -259,33 +279,61 @@ private JButton bbtdlg1 = new JButton("취소");
 		jp1.add(jbt);
 		jp1.add(jlb);		
 		jp.add("North", jp1);
-		//jp.add("Center", adlg);
-		jp.add("Center", jsp);
+		jp.add("Center", adlgjsp);//리스크 창
+		Toolkit adlgtk = Toolkit.getDefaultToolkit();
+		Dimension adlgdi = adlgtk.getScreenSize();
+		//jp.add("Center", jsp);
 		JPanel jp2 = new JPanel(new GridLayout(1, 7, 3, 3));
 		jp2.add(jbt1);
 		jp2.add(jbt2);
 		jp2.add(jbt3);
 		jp2.add(jbt4);
-		//jp2.add(jbt5);
-		//jp2.add(jbt6);
-		//jp2.add(jbt7);
+		jp2.add(adlgbt);
+		
 		jp.add("South", jp2);
 		jbt.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jbt1.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jbt2.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jbt3.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jbt4.setBorder(new BevelBorder(BevelBorder.RAISED));
-		//jbt5.setBorder(new BevelBorder(BevelBorder.RAISED));
-		//jbt6.setBorder(new BevelBorder(BevelBorder.RAISED));
-		//jbt7.setBorder(new BevelBorder(BevelBorder.RAISED));
+		adlgbt.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jbt.setEnabled(true);
 		jbt1.setEnabled(true);
 		jbt2.setEnabled(true);
 		jbt3.setEnabled(true);
 		jbt4.setEnabled(true);
-		//jbt5.setEnabled(true);
+		adlgbt.setEnabled(true);
+		
 		jp.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문내역확인"));
 		con.add("Center", jp);
+		
+		//상세보기 다이얼로그 구성..
+				bdlgcon = bdlg.getContentPane();
+				bdlgcon.setLayout(new BorderLayout());
+				JPanel bdlgjp1 = new JPanel(new BorderLayout());
+				JPanel bdlgjp2 = new JPanel(new GridLayout(2, 1));
+				bdlgjp2.add(bdlglb);
+				bdlgjp2.add(bdlglb1);
+				bdlgjp1.add("West", bdlgjp2);
+				JPanel bdlgjp3 = new JPanel(new GridLayout(2, 1));
+				bdlgjp3.add(bdlgtf);
+				bdlgjp3.add(bdlgtf1);
+				bdlgjp1.add("Center", bdlgjp3);
+				bdlgcon.add("North", bdlgjp1);
+				bdlgcon.add("Center", bdlgjsp);
+				JPanel bdlgjp = new JPanel(new FlowLayout());
+				bdlgjp.add(bdlgbt);
+				bdlgcon.add("South", bdlgjp);
+				bdlgta.setEnabled(false);
+				bdlgta.setDisabledTextColor(Color.black);
+				bdlg.setSize(300, 200);
+				bdlg.setResizable(false);
+				Toolkit bdlgtk = Toolkit.getDefaultToolkit();
+				Dimension bdlgdi = bdlgtk.getScreenSize();
+				Dimension bdlgdi1 = bdlg.getSize();
+				bdlg.setLocation((int)(bdlgdi.getWidth() / 2 - bdlgdi1.getWidth() / 2), 
+					(int)(bdlgdi.getHeight() / 2 - bdlgdi1.getHeight() / 2));
+				//상세보기 다이얼로그 구성끝...
 		//왼쪽 상단부 화면구성
 		//JPanel jp3 = new JPanel(new GridLayout(2, 1, 3, 3));
 		JPanel jp4 = new JPanel(new BorderLayout());
@@ -459,33 +507,59 @@ bjdlg.setLocation((int)(bdi.getWidth() / 2 - bdi1.getWidth() / 2),
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// TODO Auto-generated method stub
-
+	public void focusGained(FocusEvent e) {}
+	public void focusLost(FocusEvent e) {}
+	public void keyTyped(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {}
+	public void mousePressed(MouseEvent e){}
+	public void mouseReleased(MouseEvent e){}
+	public void mouseEntered(MouseEvent e){}
+	public void mouseExited(MouseEvent e){}
+	private void view(){
+		//System.out.println((String)adlgli.getSelectedValue());
+		//File dir = new File("c://data"); 저장된 파일 선언
+		String str = (String)adlgli.getSelectedValue();//리스크목록에서 선택된 항목
+		String imsi = str.substring(0, str.indexOf(":"));
+		imsi = imsi.trim();
+		//File file = new File(dir, imsi + ".myfile");
+		OrderView_sub ess = null;
+		try{
+			//FileInputStream fi = new FileInputStream(file);
+			//BufferedInputStream bi = new BufferedInputStream(fi);
+			//ObjectInputStream ois = new ObjectInputStream(bi);
+			//ess = (OrderView_sub)ois.readObject();
+			//ois.close();
+			//bi.close();
+			//fi.close();
+		}catch(FileNotFoundException ee){
+		}catch(IOException ee){
+		}catch(ClassNotFoundException ee){}
+		bdlgtf.setText(ess.getTitle());
+		bdlgtf1.setText(ess.getName());
+		//bdlgta.setText(ess.getMemo());
+		adlg.setVisible(false);
+		//int iii = ess.getSearchnum();
+		//iii++;
+		//ess.setSearchnum(iii);
+		try{
+			//FileOutputStream fo = new FileOutputStream(file);
+			//BufferedOutputStream bo = new BufferedOutputStream(fo);
+			//ObjectOutputStream oos = new ObjectOutputStream(bo);
+			//oos.writeObject(ess);
+			//oos.close();
+			//bo.close();
+			//fo.close();
+		}catch(FileNotFoundException ee){
+		}catch(IOException ee){}
+		bdlg.setVisible(true);
 	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+	public void mouseClicked(MouseEvent e){
+		if(e.getSource() == adlgli){
+			if(e.getClickCount() == 2){//더블클릭....클릭되는 횟수를 보여줌
+				view();
+			}
+		}
 	}
 
 	@Override
@@ -510,10 +584,85 @@ bjdlg.setLocation((int)(bdi.getWidth() / 2 - bdi1.getWidth() / 2),
 					customerDao.add(customer01);
 					System.out.println("등록완료");
 				}catch(Exception e1){System.out.println("이상동작 발생");};
-
-			}else{
-				System.out.println("이상동작 발생");
+				//else{
+				//	System.out.println("이상동작 발생");
+				//}
 			}
+				
+				 if(e.getSource() == jbt){
+					//주문내역를 보여주어야 한다.
+					//File dir = new File("C://data");
+					adlgvc.clear();
+					//String[] files = dir.list();
+					//for(int i = 0; i < files.length; i++){
+						//File file = new File(dir, files[i]);
+						try{
+							//FileInputStream fi = new FileInputStream(file);
+							//BufferedInputStream bi = new BufferedInputStream(fi);
+							//ObjectInputStream ois = new ObjectInputStream(bi);
+							//OrderView_sub ess = (OrderView_sub)ois.readObject();
+							//ois.close();
+							//bi.close();
+							//fi.close();
+							//String imsi = "";
+							//imsi += files[i].substring(0, files[i].indexOf("."));
+							//imsi += " : ";
+							//imsi += ess.getTitle();
+							//imsi += " : ";
+							//imsi += ess.getName();
+							//imsi += " : ";
+							//imsi += ess.getDate();
+							///imsi += " : ";
+							//imsi += ess.getSearchnum();
+							//adlgvc.add(imsi);
+						}catch(FileNotFoundException ee){
+						}catch(IOException ee){
+						}catch(ClassNotFoundException ee){}
+					}
+					
+					//adlgli.updateUI();
+					adlg.setVisible(true);
+				
+				
+				 if(e.getSource() == adlgbt){  //선택항목보기를 클릭하면
+					view();  
+				}
+				else if(e.getSource() == bdlgbt){  //상세보기에서 확인버튼을 누르면
+					bdlg.setVisible(false); //상세보기 팝업창 꺼짐
+					//File dir = new File("C://data");
+					adlgvc.clear();
+					/*//String[] files = dir.list();
+					for(int i = 0; i < files.length; i++){
+						File file = new File(dir, files[i]);
+						try{
+							FileInputStream fi = new FileInputStream(file);
+							BufferedInputStream bi = new BufferedInputStream(fi);
+							ObjectInputStream ois = new ObjectInputStream(bi);
+							FreeBoard_Sub1 ess = (FreeBoard_Sub1)ois.readObject();
+							ois.close();
+							bi.close();
+							fi.close();
+							String imsi = "";
+							imsi += files[i].substring(0, files[i].indexOf("."));
+							imsi += " : ";
+							imsi += ess.getTitle();
+							imsi += " : ";
+							imsi += ess.getName();
+							imsi += " : ";
+							imsi += ess.getDate();
+							imsi += " : ";
+							imsi += ess.getSearchnum();
+							adlgvc.add(imsi);
+						}catch(FileNotFoundException ee){
+						}catch(IOException ee){
+						}catch(ClassNotFoundException ee){}
+					}*/
+					
+					//adlgli.updateUI();
+					adlg.setVisible(true);
+				}
+			
+		
 		}
 }
 
