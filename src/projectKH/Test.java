@@ -2,16 +2,20 @@ package projectKH;
 
 import java.sql.SQLException;
 
+import view.LoginView;
+
 public class Test {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
+		
+		
 		CustomerDao customerDao = new DaoFactory().customerDao();
 		OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
 		EmployeeInfoDao employeeInfoDao = new DaoFactory().employeeInfoDao();
 		
 		//메인뷰 생성 테스트
 		//MainView ex = new MainView("매장관리"); 
-		//OrderView_sub a = new OrderView_sub("1");
+		OrderView_sub a = new OrderView_sub("1");
 		System.out.println("메인 뷰 생성 완료");
 		
 		Customer customer01 = new Customer(8, "19990904",	"01023303333", "서울", "금천구", "금천동", "162-33 9층 202호", 2, 44);

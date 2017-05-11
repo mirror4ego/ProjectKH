@@ -34,8 +34,6 @@ private ConnectionMaker connectionMaker;
 		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
 	}
 
-
-	
 	public EmployeeInfo get(int employeeInfoNum) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
