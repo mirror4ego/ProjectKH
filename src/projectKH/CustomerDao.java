@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDao {
-	private ConnectionMaker connectionMaker;
-	
+	//private ConnectionMaker connectionMaker;
+	ConnectionMaker connectionMaker = new TestConnectionMaker();
 	public CustomerDao() {
 		connectionMaker = new TestConnectionMaker();
 	}
