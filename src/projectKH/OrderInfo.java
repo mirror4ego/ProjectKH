@@ -14,7 +14,7 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 	private String orderInfoOrderPossiblity;
 	private int orderInfoMenuNum;
 	private int orderInfoMenuAmount;
-	private String orderInfoRequestInfo;
+	private String orderInfoRequestInfo; 
 	private int orderInfoChannelNum;
 	private String orderInfoRequestDelivery;
 

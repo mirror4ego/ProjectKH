@@ -35,7 +35,6 @@ private ConnectionMaker connectionMaker;
 	}
 
 	public EmployeeInfo get(int employeeInfoNum) throws ClassNotFoundException, SQLException { // 
-
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 		
 		PreparedStatement ps = c.prepareStatement("select * from employeeinfo where employeeinfo_num = ?");

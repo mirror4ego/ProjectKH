@@ -34,8 +34,8 @@ import projectKH.Customer;
 import projectKH.CustomerDao;
 import projectKH.DaoFactory;
 
-class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
-	
+public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
+
 	//컨테이너
 	private Container con;
 
@@ -44,7 +44,7 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 	private JButton jButton2 = new JButton(" 주문 관리");
 	private JButton jButton3 = new JButton(" 직원 관리");
 	private JButton jButton4 = new JButton(" 데이터 분석");
-	private JButton jButton5 = new JButton("주문내역");
+	private JButton jButton5 = new JButton("주문리스트"); // 주문리스트
 	private JButton jButton6 = new JButton("등록");
 	private JButton jButton7 = new JButton("수정");
 	private JButton jButton8 = new JButton("삭제");
@@ -52,20 +52,21 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 	private JButton jButton10 = new JButton("검색"); // 회원번호 검색 버튼
 	private JButton jButton11 = new JButton("검색"); // 전화번호 검색 버튼
 	private JButton jButton12 = new JButton("검색"); // 주소 검색 버튼
-	
+	private JButton jButton13 = new JButton("고객정보등록"); // 고객 정보 필드 등록 버튼
+	private JButton jButton14 = new JButton("고객정보수정"); // 고객 정보 필드 수정 버튼
+	private JButton jButton15 = new JButton("고객리스트"); // 고객리스트
+
 	//라벨 객체 생성
-	private JLabel jLabel1 = new JLabel("회원번호 : ", JLabel.RIGHT);
-	private JLabel jLabel2 = new JLabel("회원가입 날짜 : ", JLabel.RIGHT);
-	private JLabel jLabel3 = new JLabel("전화번호 : ", JLabel.RIGHT);
-	private JLabel jLabel4 = new JLabel("주소(특별시,광역시,도): ", JLabel.RIGHT);
-	private JLabel jLabel5 = new JLabel("주소(시군구) : ", JLabel.RIGHT);
-	private JLabel jLabel6 = new JLabel("주소(동면읍리) : ", JLabel.RIGHT);
-	private JLabel jLabel7 = new JLabel("주소(나머지) : ", JLabel.RIGHT);
-	private JLabel jLabel8 = new JLabel("고객 누적 주문 횟수 : ", JLabel.RIGHT);
-	private JLabel jLabel9 = new JLabel("고객 나이 예측 : ", JLabel.RIGHT);
-	private JLabel jLabel10 = new JLabel("주요 메뉴 : ", JLabel.RIGHT);  //choice추가
-	private JLabel jLabel11 = new JLabel("음료 메뉴: ", JLabel.RIGHT);  //choice추가
-	
+	private JLabel jLabel1 = new JLabel("회원번호 : ", JLabel.LEFT);
+	private JLabel jLabel2 = new JLabel("회원가입 날짜 : ", JLabel.LEFT);
+	private JLabel jLabel3 = new JLabel("전화번호 : ", JLabel.LEFT);
+	private JLabel jLabel4 = new JLabel("주소 : ", JLabel.LEFT);
+
+	private JLabel jLabel8 = new JLabel("고객 누적 주문 횟수 : ", JLabel.LEFT);
+	private JLabel jLabel9 = new JLabel("고객 나이 예측 : ", JLabel.LEFT);
+	private JLabel jLabel10 = new JLabel("주요 메뉴 : ", JLabel.LEFT);  //choice추가
+	private JLabel jLabel11 = new JLabel("음료 메뉴: ", JLabel.LEFT);  //choice추가
+
 	//텍스트필드 객체 생성
 	private JTextField jTextField1 = new JTextField(14);//회원번호 입력창
 	private JTextField jTextField2 = new JTextField(14);//회원가입날짜 입력창
@@ -82,6 +83,9 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 	private Choice choice2=new Choice();//음료메뉴 선택 choice
 	private Choice choice3=new Choice();//주요메뉴 수량(quantity의 약자) 선택 choice
 	private Choice choice4=new Choice();//음료 수량(quantity의 약자) 선택 choice
+	private Choice choice5=new Choice();//주소 선택 (state)
+	private Choice choice6=new Choice();//주소 선택 (city)
+	private Choice choice7=new Choice();//주소 선택 (street)
 
 	//패널 객체 생성
 	private JPanel jPanel1 = new JPanel(new GridLayout(1,4)); //메인의 맨 위쪽 메뉴 패널
@@ -89,22 +93,28 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 	private JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel jPanel4 = new JPanel(new GridLayout(1, 4, 3, 3));
 	private JPanel jPanel5 = new JPanel(new BorderLayout());
-	private JPanel jPanel6 = new JPanel(new GridLayout(9, 2));
-	private JPanel jPanel7 = new JPanel(new GridLayout(9, 1));
+	private JPanel jPanel6 = new JPanel(new GridLayout(7, 1));
+	private JPanel jPanel7 = new JPanel(new GridLayout(1, 2)); // 고객정보 등록, 수정 버튼 패널
 	private JPanel jPanel8 = new JPanel(new GridLayout(11, 1));
 	private JPanel jPanel9 = new JPanel(new GridLayout(1, 2)); //주요메뉴 choice 패널
 	private JPanel jPanel10 = new JPanel(new GridLayout(1, 2)); //음료메뉴 choice 패널
+	private JPanel jPanel11 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	private JPanel jPanel12 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	private JPanel jPanel13 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	private JPanel jPanel14 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	private JPanel jPanel15 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	private JPanel jPanel16 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 	//그밖의 구성 객체 생성
 	private JTextArea jTextArea1 = new JTextArea(15, 40); // 주문내역 상세 내역이 들어가는 텍스트에리아
 	private JScrollPane jScrollPane1 = new JScrollPane(jTextArea1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15); // 메뉴에 설정될 폰트
-	
-	MainView (String viewTitle) {
-		super(viewTitle);
+
+	public MainView () {
+		super("매장관리");
 		this.init();
 		this.start();
-		this.setSize(1000,600);
+		this.setSize(1600,900);
 		this.setResizable(true);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
@@ -116,106 +126,120 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 
 
 	public void start() {
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		//마우스클릭 리스너 관리
-		jButton1.addMouseListener(this); //주문내역 보기
-		jButton2.addMouseListener(this); //주문내역 보기
-		jButton3.addMouseListener(this); //주문내역 보기
-		jButton4.addMouseListener(this); //주문내역 보기
-		
+		jButton3.addMouseListener(this); 
+		jButton4.addMouseListener(this); 
+		jButton5.addMouseListener(this);
+		jButton10.addMouseListener(this);
+		jButton11.addMouseListener(this);
+		jButton12.addMouseListener(this);
+		jButton13.addMouseListener(this);
+		jButton14.addMouseListener(this);
+		jButton15.addMouseListener(this);
+
 		//액션리스너 관리
-		jButton5.addActionListener(this); //주문내역 보기
 		jButton6.addActionListener(this); //등록
 		jButton7.addActionListener(this); //수정
 		jButton8.addActionListener(this); //삭제
 		jButton9.addActionListener(this); //Clear
 	}
-	
+
 	void init() {
 		con = this.getContentPane();
 		con.setLayout(new BorderLayout(5, 5));
 
 		//메인 보더레이아웃의 north영역 설정 시작
-		jButton1.setIcon(new ImageIcon("customer.png"));
-		jButton2.setIcon(new ImageIcon("order.png"));
-		jButton3.setIcon(new ImageIcon("employee.png"));
-		jButton4.setIcon(new ImageIcon("data.png"));
-
-		jButton1.setFont(font1);
-		jButton2.setFont(font1);
-		jButton3.setFont(font1);
-		jButton4.setFont(font1);
-
-		jButton1.setBorder(new BevelBorder(BevelBorder.RAISED));
-		jButton2.setBorder(new BevelBorder(BevelBorder.RAISED));
-		jButton3.setBorder(new BevelBorder(BevelBorder.RAISED));
-		jButton4.setBorder(new BevelBorder(BevelBorder.RAISED));
-
-		jPanel1.add("North", jButton1);
-		jPanel1.add("North", jButton2);
-		jPanel1.add("North", jButton3);
-		jPanel1.add("North", jButton4);
-
-		con.add("North", jPanel1);
 		//메인 보더레이아웃의 north영역 설정 끝
 
 		//메인 보더레이아웃의 east영역 설정 시작
 		jPanel3.add(jButton5);
+		jPanel3.add(jButton15);
 		jPanel2.add("North", jPanel3);
-		
+
 		jPanel2.add("Center", jScrollPane1);
-		
+
 		jPanel4.add(jButton6);
 		jPanel4.add(jButton7);
 		jPanel4.add(jButton8);
 		jPanel4.add(jButton9);
 		jPanel2.add("South", jPanel4);
-		
+
 		jButton5.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton6.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton7.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton8.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton9.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton10.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton11.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton12.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton13.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton14.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton15.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton5.setEnabled(true);
 		jButton6.setEnabled(true);
 		jButton7.setEnabled(true);
 		jButton8.setEnabled(true);
 		jButton9.setEnabled(true);
-		
-		jPanel2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문내역확인"));
+		jButton10.setEnabled(true);
+		jButton11.setEnabled(true);
+		jButton12.setEnabled(true);
+		jButton13.setEnabled(true);
+		jButton14.setEnabled(true);
+		jButton15.setEnabled(true);
+
+		jPanel2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "고객 및 주문리스트"));
 		con.add("Center", jPanel2);
 		//메인 보더레이아웃의 east영역 설정 끝
-		
+
 		//메인 보더레이아웃의 west영역 설정 시작
 		//고객 관리 패널 구성 시작
-		jPanel6.add(jLabel1);  //회원번호 라벨
-		jPanel6.add(jTextField1);	//회원번호 입력창
-		jPanel6.add(jLabel2);  //회원가입날짜 라벨
-		jPanel6.add(jTextField2);	//주문날짜 입력창
-		jPanel6.add(jLabel3); //전화번호 라벨
-		jPanel6.add(jTextField3);	//전화번호 입력창
-		jPanel6.add(jLabel4);  //주소(특별시,광역시,도)라벨
-		jPanel6.add(jTextField4);	//주소(특별시,광역시,도)의 입력창 
-		jPanel6.add(jLabel5);  //주소(시군구)라벨
-		jPanel6.add(jTextField5);	//주소(시군구)의 입력창
-		jPanel6.add(jLabel6);  //주소(동면읍리)라벨
-		jPanel6.add(jTextField6);	//주소(동면읍리)의 입력창
-		jPanel6.add(jLabel7);  //주소(나머지)라벨
-		jPanel6.add(jTextField7);	//주소(나머지)의 입력창
-		jPanel6.add(jLabel8);  //고객 누적 주문 횟수라벨
-		jPanel6.add(jTextField8);	//고객 누적 주문 횟수의 입력창
-		jPanel6.add(jLabel9);  //고객 나이 예측라벨
-		jPanel6.add(jTextField9);	//고객 누적 주문 횟수의 입력창
+		jPanel13.add(jLabel1);  //회원번호 라벨
+		jPanel13.add(jTextField1);	//회원번호 입력창
+		jPanel13.add(jButton10);
+		jPanel6.add(jPanel13);
 		
+		jPanel14.add(jLabel2);  //회원가입날짜 라벨
+		jPanel14.add(jTextField2);	//회원가입날짜 입력 필드
+		jPanel6.add(jPanel14);
+		
+		jPanel11.add(jLabel3); //전화번호 라벨
+		jPanel11.add(jTextField3); //전화번호 입력창
+		jPanel11.add(jButton11); //전화번호 검색버튼
+		jPanel6.add(jPanel11);
+
+		jPanel12.add(jLabel4);  // 주소 라벨
+	
+		jPanel12.add(jTextField4);	//주소(특별시,광역시,도)의 입력창 
+		jPanel12.add(jTextField5);	//주소(시군구)의 입력창
+		jPanel12.add(jTextField6);	//주소(동면읍리)의 입력창
+		jPanel12.add(jTextField7);	//주소(나머지)의 입력창
+		jPanel12.add(jButton12); //검색버튼 추가
+		jPanel6.add(jPanel12);
+		
+		
+		jPanel15.add(jLabel8);  //고객 누적 주문 횟수라벨
+		jPanel15.add(jTextField8);	//고객 누적 주문 횟수의 입력창
+		jPanel6.add(jPanel15);
+		
+		
+		jPanel16.add(jLabel9);  //고객 나이 예측라벨
+		jPanel16.add(jTextField9);	//고객 누적 주문 횟수의 입력창
+		jPanel6.add(jPanel16);
+		
+		jPanel7.add(jButton13); // 고객정보 등록 버튼을 패널에 추가
+		jPanel7.add(jButton14); // 고객정보 수정 버튼을 패널에 추가
+		jPanel6.add(jPanel7); // 만들어진 패널 메인 패널에 추가
+
 		jPanel6.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "고객정보"));
 		//고객 관리 패널 구성 끝	
 
 		//주문 관리 패널 구성 시작
 		jPanel9.add(jLabel10);  //주요메뉴 라벨
 		jPanel10.add(jLabel11);  //음료 메뉴 라벨
-		
+
 		jPanel9.add(choice1);	//주요메뉴 choice
 		choice1.add("후라이드 치킨");	//주요메뉴choice에 들어가는 선택지
 		choice1.add("양념 치킨");
@@ -232,33 +256,47 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 		choice2.add("소주");
 		jPanel10.add(choice4);	//수량2 choice
 		for(int i=1;i<101;i++) { choice4.add(i+"개"); }	//수량2choice에 들어가는 선택지
-		
+
 		jPanel8.add(jPanel9);
 		jPanel8.add(jPanel10);
-	
+
 		jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
 		//주문 관리 패널 구성 끝
 		
+		//
+		jButton3.setIcon(new ImageIcon("employee.png"));
+		jButton4.setIcon(new ImageIcon("data.png"));
 
+		jButton3.setFont(font1);
+		jButton4.setFont(font1);
+
+		jButton3.setBorder(new BevelBorder(BevelBorder.RAISED));
+		jButton4.setBorder(new BevelBorder(BevelBorder.RAISED));
+
+		jPanel1.add("North", jButton3);
+		jPanel1.add("North", jButton4);
+		//
+	
+		jPanel5.add("North", jPanel1);
 		jPanel5.add("Center", jPanel6);
 		jPanel5.add("South", jPanel8);
-		
+
 		con.add("West", jPanel5);
 		jTextArea1.setEnabled(true);
 
 		jTextArea1.setDisabledTextColor(Color.black);
 		//메인 보더레이아웃의 west영역 설정 끝
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		System.out.println("마우스 클릭 리스너 동작");
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==jButton6){
-			System.out.println("등록 버튼 클릭");
+			System.out.println("액션 퍼폼드 리스너 동작");
 			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
 			String customerRegDate = jTextField2.getText().trim(); //고객 등록날짜 입력창
 			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
@@ -281,7 +319,7 @@ class MainView extends JFrame implements ActionListener, KeyListener, FocusListe
 			System.out.println("버튼 이상동작 발생");
 		}
 	}
-	
+
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override
