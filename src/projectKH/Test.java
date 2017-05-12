@@ -23,10 +23,10 @@ public class Test {
 		Customer customer03 = new Customer(3, "20180814",	"01018239583", "서울", "동작구", "사당동", "45-83 001호", 3, 99);
 		Customer customer04 = new Customer(4, "19880227",	"01041378569", "경기도", "광명시", "광명동", "97-91 554호", 20, 27);
 		
-		OrderInfo orderInfo01 = new OrderInfo(7, "20170501", "1", "1", 2, 10, "없음", 3, "20180303", "1", "1", "1", "1", "20170501");
-		OrderInfo orderInfo02 = new OrderInfo(2, "20170501", "0", "1", 2, 10, "빨리 배달", 3, "20170403", "1", "0", "1", "1", "20170523");
-		OrderInfo orderInfo03 = new OrderInfo(3, "20170430", "0", "1", 2, 2, "오늘 10시까지 배달", 3, "20170403", "1", "1", "1", "1", "20170403");
-		OrderInfo orderInfo04 = new OrderInfo(4, "20170420", "1", "1", 2, 9, "오는 길에 콜라", 3, "20170403", "1", "1", "0", "0", "20170502");		
+		OrderInfo orderInfo01 = new OrderInfo(7, "20170501", "1", "1", 2, 10, "없음", 3, "20180303", "1", "1", "1", "1", "20170501" , 1);
+		OrderInfo orderInfo02 = new OrderInfo(2, "20170501", "0", "1", 2, 10, "빨리 배달", 3, "20170403", "1", "0", "1", "1", "20170523", 1);
+		OrderInfo orderInfo03 = new OrderInfo(3, "20170430", "0", "1", 2, 2, "오늘 10시까지 배달", 3, "20170403", "1", "1", "1", "1", "20170403", 1);
+		OrderInfo orderInfo04 = new OrderInfo(4, "20170420", "1", "1", 2, 9, "오는 길에 콜라", 3, "20170403", "1", "1", "0", "0", "20170502", 1);		
 		
 		
 		EmployeeInfo employeeInfo01 = new EmployeeInfo(3, "길동");

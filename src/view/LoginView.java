@@ -35,6 +35,8 @@ public class LoginView extends JFrame {
 		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
 		this.setVisible(true);
+		
+		
 		// 레이아웃 설정
 		setLayout(null);
 		JLayeredPane layeredPane = new JLayeredPane();

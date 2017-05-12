@@ -40,6 +40,28 @@ public class CustomerDao {
 		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
 	}
 
+/*	public Customer login(String id, String pa) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("select * from customer where id = ?");
+		ps.setString(1, id);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		Customer customer = new Customer();
+		customer.setCustomerId(rs.getString("id"));
+		customer.setCustomerPa(rs.getString("pa"));
+		customer.setCustomerNick(rs.getString("nick"));
+		if(pa==customer.pa){
+			//다이얼로그를 띄워서 해당하는 아이디의 회원정보를 보여줌
+			id = customer.getCustomerId();
+			id=customer.id;
+			pa=customer.pa;
+			nick=customer.nick;
+			
+		}else{
+			//로그인 실패 다이얼로그를 띄움
+		}
+	}*/
+	
 	public Customer get(int customerNum) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
@@ -63,6 +85,8 @@ public class CustomerDao {
 		customer.setCustomerAddRest(rs.getString("customerAddRest"));
 		customer.setCustomerFrequent(rs.getInt("customerFrequent"));
 		customer.setCustomerAgePredict(rs.getInt("customerAgePredict"));
+		
+		
 		
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		rs.close();
