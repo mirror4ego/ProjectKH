@@ -16,7 +16,6 @@ public class CustomerDao {
 		Connection c = connectionMaker.makeConnection(); // data소스에 저장된 커넥션 정보를 c에 저장 
 		
 		PreparedStatement ps = c.prepareStatement("insert into customer values (seq_customer_num.nextval,?,?,?,?,?,?,?,?)");
-		//PreparedStatement ps = c.prepareStatement("insert into customer(customer_Num, customer_Reg_Date, customer_Phone_Num, customer_Add_State, customer_Add_City, customer_Add_Street, customer_Add_Rest, customer_Frequent, customer_Age_Predict) values(?,?,?,?,?,?,?,?,?)");
 		// c 객체의 메소드인 prepareaStatement를 이용해서 db에 쿼리를 날림
 		// 각 칼럼값에 집어넣을 low값을 ?로 설정
 		

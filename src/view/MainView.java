@@ -337,47 +337,12 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		System.out.println("마우스 클릭 리스너 동작");
-<<<<<<< HEAD
-		if(e.getSource()==jButton10){
-			
-			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
-			String customerRegDate = jTextField2.getText().trim(); //고객 등록날짜 입력창
-			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
-			String customerAddState = jTextField4.getText().trim(); //주소(특별시,광역시,도)의 입력창
-			String customerAddCity = jTextField5.getText().trim(); //주소(시군구)의 입력창
-			String customerAddStreet = jTextField6.getText().trim(); //주소(동면읍리)의 입력창
-			String customerAddRest = jTextField7.getText().trim(); //주소(나머지)의 입력창
-			int customerFrequent = Integer.parseInt(jTextField8.getText().trim()); //고객 누적 주문 횟수의 입력창
-			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim()); //고객 누적 주문 횟수의 입력창
-			//OrderInfoDao 
-			CustomerDao customerDao = new DaoFactory().customerDao();
-			Customer customer01 = new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
-			try{
-				customerDao.add(customer01);
-				System.out.println("등록완료");
-			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
-
-		}else{
-			System.out.println("버튼 이상동작 발생");
-		}
-=======
-
->>>>>>> 31d19c4627943412b9660b9fb56d7c54596b8d2b
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("액션 리스너 동작");
-<<<<<<< HEAD
-		if(e.getSource()==jButton6){ // 
-=======
+		if(e.getSource()==jButton6){} // 
 
 		// 고객정보 등록 버튼
 		if(e.getSource()==jButton13){
->>>>>>> 31d19c4627943412b9660b9fb56d7c54596b8d2b
 			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
 			String customerRegDate = jTextField2.getText().trim(); //고객 등록날짜 입력창
 			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
@@ -387,6 +352,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String customerAddRest = jTextField7.getText().trim(); //주소(나머지)의 입력창
 			int customerFrequent = Integer.parseInt(jTextField8.getText().trim()); //고객 누적 주문 횟수의 입력창
 			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim()); //고객 누적 주문 횟수의 입력창
+
 			//CustomerDao
 			CustomerDao customerDao = new DaoFactory().customerDao();
 			Customer customer = new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
@@ -396,7 +362,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
-
 		
 		// 주문정보 등록 버튼
 		if(e.getSource()==jButton16){
@@ -494,9 +459,10 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton4){}
 		// 검색(주소) 버튼
 		if(e.getSource()==jButton4){}
-		
 	}
-
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {}
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override
