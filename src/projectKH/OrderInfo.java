@@ -4,30 +4,29 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 
 	//주문정보에 필요한 변수 지정
 	private int orderInfoNum;
-	private String orderInfoPackCompletion;
-	private String orderInfoDeliveryCompletion;
-	private String orderInfoOrderCompletion;
-	private String orderInfoMoneyCollection;
-	private String orderInfoDeliveryPredict;
 	private String orderInfoDate;
 	private String orderInfoLocPossiblity;
 	private String orderInfoOrderPossiblity;
 	private int orderInfoMenuNum;
 	private int orderInfoMenuAmount;
-	private String orderInfoRequestInfo; 
+	private String orderInfoRequestInfo;
 	private int orderInfoChannelNum;
 	private String orderInfoRequestDelivery;
+	private String orderInfoPackCompletion;
+	private String orderInfoDeliveryCompletion;
+	private String orderInfoOrderCompletion;
+	private String orderInfoMoneyCollection;
+	private String orderInfoDeliveryPredict;
+	private int orderInfoCustomerNum;
 
-	public OrderInfo(int orderInfoNum, String orderInfoDate, String orderInfoLocPossiblity, String orderInfoOrderPossiblity, int orderInfoMenuNum, int orderInfoMenuAmount,
-			String orderInfoRequestInfo, int orderInfoChannelNum, String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
-			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict) {
+	public OrderInfo(int orderInfoNum, String orderInfoDate, String orderInfoLocPossiblity, String orderInfoOrderPossiblity,
+			int orderInfoMenuNum, int orderInfoMenuAmount, String orderInfoRequestInfo, int orderInfoChannelNum,
+			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
+			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
+			int orderInfoCustomerNum) {
 
+		
 		this.orderInfoNum = orderInfoNum;
-		this.orderInfoPackCompletion = orderInfoPackCompletion;
-		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
-		this.orderInfoOrderCompletion = orderInfoOrderCompletion;
-		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
-		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 		this.orderInfoDate = orderInfoDate;
 		this.orderInfoLocPossiblity = orderInfoLocPossiblity;
 		this.orderInfoOrderPossiblity = orderInfoOrderPossiblity;
@@ -36,6 +35,13 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 		this.orderInfoRequestInfo = orderInfoRequestInfo;
 		this.orderInfoChannelNum = orderInfoChannelNum;
 		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
+		this.orderInfoPackCompletion = orderInfoPackCompletion;
+		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
+		this.orderInfoOrderCompletion = orderInfoOrderCompletion;
+		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
+		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
+		this.orderInfoCustomerNum = orderInfoCustomerNum;
+		
 	}
 
 	// 디폴트 생성자 명시적으로 생성
@@ -43,13 +49,20 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 
 	}
 
-	//각 변수 get, set 메소드 시작 지점
 	public int getOrderInfoNum() {
 		return orderInfoNum;
 	}
 
 	public void setOrderInfoNum(int orderInfoNum) {
 		this.orderInfoNum = orderInfoNum;
+	}
+
+	public int getOrderInfoCustomerNum() {
+		return orderInfoCustomerNum;
+	}
+
+	public void setOrderInfoCustomerNum(int orderInfoCustomerNum) {
+		this.orderInfoCustomerNum = orderInfoCustomerNum;
 	}
 
 	public String getOrderInfoPackCompletion() {
@@ -155,6 +168,9 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 	public void setOrderInfoRequestDelivery(String orderInfoRequestDelivery) {
 		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
 	}
+
+	//각 변수 get, set 메소드 시작 지점
+	
 	// 각 변수 get, set 메소드 종료 지점 
 
 }

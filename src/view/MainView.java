@@ -22,9 +22,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -33,6 +33,8 @@ import javax.swing.border.TitledBorder;
 import projectKH.Customer;
 import projectKH.CustomerDao;
 import projectKH.DaoFactory;
+import projectKH.OrderInfo;
+import projectKH.OrderInfoDao;
 
 public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
 
@@ -55,6 +57,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JButton jButton13 = new JButton("고객정보등록"); // 고객 정보 필드 등록 버튼
 	private JButton jButton14 = new JButton("고객정보수정"); // 고객 정보 필드 수정 버튼
 	private JButton jButton15 = new JButton("고객리스트"); // 고객리스트
+	private JButton jButton16 = new JButton("주문정보 등록"); // 주문정보 등록
+	private JButton jButton17 = new JButton("주문정보 수정"); // 주문정보 수정
 
 	//라벨 객체 생성
 	private JLabel jLabel1 = new JLabel("회원번호 : ", JLabel.LEFT);
@@ -67,16 +71,49 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JLabel jLabel10 = new JLabel("주요 메뉴 : ", JLabel.LEFT);  //choice추가
 	private JLabel jLabel11 = new JLabel("음료 메뉴: ", JLabel.LEFT);  //choice추가
 
+	private JLabel jLabel12 = new JLabel("주문번호 : ", JLabel.LEFT);
+	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
+	private JLabel jLabel14 = new JLabel("주문일자 : ", JLabel.LEFT);
+	private JLabel jLabel15 = new JLabel("주문가능여부(지역) : ", JLabel.LEFT);
+	private JLabel jLabel16 = new JLabel("주문가능여부(주문량) : ", JLabel.LEFT);
+	private JLabel jLabel17 = new JLabel("메뉴고유값 : ", JLabel.LEFT);
+	private JLabel jLabel18 = new JLabel("주문메뉴양 : ", JLabel.LEFT);
+	private JLabel jLabel19 = new JLabel("주문요청사항 : ", JLabel.LEFT);
+	private JLabel jLabel20 = new JLabel("채널고유값 : ", JLabel.LEFT);
+	private JLabel jLabel21 = new JLabel("배달요청시간 : ", JLabel.LEFT);
+	private JLabel jLabel22 = new JLabel("주문 프로세스(포장) 완료 여부 : ", JLabel.LEFT);
+	private JLabel jLabel23 = new JLabel("주문 프로세스(배달) 완료 여부 : ", JLabel.LEFT);
+	private JLabel jLabel24 = new JLabel("주문 프로세스 완료 여부 : ", JLabel.LEFT);
+	private JLabel jLabel25 = new JLabel("수금 여부 : ", JLabel.LEFT);
+	private JLabel jLabel26 = new JLabel("배달 예측시간 : ", JLabel.LEFT);
+
 	//텍스트필드 객체 생성
-	private JTextField jTextField1 = new JTextField(14);//회원번호 입력창
-	private JTextField jTextField2 = new JTextField(14);//회원가입날짜 입력창
-	private JTextField jTextField3 = new JTextField(14);//전화번호 입력창
-	private JTextField jTextField4 = new JTextField(14);//주소(특별시,광역시,도)의 입력창
-	private JTextField jTextField5 = new JTextField(14);//주소(시군구)의 입력창
-	private JTextField jTextField6 = new JTextField(14);//주소(동면읍리)의 입력창
-	private JTextField jTextField7 = new JTextField(14);//주소(나머지)의 입력창
-	private JTextField jTextField8 = new JTextField(14);//고객 누적 주문 횟수의 입력창
-	private JTextField jTextField9 = new JTextField(14);//고객 누적 주문 횟수의 입력창
+	private JTextField jTextField1 = new JTextField("999", 10);//회원번호 입력창
+	private JTextField jTextField2 = new JTextField("20170517", 10);//회원가입날짜 입력창
+	private JTextField jTextField3 = new JTextField("01039324832", 10);//전화번호 입력창
+	private JTextField jTextField4 = new JTextField("1", 10);//주소(특별시,광역시,도)의 입력창
+	private JTextField jTextField5 = new JTextField("2", 10);//주소(시군구)의 입력창
+	private JTextField jTextField6 = new JTextField("3", 10);//주소(동면읍리)의 입력창
+	private JTextField jTextField7 = new JTextField("4", 10);//주소(나머지)의 입력창
+	private JTextField jTextField8 = new JTextField("5", 10);//고객 누적 주문 횟수의 입력창
+	private JTextField jTextField9 = new JTextField("6", 10);//고객 누적 주문 횟수의 입력창
+
+	private JTextField jTextField10 = new JTextField("1", 10);//주문번호 입력창
+	private JTextField jTextField11 = new JTextField("2", 10);//고객번호 입력창
+	private JTextField jTextField12 = new JTextField("20170304", 10);//주문일자 입력창
+	private JTextField jTextField13 = new JTextField("1", 10);// 주문가능여부(지역)
+	private JTextField jTextField14 = new JTextField("2", 10);// 주문가능여부(주문량)
+	private JTextField jTextField15 = new JTextField("3", 10);// 메뉴고유값
+	private JTextField jTextField16 = new JTextField("4", 10);// 주문메뉴양
+	private JTextField jTextField17 = new JTextField("5", 10);// 주문요청사항
+	private JTextField jTextField18 = new JTextField("6", 10);// 채널고유값
+	private JTextField jTextField19 = new JTextField("20170304", 10);// 배달요청시간
+	private JTextField jTextField20 = new JTextField("1", 10); // 주문프로세스1
+	private JTextField jTextField21 = new JTextField("2", 10); // 주문프로세스2
+	private JTextField jTextField22 = new JTextField("3", 10); // 주문프로세스3
+	private JTextField jTextField23 = new JTextField("4", 10); // 수금여부
+	private JTextField jTextField24 = new JTextField("20170304", 10); // 배달예측시간
+
 
 	//초이스 객체 생성
 	private Choice choice1=new Choice();//주요메뉴 선택 choice
@@ -93,9 +130,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JPanel jPanel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel jPanel4 = new JPanel(new GridLayout(1, 4, 3, 3));
 	private JPanel jPanel5 = new JPanel(new BorderLayout());
-	private JPanel jPanel6 = new JPanel(new GridLayout(7, 1));
+	private JPanel jPanel6 = new JPanel(new GridLayout(7, 1)); // 고객정보 메인 패널
 	private JPanel jPanel7 = new JPanel(new GridLayout(1, 2)); // 고객정보 등록, 수정 버튼 패널
-	private JPanel jPanel8 = new JPanel(new GridLayout(11, 1));
+	private JPanel jPanel8 = new JPanel(new GridLayout(16, 2)); // 오더정보 메인 패널
 	private JPanel jPanel9 = new JPanel(new GridLayout(1, 2)); //주요메뉴 choice 패널
 	private JPanel jPanel10 = new JPanel(new GridLayout(1, 2)); //음료메뉴 choice 패널
 	private JPanel jPanel11 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -106,8 +143,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JPanel jPanel16 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 	//그밖의 구성 객체 생성
-	private JTextArea jTextArea1 = new JTextArea(15, 40); // 주문내역 상세 내역이 들어가는 텍스트에리아
-	private JScrollPane jScrollPane1 = new JScrollPane(jTextArea1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
+	private JList jList1 = new JList(); // 주문내역 상세 내역이 들어가는 텍스트에리아
+	private JScrollPane jScrollPane1 = new JScrollPane(jList1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15); // 메뉴에 설정될 폰트
 
 	public MainView () {
@@ -129,22 +166,22 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//마우스클릭 리스너 관리
-		jButton3.addMouseListener(this); 
-		jButton4.addMouseListener(this); 
-		jButton5.addMouseListener(this);
-		jButton10.addMouseListener(this);
-		jButton11.addMouseListener(this);
-		jButton12.addMouseListener(this);
-		jButton13.addMouseListener(this);
-		jButton14.addMouseListener(this);
-		jButton15.addMouseListener(this);
-
 		//액션리스너 관리
+		jButton3.addActionListener(this); 
+		jButton4.addActionListener(this); 
+		jButton5.addActionListener(this);
 		jButton6.addActionListener(this); //등록
 		jButton7.addActionListener(this); //수정
 		jButton8.addActionListener(this); //삭제
 		jButton9.addActionListener(this); //Clear
+		jButton10.addActionListener(this);
+		jButton11.addActionListener(this);
+		jButton12.addActionListener(this);
+		jButton13.addActionListener(this);
+		jButton14.addActionListener(this);
+		jButton15.addActionListener(this);
+		jButton16.addActionListener(this);
+		jButton17.addActionListener(this);
 	}
 
 	void init() {
@@ -200,35 +237,35 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel13.add(jTextField1);	//회원번호 입력창
 		jPanel13.add(jButton10);
 		jPanel6.add(jPanel13);
-		
+
 		jPanel14.add(jLabel2);  //회원가입날짜 라벨
 		jPanel14.add(jTextField2);	//회원가입날짜 입력 필드
 		jPanel6.add(jPanel14);
-		
+
 		jPanel11.add(jLabel3); //전화번호 라벨
 		jPanel11.add(jTextField3); //전화번호 입력창
 		jPanel11.add(jButton11); //전화번호 검색버튼
 		jPanel6.add(jPanel11);
 
 		jPanel12.add(jLabel4);  // 주소 라벨
-	
+
 		jPanel12.add(jTextField4);	//주소(특별시,광역시,도)의 입력창 
 		jPanel12.add(jTextField5);	//주소(시군구)의 입력창
 		jPanel12.add(jTextField6);	//주소(동면읍리)의 입력창
 		jPanel12.add(jTextField7);	//주소(나머지)의 입력창
 		jPanel12.add(jButton12); //검색버튼 추가
 		jPanel6.add(jPanel12);
-		
-		
+
+
 		jPanel15.add(jLabel8);  //고객 누적 주문 횟수라벨
 		jPanel15.add(jTextField8);	//고객 누적 주문 횟수의 입력창
 		jPanel6.add(jPanel15);
-		
-		
+
+
 		jPanel16.add(jLabel9);  //고객 나이 예측라벨
 		jPanel16.add(jTextField9);	//고객 누적 주문 횟수의 입력창
 		jPanel6.add(jPanel16);
-		
+
 		jPanel7.add(jButton13); // 고객정보 등록 버튼을 패널에 추가
 		jPanel7.add(jButton14); // 고객정보 수정 버튼을 패널에 추가
 		jPanel6.add(jPanel7); // 만들어진 패널 메인 패널에 추가
@@ -237,32 +274,43 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		//고객 관리 패널 구성 끝	
 
 		//주문 관리 패널 구성 시작
-		jPanel9.add(jLabel10);  //주요메뉴 라벨
-		jPanel10.add(jLabel11);  //음료 메뉴 라벨
 
-		jPanel9.add(choice1);	//주요메뉴 choice
-		choice1.add("후라이드 치킨");	//주요메뉴choice에 들어가는 선택지
-		choice1.add("양념 치킨");
-		choice1.add("마늘 치킨");
-		choice1.add("간장 치킨");
-		choice1.add("양파 치킨");
-		jPanel9.add(choice3);	//수량 choice
-		for(int i=1;i<101;i++) { choice3.add(i+"개"); }	//수량choice에 들어가는 선택지
-
-		jPanel10.add(choice2);	//음료메뉴 choice
-		choice2.add("사이다");	//음료메뉴choice에 들어가는 선택지
-		choice2.add("콜라");
-		choice2.add("맥주");
-		choice2.add("소주");
-		jPanel10.add(choice4);	//수량2 choice
-		for(int i=1;i<101;i++) { choice4.add(i+"개"); }	//수량2choice에 들어가는 선택지
-
-		jPanel8.add(jPanel9);
-		jPanel8.add(jPanel10);
+		jPanel8.add(jLabel12);
+		jPanel8.add(jTextField10);
+		jPanel8.add(jLabel13);
+		jPanel8.add(jTextField11);
+		jPanel8.add(jLabel14);
+		jPanel8.add(jTextField12);
+		jPanel8.add(jLabel15);
+		jPanel8.add(jTextField13);
+		jPanel8.add(jLabel16);
+		jPanel8.add(jTextField14);
+		jPanel8.add(jLabel17);
+		jPanel8.add(jTextField15);
+		jPanel8.add(jLabel18);
+		jPanel8.add(jTextField16);
+		jPanel8.add(jLabel19);
+		jPanel8.add(jTextField17);
+		jPanel8.add(jLabel20);
+		jPanel8.add(jTextField18);
+		jPanel8.add(jLabel21);
+		jPanel8.add(jTextField19);
+		jPanel8.add(jLabel22);
+		jPanel8.add(jTextField20);
+		jPanel8.add(jLabel23);
+		jPanel8.add(jTextField21);
+		jPanel8.add(jLabel24);
+		jPanel8.add(jTextField22);
+		jPanel8.add(jLabel25);
+		jPanel8.add(jTextField23);
+		jPanel8.add(jLabel26);
+		jPanel8.add(jTextField24);
+		jPanel8.add(jButton16);
+		jPanel8.add(jButton17);
 
 		jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
 		//주문 관리 패널 구성 끝
-		
+
 		//
 		jButton3.setIcon(new ImageIcon("employee.png"));
 		jButton4.setIcon(new ImageIcon("data.png"));
@@ -276,50 +324,30 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel1.add("North", jButton3);
 		jPanel1.add("North", jButton4);
 		//
-	
+
 		jPanel5.add("North", jPanel1);
 		jPanel5.add("Center", jPanel6);
 		jPanel5.add("South", jPanel8);
 
 		con.add("West", jPanel5);
-		jTextArea1.setEnabled(true);
+		jList1.setEnabled(true);
 
-		jTextArea1.setDisabledTextColor(Color.black);
+		//jList1.setDisabledTextColor(Color.black);
 		//메인 보더레이아웃의 west영역 설정 끝
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	/*	System.out.println("마우스 클릭 리스너 동작");
-		if(e.getSource()==jButton10){
-			
-			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
-			String customerRegDate = jTextField2.getText().trim(); //고객 등록날짜 입력창
-			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
-			String customerAddState = jTextField4.getText().trim(); //주소(특별시,광역시,도)의 입력창
-			String customerAddCity = jTextField5.getText().trim(); //주소(시군구)의 입력창
-			String customerAddStreet = jTextField6.getText().trim(); //주소(동면읍리)의 입력창
-			String customerAddRest = jTextField7.getText().trim(); //주소(나머지)의 입력창
-			int customerFrequent = Integer.parseInt(jTextField8.getText().trim()); //고객 누적 주문 횟수의 입력창
-			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim()); //고객 누적 주문 횟수의 입력창
-			//OrderInfoDao 
-			CustomerDao customerDao = new DaoFactory().customerDao();
-			Customer customer01 = new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
-			try{
-				customerDao.add(customer01);
-				System.out.println("등록완료");
-			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
+		System.out.println("마우스 클릭 리스너 동작");
 
-		}else{
-			System.out.println("버튼 이상동작 발생");
-		}*/
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("액션 퍼폼드 리스너 동작");
-		if(e.getSource()==jButton6){
+		System.out.println("액션 리스너 동작");
+
+		// 고객정보 등록 버튼
+		if(e.getSource()==jButton13){
 			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
 			String customerRegDate = jTextField2.getText().trim(); //고객 등록날짜 입력창
 			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
@@ -329,18 +357,114 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String customerAddRest = jTextField7.getText().trim(); //주소(나머지)의 입력창
 			int customerFrequent = Integer.parseInt(jTextField8.getText().trim()); //고객 누적 주문 횟수의 입력창
 			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim()); //고객 누적 주문 횟수의 입력창
-			//OrderInfoDao 
+			//CustomerDao
 			CustomerDao customerDao = new DaoFactory().customerDao();
-			Customer customer01 = new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+			Customer customer = new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
 					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
 			try{
-				customerDao.add(customer01);
+				customerDao.add(customer);
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
+		}else{}
 
-		}else{
-			System.out.println("버튼 이상동작 발생");
-		}
+		
+		// 주문정보 등록 버튼
+		if(e.getSource()==jButton16){
+			int orderInfoNum = Integer.parseInt(jTextField10.getText().trim());
+			int orderInfoCustomerNum = Integer.parseInt(jTextField11.getText().trim());
+			String orderInfoDate = jTextField12.getText().trim();
+			String orderInfoLocPossiblity = jTextField13.getText().trim();
+			String orderInfoOrderPossiblity = jTextField14.getText().trim();
+			int orderInfoMenuNum = Integer.parseInt(jTextField15.getText().trim());
+			int orderInfoMenuAmount = Integer.parseInt(jTextField16.getText().trim());
+			String orderInfoRequestInfo = jTextField17.getText().trim();
+			int orderInfoChannelNum = Integer.parseInt(jTextField18.getText().trim());
+			String orderInfoRequestDelivery = jTextField19.getText().trim();
+			String orderInfoPackCompletion = jTextField20.getText().trim();
+			String orderInfoDeliveryCompletion = jTextField21.getText().trim();
+			String orderInfoOrderCompletion = jTextField22.getText().trim();
+			String orderInfoMoneyCollection = jTextField23.getText().trim();
+			String orderInfoDeliveryPredict = jTextField24.getText().trim();
+			//OrderInfoDao 
+			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
+			OrderInfo orderInfo = new OrderInfo(orderInfoNum, orderInfoDate, orderInfoLocPossiblity, orderInfoOrderPossiblity,
+					orderInfoMenuNum, orderInfoMenuAmount, orderInfoRequestInfo, orderInfoChannelNum,
+					orderInfoRequestDelivery, orderInfoPackCompletion, orderInfoDeliveryCompletion,
+					orderInfoOrderCompletion, orderInfoMoneyCollection, orderInfoDeliveryPredict, 
+					orderInfoCustomerNum);
+			try{
+				orderInfoDao.add(orderInfo);
+				System.out.println("등록완료");
+			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
+		}else{}
+		
+		// 고객리스트 보기 버튼
+		if(e.getSource()==jButton15){
+			//CustomerDao 
+			CustomerDao customerDao = new DaoFactory().customerDao();
+			Customer customer = new Customer();
+			try{
+				int a = 1;
+				customerDao.get(a);
+				System.out.println("등록완료");
+			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
+		}else{}
+		
+		// 주문리스트 보기 버튼 
+		if(e.getSource()==jButton5){
+			//OrderInfoDao 
+			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
+			OrderInfo orderInfo = new OrderInfo();
+			try{
+				int a = 1;
+				orderInfoDao.get(a);
+				System.out.println("등록완료");
+			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
+		}else{}
+		
+		//File dir = new File("C://data");
+		//adlgvc.clear();
+		//String[] files = dir.list();
+		//for(int i = 0; i < files.length; i++){
+			//File file = new File(dir, files[i]);
+			//try{
+				//FileInputStream fi = new FileInputStream(file);
+				//BufferedInputStream bi = new BufferedInputStream(fi);
+				//ObjectInputStream ois = new ObjectInputStream(bi);
+				//OrderView_sub ess = (OrderView_sub)ois.readObject();
+				//ois.close();
+				//bi.close();
+				//fi.close();
+				//String imsi = "";
+				//imsi += files[i].substring(0, files[i].indexOf("."));
+				//imsi += " : ";
+				//imsi += ess.getTitle();
+				//imsi += " : ";
+				//imsi += ess.getName();
+				//imsi += " : ";
+				//imsi += ess.getDate();
+				///imsi += " : ";
+				//imsi += ess.getSearchnum();
+				//adlgvc.add(imsi);
+		
+		// 고객정보 수정 버튼
+		if(e.getSource()==jButton14){}
+		// 주문정보 수정 버튼
+		if(e.getSource()==jButton17){}
+
+		// 직원관리 버튼
+		if(e.getSource()==jButton3){}
+		// 데이터 분석 버튼
+		if(e.getSource()==jButton4){}
+		
+		// 검색(회원번호) 버튼
+		if(e.getSource()==jButton4){}
+		
+		// 검색(전화번호) 버튼
+		if(e.getSource()==jButton4){}
+		// 검색(주소) 버튼
+		if(e.getSource()==jButton4){}
+		
 	}
 
 	@Override
