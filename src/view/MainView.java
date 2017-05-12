@@ -290,7 +290,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	/*	System.out.println("마우스 클릭 리스너 동작");
+		System.out.println("마우스 클릭 리스너 동작");
 		if(e.getSource()==jButton10){
 			
 			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
@@ -313,13 +313,13 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		}else{
 			System.out.println("버튼 이상동작 발생");
-		}*/
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("액션 퍼폼드 리스너 동작");
-		if(e.getSource()==jButton6){
+		System.out.println("액션 리스너 동작");
+		if(e.getSource()==jButton6){ // 
 			int customerNum = Integer.parseInt(jTextField1.getText().trim()); //회원번호 입력창
 			String customerRegDate = jTextField2.getText().trim(); //고객 등록날짜 입력창
 			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
