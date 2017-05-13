@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class LoginView extends JFrame {
 
 	BufferedImage img = null;
@@ -34,7 +35,7 @@ public class LoginView extends JFrame {
 		Dimension dimension2 = this.getSize();
 		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-		this.setVisible(true);
+
 		
 		
 		// 레이아웃 설정
@@ -84,6 +85,8 @@ public class LoginView extends JFrame {
 		// 마지막 추가들
 		layeredPane.add(panel);
 		add(layeredPane);
+		
+		this.setVisible(true);
 	}
 
 	class MyPanel extends JPanel {

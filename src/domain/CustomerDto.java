@@ -1,6 +1,6 @@
-package projectKH;
+package domain;
 
-public class Customer { // 고객정보를 관리하는 클래스, 고객정보를 get, set함
+public class CustomerDto { // 고객정보를 관리하는 클래스, 고객정보를 get, set함
 
 	//고객정보에 필요한 변수 지정
 	private int customerNum;
@@ -14,7 +14,7 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 	private int customerAgePredict;
 
 	// 유저정보객체를 만들때 필요한 매개변수를 받아서 초기화 시키는 생성자
-	public Customer(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
+	public CustomerDto(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
 			String customerAddCity, String customerAddStreet, String customerAddRest, int customerFrequent,
 			int customerAgePredict) {
 		this.customerNum = customerNum;
@@ -29,7 +29,7 @@ public class Customer { // 고객정보를 관리하는 클래스, 고객정보�
 	}
 
 	// 디폴트 생성자 명시적으로 생성
-	public Customer() {}
+	public CustomerDto() {}
 
 	//각 변수 get, set 메소드 시작 지점
 	public int getCustomerNum() {

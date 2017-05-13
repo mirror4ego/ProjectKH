@@ -45,6 +45,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
+import dao.CustomerDao;
+import dao.DaoFactory;
+import domain.CustomerDto;
+
 
 
 
@@ -578,7 +582,7 @@ bjdlg.setLocation((int)(bdi.getWidth() / 2 - bdi1.getWidth() / 2),
 				int customerAgePredict = Integer.parseInt(tf6.getText().trim());//고객 누적 주문 횟수의 입력창
 				//OrderInfoDao 
 				CustomerDao customerDao = new DaoFactory().customerDao();
-				Customer customer01= new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+				CustomerDto customer01= new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
 						customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
 				try{
 					customerDao.add(customer01);

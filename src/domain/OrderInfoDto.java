@@ -1,6 +1,6 @@
-package projectKH;
+package domain;
 
-public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정보를 set, get 함
+public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문정보를 set, get 함
 
 	//주문정보에 필요한 변수 지정
 	private int orderInfoNum;
@@ -19,7 +19,7 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 	private String orderInfoDeliveryPredict;
 	private int orderInfoCustomerNum;
 
-	public OrderInfo(int orderInfoNum, String orderInfoDate, String orderInfoLocPossiblity, String orderInfoOrderPossiblity,
+	public OrderInfoDto(int orderInfoNum, String orderInfoDate, String orderInfoLocPossiblity, String orderInfoOrderPossiblity,
 			int orderInfoMenuNum, int orderInfoMenuAmount, String orderInfoRequestInfo, int orderInfoChannelNum,
 			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
@@ -45,7 +45,7 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 	}
 
 	// 디폴트 생성자 명시적으로 생성
-	public OrderInfo() {
+	public OrderInfoDto() {
 
 	}
 
@@ -55,54 +55,6 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 
 	public void setOrderInfoNum(int orderInfoNum) {
 		this.orderInfoNum = orderInfoNum;
-	}
-
-	public int getOrderInfoCustomerNum() {
-		return orderInfoCustomerNum;
-	}
-
-	public void setOrderInfoCustomerNum(int orderInfoCustomerNum) {
-		this.orderInfoCustomerNum = orderInfoCustomerNum;
-	}
-
-	public String getOrderInfoPackCompletion() {
-		return orderInfoPackCompletion;
-	}
-
-	public void setOrderInfoPackCompletion(String orderInfoPackCompletion) {
-		this.orderInfoPackCompletion = orderInfoPackCompletion;
-	}
-
-	public String getOrderInfoDeliveryCompletion() {
-		return orderInfoDeliveryCompletion;
-	}
-
-	public void setOrderInfoDeliveryCompletion(String orderInfoDeliveryCompletion) {
-		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
-	}
-
-	public String getOrderInfoOrderCompletion() {
-		return orderInfoOrderCompletion;
-	}
-
-	public void setOrderInfoOrderCompletion(String orderInfoOrderCompletion) {
-		this.orderInfoOrderCompletion = orderInfoOrderCompletion;
-	}
-
-	public String getOrderInfoMoneyCollection() {
-		return orderInfoMoneyCollection;
-	}
-
-	public void setOrderInfoMoneyCollection(String orderInfoMoneyCollection) {
-		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
-	}
-
-	public String getOrderInfoDeliveryPredict() {
-		return orderInfoDeliveryPredict;
-	}
-
-	public void setOrderInfoDeliveryPredict(String orderInfoDeliveryPredict) {
-		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 	}
 
 	public String getOrderInfoDate() {
@@ -168,6 +120,56 @@ public class OrderInfo { // 주문 정보를 관리하는 클래스, 주문정�
 	public void setOrderInfoRequestDelivery(String orderInfoRequestDelivery) {
 		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
 	}
+
+	public String getOrderInfoPackCompletion() {
+		return orderInfoPackCompletion;
+	}
+
+	public void setOrderInfoPackCompletion(String orderInfoPackCompletion) {
+		this.orderInfoPackCompletion = orderInfoPackCompletion;
+	}
+
+	public String getOrderInfoDeliveryCompletion() {
+		return orderInfoDeliveryCompletion;
+	}
+
+	public void setOrderInfoDeliveryCompletion(String orderInfoDeliveryCompletion) {
+		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
+	}
+
+	public String getOrderInfoOrderCompletion() {
+		return orderInfoOrderCompletion;
+	}
+
+	public void setOrderInfoOrderCompletion(String orderInfoOrderCompletion) {
+		this.orderInfoOrderCompletion = orderInfoOrderCompletion;
+	}
+
+	public String getOrderInfoMoneyCollection() {
+		return orderInfoMoneyCollection;
+	}
+
+	public void setOrderInfoMoneyCollection(String orderInfoMoneyCollection) {
+		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
+	}
+
+	public String getOrderInfoDeliveryPredict() {
+		return orderInfoDeliveryPredict;
+	}
+
+	public void setOrderInfoDeliveryPredict(String orderInfoDeliveryPredict) {
+		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
+	}
+
+	public int getOrderInfoCustomerNum() {
+		return orderInfoCustomerNum;
+	}
+
+	public void setOrderInfoCustomerNum(int orderInfoCustomerNum) {
+		this.orderInfoCustomerNum = orderInfoCustomerNum;
+	}
+
+
 
 	//각 변수 get, set 메소드 시작 지점
 	

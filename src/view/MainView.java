@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Choice;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -30,20 +28,20 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
-import projectKH.Customer;
-import projectKH.CustomerDao;
-import projectKH.DaoFactory;
-import projectKH.OrderInfo;
-import projectKH.OrderInfoDao;
+import dao.CustomerDao;
+import dao.DaoFactory;
+import dao.OrderInfoDao;
+import domain.CustomerDto;
+import domain.OrderInfoDto;
 
+
+@SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
 
 	//컨테이너
 	private Container con;
 
 	//버튼 객체 생성
-	private JButton jButton1 = new JButton(" 고객 관리");
-	private JButton jButton2 = new JButton(" 주문 관리");
 	private JButton jButton3 = new JButton(" 직원 관리");
 	private JButton jButton4 = new JButton(" 데이터 분석");
 	private JButton jButton5 = new JButton("주문리스트"); // 주문리스트
@@ -68,8 +66,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 	private JLabel jLabel8 = new JLabel("고객 누적 주문 횟수 : ", JLabel.LEFT);
 	private JLabel jLabel9 = new JLabel("고객 나이 예측 : ", JLabel.LEFT);
-	private JLabel jLabel10 = new JLabel("주요 메뉴 : ", JLabel.LEFT);  //choice추가
-	private JLabel jLabel11 = new JLabel("음료 메뉴: ", JLabel.LEFT);  //choice추가
 
 	private JLabel jLabel12 = new JLabel("주문번호 : ", JLabel.LEFT);
 	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
@@ -116,13 +112,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 
 	//초이스 객체 생성
-	private Choice choice1=new Choice();//주요메뉴 선택 choice
-	private Choice choice2=new Choice();//음료메뉴 선택 choice
-	private Choice choice3=new Choice();//주요메뉴 수량(quantity의 약자) 선택 choice
-	private Choice choice4=new Choice();//음료 수량(quantity의 약자) 선택 choice
-	private Choice choice5=new Choice();//주소 선택 (state)
-	private Choice choice6=new Choice();//주소 선택 (city)
-	private Choice choice7=new Choice();//주소 선택 (street)
 
 	//패널 객체 생성
 	private JPanel jPanel1 = new JPanel(new GridLayout(1,4)); //메인의 맨 위쪽 메뉴 패널
@@ -133,8 +122,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JPanel jPanel6 = new JPanel(new GridLayout(7, 1)); // 고객정보 메인 패널
 	private JPanel jPanel7 = new JPanel(new GridLayout(1, 2)); // 고객정보 등록, 수정 버튼 패널
 	private JPanel jPanel8 = new JPanel(new GridLayout(16, 2)); // 오더정보 메인 패널
-	private JPanel jPanel9 = new JPanel(new GridLayout(1, 2)); //주요메뉴 choice 패널
-	private JPanel jPanel10 = new JPanel(new GridLayout(1, 2)); //음료메뉴 choice 패널
 	private JPanel jPanel11 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel jPanel12 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel jPanel13 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -312,8 +299,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		//주문 관리 패널 구성 끝
 
 		//
-		jButton3.setIcon(new ImageIcon("employee.png"));
-		jButton4.setIcon(new ImageIcon("data.png"));
+		jButton3.setIcon(new ImageIcon("img/employee.png"));
+		jButton4.setIcon(new ImageIcon("img/data.png"));
 
 		jButton3.setFont(font1);
 		jButton4.setFont(font1);
@@ -355,7 +342,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 			//CustomerDao
 			CustomerDao customerDao = new DaoFactory().customerDao();
-			Customer customer = new Customer(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+			CustomerDto customer = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
 					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
 			try{
 				customerDao.add(customer);
@@ -382,7 +369,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String orderInfoDeliveryPredict = jTextField24.getText().trim();
 			//OrderInfoDao 
 			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-			OrderInfo orderInfo = new OrderInfo(orderInfoNum, orderInfoDate, orderInfoLocPossiblity, orderInfoOrderPossiblity,
+			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossiblity, orderInfoOrderPossiblity,
 					orderInfoMenuNum, orderInfoMenuAmount, orderInfoRequestInfo, orderInfoChannelNum,
 					orderInfoRequestDelivery, orderInfoPackCompletion, orderInfoDeliveryCompletion,
 					orderInfoOrderCompletion, orderInfoMoneyCollection, orderInfoDeliveryPredict, 
@@ -397,7 +384,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton15){
 			//CustomerDao 
 			CustomerDao customerDao = new DaoFactory().customerDao();
-			Customer customer = new Customer();
+			CustomerDto customer = new CustomerDto();
 			try{
 				int a = 1;
 				customerDao.get(a);
@@ -409,7 +396,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton5){
 			//OrderInfoDao 
 			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-			OrderInfo orderInfo = new OrderInfo();
+			OrderInfoDto orderInfo = new OrderInfoDto();
 			try{
 				int a = 1;
 				orderInfoDao.get(a);

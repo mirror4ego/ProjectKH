@@ -1,18 +1,22 @@
-package projectKH;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import domain.CustomerDto;
+import resources.ConnectionMaker;
+import resources.ConnectionMakerKH;
+
 public class CustomerDao {
 	//private ConnectionMaker connectionMaker;
-	ConnectionMaker connectionMaker = new TestConnectionMaker();
+	ConnectionMaker connectionMaker = new ConnectionMakerKH();
 	public CustomerDao() {
-		connectionMaker = new TestConnectionMaker();
+		connectionMaker = new ConnectionMakerKH();
 	}
 	
-	public void add(Customer customer) throws ClassNotFoundException, SQLException { // 고객을 추가하는 메소드, 매개변수는  Customer클래스의 객체
+	public void add(CustomerDto customerDto) throws ClassNotFoundException, SQLException { // 고객을 추가하는 메소드, 매개변수는  Customer클래스의 객체
 		Connection c = connectionMaker.makeConnection(); // data소스에 저장된 커넥션 정보를 c에 저장 
 		
 		PreparedStatement ps = c.prepareStatement("insert into customer values (seq_customer_num.nextval,?,?,?,?,?,?,?,?)");
@@ -20,15 +24,14 @@ public class CustomerDao {
 		// 각 칼럼값에 집어넣을 low값을 ?로 설정
 		
 		// 각 물음표 값에 들어갈 값을 지정하고 set
-		//ps.setInt(1, customer.getCustomerNum());
-		ps.setString(1, customer.getCustomerRegDate());
-		ps.setString(2, customer.getCustomerPhoneNum());
-		ps.setString(3, customer.getCustomerAddState());
-		ps.setString(4, customer.getCustomerAddCity());
-		ps.setString(5, customer.getCustomerAddStreet());
-		ps.setString(6, customer.getCustomerAddRest());
-		ps.setInt(7, customer.getCustomerFrequent());
-		ps.setInt(8, customer.getCustomerAgePredict());
+		ps.setString(1, customerDto.getCustomerRegDate());
+		ps.setString(2, customerDto.getCustomerPhoneNum());
+		ps.setString(3, customerDto.getCustomerAddState());
+		ps.setString(4, customerDto.getCustomerAddCity());
+		ps.setString(5, customerDto.getCustomerAddStreet());
+		ps.setString(6, customerDto.getCustomerAddRest());
+		ps.setInt(7, customerDto.getCustomerFrequent());
+		ps.setInt(8, customerDto.getCustomerAgePredict());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는 sql문은
 		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
@@ -61,7 +64,7 @@ public class CustomerDao {
 		}
 	}*/
 	
-	public Customer get(int customerNum) throws ClassNotFoundException, SQLException { // 
+	public CustomerDto get(int customerNum) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 		
@@ -73,26 +76,24 @@ public class CustomerDao {
 		ResultSet rs = ps.executeQuery();
 		// 쿼리문을 실행 executeQuery를 통해서 쿼리를 실행한 결과 값을 받아와서 ResultSet의 객체참조주소 rs에 저장
 		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이 메소드를 꼭 한번 실행해야 한다
-		Customer customer = new Customer(); // 고객정보 클래스의 객체를 생성
+		CustomerDto customerDto = new CustomerDto(); // 고객정보 클래스의 객체를 생성
 		
 		//customer.setCustomerNum(rs.getInt("customerNum"));
-		customer.setCustomerRegDate(rs.getString("customerRegDate"));
-		customer.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
-		customer.setCustomerAddState(rs.getString("customerAddState"));
-		customer.setCustomerAddCity(rs.getString("customerAddCity"));
-		customer.setCustomerAddStreet(rs.getString("customerAddStreet"));
-		customer.setCustomerAddRest(rs.getString("customerAddRest"));
-		customer.setCustomerFrequent(rs.getInt("customerFrequent"));
-		customer.setCustomerAgePredict(rs.getInt("customerAgePredict"));
-		
-		
+		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
+		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
+		customerDto.setCustomerAddState(rs.getString("customerAddState"));
+		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
+		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
+		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
+		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
+		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
 		
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		rs.close();
 		ps.close();
 		c.close();
 		
-		return customer; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
+		return customerDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
 	}
 	
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에 저장된 데이터를 전부 삭제하는 메소드

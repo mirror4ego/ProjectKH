@@ -1,4 +1,4 @@
-package projectKH;
+package dao;
 
 //import javax.sql.DataSource;
 //import org.springframework.context.annotation.Bean;

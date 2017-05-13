@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import projectKH.ConnectionMaker;
-import projectKH.TestConnectionMaker;
+import resources.ConnectionMaker;
+import resources.ConnectionMakerKH;
 
 
 public class Login {
@@ -21,7 +21,7 @@ public class Login {
 	}*/
 
 	public Login() {
-		connectionMaker = new TestConnectionMaker();
+		connectionMaker = new ConnectionMakerKH();
 	}
 	
 	public boolean login(String id, String password) throws SQLException{
