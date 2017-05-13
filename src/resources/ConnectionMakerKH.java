@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionMakerKH implements ConnectionMaker {
-	
+
 	// 테스트를 위한 커넥션 정보 설정
 	@Override
 	public Connection makeConnection() throws ClassNotFoundException, SQLException { 

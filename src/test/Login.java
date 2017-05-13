@@ -10,7 +10,7 @@ import resources.ConnectionMakerKH;
 
 
 public class Login {
-	
+
 	private ConnectionMaker connectionMaker;
 
 	/*	public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class Login {
 	public Login() {
 		connectionMaker = new ConnectionMakerKH();
 	}
-	
+
 	public boolean login(String id, String password) throws SQLException{
 		boolean flag = false;
 		Connection c = null;
@@ -38,7 +38,7 @@ public class Login {
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			System.out.println("판단전");
-			
+
 			if (rs.next()==false) {
 				rs.next();
 				getPass = rs.getString("password");

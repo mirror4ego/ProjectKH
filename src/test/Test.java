@@ -3,14 +3,13 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import dao.UserInfoDao;
 import view.LoginView;
 
 
 public class Test {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-		
+
 		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 		//UserInfoDao userInfoDao = new UserInfoDao();

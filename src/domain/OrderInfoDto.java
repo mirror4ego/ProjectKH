@@ -25,7 +25,7 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
 			int orderInfoCustomerNum) {
 
-		
+
 		this.orderInfoNum = orderInfoNum;
 		this.orderInfoDate = orderInfoDate;
 		this.orderInfoLocPossiblity = orderInfoLocPossiblity;
@@ -41,7 +41,7 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
 		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
-		
+
 	}
 
 	// 디폴트 생성자 명시적으로 생성
@@ -169,10 +169,16 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
 	}
 
-
-
-	//각 변수 get, set 메소드 시작 지점
-	
-	// 각 변수 get, set 메소드 종료 지점 
-
+	@Override
+	public String toString() {
+		return "OrderInfoDto [orderInfoNum=" + orderInfoNum + ", orderInfoDate=" + orderInfoDate
+				+ ", orderInfoLocPossiblity=" + orderInfoLocPossiblity + ", orderInfoOrderPossiblity="
+				+ orderInfoOrderPossiblity + ", orderInfoMenuNum=" + orderInfoMenuNum + ", orderInfoMenuAmount="
+				+ orderInfoMenuAmount + ", orderInfoRequestInfo=" + orderInfoRequestInfo + ", orderInfoChannelNum="
+				+ orderInfoChannelNum + ", orderInfoRequestDelivery=" + orderInfoRequestDelivery
+				+ ", orderInfoPackCompletion=" + orderInfoPackCompletion + ", orderInfoDeliveryCompletion="
+				+ orderInfoDeliveryCompletion + ", orderInfoOrderCompletion=" + orderInfoOrderCompletion
+				+ ", orderInfoMoneyCollection=" + orderInfoMoneyCollection + ", orderInfoDeliveryPredict="
+				+ orderInfoDeliveryPredict + ", orderInfoCustomerNum=" + orderInfoCustomerNum + "]";
+	}
 }

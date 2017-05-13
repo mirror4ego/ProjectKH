@@ -153,7 +153,8 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPanel2.add(jPanel4);
 		jPanel2.add(jPanel5);
 		jPanel2.add(jPanel7);
-		jPanel2.setOpaque(false);
+		jPanel2.setBackground(Color.black);
+		jPanel2.setOpaque(false); // false로 하면 패널 2 투명
 		jPanel4.setOpaque(false);
 		jPanel5.setOpaque(false);
 		jPanel6.setOpaque(false);
@@ -162,6 +163,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		// 레이아웃 설정
 		jLayeredPane1.setBounds(0, 0, 1600, 900);
 		jLayeredPane1.setLayout(null);
+
 		jLayeredPane1.add(jPanel2);
 		jLayeredPane1.add(jPanel1);
 	}

@@ -103,5 +103,13 @@ public class CustomerDto { // 고객정보를 관리하는 클래스, 고객정�
 	public void setCustomerAgePredict(int customerAgePredict) {
 		this.customerAgePredict = customerAgePredict;
 	}
-	// 각 변수 get, set 메소드 종료 지점 
+
+	@Override
+	public String toString() {
+		return "CustomerDto [customerNum=" + customerNum + ", customerRegDate=" + customerRegDate
+				+ ", customerPhoneNum=" + customerPhoneNum + ", customerAddState=" + customerAddState
+				+ ", customerAddCity=" + customerAddCity + ", customerAddStreet=" + customerAddStreet
+				+ ", customerAddRest=" + customerAddRest + ", customerFrequent=" + customerFrequent
+				+ ", customerAgePredict=" + customerAgePredict + "]";
+	}
 }

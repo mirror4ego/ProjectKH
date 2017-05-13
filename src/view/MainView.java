@@ -349,7 +349,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
-		
+
 		// 주문정보 등록 버튼
 		if(e.getSource()==jButton16){
 			int orderInfoNum = Integer.parseInt(jTextField10.getText().trim());
@@ -379,7 +379,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
-		
+
 		// 고객리스트 보기 버튼
 		if(e.getSource()==jButton15){
 			//CustomerDao 
@@ -391,7 +391,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
-		
+
 		// 주문리스트 보기 버튼 
 		if(e.getSource()==jButton5){
 			//OrderInfoDao 
@@ -403,32 +403,32 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
-		
+
 		//File dir = new File("C://data");
 		//adlgvc.clear();
 		//String[] files = dir.list();
 		//for(int i = 0; i < files.length; i++){
-			//File file = new File(dir, files[i]);
-			//try{
-				//FileInputStream fi = new FileInputStream(file);
-				//BufferedInputStream bi = new BufferedInputStream(fi);
-				//ObjectInputStream ois = new ObjectInputStream(bi);
-				//OrderView_sub ess = (OrderView_sub)ois.readObject();
-				//ois.close();
-				//bi.close();
-				//fi.close();
-				//String imsi = "";
-				//imsi += files[i].substring(0, files[i].indexOf("."));
-				//imsi += " : ";
-				//imsi += ess.getTitle();
-				//imsi += " : ";
-				//imsi += ess.getName();
-				//imsi += " : ";
-				//imsi += ess.getDate();
-				///imsi += " : ";
-				//imsi += ess.getSearchnum();
-				//adlgvc.add(imsi);
-		
+		//File file = new File(dir, files[i]);
+		//try{
+		//FileInputStream fi = new FileInputStream(file);
+		//BufferedInputStream bi = new BufferedInputStream(fi);
+		//ObjectInputStream ois = new ObjectInputStream(bi);
+		//OrderView_sub ess = (OrderView_sub)ois.readObject();
+		//ois.close();
+		//bi.close();
+		//fi.close();
+		//String imsi = "";
+		//imsi += files[i].substring(0, files[i].indexOf("."));
+		//imsi += " : ";
+		//imsi += ess.getTitle();
+		//imsi += " : ";
+		//imsi += ess.getName();
+		//imsi += " : ";
+		//imsi += ess.getDate();
+		///imsi += " : ";
+		//imsi += ess.getSearchnum();
+		//adlgvc.add(imsi);
+
 		// 고객정보 수정 버튼
 		if(e.getSource()==jButton14){}
 		// 주문정보 수정 버튼
@@ -438,16 +438,16 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton3){}
 		// 데이터 분석 버튼
 		if(e.getSource()==jButton4){}
-		
+
 		// 검색(회원번호) 버튼
 		if(e.getSource()==jButton4){}
-		
+
 		// 검색(전화번호) 버튼
 		if(e.getSource()==jButton4){}
 		// 검색(주소) 버튼
 		if(e.getSource()==jButton4){}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 	@Override

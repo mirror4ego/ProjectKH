@@ -10,7 +10,7 @@ public class LoginSevice {
 		boolean existUser = false;
 		UserInfoDto userInfoDto = (new UserInfoDao()).get(id);
 		String getPass = (userInfoDto.getUserInfoPassword()).trim();
-		
+
 		if(getPass.equals(password)){
 			System.out.println("비번일치");
 			existUser = true;
@@ -19,7 +19,7 @@ public class LoginSevice {
 			existUser = false;
 		}
 		System.out.println("로그인서비스끝");
-		
+
 		return existUser;
 	}
 }
