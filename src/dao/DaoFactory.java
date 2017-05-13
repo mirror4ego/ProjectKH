@@ -28,8 +28,8 @@ public class DaoFactory { // 클래스를 생성
 	}
 	
 //	@Bean // 설정 파일 DI/ XML을 이용하지 않는 방법
-	public EmployeeInfoDao employeeInfoDao() { // OrderDao 생성
-		EmployeeInfoDao employeeInfoDao = new EmployeeInfoDao(); // userDao 클래스의 객체 생성
+	public UserInfoDao employeeInfoDao() { // OrderDao 생성
+		UserInfoDao employeeInfoDao = new UserInfoDao(); // userDao 클래스의 객체 생성
 		//customerDao.setDataSource(dataSource()); // dataSource메소드 반환값을 매개변수로 이용해 데이터 소스를 set하고 userDao 
 		return employeeInfoDao; // 리턴
 	}

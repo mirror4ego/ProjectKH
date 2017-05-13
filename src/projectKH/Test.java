@@ -4,10 +4,10 @@ import java.sql.SQLException;
 
 import dao.CustomerDao;
 import dao.DaoFactory;
-import dao.EmployeeInfoDao;
+import dao.UserInfoDao;
 import dao.OrderInfoDao;
 import domain.CustomerDto;
-import domain.EmployeeInfoDto;
+import domain.UserInfoDto;
 import domain.OrderInfoDto;
 
 public class Test {
@@ -17,7 +17,7 @@ public class Test {
 		
 		CustomerDao customerDao = new DaoFactory().customerDao();
 		OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-		EmployeeInfoDao employeeInfoDao = new DaoFactory().employeeInfoDao();
+		UserInfoDao employeeInfoDao = new DaoFactory().employeeInfoDao();
 		
 		//메인뷰 생성 테스트
 		//MainView ex = new MainView("매장관리"); 
@@ -35,7 +35,7 @@ public class Test {
 		OrderInfoDto orderInfoDto04 = new OrderInfoDto(4, "20170420", "1", "1", 2, 9, "오는 길에 콜라", 3, "20170403", "1", "1", "0", "0", "20170502", 1);		
 		
 		
-		EmployeeInfoDto employeeInfoDto01 = new EmployeeInfoDto(3, "길동");
+		UserInfoDto employeeInfoDto01 = new UserInfoDto(3, "길동");
 		//테이블 데이터 삭제 테스트
 		//customerDao.deleteAll();
 		//System.out.println("Customer 테이블 Truncate 완료");
