@@ -17,7 +17,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.Vector;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -229,11 +228,11 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		jPanel2.add("Center", jScrollPane1);
 
-		jPanel4.add(jButton6);
-		jPanel4.add(jButton7);
-		jPanel4.add(jButton8);
-		jPanel4.add(jButton9);
-		jPanel2.add("South", jPanel4);
+		//jPanel4.add(jButton6);
+		//jPanel4.add(jButton7);
+		//jPanel4.add(jButton8);
+		//jPanel4.add(jButton9);
+		//jPanel2.add("South", jPanel4);
 
 		jButton5.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton6.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -493,7 +492,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton17){}
 
 		// 직원관리 버튼
-		if(e.getSource()==jButton3){}
+		if(e.getSource()==jButton3){
+			UserSelectView userSelectView = new UserSelectView();}
+		
 		// 데이터 분석 버튼
 		if(e.getSource()==jButton4){}
 

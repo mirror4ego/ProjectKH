@@ -91,7 +91,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} 
+		}
 	}
 	
 	@Override
