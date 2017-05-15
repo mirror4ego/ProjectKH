@@ -2,10 +2,7 @@ package test;
 
 import java.io.IOException;
 import java.sql.SQLException;
-<<<<<<< HEAD
 
-=======
->>>>>>> a2d12a917261a16527c01ffd881dd8812d37c816
 import view.LoginView;
 
 
