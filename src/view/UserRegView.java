@@ -274,7 +274,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 
 		//jTable내용 갱신 메소드 호출
-		try {
+/*		try {
 			userListView.jTableRefresh();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -282,7 +282,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 	}//actionPerformed 
 
