@@ -74,7 +74,7 @@ public class OrderRegView extends JFrame implements ActionListener {
 	GridBagLayout gridBagLayout1;
 	GridBagConstraints gridBagConstraints1;
 	
-	getUserList getUserList1;
+
 /*
 	public UserRegView(){ //가입용 생성자
 		createUI(); //UI작성해주는 메소드
@@ -112,37 +112,37 @@ public class OrderRegView extends JFrame implements ActionListener {
    
 		int orderInfoNum=vMem.getOrderInfoNum();  //주문번호
 		String orderInfoDate=vMem.getOrderInfoDate(); //주문일자
-		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossiblity(); //주문가능여부(지역)
 		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossiblity(); //주문가능여부(주문량)
 		int orderInfoMenuNum=vMem.getOrderInfoMenuNum(); //메뉴고유값
 		int orderInfoMenuAmount=vMem.getOrderInfoMenuAmount(); //주문 메뉴양
 		String orderInfoRequestInfo=vMem.getOrderInfoRequestInfo(); //주문요청사항
 		int orderInfoChannelNum=vMem.getOrderInfoChannelNum();//채널고유값
-		String orderInfoChannelNum=vMem.orderInfoDto();//배달요청시간
-		String orderInfoPackCompletion=vMem.orderInfoDto(); //주문 프로세스(포장)완료여부
-		String orderInfoDeliveryCompletion=vMem.orderInfoDto(); //주문 프로세스(배달)완료여부
-		String orderInfoOrderCompletion=vMem.orderInfoDto(); //주문 프로세스완료여부
-		String orderInfoMoneyCollection=vMem.orderInfoDto(); //수금여부
-		String orderInfoDeliveryPredict=vMem.orderInfoDto();//배달예측시간
+		String orderInfoRequestDelivery=vMem.getOrderInfoRequestDelivery();//배달요청시간
+		String orderInfoPackCompletion=vMem.getOrderInfoPackCompletion(); //주문 프로세스(포장)완료여부
+		String orderInfoDeliveryCompletion=vMem.getOrderInfoDeliveryCompletion(); //주문 프로세스(배달)완료여부
+		String orderInfoOrderCompletion=vMem.getOrderInfoOrderCompletion(); //주문 프로세스완료여부
+		String orderInfoMoneyCollection=vMem.getOrderInfoMoneyCollection(); //수금여부
+		String orderInfoDeliveryPredict=vMem.getOrderInfoDeliveryPredict();//배달예측시간
 
 		
 		
 		//화면에 세팅
-		jTextField4.setText(id);
-		jTextField4.setEditable(false); //편집 안되게
-		jPasswordField1.setText(""); //비밀번호는 안보여준다.
-		jTextField5.setText(name);
-		//String[] tels = tel.split("-");
-		//jTextField1.setText(tels[0]);
-		//jTextField2.setText(tels[1]);
-		//jTextField3.setText(tels[2]);
-		jTextField6.setText(addr);
-
-		//jTextArea8.setText(birth.substring(0, 4));
-		//jTextArea9.setText(birth.substring(4, 6));
-		//jTextArea10.setText(birth.substring(6, 8));
-
-		//jComboBox1.setSelectedItem(job);
+		jTextField10.setText(String.valueOf(orderInfoNum));
+		jTextField10.setEditable(false); //편집 안되게
+		jTextField12.setText(orderInfoDate);
+		jTextField13.setText(orderInfoLocPossiblity);
+		jTextField14.setText(orderInfoOrderPossiblity);
+		jTextField15.setText(String.valueOf(orderInfoMenuNum));
+		jTextField16.setText(String.valueOf(orderInfoMenuAmount));
+		jTextField17.setText(orderInfoRequestInfo);
+		jTextField18.setText(String.valueOf(orderInfoChannelNum));
+		jTextField19.setText(orderInfoRequestDelivery);
+		jTextField20.setText(orderInfoPackCompletion);
+		jTextField21.setText(orderInfoDeliveryCompletion);
+		jTextField22.setText(orderInfoOrderCompletion);
+		jTextField23.setText(orderInfoMoneyCollection);
+		jTextField24.setText(orderInfoDeliveryPredict);
+		
 
 		/*if(gender.equals("M")){
 			jRadioButton2.setSelected(true);
@@ -227,20 +227,20 @@ public class OrderRegView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == jButton1){
-			insertOrder();
-			System.out.println("insertOrder() 호출 종료");
-		}else if(ae.getSource() == jButton2){
+		
+		 if(ae.getSource() == jButton2){  //취소버튼을 누르면
 			this.dispose(); //창닫기 (현재창만 닫힘)
 			//system.exit(0)=> 내가 띄운 모든 창이 다 닫힘          
-		}else if(ae.getSource() == jButton3){
+		}else if(ae.getSource() == jButton3){//수정버튼을 누르면
 			UpdateOrder();            
-		}else if(ae.getSource() == jButton4){
+		}else if(ae.getSource() == jButton4){ //삭제버튼을 누르면
 			//int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?");
 			int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?","삭제",JOptionPane.YES_NO_OPTION);
 
 			if (x == JOptionPane.OK_OPTION){
-				deleteOrder();
+				// 텍스트 필드에 입력된 주문번호를 읽어서 변수에 저장
+				int orderInfoNum = jTextField10.getText();
+				deleteOrder(orderInfoNum);
 			}else{
 				JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.");
 			}
@@ -248,7 +248,8 @@ public class OrderRegView extends JFrame implements ActionListener {
 
 		//jTable내용 갱신 메소드 호출
 		try {
-			userListView.jTableRefresh();
+			MainView mv = new MainView();
+			mv.jTableRefresh();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -260,11 +261,12 @@ public class OrderRegView extends JFrame implements ActionListener {
 	}//actionPerformed 
 
 
-	private void deleteOrder() {
+	private void deleteOrder(int orderInfoNum) throws SQLException {
 		
 		//System.out.println(userListView);
 		OrderInfoDao dao = new OrderInfoDao();
-		boolean ok = dao.deleteOrder(orderInfoNum);
+		boolean ok;
+		ok = dao.deleteOrder(orderInfoNum);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "삭제완료");
@@ -292,7 +294,7 @@ public class OrderRegView extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "수정실패: 값을 확인하세요");   
 		}
 	}
-
+/*
 	private void insertOrder(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
@@ -312,14 +314,14 @@ public class OrderRegView extends JFrame implements ActionListener {
 
 
 
-	}//insertMember
-	
+	}//inserOrder
+	*/
 
 	public OrderInfoDto getViewData(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
 		OrderInfoDto dto = new OrderInfoDto();
-		int orderInfoNum = jTextField10.getText();
+		String.valueOf(orderInfoNum)= jTextField10.getText();
 		String orderInfoDate = jTextField12.getText();
 		String orderInfoLocPossiblity = jTextField13.getText();
 		String orderInfoOrderPossiblity = jTextField14.getText();
@@ -335,20 +337,20 @@ public class OrderRegView extends JFrame implements ActionListener {
 		String orderInfoDeliveryPredict = jTextField24.getText();
 
 		//dto에 담는다.
-		dto.setorderInfoNum(orderInfoNum);
-		dto.setorderInfoDate(orderInfoDate);
-		dto.setorderInfoLocPossiblity(orderInfoLocPossiblity);
-		dto.setorderInfoOrderPossiblity(orderInfoOrderPossiblity);
-		dto.setorderInfoMenuNum(orderInfoMenuNum);
-		dto.setorderInfoMenuAmount (orderInfoMenuAmount );
-		dto.setorderInfoRequestInfo(orderInfoRequestInfo);
-		dto.setorderInfoChannelNum(orderInfoChannelNum);
-		dto.setorderInfoRequestDelivery(orderInfoRequestDelivery);
-		dto.setorderInfoPackCompletion(orderInfoPackCompletion);
-		dto.setorderInfoDeliveryCompletion(orderInfoDeliveryCompletion);
-		dto.setorderInfoOrderCompletion(orderInfoOrderCompletion);
-		dto.setorderInfoMoneyCollection(orderInfoMoneyCollection);
-		dto.setorderInfoDeliveryPredict(orderInfoDeliveryPredict);
+		dto.setOrderInfoNum(orderInfoNum);
+		dto.setOrderInfoDate(orderInfoDate);
+		dto.setOrderInfoLocPossiblity(orderInfoLocPossiblity);
+		dto.setOrderInfoOrderPossiblity(orderInfoOrderPossiblity);
+		dto.setOrderInfoMenuNum(orderInfoMenuNum);
+		dto.setOrderInfoMenuAmount(orderInfoMenuAmount);
+		dto.setOrderInfoRequestInfo(orderInfoRequestInfo);
+		dto.setOrderInfoChannelNum(orderInfoChannelNum);
+		dto.setOrderInfoRequestDelivery(orderInfoRequestDelivery);
+		dto.setOrderInfoPackCompletion(orderInfoPackCompletion);
+		dto.setOrderInfoDeliveryCompletion(orderInfoDeliveryCompletion);
+		dto.setOrderInfoOrderCompletion(orderInfoOrderCompletion);
+		dto.setOrderInfoMoneyCollection(orderInfoMoneyCollection);
+		dto.setOrderInfoDeliveryPredict(orderInfoDeliveryPredict);
 
 		return dto;
 	}

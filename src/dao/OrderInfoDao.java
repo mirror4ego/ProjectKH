@@ -59,14 +59,14 @@ public class OrderInfoDao {
 			Vector data = new Vector();
 
 			try{
-				PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderInfo_Num asc");
+				PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderinfo_Num asc");
 				ResultSet rs = ps.executeQuery();
 
 				while(rs.next()){	
-					int orderInfoNum = rs.getInt("orderInfo_Num");  //주문번호
-					String orderInfoDate = rs.getString("orderInfo_Date");//주문일자
-					int orderInfoMenuNum = rs.getInt("orderInfo_Menu_Num");//메뉴고유값
-					int orderInfoMenuAmount = rs.getInt("orderInfo_Menu_Amount");//주문메뉴양
+					int orderInfoNum = rs.getInt("orderInfoNum");  //주문번호
+					int orderInfoDate = rs.getInt("orderInfoDate");//주문일자
+					int orderInfoMenuNum = rs.getInt("orderInfoMenuNum");//메뉴고유값
+					int orderInfoMenuAmount = rs.getInt("orderInfoMenuAmount");//주문메뉴양
 					
 					Vector row = new Vector();
 					row.add(orderInfoNum);
@@ -163,16 +163,56 @@ public class OrderInfoDao {
 		return orderInfoDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
 	}
 
-	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에 저장된 데이터를 전부 삭제하는 메소드
-		Connection c = connectionMaker.makeConnection();; // DB로의 커넥션 생성
+	// 주문 수정 메소드
+		public boolean updateOrder(OrderInfoDto orderInfoDto){
+			System.out.println("dto="+orderInfoDto.toString());
+			boolean ok = false;
+			try{
+				Connection c = connectionMaker.makeConnection();          
+				PreparedStatement ps = c.prepareStatement("update tb_order set orderInfoDate=?, orderInfoLocPossiblity=?, orderInfoOrderPossiblity=?, orderInfoMenuNum=?, orderInfoMenuAmount=?, orderInfoRequestInfo=?,orderInfoChannelNum=?, orderInfoRequestDelivery=?, orderInfoPackCompletion=?, orderInfoDeliveryCompletion=?, orderInfoOrderCompletion=?, orderInfoMoneyCollection=?, orderInfoDeliveryPredict=?"+ "where orderInfoNum=?");
 
-		PreparedStatement ps = c.prepareStatement("truncate table orderinfo");
-		// preparestatement메소드를 통해서 쿼리문을 날릴 준비를 함
+				
+				ps.setString(1, orderInfoDto.getOrderInfoDate());
+				ps.setString(2, orderInfoDto.getOrderInfoLocPossiblity());
+				ps.setString(3, orderInfoDto.getOrderInfoOrderPossiblity());
+				ps.setInt(4, orderInfoDto.getOrderInfoMenuNum());
+				ps.setInt(5, orderInfoDto.getOrderInfoMenuAmount());
+				ps.setString(6, orderInfoDto.getOrderInfoRequestInfo());
+				ps.setInt(7, orderInfoDto.getOrderInfoChannelNum());
+				ps.setString(8, orderInfoDto.getOrderInfoRequestDelivery());
+				ps.setString(9, orderInfoDto.getOrderInfoPackCompletion());
+				ps.setString(10, orderInfoDto.getOrderInfoDeliveryCompletion());
+				ps.setString(11, orderInfoDto.getOrderInfoOrderCompletion());
+				ps.setString(12, orderInfoDto.getOrderInfoMoneyCollection());
+				ps.setString(13, orderInfoDto.getOrderInfoDeliveryPredict());
+				ps.setInt(14, orderInfoDto.getOrderInfoCustomerNum());
 
-		ps.executeUpdate(); // 쿼리문 실행
 
-		// 커넥션 close
-		ps.close();
-		c.close();
-	}
+				int r = ps.executeUpdate();
+				if(r>0) ok = true;
+
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return ok;
+		}
+
+		//사용자정보 삭제 메소드
+		public boolean deleteOrder(int orderInfoNum){
+
+			boolean ok =false ;
+
+			try {
+				Connection c = connectionMaker.makeConnection();   
+				PreparedStatement ps = c.prepareStatement("delete from tb_member where id=? and pwd=?");
+				ps.setInt(1, orderInfoNum);
+				
+				int r = ps.executeUpdate();
+				if (r>0) ok=true;
+
+			} catch (Exception e) {
+				System.out.println(e + "-> 오류발생");
+			}      
+			return ok;
+		}
 }

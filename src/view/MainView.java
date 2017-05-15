@@ -509,7 +509,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	@Override
 	public void mouseClicked(MouseEvent e) {//주문내역리스크 버튼
 		int r = jTable1.getSelectedRow();
-		String orderInfoNum = (String) jTable1.getValueAt(r, 0);
+		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
 		try {
 			OrderRegView mem = new OrderRegView(orderInfoNum, this); //선택한 주문내역 상세보기
 		} catch (ClassNotFoundException e1) {
