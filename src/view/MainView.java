@@ -33,6 +33,7 @@ import dao.DaoFactory;
 import dao.OrderInfoDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
+import service.CRM_MainLayout;
 
 
 @SuppressWarnings("serial")
@@ -325,7 +326,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("액션 리스너 동작");
+		if(e.getSource()==jButton4){
+			CRM_MainLayout crm = new CRM_MainLayout();
+		} // 
 		if(e.getSource()==jButton6){} // 
 
 		// 고객정보 등록 버튼
