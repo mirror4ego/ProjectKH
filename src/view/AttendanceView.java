@@ -1,40 +1,47 @@
 package view;
 
-import java.awt.Button;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Label;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
 
-class AttendanceView extends JFrame {
-	private Dimension dimen1, dimen2;
-	private int xpos, ypos;
+class AttendanceView {
+String name; //이름
+int numberOfClass; //수업일수
+int absence; //결석
+int late; //지각
+int eLeave; //조퇴
 
-	Frame f = new Frame(); // 프레임 생성
-	Button btn1 = new Button("버튼1"); // 버튼 객체 생성 및 초기화
-	Button btn2 = new Button("버튼2"); // 버튼 객체 생성 및 초기화
-	Label lb1 = new Label("라벨 : 라벨 센터",Label.CENTER); // 라벨 객체 생성 및 초기화
+public AttendanceView(String name, int numberOfClass, int absence, int late, int eLeave){
+	super();
+	this.name = name;
+	this.numberOfClass = numberOfClass;
+	this.absence = absence;
+	this.late = late;
+	this.eLeave = eLeave;
+}
 
-	public AttendanceView(){
-		super("출결 관리");
-		this.init(); // 이 클래스에 있는 init메소드 실행
-		this.start(); // 이 클래스에 있는 start메소드 실행
-		f.setSize(300, 200); // 프레임의 사이즈 설정
-		dimen1 = Toolkit.getDefaultToolkit().getScreenSize(); // 모니터 사이즈 얻어옴
-		dimen2 = f.getSize(); // 프레임 사이즈 얻어옴
+public void plusAbsence(){
+	++absence;
+	}	
 
-		xpos = (int)(dimen1.getWidth() / 2 - dimen2.getWidth()/2); // x위치값 계산
-		ypos = (int)(dimen1.getHeight() / 2 - dimen2.getHeight()/2); // y위치값 계산
-
-		f.setLocation(xpos, ypos); // 프레임의 위치 설정
-		f.setVisible(true); // 프레임을 보이게 함
+public void plusLate(){
+	++late;
 	}
-	private void init() {
+public void plusELeave(){
+	++eLeave;
+}
 
-	}
-	private void start() {
+public int getAbsence(){
+	//지각이나 	조퇴 3번은 1번의 결석
+	absence = absence + (late/3)+(eLeave/3);
+	return absence;
+}
 
+public void getAttendanceView(){
+	//수료 = 수업 80% 출석
+	if((float)((numberOfClass - absence)) /(float)(numberOfClass) *  100 >= 80){
+		System.out.println(name + ":" + "수료");
+	}else{
+		System.out.println(name + ":" + "미수료");
+		
+		}
 	}
 }
 
