@@ -1,12 +1,29 @@
 package view;
 
-import java.awt.*;
-import java.sql.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-import java.awt.event.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import dao.UserInfoDao;
+import domain.UserInfoDto;
 
 public class UserRegView extends JFrame implements ActionListener {
 
@@ -22,9 +39,9 @@ public class UserRegView extends JFrame implements ActionListener {
 
 	GridBagLayout gridBagLayout1;
 	GridBagConstraints gridBagConstraints1;
-	Member_List mList;
+	UserListView userListView;
 
-	public MemberProc(){ //가입용 생성자
+	public UserRegView(){ //가입용 생성자
 		createUI(); //UI작성해주는 메소드
 		jButton3.setEnabled(false);
 		jButton3.setVisible(false);
@@ -32,67 +49,67 @@ public class UserRegView extends JFrame implements ActionListener {
 		jButton4.setVisible(false);
 	}
 
-	public MemberProc(Member_List mList){ //가입용 생성자
+	public UserRegView(UserListView userListView){ //가입용 생성자
 		createUI(); //UI작성해주는 메소드
 		jButton3.setEnabled(false);
 		jButton3.setVisible(false);
 		jButton4.setEnabled(false);
 		jButton4.setVisible(false);
-		this.mList = mList;  
+		this.userListView = userListView;  
 	}
 
-	public MemberProc(String id,Member_List mList){ //수정/삭제용 생성자
+	public UserRegView(String id, UserListView userListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
 		createUI();
 		jButton1.setEnabled(false);
 		jButton1.setVisible(false);
-		this.mList = mList;
+		this.userListView = userListView;
 
 		System.out.println("id="+id);
 
-		MemberDAO dao = new MemberDAO();
-		MemberDTO vMem = dao.getMemberDTO(id);
+		UserInfoDao dao = new UserInfoDao();
+		UserInfoDto vMem = dao.getOneUser(id);
 		viewData(vMem);
 	} //id를 가지고 생성
 
-	//MemberDTO 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
-	private void viewData(MemberDTO vMem){
+	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
+	private void viewData(UserInfoDto vMem){
 
-		String id = vMem.getId();
-		String pwd = vMem.getPwd();
-		String name = vMem.getName();
-		String tel = vMem.getTel();
-		String addr = vMem.getAddr();
-		String birth = vMem.getBirth();
-		String job = vMem.getJob();
-		String gender = vMem.getGender();
-		String email= vMem.getEmail();
-		String intro = vMem.getIntro();    
+		String id = vMem.getUserInfoId();
+		String pwd = vMem.getUserInfoPassword();
+		String name = vMem.getUserInfoName();
+		int tel = vMem.getUserInfoPhone();
+		String addr = vMem.getUserInfoAddress();
+		//String birth = vMem.getBirth();
+		//String job = vMem.getJob();
+		//String gender = vMem.getGender();
+		String email= vMem.getUserInfoEmail();
+		//String intro = vMem.getIntro();    
 
 		//화면에 세팅
 		jTextField4.setText(id);
 		jTextField4.setEditable(false); //편집 안되게
 		jPasswordField1.setText(""); //비밀번호는 안보여준다.
 		jTextField5.setText(name);
-		String[] tels = tel.split("-");
-		jTextField1.setText(tels[0]);
-		jTextField2.setText(tels[1]);
-		jTextField3.setText(tels[2]);
+		//String[] tels = tel.split("-");
+		//jTextField1.setText(tels[0]);
+		//jTextField2.setText(tels[1]);
+		//jTextField3.setText(tels[2]);
 		jTextField6.setText(addr);
 
-		jTextArea8.setText(birth.substring(0, 4));
-		jTextArea9.setText(birth.substring(4, 6));
-		jTextArea10.setText(birth.substring(6, 8));
+		//jTextArea8.setText(birth.substring(0, 4));
+		//jTextArea9.setText(birth.substring(4, 6));
+		//jTextArea10.setText(birth.substring(6, 8));
 
-		jComboBox1.setSelectedItem(job);
+		//jComboBox1.setSelectedItem(job);
 
-		if(gender.equals("M")){
+		/*if(gender.equals("M")){
 			jRadioButton2.setSelected(true);
 		}else if(gender.equals("W")){
 			jRadioButton1.setSelected(true);
 		}
-
+*/
 		jTextField7.setText(email);
-		jTextArea1.setText(intro);
+		//jTextArea1.setText(intro);
 	}//viewData
 
 	private void createUI(){
@@ -249,7 +266,15 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 
 		//jTable내용 갱신 메소드 호출
-		mList.jTableRefresh();
+		try {
+			userListView.jTableRefresh();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}//actionPerformed 
 
@@ -262,8 +287,8 @@ public class UserRegView extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "비밀번호를 꼭 입력하세요!");
 			return; //메소드 끝
 		}
-		//System.out.println(mList);
-		MemberDAO dao = new MemberDAO();
+		//System.out.println(userListView);
+		UserInfoDao dao = new UserInfoDao();
 		boolean ok = dao.deleteMember(id, pwd);
 
 		if(ok){
@@ -280,9 +305,9 @@ public class UserRegView extends JFrame implements ActionListener {
 	private void UpdateMember() {
 
 		//1. 화면의 정보를 얻는다.
-		MemberDTO dto = getViewData();     
+		UserInfoDto dto = getViewData();     
 		//2. 그정보로 DB를 수정
-		MemberDAO dao = new MemberDAO();
+		UserInfoDao dao = new UserInfoDao();
 		boolean ok = dao.updateMember(dto);
 
 		if(ok){
@@ -296,8 +321,8 @@ public class UserRegView extends JFrame implements ActionListener {
 	private void insertMember(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
-		MemberDTO dto = getViewData();
-		MemberDAO dao = new MemberDAO();       
+		UserInfoDto dto = getViewData();
+		UserInfoDao dao = new UserInfoDao();       
 		boolean ok = dao.insertMember(dto);
 
 		if(ok){
@@ -314,10 +339,10 @@ public class UserRegView extends JFrame implements ActionListener {
 
 	}//insertMember
 
-	public MemberDTO getViewData(){
+	public UserInfoDto getViewData(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
-		MemberDTO dto = new MemberDTO();
+		UserInfoDto dto = new UserInfoDto();
 		String id = jTextField4.getText();
 		String pwd = jPasswordField1.getText();
 		String name = jTextField5.getText();

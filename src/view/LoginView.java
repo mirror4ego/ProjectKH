@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -62,6 +64,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	JLabel jLabel1 = new JLabel("User Login");
 	JLabel jLabel2 = new JLabel(); // 로그인 이미지
 	JLabel jLabel3 = new JLabel(); // 비밀번호 이미지
+	JLabel jLabel4 = new JLabel((new SimpleDateFormat("yyyy년MM월dd일")).format(new Date())); // 현재시간 라벨
 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 25);
 	private Font font2 = new Font("맑은 고딕", Font.BOLD, 15);
@@ -73,7 +76,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	public LoginView() {
 		// 기본 컨테이너 설정
 		this.setTitle("로그인 페이지");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(1600,900);
 		this.setResizable(false);
@@ -159,6 +162,8 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPanel5.setOpaque(false);
 		jPanel6.setOpaque(false);
 		jPanel7.setOpaque(false);
+		
+		//jPanel2.add(jLabel4);
 
 		// 레이아웃 설정
 		jLayeredPane1.setBounds(0, 0, 1600, 900);
@@ -221,8 +226,17 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		}
 
 		if(e.getSource()==jButton2) {
-			//사용자 등록 처리 로직
-			System.out.println("사용자 등록 처리 로직");
+			//사용자 관리 뷰를 띄움
+			System.out.println("사용자 관리 뷰 띄우기");
+			try {
+				UserListView userListView = new UserListView();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else{}
 	}
 

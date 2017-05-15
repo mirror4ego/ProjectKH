@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import domain.CustomerDto;
+import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
 
@@ -42,33 +43,11 @@ public class CustomerDao {
 		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
 	}
 
-	/*	public Customer login(String id, String pa) throws ClassNotFoundException, SQLException {
-		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from customer where id = ?");
-		ps.setString(1, id);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		Customer customer = new Customer();
-		customer.setCustomerId(rs.getString("id"));
-		customer.setCustomerPa(rs.getString("pa"));
-		customer.setCustomerNick(rs.getString("nick"));
-		if(pa==customer.pa){
-			//다이얼로그를 띄워서 해당하는 아이디의 회원정보를 보여줌
-			id = customer.getCustomerId();
-			id=customer.id;
-			pa=customer.pa;
-			nick=customer.nick;
-
-		}else{
-			//로그인 실패 다이얼로그를 띄움
-		}
-	}*/
-
 	public CustomerDto get(int customerNum) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 
-		PreparedStatement ps = c.prepareStatement("select * from customer where customerNum = ?");
+		PreparedStatement ps = c.prepareStatement("select * from customer where customer_num = ?");
 		// preparestatement메소드를 통해서 쿼리문을 날릴 준비를 함
 		ps.setInt(1, customerNum);
 		// ? 에 매개변수로 받아온 id를 입력해서 쿼리문 완성
@@ -78,7 +57,7 @@ public class CustomerDao {
 		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이 메소드를 꼭 한번 실행해야 한다
 		CustomerDto customerDto = new CustomerDto(); // 고객정보 클래스의 객체를 생성
 
-		//customer.setCustomerNum(rs.getInt("customerNum"));
+		customerDto.setCustomerNum(rs.getInt("customerNum"));
 		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
 		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
 		customerDto.setCustomerAddState(rs.getString("customerAddState"));
@@ -94,6 +73,58 @@ public class CustomerDao {
 		c.close();
 
 		return customerDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
+	}
+
+	public CustomerDto searchCustomerPhoneNum(String customerPhoneNum) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("select * from customer where customer_phone_num = ?");
+		ps.setString(1, customerPhoneNum);
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+		CustomerDto customerDto = new CustomerDto();
+		customerDto.setCustomerNum(rs.getInt("customerNum"));
+		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
+		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
+		customerDto.setCustomerAddState(rs.getString("customerAddState"));
+		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
+		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
+		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
+		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
+		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
+
+		rs.close();
+		ps.close();
+		c.close();
+
+		return customerDto;
+	}
+	
+	public CustomerDto searchCustomerAddress(String customerPhoneNum) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("select * from customer where customer_phone_num = ?");
+		ps.setString(1, customerPhoneNum);
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+		CustomerDto customerDto = new CustomerDto();
+		customerDto.setCustomerNum(rs.getInt("customerNum"));
+		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
+		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
+		customerDto.setCustomerAddState(rs.getString("customerAddState"));
+		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
+		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
+		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
+		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
+		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
+
+		rs.close();
+		ps.close();
+		c.close();
+
+		return customerDto;
 	}
 
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에 저장된 데이터를 전부 삭제하는 메소드
