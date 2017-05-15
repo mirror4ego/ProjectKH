@@ -16,11 +16,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
-<<<<<<< HEAD
-=======
 import java.util.Vector;
->>>>>>> 00fa980a1588d3e99b2442c5a57c35dd98dabdd9
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -496,15 +492,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton17){}
 
 		// 직원관리 버튼
-		if(e.getSource()==jButton3){try {
-			UserListView UserListView = new UserListView();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}}
+		if(e.getSource()==jButton3){
+			UserSelectView userSelectView = new UserSelectView();}
+		
 		// 데이터 분석 버튼
 		if(e.getSource()==jButton4){}
 

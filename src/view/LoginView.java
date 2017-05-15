@@ -215,7 +215,15 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 
 				if (existLogin) {
 					JOptionPane.showMessageDialog(null, "로그인 성공");
-					MainView mainView = new MainView();
+					try {
+						MainView mainView = new MainView();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					this.setVisible(false);
 				}else{
 					JOptionPane.showMessageDialog(null, "로그인 실패");
