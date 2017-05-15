@@ -144,23 +144,25 @@ public class UserInfoDao {
 	}
 
 	//사용자 등록 메소드
-	public boolean regUser(UserInfoDto userInfoDto){
+	public boolean regUser(UserInfoDto userInfoDto) throws ClassNotFoundException, SQLException{
 
 		boolean ok = false;
 
 		Connection c = connectionMaker.makeConnection();       
 		try{
-			PreparedStatement ps = c.prepareStatement("insert into tb_member(id,pwd,name,tel,addr,birth,job,gender,email,intro) values(?,?,?,?,?,?,?,?,?,?)");
-			ps.setString(1, userInfoDto.getId());
-			ps.setString(2, userInfoDto.getPwd());
-			ps.setString(3, userInfoDto.getName());
-			ps.setString(4, userInfoDto.getTel());
-			ps.setString(5, userInfoDto.getAddr());
-			ps.setString(6, userInfoDto.getBirth());
+			PreparedStatement ps = c.prepareStatement("insert into userinfo values(?,?,?,seq_userinfo_num.nextval,?,?,?)");
+			ps.setString(1, userInfoDto.getUserInfoId());
+			ps.setString(2, userInfoDto.getUserInfoPassword());
+			ps.setString(3, userInfoDto.getUserInfoName());
+			/*ps.setInt(4, userInfoDto.getUserInfoNum());*/
+			ps.setString(4, userInfoDto.getUserInfoAddress());
+			ps.setInt(5, userInfoDto.getUserInfoPhone());
+			ps.setString(6, userInfoDto.getUserInfoEmail());
+			
+			/*ps.setString(6, userInfoDto.getBirth());
 			ps.setString(7, userInfoDto.getJob());
 			ps.setString(8, userInfoDto.getGender());
-			ps.setString(9, userInfoDto.getEmail());
-			ps.setString(10, userInfoDto.getIntro());          
+			ps.setString(10, userInfoDto.getIntro());*/          
 			int r = ps.executeUpdate();
 
 			if(r>0){
