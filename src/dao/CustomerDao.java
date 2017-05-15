@@ -83,6 +83,7 @@ public class CustomerDao {
 		ResultSet rs = ps.executeQuery();
 
 		rs.next();
+		rs
 		CustomerDto customerDto = new CustomerDto();
 		customerDto.setCustomerNum(rs.getInt("customerNum"));
 		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));

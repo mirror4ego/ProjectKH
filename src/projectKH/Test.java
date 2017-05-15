@@ -21,11 +21,11 @@ public class Test {
 
 		//메인뷰 생성 테스트
 		//MainView ex = new MainView("매장관리"); 
-<<<<<<< HEAD
+
 		OrderView_sub ox = new OrderView_sub("매장관리"); 
-=======
+
 		OrderView_sub a = new OrderView_sub("1");
->>>>>>> ecd3c0b4088bde83238a32db2314a8bdb777331e
+
 		System.out.println("메인 뷰 생성 완료");
 
 		CustomerDto customerDto01 = new CustomerDto(8, "19990904",	"01023303333", "서울", "금천구", "금천동", "162-33 9층 202호", 2, 44);
