@@ -277,7 +277,7 @@ public static void main(String ar[]){
 		}
 
 		//jTable내용 갱신 메소드 호출
-		try {
+/*		try {
 			userListView.jTableRefresh();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -285,7 +285,7 @@ public static void main(String ar[]){
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 	}//actionPerformed 
 
