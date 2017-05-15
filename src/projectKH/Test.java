@@ -9,7 +9,8 @@ public class Test {
 		OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
 		
 		//메인뷰 생성 테스트
-		MainView ex = new MainView("매장관리"); 
+		//MainView ex = new MainView("매장관리"); 
+		OrderView_sub ox = new OrderView_sub("매장관리"); 
 		System.out.println("메인 뷰 생성 완료");
 		
 		Customer customer01 = new Customer(8, "19990904",	"01023303333", "서울", "금천구", "금천동", "162-33 9층 202호", 2, 44);
