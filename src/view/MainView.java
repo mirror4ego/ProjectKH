@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,14 +25,17 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import dao.CustomerDao;
 import dao.DaoFactory;
 import dao.OrderInfoDao;
+import dao.UserInfoDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
 import service.CRM_MainLayout;
@@ -39,6 +44,17 @@ import service.CRM_MainLayout;
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
 
+	//주문내역리스크창 
+	Vector vector1;  
+	Vector vector2;
+	Vector vector3 = new Vector();
+	DefaultTableModel defaultTableModel1 = new DefaultTableModel(vector1, vector2);
+	JTable jTable1 = new JTable(defaultTableModel1);//주문내역 리스크창
+	JScrollPane jScrollPane1 = new JScrollPane(jTable1);
+	JPanel jPanel = new JPanel(); 
+	OrderInfoDao dao = new OrderInfoDao();
+	OrderInfoDao orderInfoDao = new OrderInfoDao();
+	
 	//컨테이너
 	private Container con;
 
@@ -131,12 +147,27 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JPanel jPanel16 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 	//그밖의 구성 객체 생성
-	private JList jList1 = new JList(); // 주문내역 상세 내역이 들어가는 텍스트에리아
-	private JScrollPane jScrollPane1 = new JScrollPane(jList1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
+	//private JList jList1 = new JList(); // 주문내역 상세 내역이 들어가는 텍스트에리아
+	//private JScrollPane jScrollPane1 = new JScrollPane(jList1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15); // 메뉴에 설정될 폰트
 
-	public MainView () {
+	public MainView () throws ClassNotFoundException, SQLException {
 		super("매장관리");
+		//주문내역리스크창
+		
+		jTableRefresh();
+		vector1 = orderInfoDao.getOrderList();
+		System.out.println("v=" + vector1);
+		vector2 = getColumn();
+
+		this.add(jScrollPane1);
+
+		//jPanel1.add(jButton1);
+		//this.add(jPanel1,BorderLayout.NORTH);
+
+
+		jTable1.addMouseListener(this); //리스너 등록
+		//jButton1.addActionListener(this); //회원가입버튼 리스너 등록
 		this.init();
 		this.start();
 		this.setSize(1600,900);
@@ -149,6 +180,18 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		this.setVisible(true);
 	}
 
+	public Vector getColumn(){
+		vector3.add("주문번호");
+		vector3.add("주문일자");
+		vector3.add("메뉴고유값");
+		vector3.add("주문 메뉴양");
+		return vector3;
+	}
+
+	public void jTableRefresh() throws ClassNotFoundException, SQLException{
+		DefaultTableModel model= new DefaultTableModel(dao.getOrderList(), getColumn());
+		jTable1.setModel(model);
+	}
 
 	public void start() {
 
@@ -318,7 +361,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel5.add("South", jPanel8);
 
 		con.add("West", jPanel5);
-		jList1.setEnabled(true);
+		jTable1.setEnabled(true);
 
 		//jList1.setDisabledTextColor(Color.black);
 		//메인 보더레이아웃의 west영역 설정 끝
@@ -397,8 +440,11 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 주문리스트 보기 버튼 
 		if(e.getSource()==jButton5){
-			//OrderInfoDao 
-			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
+			//OrderInfoDao
+			OrderInfoDao a = new OrderInfoDao();
+			Vector ab = a.getOrderList();
+		}
+		/*	OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
 			OrderInfoDto orderInfo = new OrderInfoDto();
 			try{
 				int a = 1;
@@ -406,6 +452,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
+		*/
 
 		//File dir = new File("C://data");
 		//adlgvc.clear();
@@ -452,7 +499,19 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {//주문내역리스크 버튼
+		int r = jTable1.getSelectedRow();
+		String orderInfoNum = (String) jTable1.getValueAt(r, 0);
+		try {
+			OrderRegView mem = new OrderRegView(orderInfoNum, this); //선택한 주문내역 상세보기
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+	}
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override

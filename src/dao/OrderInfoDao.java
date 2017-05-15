@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import domain.OrderInfoDto;
+import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
 
@@ -50,6 +52,77 @@ public class OrderInfoDao {
 		c.close(); // 사용한 c객체 닫기
 		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
 	}
+	
+	//모든 주문내역 리스트를 가져오는 메소드
+		public Vector getOrderList() throws ClassNotFoundException, SQLException{
+			Connection c = connectionMaker.makeConnection();
+			Vector data = new Vector();
+
+			try{
+				PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderInfoNum asc");
+				ResultSet rs = ps.executeQuery();
+
+				while(rs.next()){	
+					int orderInfoNum = rs.getInt("orderInfoNum");  //주문번호
+					int orderInfoDate = rs.getInt("orderInfoDate");//주문일자
+					int orderInfoMenuNum = rs.getInt("orderInfoMenuNum");//메뉴고유값
+					int orderInfoMenuAmount = rs.getInt("orderInfoMenuAmount");//주문메뉴양
+					
+					Vector row = new Vector();
+					row.add(orderInfoNum);
+					row.add(orderInfoDate);
+					row.add(orderInfoMenuNum);
+					row.add(orderInfoMenuAmount);
+					
+
+					data.add(row);             
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return data;
+		}
+
+		//선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
+		public OrderInfoDto getOneOrder(int orderInfoNum) throws ClassNotFoundException, SQLException{
+
+			Connection c = connectionMaker.makeConnection();
+			OrderInfoDto orderInfoDto = new OrderInfoDto();
+
+			try{
+				PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderInfoNum=?");
+				ps.setInt(1, orderInfoNum);
+				ResultSet rs = ps.executeQuery();
+
+				if(rs.next()){
+					
+					orderInfoDto.setOrderInfoNum(rs.getInt("orderInfoNum"));  //주문번호
+					orderInfoDto.setOrderInfoDate(rs.getString("orderInfoDate"));//주문일자
+					orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfoLocPossiblity"));//주문가능여부(지역)
+					orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfoOrderPossiblity"));//주문가능여부(주문량)
+					orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));//메뉴고유값
+					orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));//주문 메뉴양
+					orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfoRequestInfo"));//주문요청사항
+					orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfoChannelNum"));//채널고유값
+					orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfoRequestDelivery"));//배달요청시간
+					orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfoPackCompletion"));//주문 프로세스(포장)완료여부
+					orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfoDeliveryCompletion"));//주문 프로세스(배달)완료여부
+					orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfoOrderCompletion"));//주문 프로세스완료여부
+					orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfoMoneyCollection"));//수금여부
+					orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfoDeliveryPredict"));//배달예측시간
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}      
+
+			return orderInfoDto;    
+		}
+	
+	
+	
+	
+	
 
 
 
