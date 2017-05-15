@@ -27,9 +27,6 @@ import domain.UserInfoDto;
 
 
 public class UserRegView extends JFrame implements ActionListener {
-public static void main(String ar[]){
-	UserRegView a = new UserRegView();
-}
 
 	JPanel jPanel1;
 	JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7; //전화
