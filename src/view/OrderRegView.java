@@ -106,18 +106,18 @@ public class OrderRegView extends JFrame implements ActionListener {
 		OrderInfoDto vMem = dao.getOneOrder(orderInfoNum);
 		viewData(vMem);
 	} //orderInfoNum를 가지고 생성
-*/
+
 	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
 	private void viewData(OrderInfoDto vMem){
    
-		int orderInfoNum=vMem.orderInfoDto();  //주문번호
-		int orderInfoDate=vMem.orderInfoDto(); //주문일자
-		String orderInfoLocPossiblity=vMem.orderInfoDto(); //주문가능여부(지역)
-		String orderInfoOrderPossiblity=vMem.orderInfoDto(); //주문가능여부(주문량)
-		int orderInfoMenuNum=vMem.orderInfoDto(); //메뉴고유값
-		int orderInfoMenuAmount=vMem.orderInfoDto(); //주문 메뉴양
-		String orderInfoRequestInfo=vMem.orderInfoDto(); //주문요청사항
-		int OrderInfoNum=vMem.orderInfoDto();//채널고유값
+		int orderInfoNum=vMem.getOrderInfoNum();  //주문번호
+		String orderInfoDate=vMem.getOrderInfoDate(); //주문일자
+		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossiblity(); //주문가능여부(지역)
+		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossiblity(); //주문가능여부(주문량)
+		int orderInfoMenuNum=vMem.getOrderInfoMenuNum(); //메뉴고유값
+		int orderInfoMenuAmount=vMem.getOrderInfoMenuAmount(); //주문 메뉴양
+		String orderInfoRequestInfo=vMem.getOrderInfoRequestInfo(); //주문요청사항
+		int orderInfoChannelNum=vMem.getOrderInfoChannelNum();//채널고유값
 		String orderInfoChannelNum=vMem.orderInfoDto();//배달요청시간
 		String orderInfoPackCompletion=vMem.orderInfoDto(); //주문 프로세스(포장)완료여부
 		String orderInfoDeliveryCompletion=vMem.orderInfoDto(); //주문 프로세스(배달)완료여부
