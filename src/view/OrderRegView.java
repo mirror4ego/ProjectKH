@@ -3,10 +3,12 @@ package view;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -21,6 +23,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 
 import dao.OrderInfoDao;
 import domain.OrderInfoDto;
@@ -45,10 +49,12 @@ public class OrderRegView extends JFrame implements ActionListener {
 	private JLabel jLabel24 = new JLabel("주문 프로세스 완료 여부 : ", JLabel.LEFT);
 	private JLabel jLabel25 = new JLabel("수금 여부 : ", JLabel.LEFT);
 	private JLabel jLabel26 = new JLabel("배달 예측시간 : ", JLabel.LEFT);
-	//JButton jButton1, jButton2, jButton3, jButton4; //가입, 취소, 수정 , 탈퇴 버튼
+	
+	JButton jButton1, jButton2, jButton3, jButton4; //가입, 취소, 수정 , 탈퇴 버튼
+	
 	//텍스트필드 객체 생성
 	private JTextField jTextField10 = new JTextField("1", 10);//주문번호 입력창
-	private JTextField jTextField11 = new JTextField("2", 10);//고객번호 입력창
+	//private JTextField jTextField11 = new JTextField("2", 10);//고객번호 입력창
 	private JTextField jTextField12 = new JTextField("20170304", 10);//주문일자 입력창
 	private JTextField jTextField13 = new JTextField("1", 10);// 주문가능여부(지역)
 	private JTextField jTextField14 = new JTextField("2", 10);// 주문가능여부(주문량)
@@ -62,12 +68,14 @@ public class OrderRegView extends JFrame implements ActionListener {
 	private JTextField jTextField22 = new JTextField("3", 10); // 주문프로세스3
 	private JTextField jTextField23 = new JTextField("4", 10); // 수금여부
 	private JTextField jTextField24 = new JTextField("20170304", 10); // 배달예측시간
-
+	//패널 객체 생성
+	private JPanel jPanel8 = new JPanel(new GridLayout(16, 2)); // 오더정보 메인 패널
+	
 	GridBagLayout gridBagLayout1;
 	GridBagConstraints gridBagConstraints1;
-	/*
-	UserListView userListView;
-
+	
+	getUserList getUserList1;
+/*
 	public UserRegView(){ //가입용 생성자
 		createUI(); //UI작성해주는 메소드
 		jButton3.setEnabled(false);
@@ -83,35 +91,42 @@ public class OrderRegView extends JFrame implements ActionListener {
 		jButton4.setEnabled(false);
 		jButton4.setVisible(false);
 		this.userListView = userListView;  
-	}*/
-
-	public UserRegView(String id, UserListView userListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
+	}
+    */
+	//수정/삭제용 생성자
+	public OrderRegView(getUserList getUserList1) throws ClassNotFoundException, SQLException{ 
 		createUI();
-		jButton1.setEnabled(false);
-		jButton1.setVisible(false);
+		//jButton1.setEnabled(false);
+		//jButton1.setVisible(false);
 		this.userListView = userListView;
 
-		System.out.println("id="+id);
+		System.out.println("orderInfoNum="+orderInfoNum);
 
-		UserInfoDao dao = new UserInfoDao();
-		UserInfoDto vMem = dao.getOneUser(id);
+		OrderInfoDao dao = new OrderInfoDao();
+		OrderInfoDto vMem = dao.getOneOrder(orderInfoNum);
 		viewData(vMem);
-	} //id를 가지고 생성
-
+	} //orderInfoNum를 가지고 생성
+*/
 	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
-	private void viewData(UserInfoDto vMem){
+	private void viewData(OrderInfoDto vMem){
+   
+		int orderInfoNum=vMem.orderInfoDto();  //주문번호
+		int orderInfoDate=vMem.orderInfoDto(); //주문일자
+		String orderInfoLocPossiblity=vMem.orderInfoDto(); //주문가능여부(지역)
+		String orderInfoOrderPossiblity=vMem.orderInfoDto(); //주문가능여부(주문량)
+		int orderInfoMenuNum=vMem.orderInfoDto(); //메뉴고유값
+		int orderInfoMenuAmount=vMem.orderInfoDto(); //주문 메뉴양
+		String orderInfoRequestInfo=vMem.orderInfoDto(); //주문요청사항
+		int OrderInfoNum=vMem.orderInfoDto();//채널고유값
+		String orderInfoChannelNum=vMem.orderInfoDto();//배달요청시간
+		String orderInfoPackCompletion=vMem.orderInfoDto(); //주문 프로세스(포장)완료여부
+		String orderInfoDeliveryCompletion=vMem.orderInfoDto(); //주문 프로세스(배달)완료여부
+		String orderInfoOrderCompletion=vMem.orderInfoDto(); //주문 프로세스완료여부
+		String orderInfoMoneyCollection=vMem.orderInfoDto(); //수금여부
+		String orderInfoDeliveryPredict=vMem.orderInfoDto();//배달예측시간
 
-		String id = vMem.getUserInfoId();
-		String pwd = vMem.getUserInfoPassword();
-		String name = vMem.getUserInfoName();
-		int tel = vMem.getUserInfoPhone();
-		String addr = vMem.getUserInfoAddress();
-		//String birth = vMem.getBirth();
-		//String job = vMem.getJob();
-		//String gender = vMem.getGender();
-		String email= vMem.getUserInfoEmail();
-		//String intro = vMem.getIntro();    
-
+		
+		
 		//화면에 세팅
 		jTextField4.setText(id);
 		jTextField4.setEditable(false); //편집 안되게
@@ -135,11 +150,11 @@ public class OrderRegView extends JFrame implements ActionListener {
 			jRadioButton1.setSelected(true);
 		}
 */
-		jTextField7.setText(email);
+		//jTextField7.setText(email);
 		//jTextArea1.setText(intro);
 	}//viewData
 
-	private void createUI(){
+	private void createUI(){   //화면 구성뷰
 		this.setTitle("회원정보");
 		gridBagLayout1 = new GridBagLayout();
 		setLayout(gridBagLayout1);
@@ -148,111 +163,50 @@ public class OrderRegView extends JFrame implements ActionListener {
 		gridBagConstraints1.weightx = 1.0;
 		gridBagConstraints1.weighty = 1.0;
 
-		//아이디
-		JLabel bId = new JLabel("아이디 : ");
-		jTextField4 = new JTextField(20);     
-		//그리드백에 붙이기
-		gbAdd(bId, 0, 0, 1, 1);
-		gbAdd(jTextField4, 1, 0, 3, 1);
+		//주문 관리 패널 구성 시작
 
-		//비밀번호
-		JLabel bPwd = new JLabel("비밀번호 : ");
-		jPasswordField1 = new JPasswordField(20);
-		gbAdd(bPwd, 0, 1, 1, 1);
-		gbAdd(jPasswordField1, 1, 1, 3, 1);
+				jPanel8.add(jLabel12);
+				jPanel8.add(jTextField10);
+				jPanel8.add(jLabel13);
+				//jPanel8.add(jTextField11);
+				jPanel8.add(jLabel14);
+				jPanel8.add(jTextField12);
+				jPanel8.add(jLabel15);
+				jPanel8.add(jTextField13);
+				jPanel8.add(jLabel16);
+				jPanel8.add(jTextField14);
+				jPanel8.add(jLabel17);
+				jPanel8.add(jTextField15);
+				jPanel8.add(jLabel18);
+				jPanel8.add(jTextField16);
+				jPanel8.add(jLabel19);
+				jPanel8.add(jTextField17);
+				jPanel8.add(jLabel20);
+				jPanel8.add(jTextField18);
+				jPanel8.add(jLabel21);
+				jPanel8.add(jTextField19);
+				jPanel8.add(jLabel22);
+				jPanel8.add(jTextField20);
+				jPanel8.add(jLabel23);
+				jPanel8.add(jTextField21);
+				jPanel8.add(jLabel24);
+				jPanel8.add(jTextField22);
+				jPanel8.add(jLabel25);
+				jPanel8.add(jTextField23);
+				jPanel8.add(jLabel26);
+				jPanel8.add(jTextField24);
+				  jPanel8.add(jButton3);
+				  jPanel8.add(jButton2);
+				  jPanel8.add(jButton4);
 
-		//이름
-		JLabel bName = new JLabel("이름 :");
-		jTextField5 = new JTextField(20);
-		gbAdd(bName,0,2,1,1);
-		gbAdd(jTextField5,1,2,3,1);
-
-		//전화
-		JLabel bTel = new JLabel("전화 :");
-		JPanel pTel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jTextField1 = new JTextField(6);    
-		jTextField2 = new JTextField(6);    
-		jTextField3 = new JTextField(6);
-		pTel.add(jTextField1);
-		pTel.add(new JLabel(" - "));
-		pTel.add(jTextField2);
-		pTel.add(new JLabel(" - "));
-		pTel.add(jTextField3);
-		gbAdd(bTel, 0, 3, 1,1);
-		gbAdd(pTel, 1, 3, 3,1);
-
-		//주소
-		JLabel bAddr = new JLabel("주소: ");
-		jTextField6 = new JTextField(20);
-		gbAdd(bAddr, 0,4,1,1);
-		gbAdd(jTextField6, 1, 4, 3,1);
-
-		//생일
-		JLabel bBirth= new JLabel("생일: ");
-		jTextArea8 = new JTextField(6);
-		jTextArea9 = new JTextField(6);
-		jTextArea10 = new JTextField(6);
-		JPanel pBirth = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		pBirth.add(jTextArea8);
-		pBirth.add(new JLabel("/"));
-		pBirth.add(jTextArea9);
-		pBirth.add(new JLabel("/"));
-		pBirth.add(jTextArea10);
-		gbAdd(bBirth, 0,5,1,1);
-		gbAdd(pBirth, 1, 5, 3,1);
-
-		//직업       
-		JLabel bJob = new JLabel("직업 : ");
-		String[] arrJob = {"---", "학생", "직장인", "주부"};
-		jComboBox1 = new JComboBox(arrJob);
-		JPanel pJob = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		pJob.add(jComboBox1);       
-		gbAdd(bJob, 0,6,1,1);
-		gbAdd(pJob,1,6,3,1);
-
-		//성별
-		JLabel bGender = new JLabel("성별 : ");
-		JPanel pGender = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jRadioButton2 = new JRadioButton("남",true);
-		jRadioButton1 = new JRadioButton("여",true);
-		ButtonGroup group = new ButtonGroup();
-		group.add(jRadioButton2);
-		group.add(jRadioButton1);
-		pGender.add(jRadioButton2);
-		pGender.add(jRadioButton1);      
-		gbAdd(bGender, 0,7,1,1);
-		gbAdd(pGender,1,7,3,1);
-
-		//이메일
-		JLabel bEmail = new JLabel("이메일 : ");
-		jTextField7 = new JTextField(20);
-		gbAdd(bEmail, 0,8,1,1);
-		gbAdd(jTextField7,1,8,3,1);
-
-		//자기소개
-		JLabel bIntro = new JLabel("자기 소개: ");
-		jTextArea1 = new JTextArea(5, 20); //행 : 열
-		JScrollPane pane = new JScrollPane(jTextArea1);
-		gbAdd(bIntro,0,9,1,1);
-		gbAdd(pane,1,9,3,1);
-
-		//버튼
-		JPanel pButton = new JPanel();
-		jButton1 = new JButton("가입");
-		jButton3 = new JButton("수정"); 
-		jButton4 = new JButton("탈퇴");
-		jButton2 = new JButton("취소");     
-		pButton.add(jButton1);
-		pButton.add(jButton3);
-		pButton.add(jButton4);
-		pButton.add(jButton2);    
-		gbAdd(pButton, 0, 10, 4, 1);
+				jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
+				//주문 관리 패널 구성 끝
 
 		//버튼에 감지기를 붙이자
-		jButton1.addActionListener(this);
-		jButton3.addActionListener(this);
-		jButton2.addActionListener(this);
-		jButton4.addActionListener(this);
+		  //jButton1.addActionListener(this);
+	      jButton3.addActionListener(this);  //수정버튼
+		  jButton2.addActionListener(this);  //삭제버튼
+		  jButton4.addActionListener(this);  //취소버튼
 
 		setSize(350,500);
 		setVisible(true);
@@ -274,19 +228,19 @@ public class OrderRegView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == jButton1){
-			insertMember();
-			System.out.println("insertMember() 호출 종료");
+			insertOrder();
+			System.out.println("insertOrder() 호출 종료");
 		}else if(ae.getSource() == jButton2){
 			this.dispose(); //창닫기 (현재창만 닫힘)
 			//system.exit(0)=> 내가 띄운 모든 창이 다 닫힘          
 		}else if(ae.getSource() == jButton3){
-			UpdateMember();            
+			UpdateOrder();            
 		}else if(ae.getSource() == jButton4){
 			//int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?");
 			int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?","삭제",JOptionPane.YES_NO_OPTION);
 
 			if (x == JOptionPane.OK_OPTION){
-				deleteMember();
+				deleteOrder();
 			}else{
 				JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.");
 			}
@@ -306,17 +260,11 @@ public class OrderRegView extends JFrame implements ActionListener {
 	}//actionPerformed 
 
 
-	private void deleteMember() {
-		String id = jTextField4.getText();
-		String pwd = jPasswordField1.getText();
-		if(pwd.length()==0){ //길이가 0이면
-
-			JOptionPane.showMessageDialog(this, "비밀번호를 꼭 입력하세요!");
-			return; //메소드 끝
-		}
+	private void deleteOrder() {
+		
 		//System.out.println(userListView);
-		UserInfoDao dao = new UserInfoDao();
-		boolean ok = dao.deleteMember(id, pwd);
+		OrderInfoDao dao = new OrderInfoDao();
+		boolean ok = dao.deleteOrder(orderInfoNum);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "삭제완료");
@@ -329,13 +277,13 @@ public class OrderRegView extends JFrame implements ActionListener {
 
 	}//deleteMember
 
-	private void UpdateMember() {
+	private void UpdateOrder() {
 
 		//1. 화면의 정보를 얻는다.
-		UserInfoDto dto = getViewData();     
+		OrderInfoDto dto = getViewData();     
 		//2. 그정보로 DB를 수정
-		UserInfoDao dao = new UserInfoDao();
-		boolean ok = dao.updateMember(dto);
+		OrderInfoDao dao = new OrderInfoDao();
+		boolean ok = dao.updateOrder(dto);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "수정되었습니다.");
@@ -345,66 +293,62 @@ public class OrderRegView extends JFrame implements ActionListener {
 		}
 	}
 
-	private void insertMember(){
+	private void insertOrder(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
-		UserInfoDto dto = getViewData();
-		UserInfoDao dao = new UserInfoDao();       
-		boolean ok = dao.insertMember(dto);
+		OrderInfoDto dto = getViewData();
+		OrderInfoDao dao = new OrderInfoDao();       
+		boolean ok = dao.insertOrder(dto);
 
 		if(ok){
 
-			JOptionPane.showMessageDialog(this, "가입이 완료되었습니다.");
+			JOptionPane.showMessageDialog(this, "수정이 완료되었습니다.");
 			dispose();
 
 		}else{
 
-			JOptionPane.showMessageDialog(this, "가입이 정상적으로 처리되지 않았습니다.");
+			JOptionPane.showMessageDialog(this, "수정이 정상적으로 처리되지 않았습니다.");
 		}
 
 
 
 	}//insertMember
+	
 
-	public UserInfoDto getViewData(){
+	public OrderInfoDto getViewData(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
-		UserInfoDto dto = new UserInfoDto();
-		String id = jTextField4.getText();
-		String pwd = jPasswordField1.getText();
-		String name = jTextField5.getText();
-		String tel1 = jTextField1.getText();
-		String tel2 = jTextField2.getText();
-		String tel3 = jTextField3.getText();
-		String tel = tel1+"-"+tel2+"-"+tel3;
-		String addr = jTextField6.getText();
-		String birth1 = jTextArea8.getText();
-		String birth2 = jTextArea9.getText();
-		String birth3 = jTextArea10.getText();
-		//String birth = birth1+"/"+birth2+"/"+birth3;
-		String birth = birth1+birth2+birth3;
-		String job = (String)jComboBox1.getSelectedItem();
-		String gender = "";
-		if(jRadioButton2.isSelected()){
-			gender = "M";
-		}else if(jRadioButton1.isSelected()){
-			gender = "W";
-		}
-
-		String email = jTextField7.getText();
-		String intro = jTextArea1.getText();
+		OrderInfoDto dto = new OrderInfoDto();
+		int orderInfoNum = jTextField10.getText();
+		String orderInfoDate = jTextField12.getText();
+		String orderInfoLocPossiblity = jTextField13.getText();
+		String orderInfoOrderPossiblity = jTextField14.getText();
+		int orderInfoMenuNum = jTextField15.getText();
+		int orderInfoMenuAmount = jTextField16.getText();
+		String orderInfoRequestInfo = jTextField17.getText();
+		int orderInfoChannelNum = jTextField18.getText();
+		String orderInfoRequestDelivery = jTextField19.getText();
+		String orderInfoPackCompletion = jTextField20.getText();
+		String orderInfoDeliveryCompletion = jTextField21.getText();
+		String orderInfoOrderCompletion = jTextField22.getText();
+		String orderInfoMoneyCollection = jTextField23.getText();
+		String orderInfoDeliveryPredict = jTextField24.getText();
 
 		//dto에 담는다.
-		dto.setId(id);
-		dto.setPwd(pwd);
-		dto.setName(name);
-		dto.setTel(tel);
-		dto.setAddr(addr);
-		dto.setBirth(birth);
-		dto.setJob(job);
-		dto.setGender(gender);
-		dto.setEmail(email);
-		dto.setIntro(intro);
+		dto.setorderInfoNum(orderInfoNum);
+		dto.setorderInfoDate(orderInfoDate);
+		dto.setorderInfoLocPossiblity(orderInfoLocPossiblity);
+		dto.setorderInfoOrderPossiblity(orderInfoOrderPossiblity);
+		dto.setorderInfoMenuNum(orderInfoMenuNum);
+		dto.setorderInfoMenuAmount (orderInfoMenuAmount );
+		dto.setorderInfoRequestInfo(orderInfoRequestInfo);
+		dto.setorderInfoChannelNum(orderInfoChannelNum);
+		dto.setorderInfoRequestDelivery(orderInfoRequestDelivery);
+		dto.setorderInfoPackCompletion(orderInfoPackCompletion);
+		dto.setorderInfoDeliveryCompletion(orderInfoDeliveryCompletion);
+		dto.setorderInfoOrderCompletion(orderInfoOrderCompletion);
+		dto.setorderInfoMoneyCollection(orderInfoMoneyCollection);
+		dto.setorderInfoDeliveryPredict(orderInfoDeliveryPredict);
 
 		return dto;
 	}
