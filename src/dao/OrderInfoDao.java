@@ -59,14 +59,14 @@ public class OrderInfoDao {
 			Vector data = new Vector();
 
 			try{
-				PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderInfoNum asc");
+				PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderInfo_Num asc");
 				ResultSet rs = ps.executeQuery();
 
 				while(rs.next()){	
-					int orderInfoNum = rs.getInt("orderInfoNum");  //주문번호
-					int orderInfoDate = rs.getInt("orderInfoDate");//주문일자
-					int orderInfoMenuNum = rs.getInt("orderInfoMenuNum");//메뉴고유값
-					int orderInfoMenuAmount = rs.getInt("orderInfoMenuAmount");//주문메뉴양
+					int orderInfoNum = rs.getInt("orderInfo_Num");  //주문번호
+					String orderInfoDate = rs.getString("orderInfo_Date");//주문일자
+					int orderInfoMenuNum = rs.getInt("orderInfo_Menu_Num");//메뉴고유값
+					int orderInfoMenuAmount = rs.getInt("orderInfo_Menu_Amount");//주문메뉴양
 					
 					Vector row = new Vector();
 					row.add(orderInfoNum);

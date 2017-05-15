@@ -442,7 +442,15 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		if(e.getSource()==jButton5){
 			//OrderInfoDao
 			OrderInfoDao a = new OrderInfoDao();
-			Vector ab = a.getOrderList();
+			try {
+				Vector ab = a.getOrderList();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		/*	OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
 			OrderInfoDto orderInfo = new OrderInfoDto();
