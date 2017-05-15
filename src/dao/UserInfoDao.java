@@ -1,0 +1,226 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+
+import domain.UserInfoDto;
+import resources.ConnectionMaker;
+import resources.ConnectionMakerKH;
+
+public class UserInfoDao {
+	private ConnectionMaker connectionMaker;
+
+	public UserInfoDao() {
+		connectionMaker = new ConnectionMakerKH();
+	}
+
+	public void add(UserInfoDto userInfoDto) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+
+		PreparedStatement ps = c.prepareStatement("insert into userinfo values (?,?,?,seq_userinfo_num.nextval,?,?,?)");
+
+		// 각 물음표 값에 들어갈 값을 지정하고 set
+		ps.setString(1, userInfoDto.getUserInfoId());
+		ps.setString(2, userInfoDto.getUserInfoPassword());
+		ps.setString(3, userInfoDto.getUserInfoName());
+		ps.setString(4, userInfoDto.getUserInfoAddress());
+		ps.setInt(5, userInfoDto.getUserInfoPhone());
+		ps.setString(6, userInfoDto.getUserInfoEmail());
+
+		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는 sql문은
+		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
+		// executeQuery 메소드를 사용해야 한다.
+
+		ps.close(); // 사용한 ps객체 닫기
+		c.close(); // 사용한 c객체 닫기
+		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
+	}
+
+	public UserInfoDto get(String userInfoId) throws ClassNotFoundException, SQLException { // 
+		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
+
+		PreparedStatement ps = c.prepareStatement("select * from userinfo where userinfo_id = ?");
+		// preparestatement메소드를 통해서 쿼리문을 날릴 준비를 함
+		ps.setString(1, userInfoId);
+		// ? 에 매개변수로 받아온 id를 입력해서 쿼리문 완성
+
+		ResultSet rs = ps.executeQuery();
+		// 쿼리문을 실행 executeQuery를 통해서 쿼리를 실행한 결과 값을 받아와서 ResultSet의 객체참조주소 rs에 저장
+
+		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이 메소드를 꼭 한번 실행해야 한다
+		UserInfoDto userInfoDto = new UserInfoDto(); // 고객정보 클래스의 객체를 생성
+		userInfoDto.setUserInfoId(rs.getString("userinfo_id"));
+		userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
+		userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
+		userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
+		userInfoDto.setUserInfoAddress(rs.getString("userinfo_address"));
+		userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
+		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
+
+		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
+		rs.close();
+		ps.close();
+		c.close();
+
+		return userInfoDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
+
+	}
+
+	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에 저장된 데이터를 전부 삭제하는 메소드
+		Connection c = connectionMaker.makeConnection();
+
+		PreparedStatement ps = c.prepareStatement("truncate table userinfo");
+		ps.executeUpdate();
+
+		ps.close();
+		c.close();
+	}
+
+	//모든 사용자 리스트를 가져오는 메소드
+	public Vector getUserList() throws ClassNotFoundException, SQLException{
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from userinfo order by userinfo_name asc");
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){	
+				String userinfo_id = rs.getString("userinfo_id");
+				String userinfo_password = rs.getString("userinfo_password");
+				String userinfo_name = rs.getString("userinfo_name");
+				int userinfo_num = rs.getInt("userinfo_num");
+				String userinfo_address = rs.getString("userinfo_address");
+				int userinfo_phone = rs.getInt("userinfo_phone");
+				String userinfo_email = rs.getString("userinfo_email");
+
+				Vector row = new Vector();
+				row.add(userinfo_id);
+				row.add(userinfo_password);
+				row.add(userinfo_name);
+				row.add(userinfo_num);
+				row.add(userinfo_address);
+				row.add(userinfo_phone);
+				row.add(userinfo_email);
+
+				data.add(row);             
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	//사용자 한명의 정보를 가져오는 메소드 (id를 기준으로)
+	public UserInfoDto getOneUser(String id) throws ClassNotFoundException, SQLException{
+
+		Connection c = connectionMaker.makeConnection();
+		UserInfoDto userInfoDto = new UserInfoDto();
+
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from userinfo where userinfo_id=?");
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next()){
+
+				userInfoDto.setUserInfoId(rs.getString("userinfo_id"));
+				userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
+				userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
+				userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
+				userInfoDto.setUserInfoAddress(rs.getString("userinfo_address"));
+				userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
+				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}      
+
+		return userInfoDto;    
+	}
+
+	//사용자 등록 메소드
+	public boolean regUser(UserInfoDto userInfoDto){
+
+		boolean ok = false;
+
+		Connection c = connectionMaker.makeConnection();       
+		try{
+			PreparedStatement ps = c.prepareStatement("insert into tb_member(id,pwd,name,tel,addr,birth,job,gender,email,intro) values(?,?,?,?,?,?,?,?,?,?)");
+			ps.setString(1, userInfoDto.getId());
+			ps.setString(2, userInfoDto.getPwd());
+			ps.setString(3, userInfoDto.getName());
+			ps.setString(4, userInfoDto.getTel());
+			ps.setString(5, userInfoDto.getAddr());
+			ps.setString(6, userInfoDto.getBirth());
+			ps.setString(7, userInfoDto.getJob());
+			ps.setString(8, userInfoDto.getGender());
+			ps.setString(9, userInfoDto.getEmail());
+			ps.setString(10, userInfoDto.getIntro());          
+			int r = ps.executeUpdate();
+
+			if(r>0){
+				System.out.println("가입 성공");   
+				ok=true;
+			}else{
+				System.out.println("가입 실패");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return ok;
+	}
+
+	// 사용자 수정 메소드
+	public boolean updateMember(UserInfoDto userInfoDto){
+		System.out.println("dto="+userInfoDto.toString());
+		boolean ok = false;
+		try{
+			Connection c = connectionMaker.makeConnection();          
+			PreparedStatement ps = c.prepareStatement("update tb_member set name=?, tel=?, addr=?, birth=?, job=?, gender=?, email=?,intro=? "+ "where id=? and pwd=?");
+
+			ps.setString(1, userInfoDto.getName());
+			ps.setString(2, userInfoDto.getTel());
+			ps.setString(3, userInfoDto.getAddr());
+			ps.setString(4, userInfoDto.getBirth());
+			ps.setString(5, userInfoDto.getJob());
+			ps.setString(6, userInfoDto.getGender());
+			ps.setString(7, userInfoDto.getEmail());
+			ps.setString(8, userInfoDto.getIntro());
+			ps.setString(9, userInfoDto.getId());
+			ps.setString(10, userInfoDto.getPwd());
+
+			int r = ps.executeUpdate();
+			if(r>0) ok = true;
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return ok;
+	}
+
+	//사용자정보 삭제 메소드
+	public boolean deleteMember(String id, String pwd){
+
+		boolean ok =false ;
+
+		try {
+			Connection c = connectionMaker.makeConnection();   
+			PreparedStatement ps = c.prepareStatement("delete from tb_member where id=? and pwd=?");
+			ps.setString(1, id);
+			ps.setString(2, pwd);
+			int r = ps.executeUpdate();
+			if (r>0) ok=true;
+
+		} catch (Exception e) {
+			System.out.println(e + "-> 오류발생");
+		}      
+		return ok;
+	}
+
+}
