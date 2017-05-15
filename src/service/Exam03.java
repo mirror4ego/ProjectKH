@@ -11,7 +11,12 @@ import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import dao.CustomerDao;
+import domain.CustomerDto;
 
 @SuppressWarnings("serial")
 public class Exam03 extends JPanel {
@@ -26,6 +31,7 @@ public class Exam03 extends JPanel {
 	private static final int Y_HATCH_CNT = 10;
 	private List<Integer> scores;
 
+
 	public Exam03(List<Integer> scores) {
 		this.scores = scores;
 	}
@@ -33,6 +39,7 @@ public class Exam03 extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
