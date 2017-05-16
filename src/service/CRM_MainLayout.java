@@ -32,6 +32,7 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 		choice.add("B");
 		choice.add("C");
 		choice.add("D");
+		choice.add("E");
 		this.add(choice);
 
 
@@ -66,11 +67,10 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 			      });
 				break;
 			case 3:
-				JFrame f = new JFrame();
-				f.setSize(400, 300);	
-				f.getContentPane().add(new Exam04("TITLE"));
-				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				f.setVisible(true);
+				Exam04 ex04 = new Exam04();
+				break;
+			case 4:
+				Exam05 ex = new Exam05();
 				break;
 			}
 		}

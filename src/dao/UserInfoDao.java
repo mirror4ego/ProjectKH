@@ -80,6 +80,8 @@ public class UserInfoDao {
 		ps.close();
 		c.close();
 	}
+	
+
 
 	//모든 사용자 리스트를 가져오는 메소드
 	public Vector getUserList() throws ClassNotFoundException, SQLException{
