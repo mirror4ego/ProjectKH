@@ -31,11 +31,17 @@ public AttendanceView(){
 	this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
 			(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
 	this.setVisible(true);
+<<<<<<< HEAD
 
 }
 
 
 
+=======
+	
+}
+
+>>>>>>> c87afed17c9845bcca5f4d24ee122e9c8d7cb241
 public AttendanceView(String name, int numberOfClass, int absence, int late, int eLeave){
 	
 	super();

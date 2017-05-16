@@ -149,7 +149,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	//private JScrollPane jScrollPane1 = new JScrollPane(jList1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15); // 메뉴에 설정될 폰트
 
-	public MainView () throws ClassNotFoundException, SQLException {
+	public MainView() throws ClassNotFoundException, SQLException {
 		super("매장관리");
 		//주문내역리스크창
 
@@ -400,8 +400,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			int orderInfoNum = Integer.parseInt(jTextField10.getText().trim());
 			int orderInfoCustomerNum = Integer.parseInt(jTextField11.getText().trim());
 			String orderInfoDate = jTextField12.getText().trim();
-			String orderInfoLocPossiblity = jTextField13.getText().trim();
-			String orderInfoOrderPossiblity = jTextField14.getText().trim();
+			String orderInfoLocPossibility = jTextField13.getText().trim();
+			String orderInfoOrderPossibility = jTextField14.getText().trim();
 			int orderInfoMenuNum = Integer.parseInt(jTextField15.getText().trim());
 			int orderInfoMenuAmount = Integer.parseInt(jTextField16.getText().trim());
 			String orderInfoRequestInfo = jTextField17.getText().trim();
@@ -414,7 +414,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String orderInfoDeliveryPredict = jTextField24.getText().trim();
 			//OrderInfoDao 
 			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossiblity, orderInfoOrderPossiblity,
+			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossibility, orderInfoOrderPossibility,
 					orderInfoMenuNum, orderInfoMenuAmount, orderInfoRequestInfo, orderInfoChannelNum,
 					orderInfoRequestDelivery, orderInfoPackCompletion, orderInfoDeliveryCompletion,
 					orderInfoOrderCompletion, orderInfoMoneyCollection, orderInfoDeliveryPredict, 
@@ -437,6 +437,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 주문리스트 보기 버튼 
 		if(e.getSource()==jButton5){
+			/*
 			OrderInfoDao a = new OrderInfoDao();
 			try {
 				Vector ab = a.getOrderList();
@@ -446,7 +447,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}*/
+		
+			//	new OrderRegView( this);
 		}
 
 		/*	OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
@@ -535,11 +538,24 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 	@Override
 	public void mouseClicked(MouseEvent e) {//주문내역리스크 버튼
+
+		int r = jTable1.getSelectedRow();
+		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
+		try {
+			OrderRegView OrderRegView = new OrderRegView(orderInfoNum, this); //선택한 주문내역 상세보기
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+/*
 		if(e.getSource()==jButton5) {
 			int r = jTable1.getSelectedRow();
-			String orderInfoNum = (String) jTable1.getValueAt(r, 0);
+			String orderInfoNum1 = (String) jTable1.getValueAt(r, 0);
 			try {
-				OrderRegView mem = new OrderRegView(orderInfoNum, this); //선택한 주문내역 상세보기
+				OrderRegView mem = new OrderRegView(orderInfoNum1, this); //선택한 주문내역 상세보기
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -548,7 +564,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				e1.printStackTrace();
 			} 
 		}
+///>>>>>>> dd3f7aac5dba0b9b6e75c8d44d383c921c853d39*/
 	}
+
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override
