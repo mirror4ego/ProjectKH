@@ -31,22 +31,6 @@ public AttendanceView(){
 	
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public AttendanceView(String name, int numberOfClass, int absence, int late, int eLeave){
 	
 	super();

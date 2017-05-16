@@ -5,8 +5,8 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	//주문정보에 필요한 변수 지정
 	private int orderInfoNum;
 	private String orderInfoDate;
-	private String orderInfoLocPossiblity;
-	private String orderInfoOrderPossiblity;
+	private String orderInfoLocPossibility;
+	private String orderInfoOrderPossibility;
 	private int orderInfoMenuNum;
 	private int orderInfoMenuAmount;
 	private String orderInfoRequestInfo;
@@ -19,7 +19,7 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	private String orderInfoDeliveryPredict;
 	private int orderInfoCustomerNum;
 
-	public OrderInfoDto(int orderInfoNum, String orderInfoDate, String orderInfoLocPossiblity, String orderInfoOrderPossiblity,
+	public OrderInfoDto(int orderInfoNum, String orderInfoDate, String orderInfoLocPossibility, String orderInfoOrderPossibility,
 			int orderInfoMenuNum, int orderInfoMenuAmount, String orderInfoRequestInfo, int orderInfoChannelNum,
 			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
@@ -28,8 +28,8 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 
 		this.orderInfoNum = orderInfoNum;
 		this.orderInfoDate = orderInfoDate;
-		this.orderInfoLocPossiblity = orderInfoLocPossiblity;
-		this.orderInfoOrderPossiblity = orderInfoOrderPossiblity;
+		this.orderInfoLocPossibility = orderInfoLocPossibility;
+		this.orderInfoOrderPossibility = orderInfoOrderPossibility;
 		this.orderInfoMenuNum = orderInfoMenuNum;
 		this.orderInfoMenuAmount = orderInfoMenuAmount;
 		this.orderInfoRequestInfo = orderInfoRequestInfo;
@@ -66,19 +66,23 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	}
 
 	public String getOrderInfoLocPossibility() {
+<<<<<<< HEAD
 		return orderInfoLocPossiblity;
+=======
+		return orderInfoLocPossibility;
+>>>>>>> 2abc9f0b0b5a6849457507b5984290dff7ce88a5
 	}
 
-	public void setOrderInfoLocPossiblity(String orderInfoLocPossiblity) {
-		this.orderInfoLocPossiblity = orderInfoLocPossiblity;
+	public void setOrderInfoLocPossibility(String orderInfoLocPossibility) {
+		this.orderInfoLocPossibility = orderInfoLocPossibility;
 	}
 
-	public String getOrderInfoOrderPossiblity() {
-		return orderInfoOrderPossiblity;
+	public String getOrderInfoOrderPossibility() {
+		return orderInfoOrderPossibility;
 	}
 
-	public void setOrderInfoOrderPossiblity(String orderInfoOrderPossiblity) {
-		this.orderInfoOrderPossiblity = orderInfoOrderPossiblity;
+	public void setOrderInfoOrderPossibility(String orderInfoOrderPossiblity) {
+		this.orderInfoOrderPossibility = orderInfoOrderPossiblity;
 	}
 
 	public int getOrderInfoMenuNum() {
@@ -172,8 +176,8 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	@Override
 	public String toString() {
 		return "OrderInfoDto [orderInfoNum=" + orderInfoNum + ", orderInfoDate=" + orderInfoDate
-				+ ", orderInfoLocPossiblity=" + orderInfoLocPossiblity + ", orderInfoOrderPossiblity="
-				+ orderInfoOrderPossiblity + ", orderInfoMenuNum=" + orderInfoMenuNum + ", orderInfoMenuAmount="
+				+ ", orderInfoLocPossibility=" + orderInfoLocPossibility + ", orderInfoOrderPossibility="
+				+ orderInfoOrderPossibility + ", orderInfoMenuNum=" + orderInfoMenuNum + ", orderInfoMenuAmount="
 				+ orderInfoMenuAmount + ", orderInfoRequestInfo=" + orderInfoRequestInfo + ", orderInfoChannelNum="
 				+ orderInfoChannelNum + ", orderInfoRequestDelivery=" + orderInfoRequestDelivery
 				+ ", orderInfoPackCompletion=" + orderInfoPackCompletion + ", orderInfoDeliveryCompletion="
