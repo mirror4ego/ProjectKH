@@ -12,20 +12,34 @@ import java.awt.Panel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import dao.CustomerDao;
+
 public class Exam04 extends JFrame {
 
-	int arr[] = { 10, 20, 25, 10, 10, 30 }; // 20여 20남 30여 30남 40여 40남
+	int arr[] = new int[6]; // 20여 20남 30여 30남 40여 40남
 	int max = 0;
+	
 
-	public Exam04() {
+	public Exam04() throws ClassNotFoundException, SQLException {
 		super();
+
+		CustomerDao dao = new CustomerDao();
+		arr[0] = dao.sumCustomerAge(0, 20);
+		arr[1] = dao.sumCustomerAge(0, 20);
+		arr[2] = dao.sumCustomerAge(21, 50);
+		arr[3] = dao.sumCustomerAge(21, 50);
+		arr[4] = dao.sumCustomerAge(51, 100);
+		arr[5] = dao.sumCustomerAge(51, 100);
 		this.init();
 		this.start();
 		this.setSize(600, 700);
 		this.setVisible(true);
+		
 	}
 
 	void init() {
@@ -36,14 +50,16 @@ public class Exam04 extends JFrame {
 		this.add("North", p);
 	}
 
-	void start() {
+	void start() throws ClassNotFoundException, SQLException {
+		
+		
 		for (int i = 0; i < arr.length - 1; i++) {
 			if (arr[i] < arr[i + 1]) {
 				max = arr[i];
 			}
-			arr[i] *= 10;
+			arr[i] *= 20;
 		}
-		arr[arr.length-1]*=10;
+		arr[arr.length-1]*=20;
 
 	}
 
