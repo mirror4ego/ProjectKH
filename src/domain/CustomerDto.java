@@ -112,4 +112,5 @@ public class CustomerDto { // 고객정보를 관리하는 클래스, 고객정�
 				+ ", customerAddRest=" + customerAddRest + ", customerFrequent=" + customerFrequent
 				+ ", customerAgePredict=" + customerAgePredict + "]";
 	}
+
 }

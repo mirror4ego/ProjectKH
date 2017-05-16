@@ -25,7 +25,7 @@ public class Exam01 extends JPanel {
     private Color pointColor = new Color(100, 100, 100, 180);
     private Color gridColor = new Color(200, 200, 200, 200);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
-    private int pointWidth = 4;
+    private int pointWidth = 5;
     private int numberYDivisions = 10;
     private List<Double> scores;
 
