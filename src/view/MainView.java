@@ -400,8 +400,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			int orderInfoNum = Integer.parseInt(jTextField10.getText().trim());
 			int orderInfoCustomerNum = Integer.parseInt(jTextField11.getText().trim());
 			String orderInfoDate = jTextField12.getText().trim();
-			String orderInfoLocPossiblity = jTextField13.getText().trim();
-			String orderInfoOrderPossiblity = jTextField14.getText().trim();
+			String orderInfoLocPossibility = jTextField13.getText().trim();
+			String orderInfoOrderPossibility = jTextField14.getText().trim();
 			int orderInfoMenuNum = Integer.parseInt(jTextField15.getText().trim());
 			int orderInfoMenuAmount = Integer.parseInt(jTextField16.getText().trim());
 			String orderInfoRequestInfo = jTextField17.getText().trim();
@@ -414,7 +414,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String orderInfoDeliveryPredict = jTextField24.getText().trim();
 			//OrderInfoDao 
 			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossiblity, orderInfoOrderPossiblity,
+			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossibility, orderInfoOrderPossibility,
 					orderInfoMenuNum, orderInfoMenuAmount, orderInfoRequestInfo, orderInfoChannelNum,
 					orderInfoRequestDelivery, orderInfoPackCompletion, orderInfoDeliveryCompletion,
 					orderInfoOrderCompletion, orderInfoMoneyCollection, orderInfoDeliveryPredict, 
