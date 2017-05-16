@@ -25,8 +25,8 @@ import javax.swing.JTextField;
 import dao.UserInfoDao;
 import domain.UserInfoDto;
 
-public class UserRegView extends JFrame implements ActionListener {
 
+public class UserRegView extends JFrame implements ActionListener {
 
 	JPanel jPanel1;
 	JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7; //전화
@@ -247,7 +247,15 @@ public class UserRegView extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource() == jButton1){
-			insertMember();
+			try {
+				insertMember();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("insertMember() 호출 종료");
 		}else if(ae.getSource() == jButton2){
 			this.dispose(); //창닫기 (현재창만 닫힘)
@@ -266,7 +274,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 
 		//jTable내용 갱신 메소드 호출
-		try {
+/*		try {
 			userListView.jTableRefresh();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -274,7 +282,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 	}//actionPerformed 
 
@@ -318,12 +326,12 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 	}
 
-	private void insertMember(){
+	private void insertMember() throws ClassNotFoundException, SQLException{
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
 		UserInfoDto dto = getViewData();
 		UserInfoDao dao = new UserInfoDao();       
-		boolean ok = dao.insertMember(dto);
+		boolean ok = dao.regUser(dto);
 
 		if(ok){
 
@@ -349,8 +357,9 @@ public class UserRegView extends JFrame implements ActionListener {
 		String tel1 = jTextField1.getText();
 		String tel2 = jTextField2.getText();
 		String tel3 = jTextField3.getText();
-		String tel = tel1+"-"+tel2+"-"+tel3;
+		int tel = Integer.parseInt(tel1+tel2+tel3);
 		String addr = jTextField6.getText();
+		
 		String birth1 = jTextArea8.getText();
 		String birth2 = jTextArea9.getText();
 		String birth3 = jTextArea10.getText();
@@ -368,16 +377,16 @@ public class UserRegView extends JFrame implements ActionListener {
 		String intro = jTextArea1.getText();
 
 		//dto에 담는다.
-		dto.setId(id);
-		dto.setPwd(pwd);
-		dto.setName(name);
-		dto.setTel(tel);
-		dto.setAddr(addr);
-		dto.setBirth(birth);
+		dto.setUserInfoId(id);
+		dto.setUserInfoPassword(pwd);
+		dto.setUserInfoName(name);
+		dto.setUserInfoPhone(tel);
+		dto.setUserInfoAddress(addr);
+/*		dto.setBirth(birth);
 		dto.setJob(job);
 		dto.setGender(gender);
-		dto.setEmail(email);
-		dto.setIntro(intro);
+*/		dto.setUserInfoEmail(email);
+//		dto.setIntro(intro);
 
 		return dto;
 	}

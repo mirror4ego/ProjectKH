@@ -36,9 +36,9 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
 		jTableRefresh();
-		vector1 = userInfoDao.getUserList();
+/*		vector1 = userInfoDao.getUserList();
 		System.out.println("v=" + vector1);
-		vector2 = getColumn();
+		vector2 = getColumn();*/
 
 		this.add(jScrollPane1);
 
@@ -71,9 +71,13 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 	}
 
 	public void jTableRefresh() throws ClassNotFoundException, SQLException{
+		//테이블 내용을 먼저 초기화 하고 리플래시를 해야함
+		//테이블 내용을 초기화 하는 로직이 들어가야 하는 곳
+		
 		DefaultTableModel model= new DefaultTableModel(dao.getUserList(), getColumn());
 		jTable1.setModel(model);
-	}
+ 
+	}	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -87,7 +91,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} 
+		}
 	}
 	
 	@Override

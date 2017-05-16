@@ -8,6 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -56,7 +57,15 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 			      });
 				break;
 			case 1:
-				Exam02 ex2= new Exam02();
+				try {
+					Exam02 ex2= new Exam02();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 2:
 				 SwingUtilities.invokeLater(new Runnable() {

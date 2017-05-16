@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import domain.CustomerDto;
 import domain.UserInfoDto;
@@ -75,6 +76,31 @@ public class CustomerDao {
 
 		return customerDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
 	}
+	
+	public CustomerDto searchCustomerRegDate() throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("select sum customerFrequent from customer where customer_reg_date");
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+		CustomerDto customerDto = new CustomerDto();
+		customerDto.setCustomerNum(rs.getInt("customerNum"));
+		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
+		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
+		customerDto.setCustomerAddState(rs.getString("customerAddState"));
+		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
+		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
+		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
+		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
+		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
+
+		rs.close();
+		ps.close();
+		c.close();
+
+		return customerDto;
+	}
 
 	public CustomerDto searchCustomerPhoneNum(String customerPhoneNum) throws ClassNotFoundException, SQLException { // 
 
@@ -105,8 +131,8 @@ public class CustomerDao {
 	public CustomerDto searchCustomerAddress(String customerPhoneNum) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from customer where customer_phone_num = ?");
-		ps.setString(1, customerPhoneNum);
+		PreparedStatement ps = c.prepareStatement("select * from customer where customer_reg_date = ?");
+		ps.setString(1, customerRegDate);
 		ResultSet rs = ps.executeQuery();
 
 		rs.next();

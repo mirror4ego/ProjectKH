@@ -37,8 +37,10 @@ import service.LoginSevice;
 
 
 @SuppressWarnings("serial")
-public class LoginView extends JFrame implements MouseListener, FocusListener {
-
+public class UserManageSelect extends JFrame implements MouseListener, FocusListener {
+public static void main(String ar[]){
+	UserManageSelect a = new UserManageSelect();
+}
 	JTextField jLoginTextField1 = new JTextField("아이디 입력", 15);
 
 	JPasswordField jPasswordField1 = new JPasswordField("비번 입력", 15);
@@ -73,7 +75,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	JLayeredPane jLayeredPane1 = new JLayeredPane();
 
 
-	public LoginView() {
+	public UserManageSelect() {
 		// 기본 컨테이너 설정
 		this.setTitle("로그인 페이지");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -215,15 +217,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 
 				if (existLogin) {
 					JOptionPane.showMessageDialog(null, "로그인 성공");
-					try {
-						MainView mainView = new MainView();
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					MainView mainView = new MainView();
 					this.setVisible(false);
 				}else{
 					JOptionPane.showMessageDialog(null, "로그인 실패");
