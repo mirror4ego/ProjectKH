@@ -3,10 +3,7 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.CustomerSearchView;
-import view.MainView;
-import service.CRM_MainLayout;
-import view.LoginView;
+import view.UserSelectView;
 
 
 
@@ -19,7 +16,7 @@ public class Test {
 		//MainView mainView = new MainView();
 
 
-		LoginView loginView = new LoginView();
+		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
@@ -27,7 +24,7 @@ public class Test {
 		//Login login = new Login();
 		//boolean test = login.login("mirror4ego", "1234");
 
-		//UserSelectView userSelectView = new UserSelectView();
+		UserSelectView userSelectView = new UserSelectView();
 		
 		
 

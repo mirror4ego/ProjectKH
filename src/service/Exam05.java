@@ -20,8 +20,6 @@ public class Exam05 extends JFrame {
 	private String blb = "B";
 	private String clb = "C";
 	private String dlb = "D";
-	
-	
 
 	public Exam05() {
 		super();
