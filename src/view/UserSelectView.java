@@ -11,11 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.JFrame;
+
 class UserSelectView {
 	private Dimension dimen1, dimen2;
 	private int xpos, ypos;
 
-	Frame f = new Frame(); // 프레임 생성
+	JFrame f = new JFrame(); // 프레임 생성
 	Button btn1 = new Button("버튼1"); // 버튼 객체 생성 및 초기화
 	Button btn2 = new Button("버튼2"); // 버튼 객체 생성 및 초기화
 	Label lb1 = new Label("라벨 : 라벨 센터",Label.CENTER); // 라벨 객체 생성 및 초기화
@@ -33,6 +35,9 @@ class UserSelectView {
 
 		f.setLocation(xpos, ypos); // 프레임의 위치 설정
 		f.setVisible(true); // 프레임을 보이게 함
+		
+		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//set은 설정
+		
 	}
 	private void init() {
 		BorderLayout border = new BorderLayout(); // 보더레이아웃 객체 생성
