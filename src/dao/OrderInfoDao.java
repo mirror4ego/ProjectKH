@@ -19,13 +19,13 @@ public class OrderInfoDao {
 	}
 
 	public void add(OrderInfoDto orderInfoDto) throws ClassNotFoundException, SQLException { // 고객을
-																								// 추가하는
-																								// 메소드,
-																								// 매개변수는
-																								// Customer클래스의
-																								// 객체
+		// 추가하는
+		// 메소드,
+		// 매개변수는
+		// Customer클래스의
+		// 객체
 		Connection c = connectionMaker.makeConnection(); // data소스에 저장된 커넥션 정보를
-															// c에 저장
+		// c에 저장
 
 		PreparedStatement ps = c.prepareStatement(
 				"insert into orderinfo values (seq_orderinfo_num.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -56,7 +56,7 @@ public class OrderInfoDao {
 		ps.setInt(14, orderInfoDto.getOrderInfoCustomerNum());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는
-							// sql문은
+		// sql문은
 		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
 		// executeQuery 메소드를 사용해야 한다.
 
@@ -94,81 +94,43 @@ public class OrderInfoDao {
 		return data;
 	}
 
-<<<<<<< HEAD
-	// 선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
-	public OrderInfoDto getOneOrder(int orderInfoNum) throws ClassNotFoundException, SQLException {
+
+	//선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
+	public OrderInfoDto getOneOrder(int orderInfoNum) throws ClassNotFoundException, SQLException{
 
 		Connection c = connectionMaker.makeConnection();
 		OrderInfoDto orderInfoDto = new OrderInfoDto();
 
-		try {
-			PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderInfoNum=?");
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderinfo_Num=?");
 			ps.setInt(1, orderInfoNum);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
+			if(rs.next()){
 
-				orderInfoDto.setOrderInfoNum(rs.getInt("orderInfoNum")); // 주문번호
-				orderInfoDto.setOrderInfoDate(rs.getString("orderInfoDate"));// 주문일자
-				orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfoLocPossiblity"));// 주문가능여부(지역)
-				orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfoOrderPossiblity"));// 주문가능여부(주문량)
-				orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));// 메뉴고유값
-				orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));// 주문
-																						// 메뉴양
-				orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfoRequestInfo"));// 주문요청사항
-				orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfoChannelNum"));// 채널고유값
-				orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfoRequestDelivery"));// 배달요청시간
-				orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfoPackCompletion"));// 주문
-																									// 프로세스(포장)완료여부
-				orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfoDeliveryCompletion"));// 주문
-																											// 프로세스(배달)완료여부
-				orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfoOrderCompletion"));// 주문
-																									// 프로세스완료여부
-				orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfoMoneyCollection"));// 수금여부
-				orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfoDeliveryPredict"));// 배달예측시간
-
+				orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
+				orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
+				orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possiblity"));//주문가능여부(지역)
+				orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfo_Order_Possiblity"));//주문가능여부(주문량)
+				orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
+				orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
+				orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항
+				orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfo_Channel_Num"));//채널고유값
+				orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfo_Request_Delivery"));//배달요청시간
+				orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfo_Pack_Completion"));//주문 프로세스(포장)완료여부
+				orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfo_Delivery_Completion"));//주문 프로세스(배달)완료여부
+				orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfo_Order_Completion"));//주문 프로세스완료여부
+				orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfo_Money_Collection"));//수금여부
+				orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfo_Delivery_Predict"));//배달예측시간
+				orderInfoDto.setOrderInfoCustomerNum(rs.getInt("orderInfo_Customer_Num"));//고객번호
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-=======
-		//선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
-		public OrderInfoDto getOneOrder(int orderInfoNum) throws ClassNotFoundException, SQLException{
+		}      
 
-			Connection c = connectionMaker.makeConnection();
-			OrderInfoDto orderInfoDto = new OrderInfoDto();
+		return orderInfoDto;    
 
-			try{
-				PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderinfo_Num=?");
-				ps.setInt(1, orderInfoNum);
-				ResultSet rs = ps.executeQuery();
 
-				if(rs.next()){
-					
-					orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
-					orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
-					orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possiblity"));//주문가능여부(지역)
-					orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfo_Order_Possiblity"));//주문가능여부(주문량)
-					orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
-					orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
-					orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항
-					orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfo_Channel_Num"));//채널고유값
-					orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfo_Request_Delivery"));//배달요청시간
-					orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfo_Pack_Completion"));//주문 프로세스(포장)완료여부
-					orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfo_Delivery_Completion"));//주문 프로세스(배달)완료여부
-					orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfo_Order_Completion"));//주문 프로세스완료여부
-					orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfo_Money_Collection"));//수금여부
-					orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfo_Delivery_Predict"));//배달예측시간
-					orderInfoDto.setOrderInfoCustomerNum(rs.getInt("orderInfo_Customer_Num"));//고객번호
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}      
-
-			return orderInfoDto;    
->>>>>>> dd3f7aac5dba0b9b6e75c8d44d383c921c853d39
-		}
-
-		return orderInfoDto;
 	}
 
 	public int sumOrderMenu(int orderInfoNum) throws ClassNotFoundException, SQLException {
@@ -178,15 +140,15 @@ public class OrderInfoDao {
 		int sum = 0;
 		try {
 			PreparedStatement ps = c.prepareStatement(
-					"select * from orderinfo where orderInfoMenuNum=?");
+					"select * from orderinfo where orderinfo_menu_num=?");
 			ps.setInt(1, orderInfoNum);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-	//			orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));// 메뉴고유값
-		//		orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));// 주문
-																						// 메뉴양
-				sum += rs.getInt("orderInfoMenuAmount");
+				//			orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));// 메뉴고유값
+				//		orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));// 주문
+				// 메뉴양
+				sum += rs.getInt("orderinfo_menu_amount");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -207,10 +169,10 @@ public class OrderInfoDao {
 		ResultSet rs = ps.executeQuery();
 		// 쿼리문을 실행 executeQuery를 통해서 쿼리를 실행한 결과 값을 받아와서 ResultSet의 객체참조주소 rs에 저장
 		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이
-					// 메소드를 꼭 한번 실행해야 한다
+		// 메소드를 꼭 한번 실행해야 한다
 		OrderInfoDto orderInfoDto = new OrderInfoDto(); // 고객정보 클래스의 객체를 생성
 
-		
+
 		orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
 		orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
 		orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possiblity"));//주문가능여부(지역)
@@ -237,11 +199,11 @@ public class OrderInfoDao {
 	}
 
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에
-																			// 저장된
-																			// 데이터를
-																			// 전부
-																			// 삭제하는
-																			// 메소드
+		// 저장된
+		// 데이터를
+		// 전부
+		// 삭제하는
+		// 메소드
 		Connection c = connectionMaker.makeConnection();
 		; // DB로의 커넥션 생성
 

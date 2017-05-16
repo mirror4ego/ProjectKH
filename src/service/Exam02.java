@@ -31,10 +31,10 @@ public class Exam02 extends JFrame {
 		contentPane.add(chartPanel, BorderLayout.CENTER);
 
 		OrderInfoDao dao = new OrderInfoDao();
-		data[0] = dao.sumOrderMenu(2);
-		data[1] = dao.sumOrderMenu(3);
-		data[2] = 0;
-		data[3] = 0;
+		data[0] = dao.sumOrderMenu(1);
+		data[1] = dao.sumOrderMenu(2);
+		data[2] = dao.sumOrderMenu(3);
+		data[3] = dao.sumOrderMenu(4);
 		setSize(500, 350);
 		setVisible(true);
 		drawChart(); // 차트 메소드 호출
