@@ -297,7 +297,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 		//System.out.println(userListView);
 		UserInfoDao dao = new UserInfoDao();
-		boolean ok = dao.deleteMember(id, pwd);
+		boolean ok = dao.deleteUser(id, pwd);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "삭제완료");
@@ -316,7 +316,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		UserInfoDto dto = getViewData();     
 		//2. 그정보로 DB를 수정
 		UserInfoDao dao = new UserInfoDao();
-		boolean ok = dao.updateMember(dto);
+		boolean ok = dao.updateUser(dto);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "수정되었습니다.");
@@ -357,7 +357,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		String tel1 = jTextField1.getText();
 		String tel2 = jTextField2.getText();
 		String tel3 = jTextField3.getText();
-		int tel = Integer.parseInt(tel1+tel2+tel3);
+		int tel = 444; // Integer.parseInt(tel1+tel2+tel3);
 		String addr = jTextField6.getText();
 		
 		String birth1 = jTextArea8.getText();
