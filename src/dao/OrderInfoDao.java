@@ -174,9 +174,9 @@ public class OrderInfoDao {
 			boolean ok = false;
 			try{
 				Connection c = connectionMaker.makeConnection();          
-				PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, orderInfoMenuNum=?, orderInfo_Menu_Amount=?, orderInfo_Request_Info=?,orderInfo_Channel_Num=?, orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=?"+ "where orderInfo_Num=?");
+				PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, orderInfo_Menu_Num=?, orderInfo_Menu_Amount=?, orderInfo_Request_Info=?,orderInfo_Channel_Num=?, orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=?"+ "where orderInfo_Num=?");
 
-				
+			
 				ps.setString(1, orderInfoDto.getOrderInfoDate());
 				ps.setString(2, orderInfoDto.getOrderInfoLocPossibility());
 				ps.setString(3, orderInfoDto.getOrderInfoOrderPossibility());
@@ -196,10 +196,11 @@ public class OrderInfoDao {
 				int r = ps.executeUpdate();
 				
 				if(r>0) ok = true;
-
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+		
 			return ok;
 		}
 
@@ -215,7 +216,8 @@ public class OrderInfoDao {
 				
 				int r = ps.executeUpdate();
 				if (r>0) ok=true;
-
+				ps.close();
+				c.close();
 			} catch (Exception e) {
 				System.out.println(e + "-> 오류발생");
 			}      
