@@ -489,6 +489,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 직원관리 버튼
 		if(e.getSource()==jButton3){
+			System.out.println("직원관리");
 			UserSelectView userSelectView = new UserSelectView();
 		}
 

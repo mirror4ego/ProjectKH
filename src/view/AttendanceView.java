@@ -1,10 +1,11 @@
 package view;
 
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 class AttendanceView extends JFrame{
 String name; //이름
@@ -13,13 +14,15 @@ int absence; //결석
 int late; //지각
 int eLeave; //조퇴
 
+
+
 public AttendanceView(){
 	
 	super("고객정보검색");
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	this.setLayout(new GridLayout(3,1));
 	this.setSize(750,200);
 	this.setResizable(false);
+
 	init();
 	start();
 	Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -28,18 +31,26 @@ public AttendanceView(){
 	this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
 			(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
 	this.setVisible(true);
+<<<<<<< HEAD
+
+}
+
+
+
+=======
 	
 }
 
+>>>>>>> c87afed17c9845bcca5f4d24ee122e9c8d7cb241
 public AttendanceView(String name, int numberOfClass, int absence, int late, int eLeave){
 	
 	super();
 
-	this.name = name;
-	this.numberOfClass = numberOfClass;
-	this.absence = absence;
-	this.late = late;
-	this.eLeave = eLeave;
+	this.name = name; 
+	this.numberOfClass = numberOfClass; 
+	this.absence = absence; //출근
+	this.late = late; //지각
+	this.eLeave = eLeave; //조퇴
 }
 
 public void plusAbsence(){
@@ -77,4 +88,5 @@ public void getAttendanceView(){
 		
 		}
 	}
+
 }
