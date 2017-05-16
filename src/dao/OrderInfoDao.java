@@ -90,27 +90,27 @@ public class OrderInfoDao {
 			OrderInfoDto orderInfoDto = new OrderInfoDto();
 
 			try{
-				PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderInfoNum=?");
+				PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderinfo_Num=?");
 				ps.setInt(1, orderInfoNum);
 				ResultSet rs = ps.executeQuery();
 
 				if(rs.next()){
 					
-					orderInfoDto.setOrderInfoNum(rs.getInt("orderInfoNum"));  //주문번호
-					orderInfoDto.setOrderInfoDate(rs.getString("orderInfoDate"));//주문일자
-					orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfoLocPossiblity"));//주문가능여부(지역)
-					orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfoOrderPossiblity"));//주문가능여부(주문량)
-					orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));//메뉴고유값
-					orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));//주문 메뉴양
-					orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfoRequestInfo"));//주문요청사항
-					orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfoChannelNum"));//채널고유값
-					orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfoRequestDelivery"));//배달요청시간
-					orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfoPackCompletion"));//주문 프로세스(포장)완료여부
-					orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfoDeliveryCompletion"));//주문 프로세스(배달)완료여부
-					orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfoOrderCompletion"));//주문 프로세스완료여부
-					orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfoMoneyCollection"));//수금여부
-					orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfoDeliveryPredict"));//배달예측시간
-
+					orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
+					orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
+					orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possiblity"));//주문가능여부(지역)
+					orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfo_Order_Possiblity"));//주문가능여부(주문량)
+					orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
+					orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
+					orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항
+					orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfo_Channel_Num"));//채널고유값
+					orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfo_Request_Delivery"));//배달요청시간
+					orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfo_Pack_Completion"));//주문 프로세스(포장)완료여부
+					orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfo_Delivery_Completion"));//주문 프로세스(배달)완료여부
+					orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfo_Order_Completion"));//주문 프로세스완료여부
+					orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfo_Money_Collection"));//수금여부
+					orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfo_Delivery_Predict"));//배달예측시간
+					orderInfoDto.setOrderInfoCustomerNum(rs.getInt("orderInfo_Customer_Num"));//고객번호
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -140,20 +140,23 @@ public class OrderInfoDao {
 		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이 메소드를 꼭 한번 실행해야 한다
 		OrderInfoDto orderInfoDto = new OrderInfoDto(); // 고객정보 클래스의 객체를 생성
 
-		orderInfoDto.setOrderInfoNum(rs.getInt("orderInfoNum"));
-		orderInfoDto.setOrderInfoDate(rs.getString("orderInfoDate"));
-		orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfoLocPossiblity"));
-		orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfoOrderPossiblity"));
-		orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));
-		orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));
-		orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfoRequestInfo"));
-		orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfoChannelNum"));
-		orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfoRequestDelivery"));
-		orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfoPackCompletion"));
-		orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfoDeliveryCompletion"));
-		orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfoOrderCompletion"));
-		orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfoMoneyCollection"));
-		orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfoDeliveryPredict"));
+		
+		orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
+		orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
+		orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possiblity"));//주문가능여부(지역)
+		orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfo_Order_Possiblity"));//주문가능여부(주문량)
+		orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
+		orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
+		orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항
+		orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfo_Channel_Num"));//채널고유값
+		orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfo_Request_Delivery"));//배달요청시간
+		orderInfoDto.setOrderInfoPackCompletion(rs.getString("orderInfo_Pack_Completion"));//주문 프로세스(포장)완료여부
+		orderInfoDto.setOrderInfoDeliveryCompletion(rs.getString("orderInfo_Delivery_Completion"));//주문 프로세스(배달)완료여부
+		orderInfoDto.setOrderInfoOrderCompletion(rs.getString("orderInfo_Order_Completion"));//주문 프로세스완료여부
+		orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfo_Money_Collection"));//수금여부
+		orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfo_Delivery_Predict"));//배달예측시간
+		orderInfoDto.setOrderInfoCustomerNum(rs.getInt("orderInfo_Customer_Num"));//고객번호
+
 
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		rs.close();
