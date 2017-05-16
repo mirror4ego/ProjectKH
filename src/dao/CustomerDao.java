@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import domain.CustomerDto;
-import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
+import view.CustomerSearchView;
 
 public class CustomerDao {
 	//private ConnectionMaker connectionMaker;
@@ -43,6 +46,7 @@ public class CustomerDao {
 		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
 	}
 
+
 	public CustomerDto get(int customerNum) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
@@ -57,15 +61,15 @@ public class CustomerDao {
 		rs.next(); // 쿼리문을 통해 받아온 값은 start를 가르키는 위치가 있기 때문에 진짜 값이 시작되는 곳을 찾으려면 이 메소드를 꼭 한번 실행해야 한다
 		CustomerDto customerDto = new CustomerDto(); // 고객정보 클래스의 객체를 생성
 
-		customerDto.setCustomerNum(rs.getInt("customerNum"));
-		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
-		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
-		customerDto.setCustomerAddState(rs.getString("customerAddState"));
-		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
-		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
-		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
-		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
-		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
+		customerDto.setCustomerNum(rs.getInt("customer_Num"));
+		customerDto.setCustomerRegDate(rs.getString("customer_Reg_Date"));
+		customerDto.setCustomerPhoneNum(rs.getString("customer_Phone_Num"));
+		customerDto.setCustomerAddState(rs.getString("customer_Add_State"));
+		customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
+		customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
+		customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
+		customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
+		customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
 
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		rs.close();
@@ -73,58 +77,6 @@ public class CustomerDao {
 		c.close();
 
 		return customerDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
-	}
-
-	public CustomerDto searchCustomerPhoneNum(String customerPhoneNum) throws ClassNotFoundException, SQLException { // 
-
-		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from customer where customer_phone_num = ?");
-		ps.setString(1, customerPhoneNum);
-		ResultSet rs = ps.executeQuery();
-
-		rs.next();
-		CustomerDto customerDto = new CustomerDto();
-		customerDto.setCustomerNum(rs.getInt("customerNum"));
-		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
-		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
-		customerDto.setCustomerAddState(rs.getString("customerAddState"));
-		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
-		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
-		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
-		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
-		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
-
-		rs.close();
-		ps.close();
-		c.close();
-
-		return customerDto;
-	}
-	
-	public CustomerDto searchCustomerAddress(String customerPhoneNum) throws ClassNotFoundException, SQLException { // 
-
-		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from customer where customer_phone_num = ?");
-		ps.setString(1, customerPhoneNum);
-		ResultSet rs = ps.executeQuery();
-
-		rs.next();
-		CustomerDto customerDto = new CustomerDto();
-		customerDto.setCustomerNum(rs.getInt("customerNum"));
-		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
-		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
-		customerDto.setCustomerAddState(rs.getString("customerAddState"));
-		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
-		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
-		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
-		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
-		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
-
-		rs.close();
-		ps.close();
-		c.close();
-
-		return customerDto;
 	}
 
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에 저장된 데이터를 전부 삭제하는 메소드
@@ -138,5 +90,116 @@ public class CustomerDao {
 		// 커넥션 close
 		ps.close();
 		c.close();
+	}
+
+	//고객 한명의 정보를 가져오는 메소드 (고객번호를 기준으로)
+	public CustomerDto searchCustomerNum(int customerNum) throws ClassNotFoundException, SQLException{
+
+		Connection c = connectionMaker.makeConnection();
+		CustomerDto customerDto = new CustomerDto();
+
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from customer where customer_num=?");
+			ps.setInt(1, customerNum);
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next()){
+				customerDto.setCustomerNum(rs.getInt("customer_Num"));
+				customerDto.setCustomerRegDate(rs.getString("customer_Reg_Date"));
+				customerDto.setCustomerPhoneNum(rs.getString("customer_Phone_Num"));
+				customerDto.setCustomerAddState(rs.getString("customer_Add_State"));
+				customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
+				customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
+				customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
+				customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
+				customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
+				CustomerSearchView customerSearchView = new CustomerSearchView();
+				customerSearchView.jTextField1.setText(String.valueOf(customerDto.getCustomerNum()));
+				customerSearchView.jTextField2.setText(customerDto.getCustomerRegDate());
+				customerSearchView.jTextField3.setText(customerDto.getCustomerPhoneNum());
+				customerSearchView.jTextField4.setText(customerDto.getCustomerAddState());
+				customerSearchView.jTextField7.setText(customerDto.getCustomerAddCity());
+				customerSearchView.jTextField8.setText(customerDto.getCustomerAddStreet());
+				customerSearchView.jTextField9.setText(customerDto.getCustomerAddRest());
+				customerSearchView.jTextField5.setText(String.valueOf(customerDto.getCustomerFrequent()));
+				customerSearchView.jTextField6.setText(String.valueOf(customerDto.getCustomerAgePredict()));
+			}else{
+				JOptionPane.showMessageDialog(null, "고객번호가 존재하지 않습니다");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return customerDto;    
+	}
+
+	public Vector searchCustomerPhoneNum(String customerSearchPhoneNum) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		CustomerDto customerDto = new CustomerDto();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from customer where customer_phone_num = ?"); // 
+			ps.setString(1, customerSearchPhoneNum);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				int customerNum = rs.getInt("customer_Num");
+				String customerRegDate = rs.getString("customer_Reg_Date");
+				String customerPhoneNum = rs.getString("customer_Phone_Num");
+				String customerAddState = rs.getString("customer_Add_State");
+				String customerAddCity = rs.getString("customer_Add_City");
+				String customerAddStreet = rs.getString("customer_Add_Street");
+				String customerAddRest = rs.getString("customer_Add_Rest");
+				int customerFrequent = rs.getInt("customer_Frequent");
+				int customerAgePredict = rs.getInt("customer_Age_Predict");
+
+				Vector row = new Vector();
+				row.add(customerNum);
+				row.add(customerRegDate);
+				row.add(customerPhoneNum);
+				row.add(customerAddState);
+				row.add(customerAddCity);
+				row.add(customerAddStreet);
+				row.add(customerAddRest);
+				row.add(customerFrequent);
+				row.add(customerAgePredict);
+
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public CustomerDto searchCustomerAddress(String customerAddress) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		CustomerDto customerDto = new CustomerDto();
+
+		PreparedStatement ps = c.prepareStatement("select * from customer where customer_Add_Rest = ?");
+		ps.setString(1, customerAddress);
+		ResultSet rs = ps.executeQuery();
+
+		if(rs.next()){
+
+			customerDto.setCustomerNum(rs.getInt("customer_Num"));
+			customerDto.setCustomerRegDate(rs.getString("customer_Reg_Date"));
+			customerDto.setCustomerPhoneNum(rs.getString("customer_Phone_Num"));
+			customerDto.setCustomerAddState(rs.getString("customer_Add_State"));
+			customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
+			customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
+			customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
+			customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
+			customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
+
+		}else{
+			JOptionPane.showMessageDialog(null, "고객의 주소가 존재하지 않습니다");
+		}
+		rs.close();
+		ps.close();
+		c.close();
+
+		return customerDto;
 	}
 }

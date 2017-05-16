@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -78,6 +80,8 @@ public class UserInfoDao {
 		ps.close();
 		c.close();
 	}
+	
+
 
 	//모든 사용자 리스트를 가져오는 메소드
 	public Vector getUserList() throws ClassNotFoundException, SQLException{
@@ -135,6 +139,8 @@ public class UserInfoDao {
 				userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 
+			}else{
+				JOptionPane.showMessageDialog(null, "사용자의 ID가 존재하지 않습니다");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -179,24 +185,24 @@ public class UserInfoDao {
 	}
 
 	// 사용자 수정 메소드
-	public boolean updateMember(UserInfoDto userInfoDto){
+	public boolean updateUser(UserInfoDto userInfoDto){
 		System.out.println("dto="+userInfoDto.toString());
 		boolean ok = false;
 		try{
 			Connection c = connectionMaker.makeConnection();          
-			PreparedStatement ps = c.prepareStatement("update tb_member set name=?, tel=?, addr=?, birth=?, job=?, gender=?, email=?,intro=? "+ "where id=? and pwd=?");
+			PreparedStatement ps = c.prepareStatement("update userinfo set userinfo_password=?,"
+					+ "userinfo_name=?, userinfo_address=?, " + "userinfo_num=?,"
+					+ "userinfo_phone=?, userinfo_email=? where userinfo_id=? and userinfo_password=?");
 
-			ps.setString(1, userInfoDto.getName());
-			ps.setString(2, userInfoDto.getTel());
-			ps.setString(3, userInfoDto.getAddr());
-			ps.setString(4, userInfoDto.getBirth());
-			ps.setString(5, userInfoDto.getJob());
-			ps.setString(6, userInfoDto.getGender());
-			ps.setString(7, userInfoDto.getEmail());
-			ps.setString(8, userInfoDto.getIntro());
-			ps.setString(9, userInfoDto.getId());
-			ps.setString(10, userInfoDto.getPwd());
-
+			ps.setString(1, userInfoDto.getUserInfoPassword());
+			ps.setString(2, userInfoDto.getUserInfoName());
+			ps.setString(3, userInfoDto.getUserInfoAddress());
+			ps.setInt(4, userInfoDto.getUserInfoNum());
+			ps.setInt(5, userInfoDto.getUserInfoPhone());
+			ps.setString(6, userInfoDto.getUserInfoEmail());
+			ps.setString(7, userInfoDto.getUserInfoId());
+			ps.setString(8, userInfoDto.getUserInfoPassword());
+			
 			int r = ps.executeUpdate();
 			if(r>0) ok = true;
 
@@ -207,7 +213,7 @@ public class UserInfoDao {
 	}
 
 	//사용자정보 삭제 메소드
-	public boolean deleteMember(String id, String pwd){
+	public boolean deleteUser(String id, String pwd){
 
 		boolean ok =false ;
 

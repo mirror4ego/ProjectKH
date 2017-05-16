@@ -26,22 +26,48 @@ import dao.UserInfoDao;
 import domain.UserInfoDto;
 
 
-public class UserRegView extends JFrame implements ActionListener {
+public class A1 extends JFrame implements ActionListener {
 
-	JPanel jPanel1;
-	JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7; //전화
-	JTextField jTextArea8, jTextArea9, jTextArea10; //생년월일
-	JTextArea jTextArea1;
-	JComboBox jComboBox1; //직업
-	JPasswordField jPasswordField1; //비밀번호   
-	JRadioButton jRadioButton1, jRadioButton2; //남, 여
-	JButton jButton1, jButton2, jButton3, jButton4; //가입, 취소, 수정 , 탈퇴 버튼
+	//변수 선언부
+	//패널
+	JPanel jPanel1 = new JPanel();
+	JPanel jPanel2 = new JPanel();
+	JPanel jPanel3 = new JPanel();
+	JPanel jPanel4 = new JPanel();
+	JPanel jPanel5 = new JPanel();
+	JPanel jPanel6 = new JPanel();
+	JPanel jPanel7 = new JPanel();
+	JPanel jPanel8 = new JPanel();
+	
+	//라벨
+	JLabel jLabel1 = new JLabel("고객정보검색");
+	JLabel jLabel2 = new JLabel("고객번호");
+	JLabel jLabel3 = new JLabel("가입날짜");
+	JLabel jLabel4 = new JLabel("전화번호");
+	JLabel jLabel5 = new JLabel("주소");
+	JLabel jLabel6 = new JLabel("누적주문");
+	JLabel jLabel7 = new JLabel("고객나이");
+	
+	//텍스트필드
+	JTextField jTextFiedl1 = new JTextField();
+	JTextField jTextFiedl2 = new JTextField();
+	JTextField jTextFiedl3 = new JTextField();
+	JTextField jTextFiedl4 = new JTextField();
+	JTextField jTextFiedl5 = new JTextField();
+	JTextField jTextFiedl6 = new JTextField();
+	
+	//버튼
+	JButton jButton1 = new JButton("입력");
+	JButton jButton2 = new JButton("수정");
+	JButton jButton3 = new JButton("삭제");
+	JButton jButton4 = new JButton("취소");
 
+	
 	GridBagLayout gridBagLayout1;
 	GridBagConstraints gridBagConstraints1;
 	UserListView userListView;
 
-	public UserRegView(){ //가입용 생성자
+	public CustomerSearchView(){ //가입용 생성자
 		createUI(); //UI작성해주는 메소드
 		jButton3.setEnabled(false);
 		jButton3.setVisible(false);
@@ -49,7 +75,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		jButton4.setVisible(false);
 	}
 
-	public UserRegView(UserListView userListView){ //가입용 생성자
+	public CustomerSearchView(UserListView userListView){ //가입용 생성자
 		createUI(); //UI작성해주는 메소드
 		jButton3.setEnabled(false);
 		jButton3.setVisible(false);
@@ -58,7 +84,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		this.userListView = userListView;  
 	}
 
-	public UserRegView(String id, UserListView userListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
+	public CustomerSearchView(String id, UserListView userListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
 		createUI();
 		jButton1.setEnabled(false);
 		jButton1.setVisible(false);
@@ -71,6 +97,8 @@ public class UserRegView extends JFrame implements ActionListener {
 		viewData(vMem);
 	} //id를 가지고 생성
 
+	
+	
 	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
 	private void viewData(UserInfoDto vMem){
 
@@ -390,4 +418,5 @@ public class UserRegView extends JFrame implements ActionListener {
 
 		return dto;
 	}
+
 }

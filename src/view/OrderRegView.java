@@ -29,7 +29,7 @@ import javax.swing.border.TitledBorder;
 import dao.OrderInfoDao;
 import domain.OrderInfoDto;
 
-public class OrderRegView extends JFrame implements ActionListener {
+public class OrderRegView<getUserList> extends JFrame implements ActionListener {
 
 
 	JPanel jPanel1;
@@ -94,13 +94,13 @@ public class OrderRegView extends JFrame implements ActionListener {
 	}
     */
 	//수정/삭제용 생성자
-	public OrderRegView(getUserList getUserList1) throws ClassNotFoundException, SQLException{ 
-		createUI();
+	public OrderRegView(getOrderList getOrderList) throws ClassNotFoundException, SQLException{ 
+		createOrder();
 		//jButton1.setEnabled(false);
 		//jButton1.setVisible(false);
-		this.userListView = userListView;
+		this.MainView = MainView;
 
-		System.out.println("orderInfoNum="+orderInfoNum);
+		//System.out.println("orderInfoNum="+orderInfoNum);
 
 		OrderInfoDao dao = new OrderInfoDao();
 		OrderInfoDto vMem = dao.getOneOrder(orderInfoNum);
@@ -154,8 +154,8 @@ public class OrderRegView extends JFrame implements ActionListener {
 		//jTextArea1.setText(intro);
 	}//viewData
 
-	private void createUI(){   //화면 구성뷰
-		this.setTitle("회원정보");
+	private void createOrder(){   //화면 구성뷰
+		this.setTitle("주문정보");
 		gridBagLayout1 = new GridBagLayout();
 		setLayout(gridBagLayout1);
 		gridBagConstraints1 = new GridBagConstraints();

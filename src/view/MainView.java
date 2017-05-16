@@ -22,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,7 +34,6 @@ import javax.swing.table.DefaultTableModel;
 import dao.CustomerDao;
 import dao.DaoFactory;
 import dao.OrderInfoDao;
-import dao.UserInfoDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
 import service.CRM_MainLayout;
@@ -54,7 +52,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	JPanel jPanel = new JPanel(); 
 	OrderInfoDao dao = new OrderInfoDao();
 	OrderInfoDao orderInfoDao = new OrderInfoDao();
-	
+
 	//컨테이너
 	private Container con;
 
@@ -151,10 +149,10 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	//private JScrollPane jScrollPane1 = new JScrollPane(jList1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15); // 메뉴에 설정될 폰트
 
-	public MainView () throws ClassNotFoundException, SQLException {
+	public MainView() throws ClassNotFoundException, SQLException {
 		super("매장관리");
 		//주문내역리스크창
-		
+
 		jTableRefresh();
 		vector1 = orderInfoDao.getOrderList();
 		System.out.println("v=" + vector1);
@@ -369,10 +367,11 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+		// 데이터 분석 버튼
 		if(e.getSource()==jButton4){
 			CRM_MainLayout crm = new CRM_MainLayout();
-		} // 
-		if(e.getSource()==jButton6){} // 
+		}
 
 		// 고객정보 등록 버튼
 		if(e.getSource()==jButton13){
@@ -428,9 +427,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 고객리스트 보기 버튼
 		if(e.getSource()==jButton15){
-			//CustomerDao 
 			CustomerDao customerDao = new DaoFactory().customerDao();
-			CustomerDto customer = new CustomerDto();
 			try{
 				int a = 1;
 				customerDao.get(a);
@@ -440,7 +437,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 주문리스트 보기 버튼 
 		if(e.getSource()==jButton5){
-			//OrderInfoDao
 			OrderInfoDao a = new OrderInfoDao();
 			try {
 				Vector ab = a.getOrderList();
@@ -452,6 +448,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				e1.printStackTrace();
 			}
 		}
+
 		/*	OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
 			OrderInfoDto orderInfo = new OrderInfoDto();
 			try{
@@ -460,7 +457,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 				System.out.println("등록완료");
 			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
 		}else{}
-		*/
+		 */
 
 		//File dir = new File("C://data");
 		//adlgvc.clear();
@@ -487,27 +484,57 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		//imsi += ess.getSearchnum();
 		//adlgvc.add(imsi);
 
-		// 고객정보 수정 버튼
-		if(e.getSource()==jButton14){}
-		// 주문정보 수정 버튼
-		if(e.getSource()==jButton17){}
-
 		// 직원관리 버튼
-		if(e.getSource()==jButton3){}
-		// 데이터 분석 버튼
-		if(e.getSource()==jButton4){}
+		if(e.getSource()==jButton3){
+			UserSelectView userSelectView = new UserSelectView();
+		}
 
-		// 검색(회원번호) 버튼
-		if(e.getSource()==jButton4){}
+		// 고객정보 수정 버튼
+		if(e.getSource()==jButton14){
+			System.out.println("고객정보 수정");
+		}
 
-		// 검색(전화번호) 버튼
-		if(e.getSource()==jButton4){}
-		// 검색(주소) 버튼
-		if(e.getSource()==jButton4){}
+		// 주문정보 수정 버튼
+		if(e.getSource()==jButton17){
+			System.out.println("주문정보 수정");
+		}
+
+		// 고객번호 검색
+		if(e.getSource()==jButton10){
+			System.out.println("고객번호 검색");
+			int customerNum = Integer.parseInt(jTextField1.getText().trim());
+			try {
+				CustomerDto customerDto = (new CustomerDao()).searchCustomerNum(customerNum);
+				jTextField1.setText(String.valueOf(customerDto.getCustomerNum()));
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		// 전화번호 검색
+		if(e.getSource()==jButton11){
+			System.out.println("전화번호 검색");
+			String customerPhoneNum = jTextField1.getText().trim();
+			try {
+				Vector customerDto = (new CustomerDao()).searchCustomerPhoneNum(customerPhoneNum);
+				//만약 검색결과가 있으면 서치뷰를 띄움
+				CustomerSearchListView CustomerSearchListView = new CustomerSearchListView(customerDto);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		// 주소 검색
+		if(e.getSource()==jButton12){
+			System.out.println("주소 검색");
+		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {//주문내역리스크 버튼
+	public void mouseClicked(MouseEvent e) {}//주문내역리스크 버튼
+/*<<<<<<< HEAD
 		int r = jTable1.getSelectedRow();
 		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
 		try {
@@ -519,7 +546,23 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-	}
+/*
+		if(e.getSource()==jButton5) {
+			int r = jTable1.getSelectedRow();
+			String orderInfoNum1 = (String) jTable1.getValueAt(r, 0);
+			try {
+				OrderRegView mem = new OrderRegView(orderInfoNum1, this); //선택한 주문내역 상세보기
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} 
+		}
+///>>>>>>> dd3f7aac5dba0b9b6e75c8d44d383c921c853d39*/
+	
+
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override
