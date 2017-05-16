@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import dao.CustomerDao;
+import dao.OrderInfoDao;
 import dao.UserInfoDao;
 import domain.CustomerDto;
 import domain.UserInfoDto;
@@ -111,13 +113,15 @@ private void viewData(CustomerDto vMem){
       return new Dimension(PREF_W, PREF_H);
    }
 
-   static void createAndShowGui() {
+   static void createAndShowGui() throws ClassNotFoundException, SQLException {
       List<Integer> scores = new ArrayList<Integer>();
       Random random = new Random();
       int maxDataPoints = 16;
-      int maxScore = 20;
-      for (int i = 0; i < maxDataPoints ; i++) {
-         scores.add(i+1);
+      int maxScore = 100;
+      CustomerDao dao = new CustomerDao();
+     // System.out.println(dao.sumCustomerNum(17));
+      for (int i = 1; i < maxDataPoints ; i++) {
+         scores.add(i);
       }
       Exam03 mainPanel = new Exam03(scores);
 

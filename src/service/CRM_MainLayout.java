@@ -71,12 +71,28 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 				 SwingUtilities.invokeLater(new Runnable() {
 			         public void run() {
 			        	 Exam03 ex03= new Exam03(score);
-			            ex03.createAndShowGui();
+			            try {
+							ex03.createAndShowGui();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 			         }
 			      });
 				break;
 			case 3:
-				Exam04 ex04 = new Exam04();
+				try {
+					Exam04 ex04 = new Exam04();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 4:
 				Exam05 ex = new Exam05();
