@@ -261,13 +261,13 @@ public class UserRegView extends JFrame implements ActionListener {
 			this.dispose(); //창닫기 (현재창만 닫힘)
 			//system.exit(0)=> 내가 띄운 모든 창이 다 닫힘          
 		}else if(ae.getSource() == jButton3){
-			UpdateMember();            
+			updateUser();            
 		}else if(ae.getSource() == jButton4){
 			//int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?");
 			int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?","삭제",JOptionPane.YES_NO_OPTION);
 
 			if (x == JOptionPane.OK_OPTION){
-				deleteMember();
+				deleteUser();
 			}else{
 				JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.");
 			}
@@ -287,7 +287,7 @@ public class UserRegView extends JFrame implements ActionListener {
 	}//actionPerformed 
 
 
-	private void deleteMember() {
+	private void deleteUser() {
 		String id = jTextField4.getText();
 		String pwd = jPasswordField1.getText();
 		if(pwd.length()==0){ //길이가 0이면
@@ -297,7 +297,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 		//System.out.println(userListView);
 		UserInfoDao dao = new UserInfoDao();
-		boolean ok = dao.deleteMember(id, pwd);
+		boolean ok = dao.deleteUser(id, pwd);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "삭제완료");
@@ -308,15 +308,15 @@ public class UserRegView extends JFrame implements ActionListener {
 
 		}          
 
-	}//deleteMember
+	}//deleteUser
 
-	private void UpdateMember() {
+	private void updateUser() {
 
 		//1. 화면의 정보를 얻는다.
 		UserInfoDto dto = getViewData();     
 		//2. 그정보로 DB를 수정
 		UserInfoDao dao = new UserInfoDao();
-		boolean ok = dao.updateMember(dto);
+		boolean ok = dao.updateUser(dto);
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "수정되었습니다.");

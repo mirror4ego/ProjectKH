@@ -15,6 +15,7 @@ int late; //지각
 int eLeave; //조퇴
 
 
+
 public AttendanceView(){
 	
 	super("고객정보검색");
@@ -39,11 +40,11 @@ public AttendanceView(String name, int numberOfClass, int absence, int late, int
 	
 	super();
 
-	this.name = name;
-	this.numberOfClass = numberOfClass;
-	this.absence = absence;
-	this.late = late;
-	this.eLeave = eLeave;
+	this.name = name; 
+	this.numberOfClass = numberOfClass; 
+	this.absence = absence; //출근
+	this.late = late; //지각
+	this.eLeave = eLeave; //조퇴
 }
 
 public void plusAbsence(){

@@ -3,6 +3,7 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import view.LoginView;
 import view.UserSelectView;
 
 
@@ -16,7 +17,7 @@ public class Test {
 		//MainView mainView = new MainView();
 
 
-		//LoginView loginView = new LoginView();
+		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
