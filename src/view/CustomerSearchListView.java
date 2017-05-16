@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,17 +9,16 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dao.CustomerDao;
 import dao.UserInfoDao;
+import domain.CustomerDto;
 
-
-public class UserListView extends JFrame implements MouseListener,ActionListener{
+public class CustomerSearchListView extends JFrame implements MouseListener,ActionListener{
 
 	Vector vector1;  
 	Vector vector2;
@@ -28,63 +26,72 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 	DefaultTableModel defaultTableModel1 = new DefaultTableModel(vector1, vector2);
 	JTable jTable1 = new JTable(defaultTableModel1);
 	JScrollPane jScrollPane1 = new JScrollPane(jTable1);
-	JPanel jPanel1 = new JPanel();
-	JButton jButton1 = new JButton("회원가입");
-	UserInfoDao dao = new UserInfoDao();
 	UserInfoDao userInfoDao = new UserInfoDao();
-	
-	public UserListView() throws ClassNotFoundException, SQLException{
-		super("사용자 관리");
-		jTableRefresh();
-		/*vector1 = userInfoDao.getUserList();
-		System.out.println("v=" + vector1);
-		vector2 = getColumn();*/
 
+
+	public CustomerSearchListView() throws ClassNotFoundException, SQLException{
+		super("검색된 고객정보 리스트");
+		//jTableRefresh();
 		this.add(jScrollPane1);
-
-		jPanel1.add(jButton1);
-		this.add(jPanel1,BorderLayout.NORTH);
-
-
 		jTable1.addMouseListener(this); //리스너 등록
-		jButton1.addActionListener(this); //회원가입버튼 리스너 등록
 		setSize(600,200);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
 		Dimension dimension2 = this.getSize();
 		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
+	public CustomerSearchListView(Vector customerDto) throws ClassNotFoundException, SQLException{
+		super("검색된 고객정보 리스트");
+		//jTableRefresh();
+		this.add(jScrollPane1);
+		jTable1.addMouseListener(this); //리스너 등록
+		setSize(600,200);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension dimension1 = toolkit.getScreenSize();
+		Dimension dimension2 = this.getSize();
+		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
+				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		CustomerDao customerDao = new CustomerDao();	
+		DefaultTableModel model= new DefaultTableModel(customerDto, getColumn());
+		jTable1.setModel(model);
+	}
+
+
+
 	public Vector getColumn(){
-		vector3.add("아이디");
-		vector3.add("비밀번호");
-		vector3.add("이름");
-		vector3.add("번호");
-		vector3.add("주소");
+		vector3.add("고객번호");
+		vector3.add("가입날짜");
 		vector3.add("전화번호");
-		vector3.add("이메일");
+		vector3.add("주소1");
+		vector3.add("주소2");
+		vector3.add("주소3");
+		vector3.add("주소4");
+		vector3.add("주문횟수");
+		vector3.add("고객나이");
 		return vector3;
 	}
 
 	public void jTableRefresh() throws ClassNotFoundException, SQLException{
 		//테이블 내용을 먼저 초기화 하고 리플래시를 해야함
 		//테이블 내용을 초기화 하는 로직이 들어가야 하는 곳
-		jTable1.removeAll();
-		DefaultTableModel model= new DefaultTableModel(dao.getUserList(), getColumn());
+		//jTable1.removeAll();
+		DefaultTableModel model= new DefaultTableModel(customerDto, getColumn());
+
 		jTable1.setModel(model);
- 
 	}	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int r = jTable1.getSelectedRow();
-		String id = (String) jTable1.getValueAt(r, 0);
+		String id = (String)jTable1.getValueAt(r, 0);
 		try {
-			UserRegView mem = new UserRegView(id, this);
+			CustomerSearchView customerSearchView = new CustomerSearchView(id, this);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -93,14 +100,9 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 			e1.printStackTrace();
 		}
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == jButton1){
-			new UserRegView(this);
-		}
-	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {}
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override

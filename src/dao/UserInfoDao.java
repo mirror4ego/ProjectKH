@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -137,6 +139,8 @@ public class UserInfoDao {
 				userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 
+			}else{
+				JOptionPane.showMessageDialog(null, "사용자의 ID가 존재하지 않습니다");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -181,7 +185,7 @@ public class UserInfoDao {
 	}
 
 	// 사용자 수정 메소드
-	public boolean updateMember(UserInfoDto userInfoDto){
+	public boolean updateUser(UserInfoDto userInfoDto){
 		System.out.println("dto="+userInfoDto.toString());
 		boolean ok = false;
 		try{
@@ -209,7 +213,7 @@ public class UserInfoDao {
 	}
 
 	//사용자정보 삭제 메소드
-	public boolean deleteMember(String id, String pwd){
+	public boolean deleteUser(String id, String pwd){
 
 		boolean ok =false ;
 

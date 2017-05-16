@@ -107,7 +107,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jLabel1.setFont(font1);
 
 		jLabel1.setForeground(Color.GRAY);
-		jLabel2.setBounds(0, 0, 10, 10);;
+		jLabel2.setBounds(0, 0, 10, 10);
 		jLabel2.setIcon(new ImageIcon("img/icon_user.png"));
 		jLabel3.setIcon(new ImageIcon("img/icon_pw.png"));
 
