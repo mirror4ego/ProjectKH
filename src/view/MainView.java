@@ -437,6 +437,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 주문리스트 보기 버튼 
 		if(e.getSource()==jButton5){
+			/*
 			OrderInfoDao a = new OrderInfoDao();
 			try {
 				Vector ab = a.getOrderList();
@@ -446,7 +447,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}*/
+		
+			//	new OrderRegView( this);
 		}
 
 		/*	OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
@@ -533,8 +536,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}//주문내역리스크 버튼
-/*<<<<<<< HEAD
+	public void mouseClicked(MouseEvent e) {//주문내역리스크 버튼
+
 		int r = jTable1.getSelectedRow();
 		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
 		try {
@@ -561,7 +564,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			} 
 		}
 ///>>>>>>> dd3f7aac5dba0b9b6e75c8d44d383c921c853d39*/
-	
+	}
 
 	@Override
 	public void focusGained(FocusEvent e) {}

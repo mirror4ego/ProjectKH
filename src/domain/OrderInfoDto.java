@@ -65,7 +65,7 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 		this.orderInfoDate = orderInfoDate;
 	}
 
-	public String getOrderInfoLocPossiblity() {
+	public String getOrderInfoLocPossibility() {
 		return orderInfoLocPossiblity;
 	}
 

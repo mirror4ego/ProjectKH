@@ -30,7 +30,7 @@ public class OrderInfoDao {
 		//ps.setInt(1, orderInfo.getOrderInfoNum());
 
 		ps.setString(1, orderInfoDto.getOrderInfoDate());
-		ps.setString(2, orderInfoDto.getOrderInfoLocPossiblity());
+		ps.setString(2, orderInfoDto.getOrderInfoLocPossibility());
 		ps.setString(3, orderInfoDto.getOrderInfoOrderPossiblity());
 		ps.setInt(4, orderInfoDto.getOrderInfoMenuNum());
 		ps.setInt(5, orderInfoDto.getOrderInfoMenuAmount());
@@ -55,32 +55,32 @@ public class OrderInfoDao {
 	
 	//모든 주문내역 리스트를 가져오는 메소드
 		public Vector getOrderList() throws ClassNotFoundException, SQLException{
-			Connection c = connectionMaker.makeConnection();
-			Vector data = new Vector();
+			Connection c1 = connectionMaker.makeConnection();
+			Vector data1 = new Vector();
 
 			try{
-				PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderinfo_Num asc");
-				ResultSet rs = ps.executeQuery();
+				PreparedStatement ps1 = c1.prepareStatement("select * from orderinfo order by orderinfo_Num asc");
+				ResultSet rs1 = ps1.executeQuery();
 
-				while(rs.next()){	
-					int orderInfoNum = rs.getInt("orderInfoNum");  //주문번호
-					int orderInfoDate = rs.getInt("orderInfoDate");//주문일자
-					int orderInfoMenuNum = rs.getInt("orderInfoMenuNum");//메뉴고유값
-					int orderInfoMenuAmount = rs.getInt("orderInfoMenuAmount");//주문메뉴양
+				while(rs1.next()){	
+					int orderInfoNum = rs1.getInt("orderInfo_Num");  //주문번호
+					String orderInfoDate = rs1.getString("orderInfo_Date");//주문일자
+					int orderInfoMenuNum = rs1.getInt("orderInfo_Menu_Num");//메뉴고유값
+					int orderInfoMenuAmount = rs1.getInt("orderInfo_Menu_Amount");//주문메뉴양
 					
-					Vector row = new Vector();
-					row.add(orderInfoNum);
-					row.add(orderInfoDate);
-					row.add(orderInfoMenuNum);
-					row.add(orderInfoMenuAmount);
+					Vector row1 = new Vector();
+					row1.add(orderInfoNum);
+					row1.add(orderInfoDate);
+					row1.add(orderInfoMenuNum);
+					row1.add(orderInfoMenuAmount);
 					
 
-					data.add(row);             
+					data1.add(row1);             
 				}
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			return data;
+			return data1;
 		}
 
 		//선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
@@ -98,8 +98,8 @@ public class OrderInfoDao {
 					
 					orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
 					orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
-					orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possiblity"));//주문가능여부(지역)
-					orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfo_Order_Possiblity"));//주문가능여부(주문량)
+					orderInfoDto.setOrderInfoLocPossiblity(rs.getString("orderInfo_Loc_Possibilty"));//주문가능여부(지역)
+					orderInfoDto.setOrderInfoOrderPossiblity(rs.getString("orderInfo_Order_Possibilty"));//주문가능여부(주문량)
 					orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
 					orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
 					orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항

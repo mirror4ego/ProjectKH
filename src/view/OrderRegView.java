@@ -1,10 +1,12 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -35,7 +37,7 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 	JPanel jPanel1;
 	//라벨 객체 생성
 	private JLabel jLabel12 = new JLabel("주문번호 : ", JLabel.LEFT);
-	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
+//	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
 	private JLabel jLabel14 = new JLabel("주문일자 : ", JLabel.LEFT);
 	private JLabel jLabel15 = new JLabel("주문가능여부(지역) : ", JLabel.LEFT);
 	private JLabel jLabel16 = new JLabel("주문가능여부(주문량) : ", JLabel.LEFT);
@@ -71,8 +73,10 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 	//패널 객체 생성
 	private JPanel jPanel8 = new JPanel(new GridLayout(16, 2)); // 오더정보 메인 패널
 	
-	GridBagLayout gridBagLayout1;
-	GridBagConstraints gridBagConstraints1;
+	//GridBagLayout gridBagLayout1;
+	//GridBagConstraints gridBagConstraints1;
+	//private int orderInfoNum;
+	private Object MainView;
 	
 
 /*
@@ -94,18 +98,32 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 	}
     */
 	//수정/삭제용 생성자
-	public OrderRegView(getOrderList getOrderList) throws ClassNotFoundException, SQLException{ 
-		createOrder();
+	public OrderRegView(int orderInfoNum, MainView mainView) throws ClassNotFoundException, SQLException{ 
+		super("주문내역 상세보기");
+		//createOrder();
 		//jButton1.setEnabled(false);
 		//jButton1.setVisible(false);
-		this.MainView = MainView;
+		//this.MainView = this.MainView;
 
 		//System.out.println("orderInfoNum="+orderInfoNum);
 
 		OrderInfoDao dao = new OrderInfoDao();
 		OrderInfoDto vMem = dao.getOneOrder(orderInfoNum);
 		viewData(vMem);
-	} //orderInfoNum를 가지고 생성
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			this.setLayout(new GridLayout(3,1));
+			this.setSize(750,200);
+			this.setResizable(false);
+			init();
+			//start();
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			Dimension dimension1 = toolkit.getScreenSize();
+			Dimension dimension2 = this.getSize();
+			this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
+					(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
+			this.setVisible(true);
+		}
+	 //orderInfoNum를 가지고 생성
 
 	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
 	private void viewData(OrderInfoDto vMem){
@@ -113,6 +131,7 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 		int orderInfoNum=vMem.getOrderInfoNum();  //주문번호
 		String orderInfoDate=vMem.getOrderInfoDate(); //주문일자
 		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossiblity(); //주문가능여부(주문량)
+		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossiblity(); //주문가능여부(주문량)
 		int orderInfoMenuNum=vMem.getOrderInfoMenuNum(); //메뉴고유값
 		int orderInfoMenuAmount=vMem.getOrderInfoMenuAmount(); //주문 메뉴양
 		String orderInfoRequestInfo=vMem.getOrderInfoRequestInfo(); //주문요청사항
@@ -154,20 +173,20 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 		//jTextArea1.setText(intro);
 	}//viewData
 
-	private void createOrder(){   //화면 구성뷰
+	private void init(){   //화면 구성뷰
 		this.setTitle("주문정보");
-		gridBagLayout1 = new GridBagLayout();
-		setLayout(gridBagLayout1);
-		gridBagConstraints1 = new GridBagConstraints();
-		gridBagConstraints1.fill = GridBagConstraints.BOTH;
-		gridBagConstraints1.weightx = 1.0;
-		gridBagConstraints1.weighty = 1.0;
+		//gridBagLayout1 = new GridBagLayout();
+		//setLayout(gridBagLayout1);
+		//gridBagConstraints1 = new GridBagConstraints();
+		//gridBagConstraints1.fill = GridBagConstraints.BOTH;
+		//gridBagConstraints1.weightx = 1.0;
+		//gridBagConstraints1.weighty = 1.0;
 
 		//주문 관리 패널 구성 시작
 
 				jPanel8.add(jLabel12);
 				jPanel8.add(jTextField10);
-				jPanel8.add(jLabel13);
+				//jPanel8.add(jLabel13);
 				//jPanel8.add(jTextField11);
 				jPanel8.add(jLabel14);
 				jPanel8.add(jTextField12);
@@ -208,14 +227,13 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 		  jButton2.addActionListener(this);  //삭제버튼
 		  jButton4.addActionListener(this);  //취소버튼
 
-		setSize(350,500);
-		setVisible(true);
+		
 		//setDefaultCloseOperation(EXIT_ON_CLOSE); //System.exit(0) //프로그램종료
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); //dispose(); //현재창만 닫는다.
 	}//createUI
 
 	//그리드백레이아웃에 붙이는 메소드
-	private void gbAdd(JComponent c, int x, int y, int w, int h){
+	/*private void gbAdd(JComponent c, int x, int y, int w, int h){
 		gridBagConstraints1.gridx = x;
 		gridBagConstraints1.gridy = y;
 		gridBagConstraints1.gridwidth = w;
@@ -223,8 +241,8 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 		gridBagLayout1.setConstraints(c, gridBagConstraints1);
 		gridBagConstraints1.insets = new Insets(2, 2, 2, 2);
 		add(c, gridBagConstraints1);
-	}//gbAdd
-
+	}//gbAdd*/
+	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		
@@ -239,8 +257,15 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 
 			if (x == JOptionPane.OK_OPTION){
 				// 텍스트 필드에 입력된 주문번호를 읽어서 변수에 저장
-				int orderInfoNum = jTextField10.getText();
-				deleteOrder(orderInfoNum);
+				String orderInfoNum1 = jTextField10.getText();
+				int orderInfoNum = Integer.parseInt(orderInfoNum1);
+				
+				try {
+					deleteOrder(orderInfoNum);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else{
 				JOptionPane.showMessageDialog(this, "삭제를 취소하였습니다.");
 			}
@@ -321,14 +346,25 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
 		OrderInfoDto dto = new OrderInfoDto();
-		String.valueOf(orderInfoNum)= jTextField10.getText();
+		
+		
+		String orderInfoNum1 = jTextField10.getText();
+		int orderInfoNum = Integer.parseInt(orderInfoNum1);
 		String orderInfoDate = jTextField12.getText();
 		String orderInfoLocPossiblity = jTextField13.getText();
 		String orderInfoOrderPossiblity = jTextField14.getText();
-		int orderInfoMenuNum = jTextField15.getText();
-		int orderInfoMenuAmount = jTextField16.getText();
+		String orderInfoMenuNum1 = jTextField15.getText();
+		int orderInfoMenuNum = Integer.parseInt(orderInfoMenuNum1);
+		
+		
+		String orderInfoMenuAmount1 = jTextField16.getText();
+		int orderInfoMenuAmount = Integer.parseInt(orderInfoMenuAmount1);
+		
 		String orderInfoRequestInfo = jTextField17.getText();
-		int orderInfoChannelNum = jTextField18.getText();
+		
+		String orderInfoChannelNum1 = jTextField18.getText();
+		int orderInfoChannelNum = Integer.parseInt(orderInfoChannelNum1);
+		
 		String orderInfoRequestDelivery = jTextField19.getText();
 		String orderInfoPackCompletion = jTextField20.getText();
 		String orderInfoDeliveryCompletion = jTextField21.getText();
