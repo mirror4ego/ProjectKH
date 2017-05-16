@@ -541,7 +541,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		int r = jTable1.getSelectedRow();
 		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
 		try {
-			OrderRegView mem = new OrderRegView(orderInfoNum, this); //선택한 주문내역 상세보기
+			OrderRegView OrderRegView = new OrderRegView(orderInfoNum, this); //선택한 주문내역 상세보기
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

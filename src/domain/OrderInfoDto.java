@@ -66,11 +66,11 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	}
 
 	public String getOrderInfoLocPossibility() {
-<<<<<<< HEAD
-		return orderInfoLocPossiblity;
-=======
+
+	
+
 		return orderInfoLocPossibility;
->>>>>>> 2abc9f0b0b5a6849457507b5984290dff7ce88a5
+
 	}
 
 	public void setOrderInfoLocPossibility(String orderInfoLocPossibility) {

@@ -31,7 +31,7 @@ import javax.swing.border.TitledBorder;
 import dao.OrderInfoDao;
 import domain.OrderInfoDto;
 
-public class OrderRegView<getUserList> extends JFrame implements ActionListener {
+public class OrderRegView<getOrderList> extends JFrame implements ActionListener {
 
 
 	JPanel jPanel1;
@@ -52,7 +52,10 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 	private JLabel jLabel25 = new JLabel("수금 여부 : ", JLabel.LEFT);
 	private JLabel jLabel26 = new JLabel("배달 예측시간 : ", JLabel.LEFT);
 	
-	JButton jButton1, jButton2, jButton3, jButton4; //가입, 취소, 수정 , 탈퇴 버튼
+	//버튼 객체 생성
+		private JButton jButton1 = new JButton(" 수 정 ");
+		private JButton jButton2 = new JButton(" 삭 제 ");
+	
 	
 	//텍스트필드 객체 생성
 	private JTextField jTextField10 = new JTextField("1", 10);//주문번호 입력창
@@ -71,51 +74,20 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 	private JTextField jTextField23 = new JTextField("4", 10); // 수금여부
 	private JTextField jTextField24 = new JTextField("20170304", 10); // 배달예측시간
 	//패널 객체 생성
-	private JPanel jPanel8 = new JPanel(new GridLayout(16, 2)); // 오더정보 메인 패널
-	
-	//GridBagLayout gridBagLayout1;
-	//GridBagConstraints gridBagConstraints1;
-	//private int orderInfoNum;
+	private JPanel jPanel8 = new JPanel(new GridLayout(15, 2)); // 오더정보 메인 패널
 	private Object MainView;
 	
 
-/*
-	public UserRegView(){ //가입용 생성자
-		createUI(); //UI작성해주는 메소드
-		jButton3.setEnabled(false);
-		jButton3.setVisible(false);
-		jButton4.setEnabled(false);
-		jButton4.setVisible(false);
-	}
-
-	public UserRegView(UserListView userListView){ //가입용 생성자
-		createUI(); //UI작성해주는 메소드
-		jButton3.setEnabled(false);
-		jButton3.setVisible(false);
-		jButton4.setEnabled(false);
-		jButton4.setVisible(false);
-		this.userListView = userListView;  
-	}
-    */
 	//수정/삭제용 생성자
 	public OrderRegView(int orderInfoNum, MainView mainView) throws ClassNotFoundException, SQLException{ 
 		super("주문내역 상세보기");
-		//createOrder();
-		//jButton1.setEnabled(false);
-		//jButton1.setVisible(false);
-		//this.MainView = this.MainView;
-
-		//System.out.println("orderInfoNum="+orderInfoNum);
-
+		createOrder();
 		OrderInfoDao dao = new OrderInfoDao();
 		OrderInfoDto vMem = dao.getOneOrder(orderInfoNum);
 		viewData(vMem);
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			this.setLayout(new GridLayout(3,1));
-			this.setSize(750,200);
+			this.setSize(400,500);
 			this.setResizable(false);
-			init();
-			//start();
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
 			Dimension dimension1 = toolkit.getScreenSize();
 			Dimension dimension2 = this.getSize();
@@ -130,8 +102,8 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
    
 		int orderInfoNum=vMem.getOrderInfoNum();  //주문번호
 		String orderInfoDate=vMem.getOrderInfoDate(); //주문일자
-		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossiblity(); //주문가능여부(주문량)
-		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossiblity(); //주문가능여부(주문량)
+		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossibility(); //주문가능여부(주문량)
+		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossibility(); //주문가능여부(주문량)
 		int orderInfoMenuNum=vMem.getOrderInfoMenuNum(); //메뉴고유값
 		int orderInfoMenuAmount=vMem.getOrderInfoMenuAmount(); //주문 메뉴양
 		String orderInfoRequestInfo=vMem.getOrderInfoRequestInfo(); //주문요청사항
@@ -173,7 +145,7 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 		//jTextArea1.setText(intro);
 	}//viewData
 
-	private void init(){   //화면 구성뷰
+	private void createOrder(){   //화면 구성뷰
 		this.setTitle("주문정보");
 		//gridBagLayout1 = new GridBagLayout();
 		//setLayout(gridBagLayout1);
@@ -214,19 +186,17 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 				jPanel8.add(jTextField23);
 				jPanel8.add(jLabel26);
 				jPanel8.add(jTextField24);
-				  jPanel8.add(jButton3);
+				  jPanel8.add(jButton1);
 				  jPanel8.add(jButton2);
-				  jPanel8.add(jButton4);
 
 				jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
 				//주문 관리 패널 구성 끝
+				this.setContentPane(jPanel8);
 
 		//버튼에 감지기를 붙이자
-		  //jButton1.addActionListener(this);
-	      jButton3.addActionListener(this);  //수정버튼
+	      jButton1.addActionListener(this);  //수정버튼
 		  jButton2.addActionListener(this);  //삭제버튼
-		  jButton4.addActionListener(this);  //취소버튼
-
+		  
 		
 		//setDefaultCloseOperation(EXIT_ON_CLOSE); //System.exit(0) //프로그램종료
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); //dispose(); //현재창만 닫는다.
@@ -245,13 +215,10 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		
-		 if(ae.getSource() == jButton2){  //취소버튼을 누르면
-			this.dispose(); //창닫기 (현재창만 닫힘)
-			//system.exit(0)=> 내가 띄운 모든 창이 다 닫힘          
-		}else if(ae.getSource() == jButton3){//수정버튼을 누르면
+		         
+	         if(ae.getSource() == jButton1){//수정버튼을 누르면
 			UpdateOrder();            
-		}else if(ae.getSource() == jButton4){ //삭제버튼을 누르면
+		}else if(ae.getSource() == jButton2){ //삭제버튼을 누르면
 			//int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?");
 			int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?","삭제",JOptionPane.YES_NO_OPTION);
 
@@ -375,8 +342,8 @@ public class OrderRegView<getUserList> extends JFrame implements ActionListener 
 		//dto에 담는다.
 		dto.setOrderInfoNum(orderInfoNum);
 		dto.setOrderInfoDate(orderInfoDate);
-		dto.setOrderInfoLocPossiblity(orderInfoLocPossiblity);
-		dto.setOrderInfoOrderPossiblity(orderInfoOrderPossiblity);
+		dto.setOrderInfoLocPossibility(orderInfoLocPossiblity);
+		dto.setOrderInfoOrderPossibility(orderInfoOrderPossiblity);
 		dto.setOrderInfoMenuNum(orderInfoMenuNum);
 		dto.setOrderInfoMenuAmount(orderInfoMenuAmount);
 		dto.setOrderInfoRequestInfo(orderInfoRequestInfo);
