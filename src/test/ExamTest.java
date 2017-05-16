@@ -10,7 +10,7 @@ import view.LoginView;
 
 
 
-public class Test {
+public class ExamTest {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 
