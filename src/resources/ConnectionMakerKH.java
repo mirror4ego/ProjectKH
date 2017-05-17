@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionMakerKH implements ConnectionMaker {
 
-	// 테스트를 위한 커넥션 정보 설정
+	// 메인서버 접속을 위한 커넥션 정보 설정
 	@Override
 	public Connection makeConnection() throws ClassNotFoundException, SQLException { 
 		// TODO Auto-generated method stub

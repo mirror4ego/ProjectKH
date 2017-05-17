@@ -80,7 +80,7 @@ public class UserInfoDao {
 		ps.close();
 		c.close();
 	}
-	
+
 
 
 	//모든 사용자 리스트를 가져오는 메소드
@@ -164,7 +164,7 @@ public class UserInfoDao {
 			ps.setString(4, userInfoDto.getUserInfoAddress());
 			ps.setInt(5, userInfoDto.getUserInfoPhone());
 			ps.setString(6, userInfoDto.getUserInfoEmail());
-			
+
 			/*ps.setString(6, userInfoDto.getBirth());
 			ps.setString(7, userInfoDto.getJob());
 			ps.setString(8, userInfoDto.getGender());
@@ -191,18 +191,17 @@ public class UserInfoDao {
 		try{
 			Connection c = connectionMaker.makeConnection();          
 			PreparedStatement ps = c.prepareStatement("update userinfo set userinfo_password=?,"
-					+ "userinfo_name=?, userinfo_address=?, " + "userinfo_num=?,"
+					+ "userinfo_name=?, userinfo_address=?, "
 					+ "userinfo_phone=?, userinfo_email=? where userinfo_id=? and userinfo_password=?");
 
 			ps.setString(1, userInfoDto.getUserInfoPassword());
 			ps.setString(2, userInfoDto.getUserInfoName());
 			ps.setString(3, userInfoDto.getUserInfoAddress());
-			ps.setInt(4, userInfoDto.getUserInfoNum());
-			ps.setInt(5, userInfoDto.getUserInfoPhone());
-			ps.setString(6, userInfoDto.getUserInfoEmail());
-			ps.setString(7, userInfoDto.getUserInfoId());
-			ps.setString(8, userInfoDto.getUserInfoPassword());
-			
+			ps.setInt(4, userInfoDto.getUserInfoPhone());
+			ps.setString(5, userInfoDto.getUserInfoEmail());
+			ps.setString(6, userInfoDto.getUserInfoId());
+			ps.setString(7, userInfoDto.getUserInfoPassword());
+
 			int r = ps.executeUpdate();
 			if(r>0) ok = true;
 
@@ -213,15 +212,15 @@ public class UserInfoDao {
 	}
 
 	//사용자정보 삭제 메소드
-	public boolean deleteUser(String id, String pwd){
+	public boolean deleteUser(String userInfoId, String userInfoPassword){
 
 		boolean ok =false ;
 
 		try {
 			Connection c = connectionMaker.makeConnection();   
-			PreparedStatement ps = c.prepareStatement("delete from tb_member where id=? and pwd=?");
-			ps.setString(1, id);
-			ps.setString(2, pwd);
+			PreparedStatement ps = c.prepareStatement("delete from userinfo where userinfo_id=? and userinfo_password=?");
+			ps.setString(1, userInfoId);
+			ps.setString(2, userInfoPassword);
 			int r = ps.executeUpdate();
 			if (r>0) ok=true;
 

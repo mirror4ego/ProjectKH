@@ -20,8 +20,6 @@ public class Exam05 extends JFrame {
 	private String blb = "B";
 	private String clb = "C";
 	private String dlb = "D";
-	
-	
 
 	public Exam05() {
 		super();
@@ -75,8 +73,8 @@ public class Exam05 extends JFrame {
 			g.setColor(Color.red);
 			g.fillOval(aDong[i][0], aDong[i][1], 5, 5);
 		}
-		
-		
+
+
 		for (int i = 0; i < 50; i++) {
 			g.setColor(Color.blue);
 			g.fillOval(bDong[i][0], bDong[i][1], 5, 5);

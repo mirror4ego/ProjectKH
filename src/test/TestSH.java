@@ -3,14 +3,14 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.CustomerSearchView;
 import view.MainView;
-import service.CRM_MainLayout;
+
 import view.LoginView;
 
 
 
-public class ExamTest {
+
+public class TestSH {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 
@@ -18,7 +18,7 @@ public class ExamTest {
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
-
+		//UserListView userListView = new UserListView();
 		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 

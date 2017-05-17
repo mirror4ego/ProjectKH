@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,6 +33,12 @@ public class Exam03 extends JPanel {
 	private List<Integer> scores;
 
 
+	//id를 가지고 생성
+
+	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
+	private void viewData(CustomerDto vMem){
+	}
+
 	public Exam03(List<Integer> scores) {
 		this.scores = scores;
 	}
@@ -39,8 +46,7 @@ public class Exam03 extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		Graphics2D g2 = (Graphics2D) g;
+		Graphics2D g2 = (Graphics2D)g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		double xScale = ((double) getWidth() - 2 * BORDER_GAP) / (scores.size() - 1);
@@ -53,11 +59,11 @@ public class Exam03 extends JPanel {
 			graphPoints.add(new Point(x1, y1));
 		}
 
-		// create x and y axes
+		// create x and y axes 
 		g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, BORDER_GAP, BORDER_GAP);
 		g2.drawLine(BORDER_GAP, getHeight() - BORDER_GAP, getWidth() - BORDER_GAP, getHeight() - BORDER_GAP);
 
-		// create hatch marks for y axis.
+		// create hatch marks for y axis. 
 		for (int i = 0; i < Y_HATCH_CNT; i++) {
 			int x0 = BORDER_GAP;
 			int x1 = GRAPH_POINT_WIDTH + BORDER_GAP;
@@ -84,17 +90,18 @@ public class Exam03 extends JPanel {
 			int y1 = graphPoints.get(i).y;
 			int x2 = graphPoints.get(i + 1).x;
 			int y2 = graphPoints.get(i + 1).y;
-			g2.drawLine(x1, y1, x2, y2);
+			g2.drawLine(x1, y1, x2, y2);         
 
-			g2.setStroke(oldStroke);
+
+			// g2.setStroke(oldStroke);      
 			g2.setColor(GRAPH_POINT_COLOR);
-			// for (int i = 0; i < graphPoints.size(); i++) {
+			//   for (int i = 0; i < graphPoints.size(); i++) {
 			int x = graphPoints.get(i).x - GRAPH_POINT_WIDTH / 2;
-			int y = graphPoints.get(i).y - GRAPH_POINT_WIDTH / 2;
-			;
+			int y = graphPoints.get(i).y - GRAPH_POINT_WIDTH / 2;;
 			int ovalW = GRAPH_POINT_WIDTH;
 			int ovalH = GRAPH_POINT_WIDTH;
 			g2.fillOval(x, y, ovalW, ovalH);
+
 		}
 	}
 
@@ -103,13 +110,15 @@ public class Exam03 extends JPanel {
 		return new Dimension(PREF_W, PREF_H);
 	}
 
-	static void createAndShowGui() {
+	public static void createAndShowGui() throws ClassNotFoundException, SQLException {
 		List<Integer> scores = new ArrayList<Integer>();
 		Random random = new Random();
 		int maxDataPoints = 16;
-		int maxScore = 20;
-		for (int i = 0; i < maxDataPoints; i++) {
-			scores.add(random.nextInt(maxScore));
+		int maxScore = 100;
+		CustomerDao dao = new CustomerDao();
+		// System.out.println(dao.sumCustomerNum(17));
+		for (int i = 1; i < maxDataPoints ; i++) {
+			scores.add(i);
 		}
 		Exam03 mainPanel = new Exam03(scores);
 
@@ -121,3 +130,5 @@ public class Exam03 extends JPanel {
 		frame.setVisible(true);
 	}
 }
+
+

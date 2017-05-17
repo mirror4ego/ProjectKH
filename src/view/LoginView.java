@@ -162,7 +162,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPanel5.setOpaque(false);
 		jPanel6.setOpaque(false);
 		jPanel7.setOpaque(false);
-		
+
 		//jPanel2.add(jLabel4);
 
 		// 레이아웃 설정
@@ -270,6 +270,4 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	public void mousePressed(MouseEvent e) {}
 	@Override
 	public void mouseReleased(MouseEvent e) {}
-
-
 }

@@ -36,22 +36,10 @@ import dao.DaoFactory;
 import dao.OrderInfoDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
-import service.CRM_MainLayout;
 
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
-
-	//주문내역리스크창 
-	Vector vector1;  
-	Vector vector2;
-	Vector vector3 = new Vector();
-	DefaultTableModel defaultTableModel1 = new DefaultTableModel(vector1, vector2);
-	JTable jTable1 = new JTable(defaultTableModel1);//주문내역 리스크창
-	JScrollPane jScrollPane1 = new JScrollPane(jTable1);
-	JPanel jPanel = new JPanel(); 
-	OrderInfoDao dao = new OrderInfoDao();
-	OrderInfoDao orderInfoDao = new OrderInfoDao();
 
 	//컨테이너
 	private Container con;
@@ -78,10 +66,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JLabel jLabel2 = new JLabel("회원가입 날짜 : ", JLabel.LEFT);
 	private JLabel jLabel3 = new JLabel("전화번호 : ", JLabel.LEFT);
 	private JLabel jLabel4 = new JLabel("주소 : ", JLabel.LEFT);
-
 	private JLabel jLabel8 = new JLabel("고객 누적 주문 횟수 : ", JLabel.LEFT);
 	private JLabel jLabel9 = new JLabel("고객 나이 예측 : ", JLabel.LEFT);
-
 	private JLabel jLabel12 = new JLabel("주문번호 : ", JLabel.LEFT);
 	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
 	private JLabel jLabel14 = new JLabel("주문일자 : ", JLabel.LEFT);
@@ -108,7 +94,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JTextField jTextField7 = new JTextField("4", 10);//주소(나머지)의 입력창
 	private JTextField jTextField8 = new JTextField("5", 10);//고객 누적 주문 횟수의 입력창
 	private JTextField jTextField9 = new JTextField("6", 10);//고객 누적 주문 횟수의 입력창
-
 	private JTextField jTextField10 = new JTextField("1", 10);//주문번호 입력창
 	private JTextField jTextField11 = new JTextField("2", 10);//고객번호 입력창
 	private JTextField jTextField12 = new JTextField("20170304", 10);//주문일자 입력창
@@ -124,10 +109,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JTextField jTextField22 = new JTextField("3", 10); // 주문프로세스3
 	private JTextField jTextField23 = new JTextField("4", 10); // 수금여부
 	private JTextField jTextField24 = new JTextField("20170304", 10); // 배달예측시간
-
-
-	//초이스 객체 생성
-
+	
 	//패널 객체 생성
 	private JPanel jPanel1 = new JPanel(new GridLayout(1,4)); //메인의 맨 위쪽 메뉴 패널
 	private JPanel jPanel2 = new JPanel(new BorderLayout(3, 3)); //
@@ -143,16 +125,22 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JPanel jPanel14 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel jPanel15 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	private JPanel jPanel16 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
+	
 	//그밖의 구성 객체 생성
-	//private JList jList1 = new JList(); // 주문내역 상세 내역이 들어가는 텍스트에리아
-	//private JScrollPane jScrollPane1 = new JScrollPane(jList1); //텍스트에리아1 창의 길이를 넘어서 데이터가 있을때 스크롤 할수 있는 객체 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15); // 메뉴에 설정될 폰트
+	private Vector vector1;  
+	private Vector vector2;
+	private Vector vector3 = new Vector();
+	private DefaultTableModel defaultTableModel1 = new DefaultTableModel(vector1, vector2);
+	private JTable jTable1 = new JTable(defaultTableModel1);//주문내역 리스트창
+	private JScrollPane jScrollPane1 = new JScrollPane(jTable1);
 
+	private OrderInfoDao dao = new OrderInfoDao();
+	private OrderInfoDao orderInfoDao = new OrderInfoDao();
+	
 	public MainView() throws ClassNotFoundException, SQLException {
 		super("매장관리");
-		//주문내역리스크창
-
+		//주문내역 리스트창
 		jTableRefresh();
 		vector1 = orderInfoDao.getOrderList();
 		System.out.println("v=" + vector1);
@@ -160,12 +148,10 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		this.add(jScrollPane1);
 
-		//jPanel1.add(jButton1);
-		//this.add(jPanel1,BorderLayout.NORTH);
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-		jTable1.addMouseListener(this); //리스너 등록
-		//jButton1.addActionListener(this); //회원가입버튼 리스너 등록
 		this.init();
 		this.start();
 		this.setSize(1600,900);
@@ -178,23 +164,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		this.setVisible(true);
 	}
 
-	public Vector getColumn(){
-		vector3.add("주문번호");
-		vector3.add("주문일자");
-		vector3.add("메뉴고유값");
-		vector3.add("주문 메뉴양");
-		return vector3;
-	}
-
-	public void jTableRefresh() throws ClassNotFoundException, SQLException{
-		DefaultTableModel model= new DefaultTableModel(dao.getOrderList(), getColumn());
-		jTable1.setModel(model);
-	}
-
 	public void start() {
-
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		//액션리스너 관리
 		jButton3.addActionListener(this); 
 		jButton4.addActionListener(this); 
@@ -211,6 +181,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jButton15.addActionListener(this);
 		jButton16.addActionListener(this);
 		jButton17.addActionListener(this);
+		
+		//마우스 리스너 관리
+		jTable1.addMouseListener(this);
 	}
 
 	void init() {
@@ -226,12 +199,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel2.add("North", jPanel3);
 
 		jPanel2.add("Center", jScrollPane1);
-
-		//jPanel4.add(jButton6);
-		//jPanel4.add(jButton7);
-		//jPanel4.add(jButton8);
-		//jPanel4.add(jButton9);
-		//jPanel2.add("South", jPanel4);
 
 		jButton5.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton6.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -303,7 +270,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		//고객 관리 패널 구성 끝	
 
 		//주문 관리 패널 구성 시작
-
 		jPanel8.add(jLabel12);
 		jPanel8.add(jTextField10);
 		jPanel8.add(jLabel13);
@@ -363,6 +329,21 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		//jList1.setDisabledTextColor(Color.black);
 		//메인 보더레이아웃의 west영역 설정 끝
+	}
+
+	public Vector getColumn(){
+		vector3.add("주문번호");
+		vector3.add("주문일자");
+		vector3.add("메뉴고유값");
+		vector3.add("주문 메뉴양");
+		return vector3;
+	}
+
+	public void jTableRefresh() throws ClassNotFoundException, SQLException{
+		jTable1.removeAll();
+		DefaultTableModel model= new DefaultTableModel(dao.getOrderList(), getColumn());
+		jTable1.setModel(model);
+		jTable1.getSelectionModel();
 	}
 
 	@Override
@@ -437,58 +418,12 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		// 주문리스트 보기 버튼 
 		if(e.getSource()==jButton5){
-			/*
-			OrderInfoDao a = new OrderInfoDao();
-			try {
-				Vector ab = a.getOrderList();
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
-		
-			//	new OrderRegView( this);
+
 		}
-
-		/*	OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-			OrderInfoDto orderInfo = new OrderInfoDto();
-			try{
-				int a = 1;
-				orderInfoDao.get(a);
-				System.out.println("등록완료");
-			}catch(Exception e1){System.out.println("등록 이상동작 발생");};
-		}else{}
-		 */
-
-		//File dir = new File("C://data");
-		//adlgvc.clear();
-		//String[] files = dir.list();
-		//for(int i = 0; i < files.length; i++){
-		//File file = new File(dir, files[i]);
-		//try{
-		//FileInputStream fi = new FileInputStream(file);
-		//BufferedInputStream bi = new BufferedInputStream(fi);
-		//ObjectInputStream ois = new ObjectInputStream(bi);
-		//OrderView_sub ess = (OrderView_sub)ois.readObject();
-		//ois.close();
-		//bi.close();
-		//fi.close();
-		//String imsi = "";
-		//imsi += files[i].substring(0, files[i].indexOf("."));
-		//imsi += " : ";
-		//imsi += ess.getTitle();
-		//imsi += " : ";
-		//imsi += ess.getName();
-		//imsi += " : ";
-		//imsi += ess.getDate();
-		///imsi += " : ";
-		//imsi += ess.getSearchnum();
-		//adlgvc.add(imsi);
 
 		// 직원관리 버튼
 		if(e.getSource()==jButton3){
+			System.out.println("직원관리");
 			UserSelectView userSelectView = new UserSelectView();
 		}
 
@@ -518,7 +453,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		// 전화번호 검색
 		if(e.getSource()==jButton11){
 			System.out.println("전화번호 검색");
-			String customerPhoneNum = jTextField1.getText().trim();
+			String customerPhoneNum = jTextField3.getText().trim();
 			try {
 				Vector customerDto = (new CustomerDao()).searchCustomerPhoneNum(customerPhoneNum);
 				//만약 검색결과가 있으면 서치뷰를 띄움
@@ -536,8 +471,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {//주문내역리스크 버튼
-
+	public void mouseClicked(MouseEvent e) {//주문내역리스트 버튼
+		jTable1.removeAll();
 		int r = jTable1.getSelectedRow();
 		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
 		try {
@@ -549,21 +484,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
-/*
-		if(e.getSource()==jButton5) {
-			int r = jTable1.getSelectedRow();
-			String orderInfoNum1 = (String) jTable1.getValueAt(r, 0);
-			try {
-				OrderRegView mem = new OrderRegView(orderInfoNum1, this); //선택한 주문내역 상세보기
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} 
-		}
-///>>>>>>> dd3f7aac5dba0b9b6e75c8d44d383c921c853d39*/
 	}
 
 	@Override

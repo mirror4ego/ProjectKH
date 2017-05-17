@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 
 import dao.CustomerDao;
 import domain.CustomerDto;
-import domain.UserInfoDto;
 
 
 public class CustomerSearchView extends JFrame implements ActionListener, MouseListener {
@@ -58,48 +57,25 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 
 	//폰트
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
-	
+
 	CustomerSearchListView customerSearchListView;
 	//변수 선언부 끝
 
 	//생성자 시작
 	public CustomerSearchView() {
 		super("고객정보검색");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLayout(new GridLayout(3,1));
-		this.setSize(750,200);
-		this.setResizable(false);
 		init();
-		start();
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension dimension1 = toolkit.getScreenSize();
-		Dimension dimension2 = this.getSize();
-		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
-				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-		this.setVisible(true);
 	}
-	
-	public CustomerSearchView(String searchVairable, CustomerSearchListView customerSearchListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
+
+	public CustomerSearchView(int customerNum, CustomerSearchListView customerSearchListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
 		super("고객정보검색");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLayout(new GridLayout(3,1));
-		this.setSize(750,200);
-		this.setResizable(false);
 		init();
-		start();
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension dimension1 = toolkit.getScreenSize();
-		Dimension dimension2 = this.getSize();
-		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
-				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-		this.setVisible(true);
-	
 		this.customerSearchListView = customerSearchListView;
 
-		System.out.println("검색 매개변수 = " + searchVairable);
+		System.out.println("검색 매개변수 = " + customerNum);
 
 		CustomerDao customerDao = new CustomerDao();
-		CustomerDto customerDto = customerDao.searchCustomerPhoneNum(searchVairable);
+		CustomerDto customerDto = customerDao.searchCustomerNum(customerNum);
 		viewData(customerDto);
 	} //id를 가지고 생성
 	//생성자 끝
@@ -107,9 +83,21 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 
 	//메소드 시작
 	void init() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLayout(new GridLayout(3,1));
+		this.setSize(750,200);
+		this.setResizable(false);
+
+		start();
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension dimension1 = toolkit.getScreenSize();
+		Dimension dimension2 = this.getSize();
+		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
+				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
+		this.setVisible(true);
 		//텍스트1 필드 비활성화 설정
 		jTextField1.setEnabled(false);
-	
+
 		//폰트 설정
 		jLabel2.setFont(font1);
 		jLabel3.setFont(font1);
@@ -167,7 +155,7 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 		jButton3.addMouseListener(this);
 		jButton4.addMouseListener(this);
 	}
-	
+
 	private void viewData(CustomerDto customerDto){
 		//화면에 세팅
 		jTextField1.setText(String.valueOf(customerDto.getCustomerNum()));

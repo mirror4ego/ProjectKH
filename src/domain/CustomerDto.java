@@ -1,8 +1,7 @@
 package domain;
 
-public class CustomerDto { // 고객정보를 관리하는 클래스, 고객정보를 get, set함
+public class CustomerDto {
 
-	//고객정보에 필요한 변수 지정
 	private int customerNum;
 	private String customerRegDate;
 	private String customerPhoneNum;
@@ -13,7 +12,8 @@ public class CustomerDto { // 고객정보를 관리하는 클래스, 고객정�
 	private int customerFrequent;
 	private int customerAgePredict;
 
-	// 유저정보객체를 만들때 필요한 매개변수를 받아서 초기화 시키는 생성자
+	public CustomerDto() {}
+
 	public CustomerDto(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
 			String customerAddCity, String customerAddStreet, String customerAddRest, int customerFrequent,
 			int customerAgePredict) {
@@ -28,10 +28,6 @@ public class CustomerDto { // 고객정보를 관리하는 클래스, 고객정�
 		this.customerAgePredict = customerAgePredict;
 	}
 
-	// 디폴트 생성자 명시적으로 생성
-	public CustomerDto() {}
-
-	//각 변수 get, set 메소드 시작 지점
 	public int getCustomerNum() {
 		return customerNum;
 	}

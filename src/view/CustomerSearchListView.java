@@ -14,9 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import dao.CustomerDao;
 import dao.UserInfoDao;
-import domain.CustomerDto;
 
 public class CustomerSearchListView extends JFrame implements MouseListener,ActionListener{
 
@@ -28,28 +26,11 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 	JScrollPane jScrollPane1 = new JScrollPane(jTable1);
 	UserInfoDao userInfoDao = new UserInfoDao();
 
-
-	public CustomerSearchListView() throws ClassNotFoundException, SQLException{
-		super("검색된 고객정보 리스트");
-		//jTableRefresh();
-		this.add(jScrollPane1);
-		jTable1.addMouseListener(this); //리스너 등록
-		setSize(600,200);
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Dimension dimension1 = toolkit.getScreenSize();
-		Dimension dimension2 = this.getSize();
-		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
-				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
-
 	public CustomerSearchListView(Vector customerDto) throws ClassNotFoundException, SQLException{
 		super("검색된 고객정보 리스트");
-		//jTableRefresh();
 		this.add(jScrollPane1);
-		jTable1.addMouseListener(this); //리스너 등록
 		setSize(600,200);
+		start();
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
 		Dimension dimension2 = this.getSize();
@@ -57,12 +38,16 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		CustomerDao customerDao = new CustomerDao();	
-		DefaultTableModel model= new DefaultTableModel(customerDto, getColumn());
-		jTable1.setModel(model);
+		jTableRefresh(customerDto);
 	}
-
-
+	
+	public void init() {
+		
+	}
+	
+	public void start() {
+		jTable1.addMouseListener(this); //리스너 등록
+	}
 
 	public Vector getColumn(){
 		vector3.add("고객번호");
@@ -77,10 +62,10 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 		return vector3;
 	}
 
-	public void jTableRefresh() throws ClassNotFoundException, SQLException{
+	public void jTableRefresh(Vector customerDto) throws ClassNotFoundException, SQLException{
 		//테이블 내용을 먼저 초기화 하고 리플래시를 해야함
 		//테이블 내용을 초기화 하는 로직이 들어가야 하는 곳
-		//jTable1.removeAll();
+		jTable1.removeAll();
 		DefaultTableModel model= new DefaultTableModel(customerDto, getColumn());
 
 		jTable1.setModel(model);
@@ -89,9 +74,9 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int r = jTable1.getSelectedRow();
-		String id = (String)jTable1.getValueAt(r, 0);
+		int customerNum = (int)(jTable1.getValueAt(r, 0));
 		try {
-			CustomerSearchView customerSearchView = new CustomerSearchView(id, this);
+			CustomerSearchView customerSearchView = new CustomerSearchView(customerNum, this);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
