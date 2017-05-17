@@ -32,7 +32,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 	JButton jButton1 = new JButton("회원가입");
 	UserInfoDao dao = new UserInfoDao();
 	UserInfoDao userInfoDao = new UserInfoDao();
-	
+
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
 		jTableRefresh();
@@ -76,7 +76,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		jTable1.removeAll();
 		DefaultTableModel model= new DefaultTableModel(dao.getUserList(), getColumn());
 		jTable1.setModel(model);
- 
+
 	}	
 
 	@Override
@@ -93,7 +93,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 			e1.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == jButton1){

@@ -1,8 +1,7 @@
 package domain;
 
-public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문정보를 set, get 함
+public class OrderInfoDto {
 
-	//주문정보에 필요한 변수 지정
 	private int orderInfoNum;
 	private String orderInfoDate;
 	private String orderInfoLocPossibility;
@@ -19,13 +18,13 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	private String orderInfoDeliveryPredict;
 	private int orderInfoCustomerNum;
 
+	public OrderInfoDto() {}
+
 	public OrderInfoDto(int orderInfoNum, String orderInfoDate, String orderInfoLocPossibility, String orderInfoOrderPossibility,
 			int orderInfoMenuNum, int orderInfoMenuAmount, String orderInfoRequestInfo, int orderInfoChannelNum,
 			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
 			int orderInfoCustomerNum) {
-
-
 		this.orderInfoNum = orderInfoNum;
 		this.orderInfoDate = orderInfoDate;
 		this.orderInfoLocPossibility = orderInfoLocPossibility;
@@ -41,12 +40,6 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
 		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
-
-	}
-
-	// 디폴트 생성자 명시적으로 생성
-	public OrderInfoDto() {
-
 	}
 
 	public int getOrderInfoNum() {
@@ -66,11 +59,7 @@ public class OrderInfoDto { // 주문 정보를 관리하는 클래스, 주문�
 	}
 
 	public String getOrderInfoLocPossibility() {
-
-	
-
 		return orderInfoLocPossibility;
-
 	}
 
 	public void setOrderInfoLocPossibility(String orderInfoLocPossibility) {

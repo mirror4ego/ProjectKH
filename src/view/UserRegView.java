@@ -107,7 +107,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		}else if(gender.equals("W")){
 			jRadioButton1.setSelected(true);
 		}
-*/
+		 */
 		jTextField7.setText(email);
 		//jTextArea1.setText(intro);
 	}//viewData
@@ -274,7 +274,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		}
 
 		//jTable내용 갱신 메소드 호출
-/*		try {
+		/*		try {
 			userListView.jTableRefresh();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -359,7 +359,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		String tel3 = jTextField3.getText();
 		int tel = 444; // Integer.parseInt(tel1+tel2+tel3);
 		String addr = jTextField6.getText();
-		
+
 		String birth1 = jTextArea8.getText();
 		String birth2 = jTextArea9.getText();
 		String birth3 = jTextArea10.getText();
@@ -382,12 +382,12 @@ public class UserRegView extends JFrame implements ActionListener {
 		dto.setUserInfoName(name);
 		dto.setUserInfoPhone(tel);
 		dto.setUserInfoAddress(addr);
-/*		dto.setBirth(birth);
+		/*		dto.setBirth(birth);
 		dto.setJob(job);
 		dto.setGender(gender);
-*/		dto.setUserInfoEmail(email);
-//		dto.setIntro(intro);
+		 */		dto.setUserInfoEmail(email);
+		 //		dto.setIntro(intro);
 
-		return dto;
+		 return dto;
 	}
 }

@@ -3,23 +3,10 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
-=======
-import service.CRM_MainLayout;
-import view.LoginView;
-
-import view.CustomerSearchView;
 import view.MainView;
-import service.CRM_MainLayout;
->>>>>>> origin/master
-import view.LoginView;
 import view.UserSelectView;
 
-
-
-import view.MainView;
-
-public class Test {
+public class TestHJ {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 
 

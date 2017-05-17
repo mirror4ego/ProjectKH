@@ -37,7 +37,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 	JPanel jPanel1;
 	//라벨 객체 생성
 	private JLabel jLabel12 = new JLabel("주문번호 : ", JLabel.LEFT);
-//	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
+	//	private JLabel jLabel13 = new JLabel("주문고객번호 : ", JLabel.LEFT);
 	private JLabel jLabel14 = new JLabel("주문일자 : ", JLabel.LEFT);
 	private JLabel jLabel15 = new JLabel("주문가능여부(지역) : ", JLabel.LEFT);
 	private JLabel jLabel16 = new JLabel("주문가능여부(주문량) : ", JLabel.LEFT);
@@ -51,12 +51,12 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 	private JLabel jLabel24 = new JLabel("주문 프로세스 완료 여부 : ", JLabel.LEFT);
 	private JLabel jLabel25 = new JLabel("수금 여부 : ", JLabel.LEFT);
 	private JLabel jLabel26 = new JLabel("배달 예측시간 : ", JLabel.LEFT);
-	
+
 	//버튼 객체 생성
-		private JButton jButton1 = new JButton(" 수 정 ");
-		private JButton jButton2 = new JButton(" 삭 제 ");
-	
-	
+	private JButton jButton1 = new JButton(" 수 정 ");
+	private JButton jButton2 = new JButton(" 삭 제 ");
+
+
 	//텍스트필드 객체 생성
 	private JTextField jTextField10 = new JTextField("1", 10);//주문번호 입력창
 	//private JTextField jTextField11 = new JTextField("2", 10);//고객번호 입력창
@@ -76,7 +76,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 	//패널 객체 생성
 	private JPanel jPanel8 = new JPanel(new GridLayout(15, 2)); // 오더정보 메인 패널
 	private Object MainView;
-	
+
 
 	//수정/삭제용 생성자
 	public OrderRegView(int orderInfoNum, MainView mainView) throws ClassNotFoundException, SQLException{ 
@@ -85,21 +85,21 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		OrderInfoDao dao = new OrderInfoDao();
 		OrderInfoDto vMem = dao.getOneOrder(orderInfoNum);
 		viewData(vMem);
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			this.setSize(400,500);
-			this.setResizable(false);
-			Toolkit toolkit = Toolkit.getDefaultToolkit();
-			Dimension dimension1 = toolkit.getScreenSize();
-			Dimension dimension2 = this.getSize();
-			this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
-					(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-			this.setVisible(true);
-		}
-	 //orderInfoNum를 가지고 생성
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setSize(400,500);
+		this.setResizable(false);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension dimension1 = toolkit.getScreenSize();
+		Dimension dimension2 = this.getSize();
+		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
+				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
+		this.setVisible(true);
+	}
+	//orderInfoNum를 가지고 생성
 
 	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
 	private void viewData(OrderInfoDto vMem){
-   
+
 		int orderInfoNum=vMem.getOrderInfoNum();  //주문번호
 		String orderInfoDate=vMem.getOrderInfoDate(); //주문일자
 		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossibility(); //주문가능여부(주문량)
@@ -115,8 +115,8 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		String orderInfoMoneyCollection=vMem.getOrderInfoMoneyCollection(); //수금여부
 		String orderInfoDeliveryPredict=vMem.getOrderInfoDeliveryPredict();//배달예측시간
 
-		
-		
+
+
 		//화면에 세팅
 		jTextField10.setText(String.valueOf(orderInfoNum));
 		jTextField10.setEditable(false); //편집 안되게
@@ -133,100 +133,79 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		jTextField22.setText(orderInfoOrderCompletion);
 		jTextField23.setText(orderInfoMoneyCollection);
 		jTextField24.setText(orderInfoDeliveryPredict);
-		
+
 
 		/*if(gender.equals("M")){
 			jRadioButton2.setSelected(true);
 		}else if(gender.equals("W")){
 			jRadioButton1.setSelected(true);
 		}
-*/
+		 */
 		//jTextField7.setText(email);
 		//jTextArea1.setText(intro);
 	}//viewData
 
 	private void createOrder(){   //화면 구성뷰
 		this.setTitle("주문정보");
-		//gridBagLayout1 = new GridBagLayout();
-		//setLayout(gridBagLayout1);
-		//gridBagConstraints1 = new GridBagConstraints();
-		//gridBagConstraints1.fill = GridBagConstraints.BOTH;
-		//gridBagConstraints1.weightx = 1.0;
-		//gridBagConstraints1.weighty = 1.0;
 
 		//주문 관리 패널 구성 시작
 
-				jPanel8.add(jLabel12);
-				jPanel8.add(jTextField10);
-				//jPanel8.add(jLabel13);
-				//jPanel8.add(jTextField11);
-				jPanel8.add(jLabel14);
-				jPanel8.add(jTextField12);
-				jPanel8.add(jLabel15);
-				jPanel8.add(jTextField13);
-				jPanel8.add(jLabel16);
-				jPanel8.add(jTextField14);
-				jPanel8.add(jLabel17);
-				jPanel8.add(jTextField15);
-				jPanel8.add(jLabel18);
-				jPanel8.add(jTextField16);
-				jPanel8.add(jLabel19);
-				jPanel8.add(jTextField17);
-				jPanel8.add(jLabel20);
-				jPanel8.add(jTextField18);
-				jPanel8.add(jLabel21);
-				jPanel8.add(jTextField19);
-				jPanel8.add(jLabel22);
-				jPanel8.add(jTextField20);
-				jPanel8.add(jLabel23);
-				jPanel8.add(jTextField21);
-				jPanel8.add(jLabel24);
-				jPanel8.add(jTextField22);
-				jPanel8.add(jLabel25);
-				jPanel8.add(jTextField23);
-				jPanel8.add(jLabel26);
-				jPanel8.add(jTextField24);
-				  jPanel8.add(jButton1);
-				  jPanel8.add(jButton2);
+		jPanel8.add(jLabel12);
+		jPanel8.add(jTextField10);
+		jPanel8.add(jLabel14);
+		jPanel8.add(jTextField12);
+		jPanel8.add(jLabel15);
+		jPanel8.add(jTextField13);
+		jPanel8.add(jLabel16);
+		jPanel8.add(jTextField14);
+		jPanel8.add(jLabel17);
+		jPanel8.add(jTextField15);
+		jPanel8.add(jLabel18);
+		jPanel8.add(jTextField16);
+		jPanel8.add(jLabel19);
+		jPanel8.add(jTextField17);
+		jPanel8.add(jLabel20);
+		jPanel8.add(jTextField18);
+		jPanel8.add(jLabel21);
+		jPanel8.add(jTextField19);
+		jPanel8.add(jLabel22);
+		jPanel8.add(jTextField20);
+		jPanel8.add(jLabel23);
+		jPanel8.add(jTextField21);
+		jPanel8.add(jLabel24);
+		jPanel8.add(jTextField22);
+		jPanel8.add(jLabel25);
+		jPanel8.add(jTextField23);
+		jPanel8.add(jLabel26);
+		jPanel8.add(jTextField24);
+		jPanel8.add(jButton1);
+		jPanel8.add(jButton2);
 
-				jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
-				//주문 관리 패널 구성 끝
-				this.setContentPane(jPanel8);
+		jPanel8.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "주문정보"));
+		//주문 관리 패널 구성 끝
+		
+		this.setContentPane(jPanel8);
 
 		//버튼에 감지기를 붙이자
-	      jButton1.addActionListener(this);  //수정버튼
-		  jButton2.addActionListener(this);  //삭제버튼
-		  
-		
-		//setDefaultCloseOperation(EXIT_ON_CLOSE); //System.exit(0) //프로그램종료
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE); //dispose(); //현재창만 닫는다.
-	}//createUI
+		jButton1.addActionListener(this);  //수정버튼
+		jButton2.addActionListener(this);  //삭제버튼
 
-	//그리드백레이아웃에 붙이는 메소드
-	/*private void gbAdd(JComponent c, int x, int y, int w, int h){
-		gridBagConstraints1.gridx = x;
-		gridBagConstraints1.gridy = y;
-		gridBagConstraints1.gridwidth = w;
-		gridBagConstraints1.gridheight = h;
-		gridBagLayout1.setConstraints(c, gridBagConstraints1);
-		gridBagConstraints1.insets = new Insets(2, 2, 2, 2);
-		add(c, gridBagConstraints1);
-	}//gbAdd*/
-	
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE); //dispose(); //현재창만 닫는다.
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		         
-	         if(ae.getSource() == jButton1){//수정버튼을 누르면
+
+		if(ae.getSource() == jButton1){//수정버튼을 누르면
 			UpdateOrder();            
 		}else if(ae.getSource() == jButton2){ //삭제버튼을 누르면
-			//int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?");
 			int x = JOptionPane.showConfirmDialog(this,"정말 삭제하시겠습니까?","삭제",JOptionPane.YES_NO_OPTION);
 
 			if (x == JOptionPane.OK_OPTION){
 				// 텍스트 필드에 입력된 주문번호를 읽어서 변수에 저장
 				String orderInfoNum1 = jTextField10.getText();
 				int orderInfoNum = Integer.parseInt(orderInfoNum1);
-				
+
 				try {
 					deleteOrder(orderInfoNum);
 				} catch (SQLException e) {
@@ -241,7 +220,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		//jTable내용 갱신 메소드 호출
 		try {
 			MainView mv = new MainView();
-			mv.jTableRefresh();
+			//mv.jTableRefresh();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -254,7 +233,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 
 
 	private void deleteOrder(int orderInfoNum) throws SQLException {
-		
+
 		//System.out.println(userListView);
 		OrderInfoDao dao = new OrderInfoDao();
 		boolean ok;
@@ -286,7 +265,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 			JOptionPane.showMessageDialog(this, "수정실패: 값을 확인하세요");   
 		}
 	}
-/*
+	/*
 	private void insertOrder(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
@@ -307,14 +286,14 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 
 
 	}//inserOrder
-	*/
+	 */
 
 	public OrderInfoDto getViewData(){
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
 		OrderInfoDto dto = new OrderInfoDto();
-		
-		
+
+
 		String orderInfoNum1 = jTextField10.getText();
 		int orderInfoNum = Integer.parseInt(orderInfoNum1);
 		String orderInfoDate = jTextField12.getText();
@@ -322,16 +301,16 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		String orderInfoOrderPossiblity = jTextField14.getText();
 		String orderInfoMenuNum1 = jTextField15.getText();
 		int orderInfoMenuNum = Integer.parseInt(orderInfoMenuNum1);
-		
-		
+
+
 		String orderInfoMenuAmount1 = jTextField16.getText();
 		int orderInfoMenuAmount = Integer.parseInt(orderInfoMenuAmount1);
-		
+
 		String orderInfoRequestInfo = jTextField17.getText();
-		
+
 		String orderInfoChannelNum1 = jTextField18.getText();
 		int orderInfoChannelNum = Integer.parseInt(orderInfoChannelNum1);
-		
+
 		String orderInfoRequestDelivery = jTextField19.getText();
 		String orderInfoPackCompletion = jTextField20.getText();
 		String orderInfoDeliveryCompletion = jTextField21.getText();

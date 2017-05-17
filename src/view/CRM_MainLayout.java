@@ -1,4 +1,4 @@
-package service;
+package view;
 
 import java.awt.Choice;
 import java.awt.FlowLayout;
@@ -13,10 +13,16 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import service.Exam01;
+import service.Exam02;
+import service.Exam03;
+import service.Exam04;
+import service.Exam05;
 public class CRM_MainLayout extends JFrame implements FocusListener, ActionListener, ItemListener{
 	private FlowLayout flow = new FlowLayout();
 	private Choice choice = new Choice();
-	 private List<Integer> score;
+	private List<Integer> score;
 	private List<Double> scores;
 	private int num=0;
 
@@ -35,26 +41,24 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 		choice.add("D");
 		choice.add("E");
 		this.add(choice);
-
-
 	}
 	private void start(){
 		choice.addItemListener(this);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 	}
-	
+
 	public void itemStateChanged(ItemEvent e){
 		if(e.getSource()==choice){
 			int index =choice.getSelectedIndex();
 			switch(index){
 			case 0:
 				SwingUtilities.invokeLater(new Runnable() {
-			         public void run() {
-			        	 Exam01 ex= new Exam01(scores);
-			        	 Exam01.createAndShowGui();
-			         }
-			      });
+					public void run() {
+						Exam01 ex= new Exam01(scores);
+						Exam01.createAndShowGui();
+					}
+				});
 				break;
 			case 1:
 				try {
@@ -68,10 +72,10 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 				}
 				break;
 			case 2:
-				 SwingUtilities.invokeLater(new Runnable() {
-			         public void run() {
-			        	 Exam03 ex03= new Exam03(score);
-			            try {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						Exam03 ex03= new Exam03(score);
+						try {
 							ex03.createAndShowGui();
 						} catch (ClassNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -80,8 +84,8 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-			         }
-			      });
+					}
+				});
 				break;
 			case 3:
 				try {
@@ -102,16 +106,16 @@ public class CRM_MainLayout extends JFrame implements FocusListener, ActionListe
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 	@Override
 	public void focusGained(FocusEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void focusLost(FocusEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -65,14 +65,14 @@ public class UserSelectView extends JFrame implements ActionListener {
 
 		if(e.getSource()==button1){
 			System.out.println("직원 목록");
-			 // 버튼을 눌렀을때 버튼 객체의 출력된 매개변수 값과 비교
+			// 버튼을 눌렀을때 버튼 객체의 출력된 매개변수 값과 비교
 
-				try {
-					UserListView userListView = new UserListView();
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			try {
+				UserListView userListView = new UserListView();
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			return;
 		}

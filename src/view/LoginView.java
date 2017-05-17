@@ -162,7 +162,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPanel5.setOpaque(false);
 		jPanel6.setOpaque(false);
 		jPanel7.setOpaque(false);
-		
+
 		//jPanel2.add(jLabel4);
 
 		// 레이아웃 설정

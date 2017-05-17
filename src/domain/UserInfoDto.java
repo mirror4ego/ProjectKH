@@ -2,8 +2,6 @@ package domain;
 
 public class UserInfoDto {
 
-	//사용자정보 필요한 변수 지정
-
 	private String userInfoId;
 	private String userInfoPassword;
 	private String userInfoName;
@@ -13,7 +11,7 @@ public class UserInfoDto {
 	private String userInfoEmail;
 
 	public UserInfoDto() {}
-	// 사용자정보객체를 만들때 필요한 매개변수를 받아서 초기화 시키는 생성자
+
 	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoAddress,
 			int userInfoPhone, String userInfoEmail) {
 		this.userInfoId = userInfoId;
@@ -24,7 +22,6 @@ public class UserInfoDto {
 		this.userInfoPhone = userInfoPhone;
 		this.userInfoEmail = userInfoEmail;
 	}
-
 
 	public String getUserInfoId() {
 		return userInfoId;
@@ -68,7 +65,7 @@ public class UserInfoDto {
 	public void setUserInfoEmail(String userInfoEmail) {
 		this.userInfoEmail = userInfoEmail;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "UserInfoDto [userInfoId=" + userInfoId + ", userInfoPassword=" + userInfoPassword + ", userInfoName="

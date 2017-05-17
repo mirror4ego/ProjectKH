@@ -220,26 +220,16 @@ public class CustomerDao {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				int customerNum = rs.getInt("customer_Num");
-				String customerRegDate = rs.getString("customer_Reg_Date");
-				String customerPhoneNum = rs.getString("customer_Phone_Num");
-				String customerAddState = rs.getString("customer_Add_State");
-				String customerAddCity = rs.getString("customer_Add_City");
-				String customerAddStreet = rs.getString("customer_Add_Street");
-				String customerAddRest = rs.getString("customer_Add_Rest");
-				int customerFrequent = rs.getInt("customer_Frequent");
-				int customerAgePredict = rs.getInt("customer_Age_Predict");
-
 				Vector row = new Vector();
-				row.add(customerNum);
-				row.add(customerRegDate);
-				row.add(customerPhoneNum);
-				row.add(customerAddState);
-				row.add(customerAddCity);
-				row.add(customerAddStreet);
-				row.add(customerAddRest);
-				row.add(customerFrequent);
-				row.add(customerAgePredict);
+				row.add(rs.getInt("customer_Num"));
+				row.add(rs.getString("customer_Reg_Date"));
+				row.add(rs.getString("customer_Phone_Num"));
+				row.add(rs.getString("customer_Add_State"));
+				row.add(rs.getString("customer_Add_City"));
+				row.add(rs.getString("customer_Add_Street"));
+				row.add(rs.getString("customer_Add_Rest"));
+				row.add(rs.getInt("customer_Frequent"));
+				row.add(rs.getInt("customer_Age_Predict"));
 
 				data.add(row); 
 			}
