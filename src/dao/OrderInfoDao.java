@@ -194,6 +194,8 @@ public class OrderInfoDao {
 	}
 
 	// 주문 수정 메소드
+
+
 	public boolean updateOrder(OrderInfoDto orderInfoDto){
 		System.out.println("dto="+orderInfoDto.toString());
 		boolean ok = false;
@@ -224,6 +226,7 @@ public class OrderInfoDao {
 
 		}catch(Exception e){
 			e.printStackTrace();
+
 		}
 
 		return ok;
