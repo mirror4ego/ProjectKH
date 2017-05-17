@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -77,6 +78,7 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 		int customerNum = (int)(jTable1.getValueAt(r, 0));
 		try {
 			CustomerSearchView customerSearchView = new CustomerSearchView(customerNum, this);
+
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -190,16 +190,7 @@ public class CustomerDao {
 				customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
 				customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
 				customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
-				CustomerSearchView customerSearchView = new CustomerSearchView();
-				customerSearchView.jTextField1.setText(String.valueOf(customerDto.getCustomerNum()));
-				customerSearchView.jTextField2.setText(customerDto.getCustomerRegDate());
-				customerSearchView.jTextField3.setText(customerDto.getCustomerPhoneNum());
-				customerSearchView.jTextField4.setText(customerDto.getCustomerAddState());
-				customerSearchView.jTextField7.setText(customerDto.getCustomerAddCity());
-				customerSearchView.jTextField8.setText(customerDto.getCustomerAddStreet());
-				customerSearchView.jTextField9.setText(customerDto.getCustomerAddRest());
-				customerSearchView.jTextField5.setText(String.valueOf(customerDto.getCustomerFrequent()));
-				customerSearchView.jTextField6.setText(String.valueOf(customerDto.getCustomerAgePredict()));
+
 			}else{
 				JOptionPane.showMessageDialog(null, "고객번호가 존재하지 않습니다");
 			}
