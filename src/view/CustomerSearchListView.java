@@ -14,9 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import dao.CustomerDao;
 import dao.UserInfoDao;
-import domain.CustomerDto;
 
 public class CustomerSearchListView extends JFrame implements MouseListener,ActionListener{
 
@@ -31,8 +29,8 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 	public CustomerSearchListView(Vector customerDto) throws ClassNotFoundException, SQLException{
 		super("검색된 고객정보 리스트");
 		this.add(jScrollPane1);
-		jTable1.addMouseListener(this); //리스너 등록
 		setSize(600,200);
+		start();
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
 		Dimension dimension2 = this.getSize();

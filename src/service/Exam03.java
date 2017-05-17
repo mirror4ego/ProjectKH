@@ -17,10 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import dao.CustomerDao;
-import dao.OrderInfoDao;
-import dao.UserInfoDao;
 import domain.CustomerDto;
-import domain.UserInfoDto;
 
 @SuppressWarnings("serial")
 public class Exam03 extends JPanel {

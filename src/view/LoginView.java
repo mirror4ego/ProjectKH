@@ -270,6 +270,4 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	public void mousePressed(MouseEvent e) {}
 	@Override
 	public void mouseReleased(MouseEvent e) {}
-
-
 }

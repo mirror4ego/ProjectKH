@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 
 import dao.CustomerDao;
 import domain.CustomerDto;
-import domain.UserInfoDto;
 
 
 public class CustomerSearchView extends JFrame implements ActionListener, MouseListener {

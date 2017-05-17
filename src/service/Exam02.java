@@ -3,10 +3,7 @@ package service;
 import javax.swing.*;
 
 import dao.OrderInfoDao;
-import domain.OrderInfoDto;
-
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.SQLException;
 
 public class Exam02 extends JFrame {
