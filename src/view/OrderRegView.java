@@ -229,6 +229,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 				
 				try {
 					deleteOrder(orderInfoNum);
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -262,7 +263,8 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "삭제완료");
-			dispose();         
+			dispose();        
+			
 
 		}else{
 			JOptionPane.showMessageDialog(this, "삭제실패");

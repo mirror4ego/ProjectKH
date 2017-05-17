@@ -174,7 +174,14 @@ public class OrderInfoDao {
 			boolean ok = false;
 			try{
 				Connection c = connectionMaker.makeConnection();          
-				PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, orderInfo_Menu_Num=?, orderInfo_Menu_Amount=?, orderInfo_Request_Info=?,orderInfo_Channel_Num=?, orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=?"+ "where orderInfo_Num=?");
+				PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, "
+						+ "orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, "
+						+ "orderInfo_Menu_Num=?, orderInfo_Menu_Amount=?, "
+						+ "orderInfo_Request_Info=?,orderInfo_Channel_Num=?, "
+						+ "orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, "
+						+ "orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, "
+						+ "orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=? "
+						+ "where orderInfo_Num=?");
 
 			
 				ps.setString(1, orderInfoDto.getOrderInfoDate());
@@ -190,12 +197,14 @@ public class OrderInfoDao {
 				ps.setString(11, orderInfoDto.getOrderInfoOrderCompletion());
 				ps.setString(12, orderInfoDto.getOrderInfoMoneyCollection());
 				ps.setString(13, orderInfoDto.getOrderInfoDeliveryPredict());
-				ps.setInt(14, orderInfoDto.getOrderInfoCustomerNum());
+
+				ps.setInt(14, orderInfoDto.getOrderInfoNum());
 
 
 				int r = ps.executeUpdate();
 				
 				if(r>0) ok = true;
+
 				
 			}catch(Exception e){
 				e.printStackTrace();
