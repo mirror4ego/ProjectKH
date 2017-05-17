@@ -11,11 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -26,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
@@ -36,10 +40,16 @@ import dao.DaoFactory;
 import dao.OrderInfoDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
+import service.Exam01;
+import service.Exam02;
+import service.Exam03;
+import service.Exam04;
+import service.Exam05;
 
+import java.awt.Choice;
 
 @SuppressWarnings("serial")
-public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener {
+public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener, ItemListener {
 
 	//컨테이너
 	private Container con;
@@ -134,7 +144,12 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private DefaultTableModel defaultTableModel1 = new DefaultTableModel(vector1, vector2);
 	private JTable jTable1 = new JTable(defaultTableModel1);//주문내역 리스트창
 	private JScrollPane jScrollPane1 = new JScrollPane(jTable1);
-
+	
+	//메뉴주문 list
+	private Choice choice1 = new Choice(); //메뉴선택
+	private Choice choice2 = new Choice(); //메뉴수량
+	
+	
 	private OrderInfoDao dao = new OrderInfoDao();
 	private OrderInfoDao orderInfoDao = new OrderInfoDao();
 	
@@ -184,6 +199,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		
 		//마우스 리스너 관리
 		jTable1.addMouseListener(this);
+		
+		choice1.addItemListener(this);
+		choice2.addItemListener(this);
 	}
 
 	void init() {
@@ -280,10 +298,24 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel8.add(jTextField13);
 		jPanel8.add(jLabel16);
 		jPanel8.add(jTextField14);
-		jPanel8.add(jLabel17);
-		jPanel8.add(jTextField15);
-		jPanel8.add(jLabel18);
-		jPanel8.add(jTextField16);
+		jPanel8.add(jLabel17);//메뉴고유값 라벨
+		choice1.add("A");
+		choice1.add("B");
+		choice1.add("C");
+		choice1.add("D");
+		choice1.add("E");
+		jPanel8.add(choice1);//메뉴고유값 
+		
+		jPanel8.add(jLabel18);//메뉴양 라벨
+		for(int i=1;i<100;i++){
+			choice2.add(""+i);
+		}
+		jPanel8.add(choice2);//메뉴수량 
+		
+		//jPanel8.add(jLabel17);//메뉴고유값 
+		//jPanel8.add(jTextField15);//메뉴고유값 
+		//jPanel8.add(jLabel18);//메뉴양
+		//jPanel8.add(jTextField16);//메뉴양
 		jPanel8.add(jLabel19);
 		jPanel8.add(jTextField17);
 		jPanel8.add(jLabel20);
@@ -484,8 +516,30 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
+	} 
+	//choice로 메뉴를 골랐을때
+	public void itemStateChanged(ItemEvent e){
+		if(e.getSource()==choice1){
+			int index =choice1.getSelectedIndex();
+			switch(index){
+			case 0:
+				
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+			case 4:
+				
+				break;
+			}
+		}
 	}
-
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override

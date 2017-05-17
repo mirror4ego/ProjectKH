@@ -22,8 +22,8 @@ public class TestHJ {
 		//MainView mainView = new MainView();
 
 
-		LoginView loginView = new LoginView();
-		//MainView mainView = new MainView();
+		//LoginView loginView = new LoginView();
+		MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();

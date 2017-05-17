@@ -194,50 +194,8 @@ public class OrderInfoDao {
 	}
 
 	// 주문 수정 메소드
-<<<<<<< HEAD
-		public boolean updateOrder(OrderInfoDto orderInfoDto){
-			System.out.println("dto="+orderInfoDto.toString());
-			boolean ok = false;
-			try{
-				Connection c = connectionMaker.makeConnection();          
-				PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, "
-						+ "orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, "
-						+ "orderInfo_Menu_Num=?, orderInfo_Menu_Amount=?, "
-						+ "orderInfo_Request_Info=?,orderInfo_Channel_Num=?, "
-						+ "orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, "
-						+ "orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, "
-						+ "orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=? "
-						+ "where orderInfo_Num=?");
-
-			
-				ps.setString(1, orderInfoDto.getOrderInfoDate());
-				ps.setString(2, orderInfoDto.getOrderInfoLocPossibility());
-				ps.setString(3, orderInfoDto.getOrderInfoOrderPossibility());
-				ps.setInt(4, orderInfoDto.getOrderInfoMenuNum());
-				ps.setInt(5, orderInfoDto.getOrderInfoMenuAmount());
-				ps.setString(6, orderInfoDto.getOrderInfoRequestInfo());
-				ps.setInt(7, orderInfoDto.getOrderInfoChannelNum());
-				ps.setString(8, orderInfoDto.getOrderInfoRequestDelivery());
-				ps.setString(9, orderInfoDto.getOrderInfoPackCompletion());
-				ps.setString(10, orderInfoDto.getOrderInfoDeliveryCompletion());
-				ps.setString(11, orderInfoDto.getOrderInfoOrderCompletion());
-				ps.setString(12, orderInfoDto.getOrderInfoMoneyCollection());
-				ps.setString(13, orderInfoDto.getOrderInfoDeliveryPredict());
-
-				ps.setInt(14, orderInfoDto.getOrderInfoNum());
 
 
-				int r = ps.executeUpdate();
-				
-				if(r>0) ok = true;
-
-				
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		
-			return ok;
-=======
 	public boolean updateOrder(OrderInfoDto orderInfoDto){
 		System.out.println("dto="+orderInfoDto.toString());
 		boolean ok = false;
@@ -268,7 +226,7 @@ public class OrderInfoDao {
 
 		}catch(Exception e){
 			e.printStackTrace();
->>>>>>> 8eb01133efd4a6488c33000ffebfdf3d19ea384e
+
 		}
 
 		return ok;
