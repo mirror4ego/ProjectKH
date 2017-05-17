@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,8 +21,12 @@ public class UserSelectView extends JFrame implements ActionListener {
 	JButton button2 = new JButton("출결 관리");
 
 	public UserSelectView() {
+		
 		super("배경 사진");
-		icon = new ImageIcon("img/gubook.jpg");
+		ImageIcon icon = new ImageIcon("img/gubook.jpg");
+		Image ima = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);				
+		icon.setImage(ima);		
+		
 		start();
 		//배경 Panel 생성후 컨텐츠페인으로 지정      
 		JPanel background = new JPanel() {
@@ -44,7 +49,7 @@ public class UserSelectView extends JFrame implements ActionListener {
 		background.add(button2);
 		scrollPane = new JScrollPane(background);
 		setContentPane(scrollPane);
-		setSize(200,200);
+		setSize(220,230);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
 		Dimension dimension2 = this.getSize();
@@ -84,13 +89,6 @@ public class UserSelectView extends JFrame implements ActionListener {
 
 			return;
 		}
-	}
-
-	public static void main(String[] args) {
-		UserSelectView frame = new UserSelectView();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 300);
-		frame.setVisible(true);
 	}
 }
 

@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -18,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -31,12 +29,13 @@ public class UserRegView extends JFrame implements ActionListener {
 	JPanel jPanel1;
 	JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7; //전화
 	JTextField jTextArea8, jTextArea9, jTextArea10; //생년월일
+	JTextField jTextField10 = new JTextField(20);
 	JTextArea jTextArea1;
 	JComboBox jComboBox1; //직업
 	JPasswordField jPasswordField1; //비밀번호   
 	JRadioButton jRadioButton1, jRadioButton2; //남, 여
 	JButton jButton1, jButton2, jButton3, jButton4; //가입, 취소, 수정 , 탈퇴 버튼
-
+	JLabel bNum = new JLabel("고객번호 :");
 	GridBagLayout gridBagLayout1;
 	GridBagConstraints gridBagConstraints1;
 	UserListView userListView;
@@ -47,6 +46,10 @@ public class UserRegView extends JFrame implements ActionListener {
 		jButton3.setVisible(false);
 		jButton4.setEnabled(false);
 		jButton4.setVisible(false);
+		jTextField10.setEditable(false);
+		jTextField10.setText("1");
+		jTextField10.setVisible(false);
+		bNum.setVisible(false);
 	}
 
 	public UserRegView(UserListView userListView){ //가입용 생성자
@@ -55,7 +58,12 @@ public class UserRegView extends JFrame implements ActionListener {
 		jButton3.setVisible(false);
 		jButton4.setEnabled(false);
 		jButton4.setVisible(false);
+		jTextField10.setEditable(false);
+		jTextField10.setText("1");
 		this.userListView = userListView;  
+		jTextField10.setVisible(false);
+		bNum.setVisible(false);
+
 	}
 
 	public UserRegView(String id, UserListView userListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
@@ -73,7 +81,7 @@ public class UserRegView extends JFrame implements ActionListener {
 
 	//UserInfoDto 의 회원 정보를 가지고 화면에 셋팅해주는 메소드
 	private void viewData(UserInfoDto vMem){
-
+		int num = vMem.getUserInfoNum();
 		String id = vMem.getUserInfoId();
 		String pwd = vMem.getUserInfoPassword();
 		String name = vMem.getUserInfoName();
@@ -86,6 +94,8 @@ public class UserRegView extends JFrame implements ActionListener {
 		//String intro = vMem.getIntro();    
 
 		//화면에 세팅
+		jTextField10.setText(String.valueOf(num));
+		jTextField10.setEditable(false);
 		jTextField4.setText(id);
 		jTextField4.setEditable(false); //편집 안되게
 		jPasswordField1.setText(""); //비밀번호는 안보여준다.
@@ -121,24 +131,38 @@ public class UserRegView extends JFrame implements ActionListener {
 		gridBagConstraints1.weightx = 1.0;
 		gridBagConstraints1.weighty = 1.0;
 
+		//시퀀스 넘버
+	
+		jTextField10 = new JTextField(20);
+		gbAdd(bNum,0,0,1,1);
+		gbAdd(jTextField10,1,0,3,1);
+
 		//아이디
 		JLabel bId = new JLabel("아이디 : ");
 		jTextField4 = new JTextField(20);     
 		//그리드백에 붙이기
-		gbAdd(bId, 0, 0, 1, 1);
-		gbAdd(jTextField4, 1, 0, 3, 1);
+		gbAdd(bId, 0, 1, 1, 1);
+		gbAdd(jTextField4, 1, 1, 3, 1);
 
 		//비밀번호
 		JLabel bPwd = new JLabel("비밀번호 : ");
 		jPasswordField1 = new JPasswordField(20);
-		gbAdd(bPwd, 0, 1, 1, 1);
-		gbAdd(jPasswordField1, 1, 1, 3, 1);
+		gbAdd(bPwd, 0, 2, 1, 1);
+		gbAdd(jPasswordField1, 1, 2, 3, 1);
 
 		//이름
 		JLabel bName = new JLabel("이름 :");
 		jTextField5 = new JTextField(20);
-		gbAdd(bName,0,2,1,1);
-		gbAdd(jTextField5,1,2,3,1);
+		gbAdd(bName,0,3,1,1);
+		gbAdd(jTextField5,1,3,3,1);
+
+
+		//주소
+		JLabel bAddr = new JLabel("주소: ");
+		jTextField6 = new JTextField(20);
+		gbAdd(bAddr, 0,4,1,1);
+		gbAdd(jTextField6, 1, 4, 3,1);
+
 
 		//전화
 		JLabel bTel = new JLabel("전화 :");
@@ -151,16 +175,12 @@ public class UserRegView extends JFrame implements ActionListener {
 		pTel.add(jTextField2);
 		pTel.add(new JLabel(" - "));
 		pTel.add(jTextField3);
-		gbAdd(bTel, 0, 3, 1,1);
-		gbAdd(pTel, 1, 3, 3,1);
+		gbAdd(bTel, 0, 5, 1,1);
+		gbAdd(pTel, 1, 5, 3,1);
 
-		//주소
-		JLabel bAddr = new JLabel("주소: ");
-		jTextField6 = new JTextField(20);
-		gbAdd(bAddr, 0,4,1,1);
-		gbAdd(jTextField6, 1, 4, 3,1);
 
-		//생일
+
+		/*//생일
 		JLabel bBirth= new JLabel("생일: ");
 		jTextArea8 = new JTextField(6);
 		jTextArea9 = new JTextField(6);
@@ -194,20 +214,20 @@ public class UserRegView extends JFrame implements ActionListener {
 		pGender.add(jRadioButton2);
 		pGender.add(jRadioButton1);      
 		gbAdd(bGender, 0,7,1,1);
-		gbAdd(pGender,1,7,3,1);
+		gbAdd(pGender,1,7,3,1);*/
 
 		//이메일
 		JLabel bEmail = new JLabel("이메일 : ");
 		jTextField7 = new JTextField(20);
-		gbAdd(bEmail, 0,8,1,1);
-		gbAdd(jTextField7,1,8,3,1);
-
+		gbAdd(bEmail, 0,6,1,1);
+		gbAdd(jTextField7,1,6,3,1);
+		/*
 		//자기소개
 		JLabel bIntro = new JLabel("자기 소개: ");
 		jTextArea1 = new JTextArea(5, 20); //행 : 열
 		JScrollPane pane = new JScrollPane(jTextArea1);
 		gbAdd(bIntro,0,9,1,1);
-		gbAdd(pane,1,9,3,1);
+		gbAdd(pane,1,9,3,1);*/
 
 		//버튼
 		JPanel pButton = new JPanel();
@@ -219,7 +239,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		pButton.add(jButton3);
 		pButton.add(jButton4);
 		pButton.add(jButton2);    
-		gbAdd(pButton, 0, 10, 4, 1);
+		gbAdd(pButton, 0, 7, 4, 1);
 
 		//버튼에 감지기를 붙이자
 		jButton1.addActionListener(this);
@@ -227,7 +247,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		jButton2.addActionListener(this);
 		jButton4.addActionListener(this);
 
-		setSize(350,500);
+		setSize(370,280);
 		setVisible(true);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE); //System.exit(0) //프로그램종료
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE); //dispose(); //현재창만 닫는다.
@@ -351,30 +371,16 @@ public class UserRegView extends JFrame implements ActionListener {
 
 		//화면에서 사용자가 입력한 내용을 얻는다.
 		UserInfoDto dto = new UserInfoDto();
+		int num = Integer.parseInt(String.valueOf(jTextField10.getText()));
 		String id = jTextField4.getText();
 		String pwd = jPasswordField1.getText();
 		String name = jTextField5.getText();
 		String tel1 = jTextField1.getText();
 		String tel2 = jTextField2.getText();
 		String tel3 = jTextField3.getText();
-		int tel = 444; // Integer.parseInt(tel1+tel2+tel3);
+		int tel = Integer.parseInt(String.valueOf(tel1+tel2+tel3));
 		String addr = jTextField6.getText();
-
-		String birth1 = jTextArea8.getText();
-		String birth2 = jTextArea9.getText();
-		String birth3 = jTextArea10.getText();
-		//String birth = birth1+"/"+birth2+"/"+birth3;
-		String birth = birth1+birth2+birth3;
-		String job = (String)jComboBox1.getSelectedItem();
-		String gender = "";
-		if(jRadioButton2.isSelected()){
-			gender = "M";
-		}else if(jRadioButton1.isSelected()){
-			gender = "W";
-		}
-
 		String email = jTextField7.getText();
-		String intro = jTextArea1.getText();
 
 		//dto에 담는다.
 		dto.setUserInfoId(id);
@@ -382,6 +388,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		dto.setUserInfoName(name);
 		dto.setUserInfoPhone(tel);
 		dto.setUserInfoAddress(addr);
+		dto.setUserInfoNum(num);
 		/*		dto.setBirth(birth);
 		dto.setJob(job);
 		dto.setGender(gender);

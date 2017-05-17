@@ -3,9 +3,6 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.CRM_MainLayout;
-import view.CustomerSearchView;
-import view.MainView;
 import view.LoginView;
 
 
@@ -18,9 +15,9 @@ public class TestSH {
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
-
-		//LoginView loginView = new LoginView();
-		MainView mainView = new MainView();
+		//UserListView userListView = new UserListView();
+		LoginView loginView = new LoginView();
+		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();

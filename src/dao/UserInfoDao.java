@@ -191,17 +191,16 @@ public class UserInfoDao {
 		try{
 			Connection c = connectionMaker.makeConnection();          
 			PreparedStatement ps = c.prepareStatement("update userinfo set userinfo_password=?,"
-					+ "userinfo_name=?, userinfo_address=?, " + "userinfo_num=?,"
+					+ "userinfo_name=?, userinfo_address=?, "
 					+ "userinfo_phone=?, userinfo_email=? where userinfo_id=? and userinfo_password=?");
 
 			ps.setString(1, userInfoDto.getUserInfoPassword());
 			ps.setString(2, userInfoDto.getUserInfoName());
 			ps.setString(3, userInfoDto.getUserInfoAddress());
-			ps.setInt(4, userInfoDto.getUserInfoNum());
-			ps.setInt(5, userInfoDto.getUserInfoPhone());
-			ps.setString(6, userInfoDto.getUserInfoEmail());
-			ps.setString(7, userInfoDto.getUserInfoId());
-			ps.setString(8, userInfoDto.getUserInfoPassword());
+			ps.setInt(4, userInfoDto.getUserInfoPhone());
+			ps.setString(5, userInfoDto.getUserInfoEmail());
+			ps.setString(6, userInfoDto.getUserInfoId());
+			ps.setString(7, userInfoDto.getUserInfoPassword());
 
 			int r = ps.executeUpdate();
 			if(r>0) ok = true;
