@@ -378,11 +378,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		String tel1 = jTextField1.getText();
 		String tel2 = jTextField2.getText();
 		String tel3 = jTextField3.getText();
-<<<<<<< HEAD
-		int tel = Integer.parseInt(tel1+tel2+tel3);
-=======
 		int tel = Integer.parseInt(String.valueOf(tel1+tel2+tel3));
->>>>>>> 48aa136437cda987d6d5302efde1803cd31a508a
 		String addr = jTextField6.getText();
 		String email = jTextField7.getText();
 

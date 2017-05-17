@@ -3,11 +3,10 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
 import view.MainView;
-=======
+
 import view.LoginView;
->>>>>>> 48aa136437cda987d6d5302efde1803cd31a508a
+
 
 
 
