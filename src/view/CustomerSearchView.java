@@ -168,7 +168,6 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 		jTextField7.setText(customerDto.getCustomerAddCity());
 		jTextField8.setText(customerDto.getCustomerAddStreet());
 		jTextField9.setText(customerDto.getCustomerAddRest());
-		JTab jt = new JTab();
 	}//viewData
 
 	@Override

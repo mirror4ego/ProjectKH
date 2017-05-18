@@ -3,14 +3,14 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.LoginView;
+import view.CustomerMainView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
-		LoginView loginView = new LoginView();
+		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
@@ -19,5 +19,7 @@ public class TestJY {
 		//UserSelectView userSelectView = new UserSelectView();
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
+		
+		CustomerMainView customerMainView = new CustomerMainView();
 	}
 }
