@@ -216,7 +216,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel3.add(jButton15);
 		jPanel2.add("North", jPanel3);
 
-		jPanel2.add("Center", jScrollPane1);
+		//jPanel2.add("Center", jScrollPane1);
 
 		jButton5.setBorder(new BevelBorder(BevelBorder.RAISED));
 		jButton6.setBorder(new BevelBorder(BevelBorder.RAISED));

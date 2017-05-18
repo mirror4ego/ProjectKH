@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import view.CustomerMainView;
+import view.LoginView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
