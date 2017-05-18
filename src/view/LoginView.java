@@ -7,18 +7,17 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +27,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import service.LoginSevice;
@@ -39,45 +39,67 @@ import service.LoginSevice;
 @SuppressWarnings("serial")
 public class LoginView extends JFrame implements MouseListener, FocusListener {
 
-	JTextField jLoginTextField1 = new JTextField("아이디 입력", 15);
-
-	JPasswordField jPasswordField1 = new JPasswordField("비번 입력", 15);
-
-	JButton jButton1 = new JButton("로그인", new ImageIcon("img/btLogin_hud.png"));
-	JButton jButton2 = new JButton("사용자관리", new ImageIcon("img/btLogin_hud.png"));
-	ImageIcon imageIcon1 = new ImageIcon("img/login_background.jpg");
-
-	JPanel jPanel1 = new JPanel() {
+	//변수 선언부 시작
+	//패널 선언
+	private JPanel jPanel1 = new JPanel() {
 		public void paintComponent(Graphics g) {
 			g.drawImage(imageIcon1.getImage(), 0, 0, null);
 			setOpaque(false); //그림을 표시하게 설정,투명하게 조절
-			super.paintComponent(g);
-		}
-	};
-	JPanel jPanel2 = new JPanel(new GridLayout(4,1));
-	JPanel jPanel3 = new JPanel(new GridLayout(2,2));
-	JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.LEFT,23,17));
-	JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.LEFT,23,17));
-	JPanel jPanel6 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,13));
-	JPanel jPanel7 = new JPanel(new GridLayout(1,2));
+			super.paintComponent(g);}};
+	private JPanel jPanel2 = new JPanel(new GridLayout(4,1));
+	private JPanel jPanel3 = new JPanel(new GridLayout(2,2));
+	private JPanel jPanel4 = new JPanel(new FlowLayout(FlowLayout.LEFT,23,17));
+	private JPanel jPanel5 = new JPanel(new FlowLayout(FlowLayout.LEFT,23,17));
+	private JPanel jPanel6 = new JPanel(new FlowLayout(FlowLayout.CENTER,10,13));
+	private JPanel jPanel7 = new JPanel(new GridLayout(1,2));
+	private JPanel jPanel8 = new JPanel();
 
-	JLabel jLabel1 = new JLabel("User Login");
-	JLabel jLabel2 = new JLabel(); // 로그인 이미지
-	JLabel jLabel3 = new JLabel(); // 비밀번호 이미지
-	JLabel jLabel4 = new JLabel((new SimpleDateFormat("yyyy년MM월dd일")).format(new Date())); // 현재시간 라벨
+	//버튼
+	private JButton jButton1 = new JButton("로그인", new ImageIcon("img/btLogin_hud.png"));
+	private JButton jButton2 = new JButton("사용자관리", new ImageIcon("img/btLogin_hud.png"));
+	private JButton jButton3 = new JButton("주문관리");
+	private JButton jButton4 = new JButton("사용자관리");
+	private JButton jButton5 = new JButton("데이터분석");
+	private JButton jButton6 = new JButton("고객관리");
+	
 
+	//라벨
+	private JLabel jLabel1 = new JLabel("User Login");
+	private JLabel jLabel2 = new JLabel(); // 로그인 이미지
+	private JLabel jLabel3 = new JLabel(); // 비밀번호 이미지
+	private JLabel jLabel4 = new JLabel((new SimpleDateFormat("yyyy년MM월dd일")).format(new Date())); // 현재시간 라벨
+	private JLabel jLabel5 = new JLabel(); // 선 긋는 용도의 라벨
+	private JLabel jLabel6 = new JLabel();
+	private JLabel jLabel7 = new JLabel();
+	private JLabel jLabel8 = new JLabel("Welcome");
+	private JLabel jLabel9 = new JLabel();
+	
+	//폰트
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 25);
 	private Font font2 = new Font("맑은 고딕", Font.BOLD, 15);
 
-
-	JLayeredPane jLayeredPane1 = new JLayeredPane();
-
-
+	//그밖에
+	private JLayeredPane jLayeredPane1 = new JLayeredPane();
+	private JTextField jLoginTextField1 = new JTextField("아이디 입력", 15);
+	private JTextArea jTextField1 = new JTextArea();
+	private JPasswordField jPasswordField1 = new JPasswordField("비번 입력", 15);
+	private ImageIcon imageIcon1 = new ImageIcon("img/login_background.jpg");
+	//변수 선언부 끝
+	
+	//생성자
 	public LoginView() {
 		// 기본 컨테이너 설정
 		this.setTitle("로그인 페이지");
+		jButton6.setVisible(false);
+		jButton3.setVisible(false);
+		jButton4.setVisible(false);
+		jButton5.setVisible(false);
+		jButton6.setEnabled(false);
+		jButton3.setEnabled(false);
+		jButton4.setEnabled(false);
+		jButton5.setEnabled(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 		this.setSize(1600,900);
 		this.setResizable(false);
 		init();
@@ -87,30 +109,22 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		Dimension dimension2 = this.getSize();
 		this.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
-		this.add(jLayeredPane1);
+		getContentPane().add(jLayeredPane1);
 		this.setVisible(true);
+		realTime();
 	}
 
 	public void init() {
-
-		// 이미지
-		try {
-			BufferedImage image1 = ImageIO.read(new File("img/login_background.jpg"));
-			BufferedImage image2 = ImageIO.read(new File("img/employee.png")); //로그인 버튼 이미지
-			BufferedImage image3 = ImageIO.read(new File("img/login_bkg_highlight_top.png")); //패널1의 위쪽 이미지
-			BufferedImage image4 = ImageIO.read(new File("img/login_bkg_highlight_bottom.png")); //패널1의 아래쪽 이미지
-			BufferedImage image5 = ImageIO.read(new File("img/icon_user.png")); //패널1의 로그인 아이콘 이미지
-			BufferedImage image6 = ImageIO.read(new File("img/icon_pw.png")); //패널1의 비밀번호 아이콘 이미지
-		} catch (IOException e) {e.printStackTrace();}
-
 		// 라벨
 		jLabel1.setFont(font1);
-
 		jLabel1.setForeground(Color.GRAY);
 		jLabel2.setBounds(0, 0, 10, 10);
 		jLabel2.setIcon(new ImageIcon("img/icon_user.png"));
 		jLabel3.setIcon(new ImageIcon("img/icon_pw.png"));
-
+		jLabel9.setForeground(Color.GRAY);
+		jLabel9.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		jLabel9.setBounds(313, 139, 301, 37);
+		
 		// 로그인 필드
 		jLoginTextField1.setOpaque(false);
 		jLoginTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -134,11 +148,9 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jButton2.setContentAreaFilled(false);
 		jButton2.setFont(font2);
 		jButton2.setForeground(Color.gray);
-		jPanel7.setBackground(Color.DARK_GRAY);
-
 
 		// 패널 설정
-		jPanel1.setBounds(0, 0, 1600, 900);
+		jPanel1.setBounds(0, 10, 1600, 900);
 		jPanel1.setOpaque(true);
 		jPanel4.add(jLabel2);
 		jPanel4.add(jLoginTextField1);
@@ -150,7 +162,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPanel6.add(jLabel1);
 		jPanel7.add(jButton2);
 		jPanel7.add(jButton1);
-		jPanel2.setBounds(650, 320, 300, 260);
+		jPanel2.setBounds(650, 150, 300, 260);
 		jPanel2.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
 		jPanel2.add(jPanel6);
 		jPanel2.add(jPanel4);
@@ -162,15 +174,66 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPanel5.setOpaque(false);
 		jPanel6.setOpaque(false);
 		jPanel7.setOpaque(false);
-
-		//jPanel2.add(jLabel4);
-
+		jPanel7.setBackground(Color.DARK_GRAY);
+		jPanel1.setLayout(null);
+		
 		// 레이아웃 설정
 		jLayeredPane1.setBounds(0, 0, 1600, 900);
 		jLayeredPane1.setLayout(null);
-
 		jLayeredPane1.add(jPanel2);
 		jLayeredPane1.add(jPanel1);
+		jPanel1.add(jLabel9);
+		jTextField1.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		jTextField1.setForeground(Color.GRAY);
+		jTextField1.setText("공지사항\r\n\r\n - 출퇴근 시 꼭 카드 찍기\r\n\r\n - 프로그램 사용 방법 숙지");
+		jTextField1.setBounds(133, 264, 421, 246);
+		jTextField1.setOpaque(false);
+		jPanel1.add(jTextField1);
+		jPanel8.setBounds(346, 580, 908, 116);
+		jPanel8.setLayout(new GridLayout(1, 4, 0, 0));
+		jPanel8.setOpaque(false);
+		jPanel1.add(jPanel8);
+		jPanel8.add(jButton6);
+		jButton6.setForeground(Color.GRAY);
+		jButton6.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jButton6.setFocusPainted(false);
+		jButton6.setContentAreaFilled(false);
+		jButton6.setBorderPainted(true);
+		jPanel8.add(jButton3);
+		jButton3.setForeground(Color.GRAY);
+		jButton3.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jButton3.setFocusPainted(false);
+		jButton3.setContentAreaFilled(false);
+		jButton3.setBorderPainted(true);
+		jPanel8.add(jButton4);
+		jButton4.setForeground(Color.GRAY);
+		jButton4.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jButton4.setFocusPainted(false);
+		jButton4.setContentAreaFilled(false);
+		jButton4.setBorderPainted(true);
+		jPanel8.add(jButton5);
+		jButton5.setForeground(Color.GRAY);
+		jButton5.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		jButton5.setFocusPainted(false);
+		jButton5.setContentAreaFilled(false);
+		jButton5.setBorderPainted(true);
+		jLabel5.setForeground(Color.LIGHT_GRAY);
+		jLabel5.setBounds(133, 171, 335, 15);
+		jLabel5.setOpaque(false);
+		jLabel5.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+		jPanel1.add(jLabel5);
+		jLabel6.setOpaque(false);
+		jLabel6.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY));
+		jLabel6.setBounds(250, 147, 48, 24);
+		jPanel1.add(jLabel6);
+		jLabel7.setForeground(Color.GRAY);
+		jLabel7.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		jLabel7.setBounds(142, 139, 202, 37);
+		jPanel1.add(jLabel7);
+		jLabel8.setForeground(Color.GRAY);
+		jLabel8.setFont(new Font("맑은 고딕", Font.BOLD | Font.ITALIC, 40));
+		jLabel8.setBounds(133, 199, 224, 37);
+		jPanel1.add(jLabel8);
 	}
 
 	public void start() {
@@ -179,6 +242,40 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 		jPasswordField1.addFocusListener(this);
 		jButton1.addMouseListener(this);
 		jButton2.addMouseListener(this);
+		jButton3.addMouseListener(this);
+		jButton4.addMouseListener(this);
+		jButton5.addMouseListener(this);
+		jButton6.addMouseListener(this);
+		
+	}
+
+	public void realTime() {
+		while(true){
+			Calendar cal = Calendar.getInstance();
+			String ampm;
+			if(cal.get(Calendar.AM_PM)==0){
+				ampm= "AM";
+			}else{
+				ampm= "PM";
+			}
+			String nowTime =
+					ampm + " " +
+					cal.get(Calendar.HOUR)+"시 "+
+					cal.get(Calendar.MINUTE)+"분 "+
+					cal.get(Calendar.SECOND)+"초 ";
+			jLabel9.setText(nowTime);
+			
+			String nowDate =
+					cal.get(Calendar.YEAR)+"년 "+
+					(cal.get(Calendar.MONTH)+1)+"월 "+
+					cal.get(Calendar.DATE)+"일 ";
+			jLabel7.setText(nowDate);
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
@@ -215,16 +312,14 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 
 				if (existLogin) {
 					JOptionPane.showMessageDialog(null, "로그인 성공");
-					try {
-						MainView mainView = new MainView();
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					this.setVisible(false);
+					jButton6.setVisible(true);
+					jButton3.setVisible(true);
+					jButton4.setVisible(true);
+					jButton5.setVisible(true);
+					jButton6.setEnabled(true);
+					jButton3.setEnabled(true);
+					jButton4.setEnabled(true);
+					jButton5.setEnabled(true);
 				}else{
 					JOptionPane.showMessageDialog(null, "로그인 실패");
 				}
@@ -246,11 +341,6 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				e1.printStackTrace();
 			}
 		}else{}
-	}
-
-	private void EXIT_ON_CLOSE() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
