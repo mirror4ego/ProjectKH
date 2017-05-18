@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,9 +14,8 @@ import dao.OrderInfoDao;
 
 public class Exam02 extends JFrame {
 	Container contentPane; // 컨테이너 생성
-	int[] data = new int[4];// {266,345,135,252}; // 차트의 값 저장배열 ,DB에서 누적된 값가져오기.
+	int[] data = new int[4];// {250,150,100,200}; // 차트의 값 저장배열 ,DB에서 누적된 값가져오기.
 	int[] arcAngle = new int[4]; // 비율을계산,각으로변환
-	Scanner sc= new Scanner(System.in);
 
 	Color[] color = { Color.RED, Color.BLUE, // 색상
 			Color.MAGENTA, Color.ORANGE };
@@ -61,8 +59,6 @@ public class Exam02 extends JFrame {
 		}
 	}
 
-	/*
-
 	class ChartPanel extends JPanel { // 차트 표시 패널
 
 		public void paintComponent(Graphics g) {
@@ -75,7 +71,7 @@ public class Exam02 extends JFrame {
 				g.setColor(color[i]);
 				g.drawString(itemName[i] + "" + Math.round(arcAngle[i] * 100 / 360) + "%", 50 + i * 100, 20);
 			}
-	
+
 			for (int i = 0; i < data.length; i++) {
 				g.setColor(color[i]);
 				g.fillArc(150, 50, 200, 200, startAngle, arcAngle[i]);
