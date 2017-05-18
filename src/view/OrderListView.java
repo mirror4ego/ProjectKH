@@ -18,12 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class CustomerMainView extends JFrame {
+public class OrderListView extends JFrame {
+	
 	private JTextField jTextField1;
 	private JTextField jTextField2;
 	private JTextField jTextField3;
@@ -36,9 +38,9 @@ public class CustomerMainView extends JFrame {
 	private JTable jTable2;
 	
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
-
-	public CustomerMainView() {
-		super("고객관리");
+	
+	public OrderListView() {
+		super("주문내역 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 		SetUiFont setUiFont = new SetUiFont(new javax.swing.plaf.FontUIResource("맑은 고딕", Font.BOLD, 14));
 		this.init();
@@ -53,7 +55,7 @@ public class CustomerMainView extends JFrame {
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
 	}
-
+	
 	void init() {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 62, 376, 620);
@@ -269,11 +271,10 @@ public class CustomerMainView extends JFrame {
 		JLabel label_1 = new JLabel("고객정보를 입력하고 주문내역을 조회합니다");
 		label_1.setBounds(88, 28, 297, 20);
 		panel_7.add(label_1);
+		
 	}
-
+	
 	void start() {
-
+		
 	}
 }
-
-

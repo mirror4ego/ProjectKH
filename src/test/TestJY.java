@@ -3,8 +3,8 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.CustomerMainView;
-import view.LoginView;
+import view.OrderListView;
+import view.OrderSheetView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -21,6 +21,8 @@ public class TestJY {
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
 		
-		CustomerMainView customerMainView = new CustomerMainView();
+		//CustomerMainView customerMainView = new CustomerMainView();
+		//OrderSheetView orderSheetView = new OrderSheetView();
+		//OrderListView OrderRegView = new OrderListView();
 	}
 }
