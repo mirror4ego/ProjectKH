@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 
 import dao.CustomerDao;
 import domain.CustomerDto;
-import domain.UserInfoDto;
 
 
 public class CustomerSearchView extends JFrame implements ActionListener, MouseListener {
@@ -71,12 +70,13 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 	public CustomerSearchView(int customerNum, CustomerSearchListView customerSearchListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
 		super("고객정보검색");
 		init();
-		this.customerSearchListView = customerSearchListView;
+		//this.customerSearchListView = customerSearchListView;
 
 		System.out.println("검색 매개변수 = " + customerNum);
 
 		CustomerDao customerDao = new CustomerDao();
 		CustomerDto customerDto = customerDao.searchCustomerNum(customerNum);
+		
 		viewData(customerDto);
 	} //id를 가지고 생성
 	//생성자 끝
@@ -160,7 +160,7 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 	private void viewData(CustomerDto customerDto){
 		//화면에 세팅
 		jTextField1.setText(String.valueOf(customerDto.getCustomerNum()));
-		jTextField2.setText(customerDto.getCustomerRegDate());
+		jTextField2.setText(String.valueOf(customerDto.getCustomerRegDate()).substring(0,10));  // 문자열 앞에서 10개만 가져와서 디스플레이
 		jTextField3.setText(customerDto.getCustomerPhoneNum());
 		jTextField4.setText(customerDto.getCustomerAddState());
 		jTextField5.setText(String.valueOf(customerDto.getCustomerFrequent()));

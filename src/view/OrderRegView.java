@@ -1,29 +1,16 @@
 package view;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.Vector;
-
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
@@ -208,6 +195,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 
 				try {
 					deleteOrder(orderInfoNum);
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -241,7 +229,8 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 
 		if(ok){
 			JOptionPane.showMessageDialog(this, "삭제완료");
-			dispose();         
+			dispose();        
+			
 
 		}else{
 			JOptionPane.showMessageDialog(this, "삭제실패");

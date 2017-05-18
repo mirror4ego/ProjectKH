@@ -1,22 +1,14 @@
 package service;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Panel;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import dao.CustomerDao;
 
 public class Exam04 extends JFrame {

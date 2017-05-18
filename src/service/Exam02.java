@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 import dao.OrderInfoDao;
 
+
 public class Exam02 extends JFrame {
 	Container contentPane; // 컨테이너 생성
 	int[] data = new int[4];// {250,150,100,200}; // 차트의 값 저장배열 ,DB에서 누적된 값가져오기.

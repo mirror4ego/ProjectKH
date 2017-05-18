@@ -3,7 +3,7 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.MainView;
+import view.CustomerMainView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -11,7 +11,7 @@ public class TestJY {
 		
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
 		//LoginView loginView = new LoginView();
-		MainView mainView = new MainView();
+		//MainView mainView = new MainView();
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
 		//Login login = new Login();
@@ -19,5 +19,7 @@ public class TestJY {
 		//UserSelectView userSelectView = new UserSelectView();
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
+		
+		CustomerMainView customerMainView = new CustomerMainView();
 	}
 }
