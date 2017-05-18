@@ -2,6 +2,7 @@ package view;
 
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Panel;
@@ -21,7 +22,7 @@ import service.Exam05;
 
 
 public class CRM_MainLayout {
-	public static void main(String[] ar){
+	public static void main(String[] ar) throws ClassNotFoundException, SQLException{
 		CRM_MainLayout_sub ex = new CRM_MainLayout_sub();
 	}
 }
@@ -34,8 +35,8 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 	private JButton btn3 = new JButton("C통계");
 	private JButton btn4 = new JButton("D통계");
 	
-
-	public CRM_MainLayout_sub(){
+	
+	public CRM_MainLayout_sub() throws ClassNotFoundException, SQLException{
 		super();
 		this.init();
 		this.start();
@@ -45,17 +46,23 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 	}
 	
 
-	private void init() {
+	private void init() throws ClassNotFoundException, SQLException {
+		
 		con = this.getContentPane();
 		con.setLayout(new BorderLayout());
-		Panel p = new Panel(new GridLayout(4,1));
-		p.add(btn1);
-		p.add(btn2);
-		p.add(btn3);
-		p.add(btn4);
-		this.add("West",p);
+		
+		
+		Panel p1 = new Panel(new GridLayout(4,1));
+		p1.add(btn1);
+		p1.add(btn2);
+		p1.add(btn3);
+		p1.add(btn4);
+		this.add("West",p1);
 		//jsp.setWheelScrollingEnabled(true);
 		//this.add("Center", jsp);
+		Panel p2 = new Panel(new CardLayout());
+
+		this.add("Center",p2);
 		
 	}
 	
@@ -71,7 +78,7 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource()==btn1){
 			try {
-				Exam02 ex2= new Exam02();
+				Exam02 ex02= new Exam02();
 			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

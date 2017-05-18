@@ -28,7 +28,7 @@ public class Exam02 extends JFrame {
 
 	public Exam02() throws ClassNotFoundException, SQLException { // 생성자
 		setTitle("치킨 주문 비율");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = getContentPane(); // 컨테이너 갯
 		// contentPane.add(new InputPanel(), BorderLayout.NORTH);
 		contentPane.add(chartPanel, BorderLayout.CENTER);
