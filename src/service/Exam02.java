@@ -1,18 +1,23 @@
 package service;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import dao.OrderInfoDao;
-import domain.OrderInfoDto;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.sql.SQLException;
 
 public class Exam02 extends JFrame {
 	Container contentPane; // 컨테이너 생성
 	int[] data = new int[4];// {266,345,135,252}; // 차트의 값 저장배열 ,DB에서 누적된 값가져오기.
 	int[] arcAngle = new int[4]; // 비율을계산,각으로변환
+	Scanner sc= new Scanner(System.in);
 
 	Color[] color = { Color.RED, Color.BLUE, // 색상
 			Color.MAGENTA, Color.ORANGE };
@@ -57,20 +62,7 @@ public class Exam02 extends JFrame {
 	}
 
 	/*
-	 * class InputPanel extends JPanel{ // 입력패널 public InputPanel(){
-	 * this.setBackground(Color.LIGHT_GRAY); //배경
-	 * 
-	 * for(int i=0;i<tf.length;i++){ // 현 가진갯수만큼 tf[i] = new JTextField("0", 5);
-	 * tf[i].addActionListener(new MyActionListener()); //리스너 add(new
-	 * JLabel(itemName[i])); add(tf[i]); } } }
-	 * 
-	 * class MyActionListener implements ActionListener{ //액션리스너 public void
-	 * actionPerformed(ActionEvent e){ //텍스트필드변화시 JTextField t =
-	 * (JTextField)e.getSource(); int n;
-	 * 
-	 * try{ n = Integer.parseInt(t.getText()); } catch(NumberFormatException
-	 * ex){ t.setText("0"); return; } drawChart(); // 호출 } }
-	 */
+
 	class ChartPanel extends JPanel { // 차트 표시 패널
 
 		public void paintComponent(Graphics g) {
@@ -83,7 +75,7 @@ public class Exam02 extends JFrame {
 				g.setColor(color[i]);
 				g.drawString(itemName[i] + "" + Math.round(arcAngle[i] * 100 / 360) + "%", 50 + i * 100, 20);
 			}
-
+	
 			for (int i = 0; i < data.length; i++) {
 				g.setColor(color[i]);
 				g.fillArc(150, 50, 200, 200, startAngle, arcAngle[i]);
