@@ -5,8 +5,6 @@ import java.sql.SQLException;
 
 import view.CustomerMainView;
 import view.LoginView;
-import view.MainView;
-import view.OrderSheetView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -15,16 +13,15 @@ public class TestJY {
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
-		//UserInfoDao userInfoDao = new UserInfoDao();
+		//UsserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
 		//Login login = new Login();
 		//boolean test = login.login("mirror4ego", "1234");
 		//UserSelectView userSelectView = new UserSelectView();
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
-		
 		CustomerMainView customerMainView = new CustomerMainView();
 		//OrderSheetView orderSheetView = new OrderSheetView();
-		//OrderListView OrderRegView = new OrderListView();
+		//OrderListView orderRegView = new OrderListView();
 	}
 }
