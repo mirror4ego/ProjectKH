@@ -63,6 +63,7 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 		//this.add("Center", jsp);
 		JPanel p2 = new JPanel(new CardLayout());
 
+		
 		this.add("Center",p2);
 		
 	}
