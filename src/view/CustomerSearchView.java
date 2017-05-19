@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 import dao.CustomerDao;
 import domain.CustomerDto;
+import setting.SetLookAndFeel;
+import setting.SetUiFont;
 
 
 public class CustomerSearchView extends JFrame implements ActionListener, MouseListener {
@@ -69,6 +71,8 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 
 	public CustomerSearchView(int customerNum, CustomerSearchListView customerSearchListView) throws ClassNotFoundException, SQLException{ //수정/삭제용 생성자
 		super("고객정보검색");
+		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+		SetUiFont setUiFont = new SetUiFont();
 		init();
 		//this.customerSearchListView = customerSearchListView;
 

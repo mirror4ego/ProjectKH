@@ -18,12 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class CustomerMainView extends JFrame {
+public class OrderListView extends JFrame {
+	
 	private JTextField jTextField1;
 	private JTextField jTextField2;
 	private JTextField jTextField3;
@@ -36,9 +38,9 @@ public class CustomerMainView extends JFrame {
 	private JTable jTable2;
 	
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
-
-	public CustomerMainView() {
-		super("고객관리");
+	
+	public OrderListView() {
+		super("주문내역 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 		SetUiFont setUiFont = new SetUiFont();
 		this.init();
@@ -53,16 +55,22 @@ public class CustomerMainView extends JFrame {
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
 	}
-
+	
 	void init() {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 62, 376, 620);
 		getContentPane().add(tabbedPane);
 
 		Panel panel_2 = new Panel();
-		panel_2.setFocusTraversalKeysEnabled(false);
 		tabbedPane.addTab("ㅇ고객검색", null, panel_2, null);
 		panel_2.setLayout(null);
+
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(12, 10, 278, 25);
+		panel_2.add(comboBox);
+		comboBox.setOpaque(false);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"이름","전화번호","주소"}));
 
 		JLabel label = new JLabel("에서");
 		label.setBounds(294, 14, 57, 15);
@@ -101,11 +109,6 @@ public class CustomerMainView extends JFrame {
 		jTable2 = new JTable();
 		jTable2.setBounds(12, 75, 347, 404);
 		panel_2.add(jTable2);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(12, 11, 278, 25);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"이름","전화번호","주소"}));
-		panel_2.add(comboBox);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
@@ -261,7 +264,7 @@ public class CustomerMainView extends JFrame {
 		getContentPane().add(panel_7);
 		panel_7.setLayout(null);
 
-		JLabel lblNewLabel_4 = new JLabel("회원관리");
+		JLabel lblNewLabel_4 = new JLabel("주문리스트");
 		lblNewLabel_4.setBounds(88, 6, 133, 20);
 		panel_7.add(lblNewLabel_4);
 
@@ -269,10 +272,7 @@ public class CustomerMainView extends JFrame {
 		label_1.setBounds(88, 28, 297, 20);
 		panel_7.add(label_1);
 	}
-
+	
 	void start() {
-
 	}
 }
-
-

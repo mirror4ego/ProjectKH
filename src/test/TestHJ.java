@@ -23,7 +23,7 @@ public class TestHJ {
 
 
 		//LoginView loginView = new LoginView();
-		MainView mainView = new MainView();
+		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();

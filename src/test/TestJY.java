@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import view.CustomerMainView;
 import view.LoginView;
+import view.MainView;
+import view.OrderSheetView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -22,5 +24,7 @@ public class TestJY {
 		//DaoFactory.customerDao();
 		
 		CustomerMainView customerMainView = new CustomerMainView();
+		//OrderSheetView orderSheetView = new OrderSheetView();
+		//OrderListView OrderRegView = new OrderListView();
 	}
 }

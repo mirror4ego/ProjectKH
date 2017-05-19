@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-			<modelVersion>4.0.0</modelVersion>
-			<groupId>projectKH</groupId>
-			<artifactId>projectKH</artifactId>
-			<name>projectKH Maven</name>
-			<version>1.0.0-BUILD-SNAPSHOT</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>projectKH</groupId>
+	<artifactId>projectKH</artifactId>
+	<name>projectKH Maven</name>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -20,6 +20,12 @@
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>12.1.0.1-atlassian-hosted</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jgoodies/jgoodies-looks -->
+		<dependency>
+			<groupId>com.jgoodies</groupId>
+			<artifactId>jgoodies-looks</artifactId>
+			<version>2.5.3</version>
 		</dependency>
 	</dependencies>
 </project>
