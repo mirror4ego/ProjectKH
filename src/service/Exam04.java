@@ -13,7 +13,7 @@ import dao.CustomerDao;
 
 public class Exam04 extends JFrame {
 
-	int arr[] = new int[6]; // 20여 20남 30여 30남 40여 40남
+	int arr[] = new int[6]; // 학생 여,남 청년 여,남 중년 여,남
 	int max = 0;
 
 

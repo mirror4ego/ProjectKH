@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Choice;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -48,8 +50,6 @@ import service.Exam05;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-import java.awt.Choice;
-
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ActionListener, KeyListener, FocusListener, MouseListener, ItemListener {
 
@@ -85,10 +85,10 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JLabel jLabel14 = new JLabel("주문일자 : ", JLabel.LEFT);
 	private JLabel jLabel15 = new JLabel("주문가능여부(지역) : ", JLabel.LEFT);
 	private JLabel jLabel16 = new JLabel("주문가능여부(주문량) : ", JLabel.LEFT);
-	private JLabel jLabel17 = new JLabel("메뉴고유값 : ", JLabel.LEFT);
-	private JLabel jLabel18 = new JLabel("주문메뉴양 : ", JLabel.LEFT);
+	private JLabel jLabel17 = new JLabel("메뉴명 : ", JLabel.LEFT);
+	private JLabel jLabel18 = new JLabel("주문수량 : ", JLabel.LEFT);
 	private JLabel jLabel19 = new JLabel("주문요청사항 : ", JLabel.LEFT);
-	private JLabel jLabel20 = new JLabel("채널고유값 : ", JLabel.LEFT);
+	private JLabel jLabel20 = new JLabel("주문가격 : ", JLabel.LEFT);  
 	private JLabel jLabel21 = new JLabel("배달요청시간 : ", JLabel.LEFT);
 	private JLabel jLabel22 = new JLabel("주문 프로세스(포장) 완료 여부 : ", JLabel.LEFT);
 	private JLabel jLabel23 = new JLabel("주문 프로세스(배달) 완료 여부 : ", JLabel.LEFT);
@@ -111,10 +111,10 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JTextField jTextField12 = new JTextField("20170304", 10);//주문일자 입력창
 	private JTextField jTextField13 = new JTextField("1", 10);// 주문가능여부(지역)
 	private JTextField jTextField14 = new JTextField("2", 10);// 주문가능여부(주문량)
-	private JTextField jTextField15 = new JTextField("3", 10);// 메뉴고유값
-	private JTextField jTextField16 = new JTextField("4", 10);// 주문메뉴양
+	private JTextField jTextField15 = new JTextField("", 10);// 메뉴명
+	private JTextField jTextField16 = new JTextField("", 10);// 주문수량
 	private JTextField jTextField17 = new JTextField("5", 10);// 주문요청사항
-	private JTextField jTextField18 = new JTextField("6", 10);// 채널고유값
+	private JTextField jTextField18 = new JTextField("", 10);// 주문가격
 	private JTextField jTextField19 = new JTextField("20170304", 10);// 배달요청시간
 	private JTextField jTextField20 = new JTextField("1", 10); // 주문프로세스1
 	private JTextField jTextField21 = new JTextField("2", 10); // 주문프로세스2
@@ -156,9 +156,11 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private OrderInfoDao orderInfoDao = new OrderInfoDao();
 	private final JPanel panel = new JPanel();
 	private final JScrollPane scrollPane_1 = new JScrollPane(jTable1);
+	public int price=15000;   //가격변수
 	
-	public MainView() throws ClassNotFoundException, SQLException {
+	public MainView() throws ClassNotFoundException, SQLException {  //생산자
 		super("매장관리");
+		
 		//주문내역 리스트창
 		jTableRefresh();
 		vector1 = orderInfoDao.getOrderList();
@@ -184,7 +186,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		this.setVisible(true);
 	}
 
+
 	public void start() {
+		
 		//액션리스너 관리
 		jButton3.addActionListener(this); 
 		jButton4.addActionListener(this); 
@@ -311,15 +315,15 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel8.add(jLabel16);
 		jPanel8.add(jTextField14);
 		jPanel8.add(jLabel17);//메뉴고유값 라벨
-		choice1.add("A");
-		choice1.add("B");
-		choice1.add("C");
-		choice1.add("D");
-		choice1.add("E");
+		choice1.add("후라이드치킨 15000원");  //case0
+		choice1.add("양념치킨 17000원"); //case1
+		choice1.add("갈릭치킨 17000원"); //case2
+		choice1.add("레드콤보 18000원");//case3
+		choice1.add("허니콤보 18000원");//case4
 		jPanel8.add(choice1);//메뉴고유값 
 		
 		jPanel8.add(jLabel18);//메뉴양 라벨
-		for(int i=1;i<100;i++){
+		for(int i=0;i<100;i++){
 			choice2.add(""+i);
 		}
 		jPanel8.add(choice2);//메뉴수량 
@@ -330,8 +334,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		//jPanel8.add(jTextField16);//메뉴양
 		jPanel8.add(jLabel19);
 		jPanel8.add(jTextField17);
-		jPanel8.add(jLabel20);
-		jPanel8.add(jTextField18);
+		jPanel8.add(jLabel20);//주문가격 라벨
+		jPanel8.add(jTextField18);//주문가격 
 		jPanel8.add(jLabel21);
 		jPanel8.add(jTextField19);
 		jPanel8.add(jLabel22);
@@ -377,8 +381,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	public Vector getColumn(){
 		vector3.add("주문번호");
 		vector3.add("주문일자");
-		vector3.add("메뉴고유값");
-		vector3.add("주문 메뉴양");
+		vector3.add("메뉴명");
+		vector3.add("주문수량");
 		return vector3;
 	}
 
@@ -429,7 +433,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			int orderInfoMenuNum = Integer.parseInt(jTextField15.getText().trim());
 			int orderInfoMenuAmount = Integer.parseInt(jTextField16.getText().trim());
 			String orderInfoRequestInfo = jTextField17.getText().trim();
-			int orderInfoChannelNum = Integer.parseInt(jTextField18.getText().trim());
+			int orderInfoChannelNum = Integer.parseInt(jTextField18.getText().trim());  //수정필요
 			String orderInfoRequestDelivery = jTextField19.getText().trim();
 			String orderInfoPackCompletion = jTextField20.getText().trim();
 			String orderInfoDeliveryCompletion = jTextField21.getText().trim();
@@ -530,27 +534,37 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	} 
 	//choice로 메뉴를 골랐을때
 	public void itemStateChanged(ItemEvent e){
-		if(e.getSource()==choice1){
-			int index =choice1.getSelectedIndex();
+		if(e.getSource()==choice1){  //메뉴명 list를 선택했을때
+			int index =choice1.getSelectedIndex();//메뉴명 list의 순서를 받아오기
 			switch(index){
-			case 0:
-				
+			case 0:  //후라이드 치킨 15000원
+				price=15000;
 				break;
-			case 1:
-				
+			case 1:   //양념치킨 17000원
+				price=17000;
 				break;
-			case 2:
-				
+			case 2://갈릭치킨 17000원
+				price=17000;
 				break;
-			case 3:
-				
+			case 3:  //레드콤보 18000원
+				price=18000;
 				break;
-			case 4:
-				
+			case 4:  //허니콤보 18000원
+				price=18000;
 				break;
 			}
 		}
-	}
+		if(e.getSource()==choice2){
+			int index =choice2.getSelectedIndex();
+	             int sum=price*index;
+				System.out.println(price);
+				//주문가격 TextField에 세팅
+				jTextField18.setText(String.valueOf(sum));
+				jTextField18.setBackground(Color.YELLOW);
+			}
+		
+		}
+	
 	@Override
 	public void focusGained(FocusEvent e) {}
 	@Override
