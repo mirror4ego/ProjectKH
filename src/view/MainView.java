@@ -166,8 +166,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		vector2 = getColumn();
 
 		getContentPane().add(jScrollPane1);
-		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-		SetUiFont setUiFont = new SetUiFont();
+		//SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+		//SetUiFont setUiFont = new SetUiFont();
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
