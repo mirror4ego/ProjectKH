@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import service.Exam02;
@@ -60,7 +61,7 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 		this.add("West",p1);
 		//jsp.setWheelScrollingEnabled(true);
 		//this.add("Center", jsp);
-		Panel p2 = new Panel(new CardLayout());
+		JPanel p2 = new JPanel(new CardLayout());
 
 		this.add("Center",p2);
 		
