@@ -1,11 +1,14 @@
 package view;
 
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Panel;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -35,6 +38,27 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 	private JButton btn2 = new JButton("B통계");
 	private JButton btn3 = new JButton("C통계");
 	private JButton btn4 = new JButton("D통계");
+	
+	//public class Exam01 extends JPanel {
+
+		private int width = 800;
+		private int heigth = 400;
+		private int padding = 25;
+		private int labelPadding = 25;
+		private Color lineColor = new Color(44, 102, 230, 180);
+		private Color pointColor = new Color(100, 100, 100, 180);
+		private Color gridColor = new Color(200, 200, 200, 200);
+		private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
+		private int pointWidth = 5;
+		private int numberYDivisions = 10;
+		//private List<Double> scores;
+
+		//public  Exam01(List<Double> scores) {
+			this.scores = scores;
+			
+			
+//----------------------------------			
+			
 	
 	
 	public CRM_MainLayout_sub() throws ClassNotFoundException, SQLException{
