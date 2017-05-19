@@ -38,7 +38,7 @@ public class OrderSheetView extends JFrame {
 	public OrderSheetView() {
 		super("주문서 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-		SetUiFont setUiFont = new SetUiFont(new javax.swing.plaf.FontUIResource("맑은 고딕", Font.BOLD, 14));
+		SetUiFont setUiFont = new SetUiFont();
 		this.init();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1280,720);

@@ -42,7 +42,7 @@ public class OrderListView extends JFrame {
 	public OrderListView() {
 		super("주문내역 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-		SetUiFont setUiFont = new SetUiFont(new javax.swing.plaf.FontUIResource("맑은 고딕", Font.BOLD, 14));
+		SetUiFont setUiFont = new SetUiFont();
 		this.init();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1280,720);
@@ -264,17 +264,15 @@ public class OrderListView extends JFrame {
 		getContentPane().add(panel_7);
 		panel_7.setLayout(null);
 
-		JLabel lblNewLabel_4 = new JLabel("회원관리");
+		JLabel lblNewLabel_4 = new JLabel("주문리스트");
 		lblNewLabel_4.setBounds(88, 6, 133, 20);
 		panel_7.add(lblNewLabel_4);
 
 		JLabel label_1 = new JLabel("고객정보를 입력하고 주문내역을 조회합니다");
 		label_1.setBounds(88, 28, 297, 20);
 		panel_7.add(label_1);
-		
 	}
 	
 	void start() {
-		
 	}
 }

@@ -31,6 +31,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import service.LoginSevice;
+import setting.SetLookAndFeel;
+import setting.SetUiFont;
 
 // 현재시간을 보여줌
 // 공지사항 작성
@@ -90,15 +92,21 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	public LoginView() {
 		// 기본 컨테이너 설정
 		this.setTitle("로그인 페이지");
+		jButton6.setOpaque(false);
 		jButton6.setVisible(false);
+		jButton3.setOpaque(false);
 		jButton3.setVisible(false);
+		jButton4.setOpaque(false);
 		jButton4.setVisible(false);
+		jButton5.setOpaque(false);
 		jButton5.setVisible(false);
 		jButton6.setEnabled(false);
 		jButton3.setEnabled(false);
 		jButton4.setEnabled(false);
 		jButton5.setEnabled(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+		SetUiFont setUiFont = new SetUiFont();
 		getContentPane().setLayout(null);
 		this.setSize(1600,900);
 		this.setResizable(false);

@@ -45,6 +45,8 @@ import service.Exam02;
 import service.Exam03;
 import service.Exam04;
 import service.Exam05;
+import setting.SetLookAndFeel;
+import setting.SetUiFont;
 
 import java.awt.Choice;
 
@@ -143,7 +145,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private Vector vector3 = new Vector();
 	private DefaultTableModel defaultTableModel1 = new DefaultTableModel(vector1, vector2);
 	private JTable jTable1 = new JTable(defaultTableModel1);//주문내역 리스트창
-	private JScrollPane jScrollPane1 = new JScrollPane(jTable1);
+	private JScrollPane jScrollPane1 = new JScrollPane();
 	
 	//메뉴주문 list
 	private Choice choice1 = new Choice(); //메뉴선택
@@ -152,6 +154,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	
 	private OrderInfoDao dao = new OrderInfoDao();
 	private OrderInfoDao orderInfoDao = new OrderInfoDao();
+	private final JPanel panel = new JPanel();
+	private final JScrollPane scrollPane_1 = new JScrollPane(jTable1);
 	
 	public MainView() throws ClassNotFoundException, SQLException {
 		super("매장관리");
@@ -161,8 +165,9 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		System.out.println("v=" + vector1);
 		vector2 = getColumn();
 
-		this.add(jScrollPane1);
-
+		getContentPane().add(jScrollPane1);
+		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+		SetUiFont setUiFont = new SetUiFont();
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -196,6 +201,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jButton15.addActionListener(this);
 		jButton16.addActionListener(this);
 		jButton17.addActionListener(this);
+		panel.add(scrollPane_1);
 		
 		//마우스 리스너 관리
 		jTable1.addMouseListener(this);
@@ -243,6 +249,12 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		jPanel2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "고객 및 주문리스트"));
 		con.add("Center", jPanel2);
+		
+		jPanel2.add(panel, BorderLayout.CENTER);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		panel.add(scrollPane_1);
+		jTable1.setEnabled(true);
 		//메인 보더레이아웃의 east영역 설정 끝
 
 		//메인 보더레이아웃의 west영역 설정 시작
@@ -357,7 +369,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 		jPanel5.add("South", jPanel8);
 
 		con.add("West", jPanel5);
-		jTable1.setEnabled(true);
 
 		//jList1.setDisabledTextColor(Color.black);
 		//메인 보더레이아웃의 west영역 설정 끝
@@ -504,7 +515,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 	@Override
 	public void mouseClicked(MouseEvent e) {//주문내역리스트 버튼
-		jTable1.removeAll();
+		//jTable1.removeAll();
 		int r = jTable1.getSelectedRow();
 		int orderInfoNum = (int) jTable1.getValueAt(r, 0);
 		try {

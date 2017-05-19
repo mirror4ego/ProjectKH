@@ -40,7 +40,7 @@ public class CustomerMainView extends JFrame {
 	public CustomerMainView() {
 		super("고객관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-		SetUiFont setUiFont = new SetUiFont(new javax.swing.plaf.FontUIResource("맑은 고딕", Font.BOLD, 14));
+		SetUiFont setUiFont = new SetUiFont();
 		this.init();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1280,720);
@@ -60,15 +60,9 @@ public class CustomerMainView extends JFrame {
 		getContentPane().add(tabbedPane);
 
 		Panel panel_2 = new Panel();
+		panel_2.setFocusTraversalKeysEnabled(false);
 		tabbedPane.addTab("ㅇ고객검색", null, panel_2, null);
 		panel_2.setLayout(null);
-
-
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(12, 10, 278, 25);
-		panel_2.add(comboBox);
-		comboBox.setOpaque(false);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"이름","전화번호","주소"}));
 
 		JLabel label = new JLabel("에서");
 		label.setBounds(294, 14, 57, 15);
@@ -107,6 +101,11 @@ public class CustomerMainView extends JFrame {
 		jTable2 = new JTable();
 		jTable2.setBounds(12, 75, 347, 404);
 		panel_2.add(jTable2);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(12, 11, 278, 25);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"이름","전화번호","주소"}));
+		panel_2.add(comboBox);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
