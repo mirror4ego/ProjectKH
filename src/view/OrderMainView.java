@@ -23,8 +23,15 @@ import javax.swing.border.TitledBorder;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
-public class OrderListView extends JFrame implements ActionListener{
+public class OrderMainView extends JFrame implements ActionListener{
 	
 	private JTextField jTextField1;
 	private JTextField jTextField2;
@@ -82,8 +89,11 @@ public class OrderListView extends JFrame implements ActionListener{
 	private JButton btnf_3 = new JButton("삭제(F10)");
 	private JButton button_5 = new JButton("New button");
 	private JButton button_7 = new JButton("파일저장");
+	private final JLabel lblNewLabel_8 = new JLabel("가족사항");
+	private final JLabel label_5 = new JLabel("가족사항");
+	private final JLabel label_6 = new JLabel("가족사항");
 	
-	public OrderListView() {
+	public OrderMainView() {
 		super("주문내역 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 		SetUiFont setUiFont = new SetUiFont();
@@ -186,14 +196,35 @@ public class OrderListView extends JFrame implements ActionListener{
 		tabbedPane_1.setBounds(12, 373, 840, 160);
 		panel_3.add(tabbedPane_1);
 		
-		tabbedPane_1.addTab("ㅇ특이사항1", null, panel_9, null);
+		tabbedPane_1.addTab("ㅇ특이사항", null, panel_9, null);
 		panel_9.setLayout(null);
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		label_6.setBackground(Color.GRAY);
+		label_6.setAlignmentX(0.5f);
+		label_6.setBounds(12, 10, 67, 25);
 		
-		tabbedPane_1.addTab("ㅇ특이사항2", null, panel_10, null);
+		panel_9.add(label_6);
+		
+		tabbedPane_1.addTab("ㅇ기념일정보", null, panel_10, null);
 		panel_10.setLayout(null);
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		label_5.setBackground(Color.GRAY);
+		label_5.setAlignmentX(0.5f);
+		label_5.setBounds(12, 10, 67, 25);
 		
-		tabbedPane_1.addTab("ㅇ특이사항3", null, panel_11, null);
+		panel_10.add(label_5);
+		
+		tabbedPane_1.addTab("ㅇ가족사항", null, panel_11, null);
 		panel_11.setLayout(null);
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setBackground(Color.GRAY);
+		lblNewLabel_8.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNewLabel_8.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_8.setBounds(12, 10, 67, 25);
+		
+		panel_11.add(lblNewLabel_8);
 
 		panel_5.setLayout(null);
 		panel_5.setBounds(12, 53, 840, 200);

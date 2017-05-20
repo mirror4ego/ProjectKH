@@ -121,6 +121,8 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 	private JTextField jTextField22 = new JTextField("3", 10); // 주문프로세스3
 	private JTextField jTextField23 = new JTextField("4", 10); // 수금여부
 	private JTextField jTextField24 = new JTextField("20170304", 10); // 배달예측시간
+	private JTextField jTextField25 = new JTextField("1", 10); // 배달예측시간
+	private JTextField jTextField26 = new JTextField("1", 10); // 배달예측시간
 	
 	//패널 객체 생성
 	private JPanel jPanel1 = new JPanel(new GridLayout(1,4)); //메인의 맨 위쪽 메뉴 패널
@@ -294,7 +296,12 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 
 		jPanel16.add(jLabel9);  //고객 나이 예측라벨
 		jPanel16.add(jTextField9);	//고객 누적 주문 횟수의 입력창
+		jPanel16.add(jTextField25);
+		jPanel16.add(jTextField26);
+		
 		jPanel6.add(jPanel16);
+		
+		
 
 		jPanel7.add(jButton13); // 고객정보 등록 버튼을 패널에 추가
 		jPanel7.add(jButton14); // 고객정보 수정 버튼을 패널에 추가
@@ -412,11 +419,14 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String customerAddRest = jTextField7.getText().trim(); //주소(나머지)의 입력창
 			int customerFrequent = Integer.parseInt(jTextField8.getText().trim()); //고객 누적 주문 횟수의 입력창
 			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim()); //고객 누적 주문 횟수의 입력창
+			int customerReceivable = Integer.parseInt(jTextField25.getText().trim()); //고객 누적 주문 횟수의 입력창
+			int customerGender = Integer.parseInt(jTextField26.getText().trim()); //고객 누적 주문 횟수의 입력창
 
 			//CustomerDao
 			CustomerDao customerDao = new DaoFactory().customerDao();
 			CustomerDto customer = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict);
+					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict,
+					customerReceivable, customerGender);
 			try{
 				customerDao.add(customer);
 				System.out.println("등록완료");

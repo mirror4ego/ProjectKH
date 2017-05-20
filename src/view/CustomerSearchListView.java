@@ -19,8 +19,9 @@ import dao.UserInfoDao;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class CustomerSearchListView extends JFrame implements MouseListener,ActionListener{
-
+public class CustomerSearchListView extends JFrame implements MouseListener{
+	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+	SetUiFont setUiFont = new SetUiFont();
 	Vector vector1;  
 	Vector vector2;
 	Vector vector3 = new Vector();
@@ -31,8 +32,7 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 
 	public CustomerSearchListView(Vector customerDto) throws ClassNotFoundException, SQLException{
 		super("검색된 고객정보 리스트");
-		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-		SetUiFont setUiFont = new SetUiFont();
+
 		this.add(jScrollPane1);
 		setSize(600,200);
 		start();
@@ -92,8 +92,6 @@ public class CustomerSearchListView extends JFrame implements MouseListener,Acti
 		}
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {}
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override

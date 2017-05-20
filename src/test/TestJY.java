@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import view.CustomerMainView;
-import view.LoginView;
+import view.MainView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -12,7 +12,7 @@ public class TestJY {
 		
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
 		//LoginView loginView = new LoginView();
-		//MainView mainView = new MainView();
+		MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
 		//Login login = new Login();
