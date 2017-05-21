@@ -3,7 +3,10 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
+<<<<<<< HEAD
 import view.LoginView;
+=======
+>>>>>>> origin/SH
 import view.MainView;
 
 
@@ -15,11 +18,11 @@ public class TestSH {
 
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
 		//LoginView loginView = new LoginView();
-		//MainView mainView = new MainView();
+		MainView mainView = new MainView();
 
 		//UserListView userListView = new UserListView();
 		//LoginView loginView = new LoginView();
-		MainView mainView = new MainView();
+		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();

@@ -82,11 +82,12 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 	private final JList list_2 = new JList();
 	private final JLabel lblNewLabel_5 = new JLabel(" ~");
 	private final JComboBox comboBox_9 = new JComboBox();
-	private final JLabel lblNewLabel_12 = new JLabel("주소는 읍면동 단위까지 상세히 기입 해주세요.");
+	private final JLabel lblNewLabel_12 = new JLabel("주소는 읍면동 단위까지 상세히 기입 해주시고 상세 주소까지 자세히 적어 주세요.");
 	
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
-		textField_6.setBounds(383, 402, 86, 21);
+		
+		textField_6.setBounds(694, 402, 161, 21);
 		textField_6.setColumns(10);
 		textField.setBounds(114, 10, 116, 21);
 		textField.setColumns(10);
@@ -100,7 +101,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		
 		getContentPane().add(tabbedPane);
 		
-		tabbedPane.addTab("New tab", null, panel, null);
+		tabbedPane.addTab("직원 검색", null, panel, null);
 		panel.setLayout(null);
 		comboBox.setBounds(8, 10, 105, 21);
 		
@@ -110,7 +111,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		btnNewButton.setBounds(232, 9, 57, 23);
 		
 		panel.add(btnNewButton);
-		table.setBounds(18, 29, 281, 525);
+		table.setBounds(8, 38, 281, 525);
 		
 		panel.add(table);
 		lblNewLabel_11.setBounds(8, 573, 80, 23);
@@ -128,11 +129,11 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		JButton btnNewButton_2 = new JButton("프린터로 출력");
 		btnNewButton_2.setBounds(179, 573, 110, 23);
 		panel.add(btnNewButton_2);
-		tabbedPane_1.setBounds(321, 37, 931, 564);
+		tabbedPane_1.setBounds(325, 37, 931, 564);
 		
 		getContentPane().add(tabbedPane_1);
 		
-		tabbedPane_1.addTab("New tab", null, panel_1, null);
+		tabbedPane_1.addTab("직원 정보", null, panel_1, null);
 		panel_1.setLayout(null);
 		lblNewLabel_1.setBounds(22, 61, 57, 36);
 		panel_1.add(lblNewLabel_1);
@@ -159,7 +160,7 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(104, 136, 223, 21);
+		textField_2.setBounds(104, 136, 250, 21);
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -168,46 +169,46 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		panel_1.add(lblEmail);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(104, 340, 223, 21);
+		textField_3.setBounds(104, 340, 250, 21);
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 		
 		textField_4 = new JTextField();
-		textField_4.setBounds(104, 402, 276, 21);
+		textField_4.setBounds(104, 402, 585, 21);
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(297, 69, 30, 21);
+		comboBox_1.setBounds(297, 69, 57, 21);
 		panel_1.add(comboBox_1);
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(263, 195, 30, 21);
+		comboBox_2.setBounds(285, 195, 30, 21);
 		panel_1.add(comboBox_2);
 		
 		textField_5 = new JTextField();
-		textField_5.setBounds(104, 195, 154, 21);
+		textField_5.setBounds(104, 195, 177, 21);
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
 		
-		JButton btnNewButton_8 = new JButton("New button");
-		btnNewButton_8.setBounds(297, 194, 30, 23);
+		JButton btnNewButton_8 = new JButton("X");
+		btnNewButton_8.setBounds(318, 194, 36, 23);
 		panel_1.add(btnNewButton_8);
-		list.setBounds(104, 222, 223, 108);
+		list.setBounds(104, 222, 250, 108);
 		
 		panel_1.add(list);
-		comboBox_3.setBounds(104, 371, 95, 21);
+		comboBox_3.setBounds(104, 371, 204, 21);
 		
 		panel_1.add(comboBox_3);
-		comboBox_4.setBounds(205, 371, 95, 21);
+		comboBox_4.setBounds(313, 371, 217, 21);
 		
 		panel_1.add(comboBox_4);
-		comboBox_5.setBounds(306, 371, 162, 21);
+		comboBox_5.setBounds(533, 371, 303, 21);
 		
 		panel_1.add(comboBox_5);
 		
 		panel_1.add(textField_6);
-		comboBox_6.setBounds(552, 69, 276, 21);
+		comboBox_6.setBounds(552, 69, 284, 21);
 		
 		panel_1.add(comboBox_6);
 		comboBox_7.setBounds(552, 142, 223, 21);
@@ -222,19 +223,19 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		button.setBounds(779, 215, 57, 23);
 		
 		panel_1.add(button);
-		list_1.setBounds(552, 277, 137, 25);
+		list_1.setBounds(552, 277, 126, 25);
 		
 		panel_1.add(list_1);
-		list_2.setBounds(718, 276, 137, 25);
+		list_2.setBounds(701, 276, 135, 25);
 		
 		panel_1.add(list_2);
-		lblNewLabel_5.setBounds(694, 277, 21, 21);
+		lblNewLabel_5.setBounds(679, 281, 21, 21);
 		
 		panel_1.add(lblNewLabel_5);
-		comboBox_9.setBounds(552, 333, 223, 21);
+		comboBox_9.setBounds(552, 329, 284, 21);
 		
 		panel_1.add(comboBox_9);
-		lblNewLabel_12.setBounds(138, 434, 305, 21);
+		lblNewLabel_12.setBounds(138, 434, 551, 21);
 		
 		panel_1.add(lblNewLabel_12);
 		lblNewLabel.setBounds(12, 10, 971, 26);
