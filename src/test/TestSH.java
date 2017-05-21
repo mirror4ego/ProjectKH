@@ -5,8 +5,6 @@ import java.sql.SQLException;
 
 import view.MainView;
 
-import view.LoginView;
-
 
 
 
@@ -16,11 +14,11 @@ public class TestSH {
 
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
 		//LoginView loginView = new LoginView();
-		//MainView mainView = new MainView();
+		MainView mainView = new MainView();
 
 		//UserListView userListView = new UserListView();
 		//LoginView loginView = new LoginView();
-		MainView mainView = new MainView();
+		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
