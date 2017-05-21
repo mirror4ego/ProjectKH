@@ -3,14 +3,6 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-import dao.OrderInfoDao;
-import domain.OrderInfoDto;
->>>>>>> 0c0858c89178e81b4527d091359a5365cdc49d5b
->>>>>>> origin/SH
 import view.LoginView;
 
 public class TestJY {
