@@ -3,10 +3,8 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
 import view.LoginView;
-=======
->>>>>>> origin/SH
+
 import view.MainView;
 
 
