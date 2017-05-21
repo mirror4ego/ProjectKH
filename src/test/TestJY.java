@@ -3,7 +3,6 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.CustomerMainView;
 import view.LoginView;
 
 public class TestJY {
@@ -11,7 +10,7 @@ public class TestJY {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
-		//LoginView loginView = new LoginView();
+		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
@@ -20,7 +19,7 @@ public class TestJY {
 		//UserSelectView userSelectView = new UserSelectView();
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
-		CustomerMainView customerMainView = new CustomerMainView();
+		//CustomerMainView customerMainView = new CustomerMainView();
 		//OrderSheetView orderSheetView = new OrderSheetView();
 		//OrderListView orderRegView = new OrderListView();
 	}
