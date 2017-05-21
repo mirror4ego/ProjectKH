@@ -33,6 +33,7 @@ import javax.swing.JTextField;
 import service.LoginSevice;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
+import view2.CustomerMainView;
 
 // 현재시간을 보여줌
 // 공지사항 작성
@@ -45,6 +46,8 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 	//패널 선언
 	private JPanel jPanel1 = new JPanel() {
 		public void paintComponent(Graphics g) {
+			SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+			SetUiFont setUiFont = new SetUiFont();
 			g.drawImage(imageIcon1.getImage(), 0, 0, null);
 			setOpaque(false); //그림을 표시하게 설정,투명하게 조절
 			super.paintComponent(g);}};
@@ -105,8 +108,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				jButton4.setEnabled(false);
 				jButton5.setEnabled(false);
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-				SetUiFont setUiFont = new SetUiFont();
+
 				getContentPane().setLayout(null);
 				this.setSize(1600,900);
 				this.setResizable(false);
@@ -288,7 +290,12 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getSource()==jButton6) {
-					CustomerMainView customerMainView = new CustomerMainView();
+					try {
+						CustomerMainView customerMainView = new CustomerMainView();
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				if(e.getSource()==jLoginTextField1) {
 					jLoginTextField1.setText("");
@@ -346,18 +353,18 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 					String password = new String(pass);
 					if(id.equals("admin") && password.equals("1234")) {
 						try {
-							JOptionPane.showMessageDialog(null, "로그인 성공");
+							JOptionPane.showMessageDialog(null, "관리자 계정으로 접속하셨습니다");
 							UserListView userListView = new UserListView();
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(null, "로그인 실패");
+							JOptionPane.showMessageDialog(null, "관리자 계정 접속 실패");
 							e1.printStackTrace();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(null, "로그인 실패");
+							JOptionPane.showMessageDialog(null, "관리자 계정 접속 실패");
 							e1.printStackTrace();
 						}
-					}else{JOptionPane.showMessageDialog(null, "로그인 실패");}
+					}else{JOptionPane.showMessageDialog(null, "관리자 계정 ID 또는 비밀번호가 일치하지 않음");}
 
 
 				}else{}

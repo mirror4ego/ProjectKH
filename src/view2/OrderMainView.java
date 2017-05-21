@@ -1,13 +1,13 @@
-package view;
+package view2;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,28 +18,21 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class OrderListView extends JFrame implements ActionListener{
+public class OrderMainView extends JFrame implements MouseListener{
 	
-	private JTextField jTextField1;
-	private JTextField jTextField2;
-	private JTextField jTextField3;
-	private JTextField jTextField4;
-	private JTextField jTextField5;
+	private JTextField jTextField1 = new JTextField();
+	private JTextField jTextField2 = new JTextField();
+	private JTextField jTextField3 = new JTextField();
+	private JTextField jTextField4 = new JTextField();
+	private JTextField jTextField5 = new JTextField();
 		
-	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
-	
-	private JTable jTable1;
-	private JTable jTable2;
-
-	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-
 	private JComboBox comboBox = new JComboBox();
 	private JComboBox comboBox_1 = new JComboBox();
 	private JComboBox comboBox_2 = new JComboBox();
@@ -71,6 +64,9 @@ public class OrderListView extends JFrame implements ActionListener{
 	private JLabel label_3 = new JLabel("주소");
 	private JLabel label = new JLabel("에서");
 	private JLabel jLabel1 = new JLabel("ㅇ회원정보");
+	private JLabel lblNewLabel_8 = new JLabel("가족사항");
+	private JLabel label_5 = new JLabel("가족사항");
+	private JLabel label_6 = new JLabel("가족사항");
 	
 	private JButton btnNewButton = new JButton("검색");
 	private JButton button_6 = new JButton("프린트");
@@ -82,8 +78,16 @@ public class OrderListView extends JFrame implements ActionListener{
 	private JButton btnf_3 = new JButton("삭제(F10)");
 	private JButton button_5 = new JButton("New button");
 	private JButton button_7 = new JButton("파일저장");
+
+	private JTable jTable1 = new JTable();
+	private JTable jTable2 = new JTable();
+
+	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 	
-	public OrderListView() {
+	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
+	
+	public OrderMainView() {
 		super("주문내역 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 		SetUiFont setUiFont = new SetUiFont();
@@ -101,7 +105,6 @@ public class OrderListView extends JFrame implements ActionListener{
 	}
 	
 	void init() {
-		jTextField5 = new JTextField();
 		tabbedPane.setBounds(10, 62, 376, 620);
 		getContentPane().add(tabbedPane);
 
@@ -135,7 +138,6 @@ public class OrderListView extends JFrame implements ActionListener{
 		panel.add(button_7);
 		panel.add(button_6);
 
-		jTable2 = new JTable();
 		jTable2.setBounds(12, 75, 347, 404);
 		panel_2.add(jTable2);
 
@@ -186,14 +188,35 @@ public class OrderListView extends JFrame implements ActionListener{
 		tabbedPane_1.setBounds(12, 373, 840, 160);
 		panel_3.add(tabbedPane_1);
 		
-		tabbedPane_1.addTab("ㅇ특이사항1", null, panel_9, null);
+		tabbedPane_1.addTab("ㅇ특이사항", null, panel_9, null);
 		panel_9.setLayout(null);
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		label_6.setBackground(Color.GRAY);
+		label_6.setAlignmentX(0.5f);
+		label_6.setBounds(12, 10, 67, 25);
 		
-		tabbedPane_1.addTab("ㅇ특이사항2", null, panel_10, null);
+		panel_9.add(label_6);
+		
+		tabbedPane_1.addTab("ㅇ기념일정보", null, panel_10, null);
 		panel_10.setLayout(null);
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		label_5.setBackground(Color.GRAY);
+		label_5.setAlignmentX(0.5f);
+		label_5.setBounds(12, 10, 67, 25);
 		
-		tabbedPane_1.addTab("ㅇ특이사항3", null, panel_11, null);
+		panel_10.add(label_5);
+		
+		tabbedPane_1.addTab("ㅇ가족사항", null, panel_11, null);
 		panel_11.setLayout(null);
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setBackground(Color.GRAY);
+		lblNewLabel_8.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNewLabel_8.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblNewLabel_8.setBounds(12, 10, 67, 25);
+		
+		panel_11.add(lblNewLabel_8);
 
 		panel_5.setLayout(null);
 		panel_5.setBounds(12, 53, 840, 200);
@@ -208,22 +231,22 @@ public class OrderListView extends JFrame implements ActionListener{
 		label_4.setBounds(12, 117, 57, 15);
 		panel_5.add(label_4);
 		
-		jTextField2 = new JTextField();
+
 		jTextField2.setBounds(81, 7, 116, 21);
 		panel_5.add(jTextField2);
 		jTextField2.setColumns(10);
 		
-		jTextField3 = new JTextField();
+
 		jTextField3.setBounds(81, 32, 116, 21);
 		panel_5.add(jTextField3);
 		jTextField3.setColumns(10);
 		
-		jTextField4 = new JTextField();
+
 		jTextField4.setBounds(81, 114, 116, 21);
 		panel_5.add(jTextField4);
 		jTextField4.setColumns(10);
 		
-		jTable1 = new JTable();
+
 		jTable1.setBounds(81, 61, 116, 43);
 		panel_5.add(jTable1);
 
@@ -243,7 +266,7 @@ public class OrderListView extends JFrame implements ActionListener{
 		comboBox_4.setBounds(279, 7, 30, 21);
 		panel_6.add(comboBox_4);
 		
-		jTextField1 = new JTextField();
+
 		jTextField1.setBounds(179, 38, 116, 21);
 		panel_6.add(jTextField1);
 		jTextField1.setColumns(10);
@@ -267,16 +290,21 @@ public class OrderListView extends JFrame implements ActionListener{
 	}
 	
 	void start() {
-		btnf.addActionListener(this);
-		button_7.addActionListener(this);
+		btnf.addMouseListener(this);
+		button_7.addMouseListener(this);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
 		
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
 }

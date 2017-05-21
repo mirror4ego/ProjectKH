@@ -84,7 +84,7 @@ public class UserInfoDao {
 	public int chkUserNum(int chkusernum) throws ClassNotFoundException, SQLException {
 
 			Connection c = connectionMaker.makeConnection();
-			
+			c.setAutoCommit(false);
 			//int sum = 0;
 			int cnt=0;
 			try {

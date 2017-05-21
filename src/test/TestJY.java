@@ -3,7 +3,13 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
+<<<<<<< HEAD
+=======
+import dao.OrderInfoDao;
+import domain.OrderInfoDto;
+>>>>>>> 0c0858c89178e81b4527d091359a5365cdc49d5b
 import view.LoginView;
+import view2.OrderListMiniView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -22,5 +28,6 @@ public class TestJY {
 		//CustomerMainView customerMainView = new CustomerMainView();
 		//OrderSheetView orderSheetView = new OrderSheetView();
 		//OrderListView orderRegView = new OrderListView();
+		(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
 	}
 }

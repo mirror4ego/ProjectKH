@@ -11,12 +11,14 @@ public class CustomerDto {
 	private String customerAddRest;
 	private int customerFrequent;
 	private int customerAgePredict;
+	private int customerReceivable;
+	private int customerGender;
 
 	public CustomerDto() {}
 
 	public CustomerDto(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
 			String customerAddCity, String customerAddStreet, String customerAddRest, int customerFrequent,
-			int customerAgePredict) {
+			int customerAgePredict, int customerReceivable, int customerGender) {
 		this.customerNum = customerNum;
 		this.customerRegDate = customerRegDate;
 		this.customerPhoneNum = customerPhoneNum;
@@ -26,6 +28,8 @@ public class CustomerDto {
 		this.customerAddRest = customerAddRest;
 		this.customerFrequent = customerFrequent;
 		this.customerAgePredict = customerAgePredict;
+		this.customerReceivable = customerReceivable;
+		this.customerGender = customerGender;
 	}
 
 	public int getCustomerNum() {
@@ -99,6 +103,22 @@ public class CustomerDto {
 	public void setCustomerAgePredict(int customerAgePredict) {
 		this.customerAgePredict = customerAgePredict;
 	}
+	
+	public int getCustomerReceivable() {
+		return customerReceivable;
+	}
+
+	public void setCustomerReceivable(int customerReceivable) {
+		this.customerReceivable = customerReceivable;
+	}
+
+	public int getCustomerGender() {
+		return customerGender;
+	}
+
+	public void setCustomerGender(int customerGender) {
+		this.customerGender = customerGender;
+	}
 
 	@Override
 	public String toString() {
@@ -106,7 +126,10 @@ public class CustomerDto {
 				+ ", customerPhoneNum=" + customerPhoneNum + ", customerAddState=" + customerAddState
 				+ ", customerAddCity=" + customerAddCity + ", customerAddStreet=" + customerAddStreet
 				+ ", customerAddRest=" + customerAddRest + ", customerFrequent=" + customerFrequent
-				+ ", customerAgePredict=" + customerAgePredict + "]";
+				+ ", customerAgePredict=" + customerAgePredict + ", customerReceivable=" + customerReceivable
+				+ ", customerGender=" + customerGender + "]";
 	}
+
+
 
 }

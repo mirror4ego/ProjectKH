@@ -27,7 +27,7 @@ public class OrderInfoDao {
 		// c에 저장
 
 		PreparedStatement ps = c.prepareStatement(
-				"insert into orderinfo values (seq_orderinfo_num.nextval,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+				"insert into orderinfo values (seq_orderinfo_num.nextval,?,?,?,?,?,?,?,?,?,?,?,?)");
 		// PreparedStatement ps = c.prepareStatement("insert into
 		// customer(customer_Num, customer_Reg_Date, customer_Phone_Num,
 		// customer_Add_State, customer_Add_City, customer_Add_Street,
@@ -42,17 +42,15 @@ public class OrderInfoDao {
 		ps.setString(1, orderInfoDto.getOrderInfoDate());
 		ps.setString(2, orderInfoDto.getOrderInfoLocPossibility());
 		ps.setString(3, orderInfoDto.getOrderInfoOrderPossibility());
-		ps.setInt(4, orderInfoDto.getOrderInfoMenuNum());
-		ps.setInt(5, orderInfoDto.getOrderInfoMenuAmount());
-		ps.setString(6, orderInfoDto.getOrderInfoRequestInfo());
-		ps.setInt(7, orderInfoDto.getOrderInfoChannelNum());
-		ps.setString(8, orderInfoDto.getOrderInfoRequestDelivery());
-		ps.setString(9, orderInfoDto.getOrderInfoPackCompletion());
-		ps.setString(10, orderInfoDto.getOrderInfoDeliveryCompletion());
-		ps.setString(11, orderInfoDto.getOrderInfoOrderCompletion());
-		ps.setString(12, orderInfoDto.getOrderInfoMoneyCollection());
-		ps.setString(13, orderInfoDto.getOrderInfoDeliveryPredict());
-		ps.setInt(14, orderInfoDto.getOrderInfoCustomerNum());
+		ps.setString(4, orderInfoDto.getOrderInfoRequestInfo());
+		ps.setInt(5, orderInfoDto.getOrderInfoChannelNum());
+		ps.setString(6, orderInfoDto.getOrderInfoRequestDelivery());
+		ps.setString(7, orderInfoDto.getOrderInfoPackCompletion());
+		ps.setString(8, orderInfoDto.getOrderInfoDeliveryCompletion());
+		ps.setString(9, orderInfoDto.getOrderInfoOrderCompletion());
+		ps.setString(10, orderInfoDto.getOrderInfoMoneyCollection());
+		ps.setString(11, orderInfoDto.getOrderInfoDeliveryPredict());
+		ps.setInt(12, orderInfoDto.getOrderInfoCustomerNum());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는
 		// sql문은
@@ -75,14 +73,12 @@ public class OrderInfoDao {
 			while (rs.next()) {
 				int orderInfoNum = rs.getInt("orderInfo_Num"); // 주문번호
 				String orderInfoDate = rs.getString("orderInfo_Date");// 주문일자
-				int orderInfoMenuNum = rs.getInt("orderInfo_Menu_Num");// 메뉴고유값
-				int orderInfoMenuAmount = rs.getInt("orderInfo_Menu_Amount");// 주문메뉴양
+
 
 				Vector row = new Vector();
 				row.add(orderInfoNum);
 				row.add(orderInfoDate);
-				row.add(orderInfoMenuNum);
-				row.add(orderInfoMenuAmount);
+
 
 				data.add(row);
 			}
@@ -110,8 +106,6 @@ public class OrderInfoDao {
 				orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
 				orderInfoDto.setOrderInfoLocPossibility(rs.getString("orderInfo_Loc_Possibility"));//주문가능여부(지역)
 				orderInfoDto.setOrderInfoOrderPossibility(rs.getString("orderInfo_Order_Possibility"));//주문가능여부(주문량)
-				orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
-				orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
 				orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항
 				orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfo_Channel_Num"));//채널고유값
 				orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfo_Request_Delivery"));//배달요청시간
@@ -128,6 +122,7 @@ public class OrderInfoDao {
 		return orderInfoDto;    
 	}
 
+	//수정 필요
 	public int sumOrderMenu(int orderInfoNum) throws ClassNotFoundException, SQLException {
 
 		Connection c = connectionMaker.makeConnection();
@@ -167,13 +162,10 @@ public class OrderInfoDao {
 		// 메소드를 꼭 한번 실행해야 한다
 		OrderInfoDto orderInfoDto = new OrderInfoDto(); // 고객정보 클래스의 객체를 생성
 
-
 		orderInfoDto.setOrderInfoNum(rs.getInt("orderInfo_Num"));  //주문번호
 		orderInfoDto.setOrderInfoDate(rs.getString("orderInfo_Date"));//주문일자
 		orderInfoDto.setOrderInfoLocPossibility(rs.getString("orderInfo_Loc_Possibility"));//주문가능여부(지역)
 		orderInfoDto.setOrderInfoOrderPossibility(rs.getString("orderInfo_Order_Possibility"));//주문가능여부(주문량)
-		orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfo_Menu_Num"));//메뉴고유값
-		orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfo_Menu_Amount"));//주문 메뉴양
 		orderInfoDto.setOrderInfoRequestInfo(rs.getString("orderInfo_Request_Info"));//주문요청사항
 		orderInfoDto.setOrderInfoChannelNum(rs.getInt("orderInfo_Channel_Num"));//채널고유값
 		orderInfoDto.setOrderInfoRequestDelivery(rs.getString("orderInfo_Request_Delivery"));//배달요청시간
@@ -183,7 +175,6 @@ public class OrderInfoDao {
 		orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfo_Money_Collection"));//수금여부
 		orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfo_Delivery_Predict"));//배달예측시간
 		orderInfoDto.setOrderInfoCustomerNum(rs.getInt("orderInfo_Customer_Num"));//고객번호
-
 
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		rs.close();
@@ -201,24 +192,20 @@ public class OrderInfoDao {
 		boolean ok = false;
 		try{
 			Connection c = connectionMaker.makeConnection();          
-			PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, orderInfo_Menu_Num=?, orderInfo_Menu_Amount=?, orderInfo_Request_Info=?,orderInfo_Channel_Num=?, orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=?"+ "where orderInfo_Num=?");
-
+			PreparedStatement ps = c.prepareStatement("update orderinfo set orderInfo_Date=?, orderInfo_Loc_Possibility=?, orderInfo_Order_Possibility=?, orderInfo_Request_Info=?,orderInfo_Channel_Num=?, orderInfo_Request_Delivery=?, orderInfo_Pack_Completion=?, orderInfo_Delivery_Completion=?, orderInfo_Order_Completion=?, orderInfo_Money_Collection=?, orderInfo_Delivery_Predict=?"+ "where orderInfo_Num=?");
 
 			ps.setString(1, orderInfoDto.getOrderInfoDate());
 			ps.setString(2, orderInfoDto.getOrderInfoLocPossibility());
 			ps.setString(3, orderInfoDto.getOrderInfoOrderPossibility());
-			ps.setInt(4, orderInfoDto.getOrderInfoMenuNum());
-			ps.setInt(5, orderInfoDto.getOrderInfoMenuAmount());
-			ps.setString(6, orderInfoDto.getOrderInfoRequestInfo());
-			ps.setInt(7, orderInfoDto.getOrderInfoChannelNum());
-			ps.setString(8, orderInfoDto.getOrderInfoRequestDelivery());
-			ps.setString(9, orderInfoDto.getOrderInfoPackCompletion());
-			ps.setString(10, orderInfoDto.getOrderInfoDeliveryCompletion());
-			ps.setString(11, orderInfoDto.getOrderInfoOrderCompletion());
-			ps.setString(12, orderInfoDto.getOrderInfoMoneyCollection());
-			ps.setString(13, orderInfoDto.getOrderInfoDeliveryPredict());
-			ps.setInt(14, orderInfoDto.getOrderInfoCustomerNum());
-
+			ps.setString(4, orderInfoDto.getOrderInfoRequestInfo());
+			ps.setInt(5, orderInfoDto.getOrderInfoChannelNum());
+			ps.setString(6, orderInfoDto.getOrderInfoRequestDelivery());
+			ps.setString(7, orderInfoDto.getOrderInfoPackCompletion());
+			ps.setString(8, orderInfoDto.getOrderInfoDeliveryCompletion());
+			ps.setString(9, orderInfoDto.getOrderInfoOrderCompletion());
+			ps.setString(10, orderInfoDto.getOrderInfoMoneyCollection());
+			ps.setString(11, orderInfoDto.getOrderInfoDeliveryPredict());
+			ps.setInt(12, orderInfoDto.getOrderInfoCustomerNum());
 
 			int r = ps.executeUpdate();
 
