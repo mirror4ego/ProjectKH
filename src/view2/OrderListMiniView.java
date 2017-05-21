@@ -48,7 +48,7 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 	private JTable table = new JTable();
 	private JScrollPane scrollPane = new JScrollPane(table);
 	
-	public OrderListMiniView() throws ClassNotFoundException, SQLException {
+	public OrderListMiniView(int customerNum, String customerPhoneNum) throws ClassNotFoundException, SQLException {
 		super("미니주문내역");
 		this.init();
 		this.start();
@@ -64,6 +64,9 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 		this.setVisible(true);
 		this.getColumn();
 		this.jTableRefresh(new CustomerDao().customerAllPart());
+		textField.setText(String.valueOf(customerNum));
+		textField_1.setText(String.valueOf(customerPhoneNum));
+		
 	}
 
 	void init() {

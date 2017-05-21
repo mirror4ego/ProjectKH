@@ -440,8 +440,6 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String orderInfoDate = jTextField12.getText().trim();
 			String orderInfoLocPossibility = jTextField13.getText().trim();
 			String orderInfoOrderPossibility = jTextField14.getText().trim();
-			int orderInfoMenuNum = Integer.parseInt(jTextField15.getText().trim());
-			int orderInfoMenuAmount = Integer.parseInt(jTextField16.getText().trim());
 			String orderInfoRequestInfo = jTextField17.getText().trim();
 			int orderInfoChannelNum = Integer.parseInt(jTextField18.getText().trim());  //수정필요
 			String orderInfoRequestDelivery = jTextField19.getText().trim();
@@ -453,7 +451,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			//OrderInfoDao 
 			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
 			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossibility, orderInfoOrderPossibility,
-					orderInfoMenuNum, orderInfoMenuAmount, orderInfoRequestInfo, orderInfoChannelNum,
+					orderInfoRequestInfo, orderInfoChannelNum,
 					orderInfoRequestDelivery, orderInfoPackCompletion, orderInfoDeliveryCompletion,
 					orderInfoOrderCompletion, orderInfoMoneyCollection, orderInfoDeliveryPredict, 
 					orderInfoCustomerNum);

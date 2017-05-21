@@ -54,7 +54,7 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 		//private List<Double> scores;
 
 		//public  Exam01(List<Double> scores) {
-			this.scores = scores;
+			//this.scores = scores;
 			
 			
 //----------------------------------			

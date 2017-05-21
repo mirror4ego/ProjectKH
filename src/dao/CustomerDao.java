@@ -47,10 +47,27 @@ public class CustomerDao {
 			c.close();
 			JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (쿼리)");
 		}
-
-
 	}
 
+	public void deleteOneCustomer(int customerNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		
+		try{
+			PreparedStatement ps = c.prepareStatement("delete from customer where customer_num = ?");
+
+			ps.setInt(1, customerNum);
+
+			ps.executeUpdate();
+
+			ps.close();
+			c.close();
+			JOptionPane.showMessageDialog(null, "고객정보 삭제 성공!");
+		}catch(Exception e){
+			c.close();
+			JOptionPane.showMessageDialog(null, "고객정보 삭제 실패!");
+		}
+	}
+	
 	public void updateCustomer(CustomerDto customerDto) throws ClassNotFoundException, SQLException { 
 
 		Connection c = connectionMaker.makeConnection();

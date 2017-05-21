@@ -6,8 +6,6 @@ public class OrderInfoDto {
 	private String orderInfoDate;
 	private String orderInfoLocPossibility;
 	private String orderInfoOrderPossibility;
-	private int orderInfoMenuNum;
-	private int orderInfoMenuAmount;
 	private String orderInfoRequestInfo;
 	private int orderInfoChannelNum;
 	private String orderInfoRequestDelivery;
@@ -21,7 +19,7 @@ public class OrderInfoDto {
 	public OrderInfoDto() {}
 
 	public OrderInfoDto(int orderInfoNum, String orderInfoDate, String orderInfoLocPossibility, String orderInfoOrderPossibility,
-			int orderInfoMenuNum, int orderInfoMenuAmount, String orderInfoRequestInfo, int orderInfoChannelNum,
+			String orderInfoRequestInfo, int orderInfoChannelNum,
 			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
 			int orderInfoCustomerNum) {
@@ -29,8 +27,6 @@ public class OrderInfoDto {
 		this.orderInfoDate = orderInfoDate;
 		this.orderInfoLocPossibility = orderInfoLocPossibility;
 		this.orderInfoOrderPossibility = orderInfoOrderPossibility;
-		this.orderInfoMenuNum = orderInfoMenuNum;
-		this.orderInfoMenuAmount = orderInfoMenuAmount;
 		this.orderInfoRequestInfo = orderInfoRequestInfo;
 		this.orderInfoChannelNum = orderInfoChannelNum;
 		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
@@ -72,22 +68,6 @@ public class OrderInfoDto {
 
 	public void setOrderInfoOrderPossibility(String orderInfoOrderPossiblity) {
 		this.orderInfoOrderPossibility = orderInfoOrderPossiblity;
-	}
-
-	public int getOrderInfoMenuNum() {
-		return orderInfoMenuNum;
-	}
-
-	public void setOrderInfoMenuNum(int orderInfoMenuNum) {
-		this.orderInfoMenuNum = orderInfoMenuNum;
-	}
-
-	public int getOrderInfoMenuAmount() {
-		return orderInfoMenuAmount;
-	}
-
-	public void setOrderInfoMenuAmount(int orderInfoMenuAmount) {
-		this.orderInfoMenuAmount = orderInfoMenuAmount;
 	}
 
 	public String getOrderInfoRequestInfo() {
@@ -166,8 +146,7 @@ public class OrderInfoDto {
 	public String toString() {
 		return "OrderInfoDto [orderInfoNum=" + orderInfoNum + ", orderInfoDate=" + orderInfoDate
 				+ ", orderInfoLocPossibility=" + orderInfoLocPossibility + ", orderInfoOrderPossibility="
-				+ orderInfoOrderPossibility + ", orderInfoMenuNum=" + orderInfoMenuNum + ", orderInfoMenuAmount="
-				+ orderInfoMenuAmount + ", orderInfoRequestInfo=" + orderInfoRequestInfo + ", orderInfoChannelNum="
+				+ orderInfoOrderPossibility + ", orderInfoRequestInfo=" + orderInfoRequestInfo + ", orderInfoChannelNum="
 				+ orderInfoChannelNum + ", orderInfoRequestDelivery=" + orderInfoRequestDelivery
 				+ ", orderInfoPackCompletion=" + orderInfoPackCompletion + ", orderInfoDeliveryCompletion="
 				+ orderInfoDeliveryCompletion + ", orderInfoOrderCompletion=" + orderInfoOrderCompletion

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import dao.OrderInfoDao;
 import domain.OrderInfoDto;
+import view.LoginView;
 import view2.OrderListMiniView;
 
 public class TestJY {
@@ -12,7 +13,7 @@ public class TestJY {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
-		//LoginView loginView = new LoginView();
+		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();
 		//userInfoDao.selectAll();
@@ -24,9 +25,6 @@ public class TestJY {
 		//CustomerMainView customerMainView = new CustomerMainView();
 		//OrderSheetView orderSheetView = new OrderSheetView();
 		//OrderListView orderRegView = new OrderListView();
-		OrderListMiniView orderListMiniView = new OrderListMiniView();
-		(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", 3, 4, "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
-		
-		
+		(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
 	}
 }
