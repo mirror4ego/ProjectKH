@@ -119,8 +119,8 @@ public class UserListView extends JFrame implements MouseListener,ActionListener
 		
 		panel.add(lblNewLabel_11);
 		
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"고객번호", "전화번호", "주소"}));
-		//comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"시도","서울","충남","경북"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"직원명","전화번호","핸드폰"}));
+		
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/도","서울","부산","대구","인천","광주","대전","울산","세종",
 				"경기","강원","충북","충남","전북","전남","경북","경남","제주"}));
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"구/군"}));
