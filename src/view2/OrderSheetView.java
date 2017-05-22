@@ -5,7 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.text.Format;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,14 +22,14 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import javax.swing.border.BevelBorder;
 
-public class OrderSheetView extends JFrame {
+public class OrderSheetView extends JFrame implements MouseListener {
 	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	SetUiFont setUiFont = new SetUiFont();
 	private JLabel lblNewLabel_4 = new JLabel("주문서 관리");
@@ -115,6 +116,15 @@ public class OrderSheetView extends JFrame {
 	private final JLabel label_25 = new JLabel("주문");
 	private final JLabel label_26 = new JLabel("요청사항");
 	private final JTextField txtEx = new JTextField();
+	JScrollPane scrollPane_3 = new JScrollPane();
+	JTextArea textArea_1 = new JTextArea();
+	JTextArea textArea = new JTextArea();
+	JComboBox comboBox = new JComboBox();
+	JButton btnNewButton_2 = new JButton("검색");
+	JLabel label_8 = new JLabel("ㅇ분류");
+	Date today = new Date();
+	SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 / HH시 mm분");
+	JScrollPane scrollPane_4 = new JScrollPane();
 
 	public OrderSheetView(CustomerDto customerDto) {
 		super("주문서");
@@ -159,8 +169,7 @@ public class OrderSheetView extends JFrame {
 		textField_9.setEditable(false);
 		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_9.setText(customerPhoneNum);
-		Date today = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 / HH시 mm분");
+
 		textField_11.setEditable(false);
 		textField_11.setText(format.format(today));
 		lblNewLabel.setText(format.format(today));
@@ -210,7 +219,7 @@ public class OrderSheetView extends JFrame {
 
 		panel_5.add(textField_1);
 
-		JScrollPane scrollPane_3 = new JScrollPane();
+
 		scrollPane_3.setBounds(12, 10, 455, 156);
 		panel_5.add(scrollPane_3);
 
@@ -250,7 +259,7 @@ public class OrderSheetView extends JFrame {
 		tabbedPane_3.addTab("ㅇ요청사항", null, panel_11, null);
 		panel_11.setLayout(null);
 
-		JTextArea textArea_1 = new JTextArea();
+
 		textArea_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
 		textArea_1.setBounds(79, 69, 389, 74);
 		panel_11.add(textArea_1);
@@ -292,7 +301,7 @@ public class OrderSheetView extends JFrame {
 		tabbedPane_3.addTab("ㅇ특이사항", null, panel_4, null);
 		panel_4.setLayout(null);
 
-		JTextArea textArea = new JTextArea();
+
 		textArea.setBounds(78, 10, 389, 133);
 		panel_4.add(textArea);
 		label_23.setHorizontalAlignment(SwingConstants.CENTER);
@@ -480,16 +489,16 @@ public class OrderSheetView extends JFrame {
 		panel_1.add(panel_9);
 		panel_9.setLayout(null);
 
-		JComboBox comboBox = new JComboBox();
+
 		comboBox.setEditable(true);
 		comboBox.setBounds(78, 6, 149, 25);
 		panel_9.add(comboBox);
 
-		JButton btnNewButton_2 = new JButton("검색");
+
 		btnNewButton_2.setBounds(238, 6, 57, 25);
 		panel_9.add(btnNewButton_2);
 
-		JLabel label_8 = new JLabel("ㅇ분류");
+
 		label_8.setHorizontalAlignment(SwingConstants.CENTER);
 		label_8.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.GRAY));
 		label_8.setBackground(Color.GRAY);
@@ -541,7 +550,7 @@ public class OrderSheetView extends JFrame {
 
 		panel_2.add(label_13);
 
-		JScrollPane scrollPane_4 = new JScrollPane();
+
 		scrollPane_4.setBounds(12, 103, 236, 114);
 		panel_2.add(scrollPane_4);
 
@@ -586,7 +595,7 @@ public class OrderSheetView extends JFrame {
 	}
 
 	void start() {
-
+		btnNewButton.addMouseListener(this);
 	}
 
 	public void realTime() {
@@ -608,4 +617,20 @@ public class OrderSheetView extends JFrame {
 		}
 
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource()==btnNewButton){
+			this.dispose();
+		}
+	}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
 }
