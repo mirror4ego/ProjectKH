@@ -384,8 +384,6 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 							e1.printStackTrace();
 						}
 					}else{JOptionPane.showMessageDialog(null, "관리자 계정 ID 또는 비밀번호가 일치하지 않음");}
-
-
 				}else{}
 
 				if(e.getSource()==button) {

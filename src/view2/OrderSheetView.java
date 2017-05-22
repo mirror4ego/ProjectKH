@@ -615,7 +615,6 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		}catch(InterruptedException e){
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override

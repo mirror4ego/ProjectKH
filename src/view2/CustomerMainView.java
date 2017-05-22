@@ -1,16 +1,18 @@
 package view2;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
@@ -30,6 +32,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,10 +41,8 @@ import dao.DaoFactory;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import javax.swing.border.MatteBorder;
-import java.awt.Component;
 
-public class CustomerMainView extends JFrame implements MouseListener {
+public class CustomerMainView extends JFrame implements MouseListener, ItemListener {
 
 	// 변수 선언부
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
@@ -75,7 +76,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JLabel label_7 = new JLabel("특이사항");
 	private JLabel label_9 = new JLabel("가족사항");
 	private JLabel comboBox_1 = new JLabel();
-	
+
 	private JButton button_7 = new JButton("파일저장");
 	private JButton button_6 = new JButton("프린트");
 	private JButton btnf_5 = new JButton("닫기");
@@ -86,7 +87,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JButton btnf = new JButton("주문내역");
 	private JButton btnNewButton_1 = new JButton("전체리스트");
 	private JButton button = new JButton("주문서");
-	
+
 	private JPanel panel_3 = new JPanel();
 	private JPanel panel_4 = new JPanel();
 	private JPanel panel_8 = new JPanel();
@@ -113,17 +114,17 @@ public class CustomerMainView extends JFrame implements MouseListener {
 
 	private JTextArea textArea = new JTextArea();
 	private JTextArea textArea_2 = new JTextArea();
-	
+
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnNewRadioButton = new JRadioButton("여성");
 	private JRadioButton radioButton = new JRadioButton("남성");
-	
+
 	private Vector vector3 = new Vector();
 	private JTable table = new JTable();
 
 	private Date today = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
-	
+
 	public CustomerMainView() throws ClassNotFoundException, SQLException {
 		super("고객관리");
 		this.init();
@@ -226,19 +227,19 @@ public class CustomerMainView extends JFrame implements MouseListener {
 
 		btnf.setBounds(10, 8, 80, 50);
 		panel_8.add(btnf);
-		
+
 		button.setBounds(100, 8, 70, 50);
 		panel_8.add(button);
 
 		tabbedPane_1.setBounds(12, 340, 505, 193);
 		panel_3.add(tabbedPane_1);
 
-		
+
 		//comboBox.getSelectedIndex();
 		System.out.println(comboBox.getSelectedIndex());
 		if(comboBox.getSelectedIndex()==1)
-		
-		tabbedPane_1.addTab("ㅇ특이사항", null, panel_10, null);
+
+			tabbedPane_1.addTab("ㅇ특이사항", null, panel_10, null);
 		panel_10.setLayout(null);
 		label_7.setBounds(12, 10, 67, 25);
 		label_7.setHorizontalAlignment(SwingConstants.CENTER);
@@ -261,7 +262,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 
 		panel_9.add(label_9);
 		textArea_2.setBounds(86, 11, 402, 143);
-		
+
 		panel_9.add(textArea_2);
 
 		panel_5.setLayout(null);
@@ -362,6 +363,8 @@ public class CustomerMainView extends JFrame implements MouseListener {
 
 		comboBox_4.setBounds(275, 10, 218, 25);
 		panel_6.add(comboBox_4);
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"시/도","서울","부산","대구","인천","광주","대전","울산","세종",
+				"경기","강원","충북","충남","전북","전남","경북","경남","제주"}));
 
 		jTextField1.setBounds(69, 45, 424, 25);
 		panel_6.add(jTextField1);
@@ -399,6 +402,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		btnf_1.addMouseListener(this);
 		btnf_3.addMouseListener(this);
 		button.addMouseListener(this);
+		comboBox_2.addItemListener(this);
 	}
 
 	public Vector getColumn(){
@@ -432,7 +436,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		rdbtnNewRadioButton.setSelected(false);
 	}
 
-	
+
 	private void viewData(CustomerDto customerDto){
 
 		int customerNum = customerDto.getCustomerNum();  //주문번호
@@ -478,7 +482,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 			rdbtnNewRadioButton.setSelected(true);
 		}
 	}
-	
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -555,7 +559,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 				}
 				CustomerDao customerDao = new DaoFactory().customerDao();
 				if((jTextField2.getText().trim()).equals("")){
-					
+
 					try{
 						CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
 								customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict,
@@ -579,10 +583,6 @@ public class CustomerMainView extends JFrame implements MouseListener {
 			}else{
 				JOptionPane.showMessageDialog(null, "필수 사항을 전부 입력하세요");
 			}
-			
-			
-
-
 
 		}else{}
 
@@ -610,12 +610,12 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		}
 
 		if(e.getSource()==btnf_3){
-			
+
 			if(!(jTextField2.getText().trim()).equals("")){
 				try {
 					int result = JOptionPane.showConfirmDialog(null, "고객정보를 삭제하시겠습니까?");
 					if(result==0){
-					(new CustomerDao()).deleteOneCustomer(Integer.parseInt(jTextField2.getText().trim()));
+						(new CustomerDao()).deleteOneCustomer(Integer.parseInt(jTextField2.getText().trim()));
 					}else{
 						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
 					}
@@ -627,7 +627,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 				JOptionPane.showMessageDialog(null, "삭제할 고객 정보를 선택하세요");
 			}
 		}
-		
+
 		if(e.getSource()==button){
 			if(!(jTextField2.getText().trim()).equals("")){
 				try {
@@ -640,6 +640,93 @@ public class CustomerMainView extends JFrame implements MouseListener {
 			}else{
 				JOptionPane.showMessageDialog(null, "먼저 고객 정보를 선택하세요");
 			}
+		}	
+	}
+
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getStateChange()==ItemEvent.SELECTED){
+			String a = comboBox_2.getSelectedItem().toString();
+			System.out.println(a);
+
+			if(a.equals("서울")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","강남구","강동구","강북구","강서구","관악구","광진구","구로구",
+						"금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구",
+						"종로구","중구","중랑구"}));
+			}
+			if(a.equals("부산")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","강서구","금정구","기장군","남구","동구","동래구","부산진구",
+						"북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구"}));
+			}
+			if(a.equals("대구")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","남구","달서구","달성군","동구","북구","서구","수성구","중구"}));
+			}
+			if(a.equals("인천")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","강화군","계양구","남구","남동구","동구","부평구","서구",
+						"연수구","옹진군","중구"}));
+			}
+			if(a.equals("광주")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","광산구","남구","동구","북구","서구"}));
+			}
+			if(a.equals("대전")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","대덕구","동구","서구","유성구","중구"}));
+			}
+			if(a.equals("울산")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","남구","동구","북구","울주군","중구"}));
+			}
+			if(a.equals("세종")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군"}));
+			}
+			if(a.equals("경기")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","가평군","고양시 덕양구","고양시 일산동구","고양시 일산서구",
+						"과천시","광명시","광주시","구리시","군포시","김포시","남양주시","동두천시","부천시","성남시 분당구","성남시 수정구","성남시 중원구","수원시 권선구",
+						"수원시 영통구","수원시 장안구","수원시 팔달구","시흥시","안산시 단원구","안산시 상록구","안성시","안양시 동안구","안양시 만안구","양주시","양평군","여주시",
+						"연천군","오산시","용인시 기흥구","용인시 수지구","용인시 처인구","의왕시","의정부시","이천시","파주시","평택시","포천시","하남시","화성시"}));
+			}
+			if(a.equals("강원")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","강릉시","고성군","동해시","삼척시","속초시","양구군",
+						"양양군","영월군","원주시","인제군","정선군","철원군","춘천시","태백시","평창군","홍천군","화천군","횡성군"}));
+			}
+
+			if(a.equals("충북")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","괴산군","단양군","보은군","영동군","옥천군","음성군",
+						"제천시","증평군","진천군","청주시 상당구","청주시 서원구","청주시 청원구","청주시 흥덕구","충주시"}));
+
+			}
+			if(a.equals("충남")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","계룡시","공주시","금산군","논산시","당진시","보령시",
+						"부여군","서산시","서천군","아산시","예산군","천안시 동남구","천안시 서북구","청양군","태안군","홍성군"}));
+
+			}
+			if(a.equals("전북")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","고창군","군산시","김제시","남원시","무주군","부안군",
+						"순창군","완주군","익산시","임실군","장수군","전주시 덕진구","전주시 완산구","정읍시","진안군"}));
+
+			}
+			if(a.equals("전남")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","강진군","고흥군","곡성군","광양시","구례군","나주시",
+						"담양군","목포시","무안군","보성군","순천시","신안군","여수시","영광군","영암군","완도군","장성군","장흥군","진도군","함평군","해남군","화순군"}));
+
+			}
+			if(a.equals("경북")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","경산시","경주시","고령군","구미시","군위군","김천시",
+						"문경시","봉화군","상주시","성주군","안동시","영덕군","영양군","영주시","영천시","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군",
+						"포항시 남구","포항시 북구"}));
+			}
+			if(a.equals("경남")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","거제시","거창군","고성군","김해시","남해군","밀양시",
+						"사천시","산청군","양산시","의령군","진주시","창녕군","창원시 마산합포구","창원시 마산회원구","창원시 성산구","창원시 의창구","창원시 진해구","통영시",
+						"하동군","함안군","함양군","합천군"}));
+
+			}
+			if(a.equals("제주")){
+				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"구/군","서귀포시","제주시"}));	 
+			}
+
+
 		}
 	}
 
