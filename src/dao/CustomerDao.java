@@ -240,7 +240,7 @@ public class CustomerDao {
 		CustomerDto customerDto = new CustomerDto();
 
 		try{
-			PreparedStatement ps = c.prepareStatement("select * from customer where customer_num ?");
+			PreparedStatement ps = c.prepareStatement("select * from customer where customer_num = ?");
 			ps.setInt(1,customerNum);
 			ResultSet rs = ps.executeQuery();
 

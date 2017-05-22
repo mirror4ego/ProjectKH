@@ -44,10 +44,10 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 
 	//변수 선언부 시작
 	//패널 선언
+	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+	SetUiFont setUiFont = new SetUiFont();
 	private JPanel jPanel1 = new JPanel() {
 		public void paintComponent(Graphics g) {
-			SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
-			SetUiFont setUiFont = new SetUiFont();
 			g.drawImage(imageIcon1.getImage(), 0, 0, null);
 			setOpaque(false); //그림을 표시하게 설정,투명하게 조절
 			super.paintComponent(g);}};
@@ -63,7 +63,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 			private JButton jButton1 = new JButton("로그인", new ImageIcon("img/btLogin_hud.png"));
 			private JButton jButton2 = new JButton("사용자관리", new ImageIcon("img/btLogin_hud.png"));
 			private JButton jButton3 = new JButton("주문관리");
-			private JButton jButton4 = new JButton("사용자관리");
+			private JButton jButton4 = new JButton("출퇴근관리");
 			private JButton jButton5 = new JButton("데이터분석");
 			private JButton jButton6 = new JButton("고객관리");
 
@@ -193,6 +193,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				jLayeredPane1.add(jPanel2);
 				jLayeredPane1.add(jPanel1);
 				jPanel1.add(jLabel9);
+				jTextField1.setEditable(false);
 				jTextField1.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 				jTextField1.setForeground(Color.GRAY);
 				jTextField1.setText("공지사항\r\n\r\n - 출퇴근 시 꼭 카드 찍기\r\n\r\n - 프로그램 사용 방법 숙지");

@@ -1,6 +1,7 @@
 package view2;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -38,7 +39,6 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 	private JPanel panel_1 = new JPanel();
 	
 	private JButton btnNewButton = new JButton("회원정보보기");
-	private JButton btnNewButton_1 = new JButton("New button");
 	private JButton button = new JButton("파일");
 	private JButton button_1 = new JButton("출력");
 	private JButton button_2 = new JButton("닫기");
@@ -85,10 +85,10 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 		lblNewLabel.setBounds(12, 10, 83, 15);
 		panel_1.add(lblNewLabel);
 
-		lblNewLabel_1.setBounds(251, 10, 57, 15);
+		lblNewLabel_1.setBounds(307, 10, 57, 15);
 		panel_1.add(lblNewLabel_1);
 
-		textField.setBounds(310, 7, 46, 21);
+		textField.setBounds(369, 7, 46, 21);
 		panel_1.add(textField);
 		textField.setEditable(false);
 		textField.setText("123123");
@@ -97,10 +97,10 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 		textField_1.setText("123123");
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(442, 7, 132, 21);
+		textField_1.setBounds(484, 7, 90, 21);
 		panel_1.add(textField_1);
 		
-		label.setBounds(378, 10, 57, 15);
+		label.setBounds(427, 10, 57, 15);
 		panel_1.add(label);
 
 		panel_2.setBounds(12, 590, 586, 81);
@@ -109,9 +109,6 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 
 		btnNewButton.setBounds(12, 10, 154, 61);
 		panel_2.add(btnNewButton);
-
-		btnNewButton_1.setBounds(298, 10, 60, 60);
-		panel_2.add(btnNewButton_1);
 
 		button.setBounds(370, 10, 60, 60);
 		panel_2.add(button);
@@ -126,7 +123,6 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 	void start() {
 		table.addMouseListener(this);
 		btnNewButton.addMouseListener(this);
-		btnNewButton_1.addMouseListener(this);
 		button.addMouseListener(this);
 		button_1.addMouseListener(this);
 		button_2.addMouseListener(this);

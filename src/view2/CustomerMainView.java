@@ -9,6 +9,9 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -35,6 +38,8 @@ import dao.DaoFactory;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
+import javax.swing.border.MatteBorder;
+import java.awt.Component;
 
 public class CustomerMainView extends JFrame implements MouseListener {
 
@@ -52,7 +57,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JTextField textField_2 = new JTextField("");
 
 	private JLabel jLabel1 = new JLabel("ㅇ회원정보");
-	private JLabel lblNewLabel_1 = new JLabel("고객등록일자");
+	private JLabel lblNewLabel_1 = new JLabel("현재날짜");
 	private JLabel lblNewLabel = new JLabel("ㅇ고객정보");
 	private JLabel label_2 = new JLabel("고객번호");
 	private JLabel lblNewLabel_5 = new JLabel("전화번호");
@@ -60,16 +65,15 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JLabel label_3 = new JLabel("주소");
 	private JLabel lblNewLabel_4 = new JLabel("회원관리");
 	private JLabel label = new JLabel("에서");
-	private JLabel lblNewLabel_2 = new JLabel("주소를 입력하세요");
+	private JLabel lblNewLabel_2 = new JLabel("주소를 모두 정확히 입력해 주세요");
 	private JLabel lblNewLabel_3 = new JLabel("나머지");
 	private JLabel lblNewLabel_6 = new JLabel("누적주문");
 	private JLabel lblNewLabel_7 = new JLabel("나이예측");
 	private JLabel label_1 = new JLabel("고객정보를 입력하고 주문내역을 조회합니다");
 	private JLabel label_5 = new JLabel("미수금");
 	private JLabel label_6 = new JLabel("성별");
-	private final JLabel label_7 = new JLabel("특이사항");
-	private final JLabel label_8 = new JLabel("기념일관리");
-	private final JLabel label_9 = new JLabel("가족사항");
+	private JLabel label_7 = new JLabel("특이사항");
+	private JLabel label_9 = new JLabel("가족사항");
 
 	private JButton button_7 = new JButton("파일저장");
 	private JButton button_6 = new JButton("프린트");
@@ -78,15 +82,15 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JButton btnf_1 = new JButton("신규");
 	private JButton btnf_3 = new JButton("삭제");
 	private JButton btnNewButton = new JButton("검색");
-	private JButton btnf = new JButton("주문내역보기");
+	private JButton btnf = new JButton("주문내역");
 	private JButton btnNewButton_1 = new JButton("전체리스트");
-
+	JButton button = new JButton("주문서");
+	
 	private JPanel panel_3 = new JPanel();
 	private JPanel panel_4 = new JPanel();
 	private JPanel panel_8 = new JPanel();
 	private JPanel panel_9 = new JPanel();
 	private JPanel panel_10 = new JPanel();
-	private JPanel panel_11 = new JPanel();
 	private JPanel panel_5 = new JPanel();
 	private JPanel panel_2 = new JPanel();
 	private JPanel panel_1 = new JPanel();
@@ -98,7 +102,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 
 	private JComboBox comboBox = new JComboBox();
-	private JComboBox comboBox_1 = new JComboBox();
+	private JLabel comboBox_1 = new JLabel();
 	private JComboBox comboBox_4 = new JComboBox();
 	private JComboBox comboBox_3 = new JComboBox();
 	private JComboBox comboBox_2 = new JComboBox();
@@ -108,15 +112,14 @@ public class CustomerMainView extends JFrame implements MouseListener {
 	private JScrollPane jScrollPane1 = new JScrollPane();
 
 	private Vector vector3 = new Vector();
-
-	private JTable jTable1 = new JTable();
 	private JTable table = new JTable();
 
-	private final JTextArea textArea = new JTextArea();
+	private JTextArea textArea = new JTextArea();
 
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnNewRadioButton = new JRadioButton("여성");
 	private JRadioButton radioButton = new JRadioButton("남성");
+	private final JTextArea textArea_2 = new JTextArea();
 
 	public CustomerMainView() throws ClassNotFoundException, SQLException {
 		super("고객관리");
@@ -124,7 +127,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		this.init();
 		this.start();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(1280,720);
+		this.setSize(945,720);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
 		Dimension dimension2 = this.getSize();
@@ -135,7 +138,9 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		this.setVisible(true);
 		this.getColumn();
 		this.jTableRefresh(new CustomerDao().customerAllPart());
-
+		Date today = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+		comboBox_1.setText(format.format(today));
 	}
 
 	void init() {
@@ -169,7 +174,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"시도","서울","충남","경북"}));
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시군구","영등포구","동작구","서초구","강남구"}));
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"읍면동","사당동","삼성동"}));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"고객번호", "전화번호", "주소"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"전화번호", "고객번호", "주소"}));
 
 
 
@@ -186,7 +191,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		jScrollPane1.setViewportView(table);
 
 		panel_3.setBackground(Color.WHITE);
-		panel_3.setBounds(733, 62, 529, 620);
+		panel_3.setBounds(397, 62, 529, 620);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 
@@ -197,11 +202,11 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		panel_3.add(panel_4);
 		panel_4.setLayout(null);
 
-		lblNewLabel_1.setBounds(237, 4, 79, 25);
+		lblNewLabel_1.setBounds(309, 4, 56, 25);
 		panel_4.add(lblNewLabel_1);
+		comboBox_1.setText("1");
 
-		comboBox_1.setBounds(329, 4, 165, 25);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"이름","전화번호","주소"})); // 날짜 콤보박스... 날짜별로 for문으로 수정
+		comboBox_1.setBounds(377, 4, 115, 25);
 		panel_4.add(comboBox_1);
 
 		panel_8.setBounds(12, 544, 506, 66);
@@ -220,10 +225,16 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		btnf_3.setBounds(346, 8, 70, 50);
 		panel_8.add(btnf_3);
 
-		btnf.setBounds(10, 8, 160, 50);
+		btnf.setBounds(10, 8, 80, 50);
 		panel_8.add(btnf);
+		
+		
 
-		tabbedPane_1.setBounds(12, 373, 505, 160);
+
+		button.setBounds(100, 8, 70, 50);
+		panel_8.add(button);
+
+		tabbedPane_1.setBounds(12, 340, 505, 193);
 		panel_3.add(tabbedPane_1);
 
 		tabbedPane_1.addTab("ㅇ특이사항", null, panel_10, null);
@@ -235,19 +246,9 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		label_7.setAlignmentX(0.5f);
 
 		panel_10.add(label_7);
-		textArea.setBounds(91, 11, 402, 110);
+		textArea.setBounds(91, 11, 402, 143);
 
 		panel_10.add(textArea);
-
-		tabbedPane_1.addTab("ㅇ기념일관리", null, panel_11, null);
-		panel_11.setLayout(null);
-		label_8.setBounds(12, 10, 67, 25);
-		label_8.setHorizontalAlignment(SwingConstants.CENTER);
-		label_8.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-		label_8.setBackground(Color.GRAY);
-		label_8.setAlignmentX(0.5f);
-
-		panel_11.add(label_8);
 
 		tabbedPane_1.addTab("ㅇ가족사항", null, panel_9, null);
 		panel_9.setLayout(null);
@@ -258,94 +259,119 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		label_9.setAlignmentX(0.5f);
 
 		panel_9.add(label_9);
+		textArea_2.setBounds(86, 11, 402, 143);
+		
+		panel_9.add(textArea_2);
 
 		panel_5.setLayout(null);
-		panel_5.setBounds(12, 53, 505, 200);
+		panel_5.setBounds(12, 53, 505, 152);
 		panel_3.add(panel_5);
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		label_2.setBounds(12, 10, 57, 15);
+		label_2.setBounds(12, 10, 57, 25);
 		panel_5.add(label_2);
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		lblNewLabel_5.setBounds(12, 35, 57, 15);
+		lblNewLabel_5.setBounds(12, 45, 57, 25);
 		panel_5.add(lblNewLabel_5);
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		label_4.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		label_4.setBounds(12, 160, 86, 15);
+		label_4.setBounds(12, 80, 57, 25);
 		panel_5.add(label_4);
+		jTextField2.setHorizontalAlignment(SwingConstants.RIGHT);
 		jTextField2.setEditable(false);
 
-		jTextField2.setBounds(81, 7, 116, 21);
+		jTextField2.setBounds(69, 10, 170, 25);
 		panel_5.add(jTextField2);
 		jTextField2.setColumns(10);
+		jTextField3.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		jTextField3.setBounds(81, 32, 116, 21);
+		jTextField3.setBounds(69, 45, 170, 25);
 		panel_5.add(jTextField3);
 		jTextField3.setColumns(10);
+		jTextField4.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		jTextField4.setBounds(81, 157, 116, 21);
+		jTextField4.setBounds(69, 80, 170, 25);
 		panel_5.add(jTextField4);
 		jTextField4.setColumns(10);
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_6.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		jTable1.setBounds(81, 64, 116, 86);
-		panel_5.add(jTable1);
-
-		lblNewLabel_6.setBounds(222, 10, 57, 15);
+		lblNewLabel_6.setBounds(264, 10, 57, 25);
 		panel_5.add(lblNewLabel_6);
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		lblNewLabel_7.setBounds(222, 35, 63, 15);
+		lblNewLabel_7.setBounds(264, 45, 57, 25);
 		panel_5.add(lblNewLabel_7);
+		textField.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		textField.setBounds(291, 7, 116, 21);
+		textField.setBounds(321, 10, 170, 25);
 		panel_5.add(textField);
 		textField.setColumns(10);
+		textField_1.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		textField_1.setBounds(291, 32, 116, 21);
+		textField_1.setBounds(321, 45, 170, 25);
 		panel_5.add(textField_1);
 		textField_1.setColumns(10);
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		label_5.setBounds(222, 67, 63, 15);
+		label_5.setBounds(264, 80, 57, 25);
 		panel_5.add(label_5);
+		textField_2.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		textField_2.setColumns(10);
-		textField_2.setBounds(291, 64, 116, 21);
+		textField_2.setBounds(321, 80, 170, 25);
 		panel_5.add(textField_2);
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		label_6.setBounds(222, 102, 63, 15);
+		label_6.setBounds(264, 115, 57, 25);
 		panel_5.add(label_6);
 
 
 		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(291, 98, 57, 23);
+		rdbtnNewRadioButton.setBounds(341, 115, 57, 25);
 		panel_5.add(rdbtnNewRadioButton);
 
 
 		buttonGroup.add(radioButton);
-		radioButton.setBounds(352, 98, 57, 23);
+		radioButton.setBounds(410, 115, 57, 25);
 		panel_5.add(radioButton);
 
 		panel_6.setLayout(null);
-		panel_6.setBounds(12, 263, 505, 100);
+		panel_6.setBounds(12, 215, 505, 115);
 		panel_3.add(panel_6);
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setAlignmentX(Component.CENTER_ALIGNMENT);
+		label_3.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		label_3.setBounds(12, 10, 57, 15);
+		label_3.setBounds(12, 10, 57, 25);
 		panel_6.add(label_3);
 
-		comboBox_2.setBounds(92, 7, 70, 21);
+		comboBox_2.setBounds(81, 10, 78, 25);
 		panel_6.add(comboBox_2);
 
-		comboBox_3.setBounds(174, 7, 92, 21);
+		comboBox_3.setBounds(171, 10, 92, 25);
 		panel_6.add(comboBox_3);
 
-		comboBox_4.setBounds(278, 7, 218, 21);
+		comboBox_4.setBounds(275, 10, 218, 25);
 		panel_6.add(comboBox_4);
 
-		jTextField1.setBounds(139, 38, 357, 21);
+		jTextField1.setBounds(69, 45, 424, 25);
 		panel_6.add(jTextField1);
 		jTextField1.setColumns(10);
 
-		lblNewLabel_2.setBounds(92, 75, 505, 15);
+		lblNewLabel_2.setBounds(92, 79, 218, 25);
 		panel_6.add(lblNewLabel_2);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 
-		lblNewLabel_3.setBounds(92, 41, 57, 15);
+		lblNewLabel_3.setBounds(12, 45, 57, 25);
 		panel_6.add(lblNewLabel_3);
 
 		panel_7.setBackground(Color.YELLOW);
@@ -370,6 +396,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		btnNewButton_1.addMouseListener(this);
 		btnf_1.addMouseListener(this);
 		btnf_3.addMouseListener(this);
+		button.addMouseListener(this);
 	}
 
 	public Vector getColumn(){
@@ -403,6 +430,7 @@ public class CustomerMainView extends JFrame implements MouseListener {
 		rdbtnNewRadioButton.setSelected(false);
 	}
 
+	
 	private void viewData(CustomerDto customerDto){
 
 		int customerNum = customerDto.getCustomerNum();  //주문번호
@@ -448,6 +476,8 @@ public class CustomerMainView extends JFrame implements MouseListener {
 			rdbtnNewRadioButton.setSelected(true);
 		}
 	}
+	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==btnf) {
@@ -588,6 +618,20 @@ public class CustomerMainView extends JFrame implements MouseListener {
 				}
 			}else{
 				JOptionPane.showMessageDialog(null, "삭제할 고객 정보를 선택하세요");
+			}
+		}
+		
+		if(e.getSource()==button){
+			if(!(jTextField2.getText().trim()).equals("")){
+				try {
+					new OrderSheetView((new CustomerDao()).searchCustomerNum(Integer.parseInt(jTextField2.getText().trim())));
+
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "먼저 고객 정보를 선택하세요");
 			}
 		}
 	}
