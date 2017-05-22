@@ -10,14 +10,11 @@ import javax.swing.JFrame;
 
 import dao.CustomerDao;
 
-public class ProductManageView extends JFrame{
-	public ProductManageView() throws ClassNotFoundException, SQLException {
-		super("고객관리");
-
-		//this.init();
-		//this.start();
+public class MenuManageView extends JFrame{
+	public MenuManageView() throws ClassNotFoundException, SQLException {
+		super("메뉴 관리");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setSize(945,720);
+		this.setSize(1000,720);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension dimension1 = toolkit.getScreenSize();
 		Dimension dimension2 = this.getSize();
@@ -26,10 +23,5 @@ public class ProductManageView extends JFrame{
 		this.setResizable(false);
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
-		//this.getColumn();
-		//this.jTableRefresh(new CustomerDao().customerAllPart());
-		Date today = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
-		//comboBox_1.setText(format.format(today));
 	}
 }
