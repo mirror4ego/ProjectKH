@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -29,12 +30,12 @@ import setting.SetUiFont;
 
 
 public class UserListView extends JFrame implements MouseListener,ItemListener{
-	//아래부터 임시 실행을 위한 메인 선언
+/*	//아래부터 임시 실행을 위한 메인 선언
 	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
 		UserListView a = new UserListView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
 	}
 	//메인 종료
-	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+*/	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	SetUiFont setUiFont = new SetUiFont();
 	Vector vector1;  
 	Vector vector2;
@@ -52,7 +53,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JButton btnNewButton = new JButton("검색");
 	private final JTable table = new JTable();
 	private final JLabel lblNewLabel_1 = new JLabel("이름");
-	private final JLabel lblNewLabel_2 = new JLabel("주민번호");
+	private final JLabel lblNewLabel_2 = new JLabel("직원번호");
 	private final JLabel lblNewLabel_3 = new JLabel("연락처");
 	private final JLabel lblNewLabel_4 = new JLabel("주소");
 	private final JLabel lblNewLabel_6 = new JLabel("입사일");
@@ -95,7 +96,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_6.setColumns(10);
 		textField.setBounds(114, 10, 116, 21);
 		textField.setColumns(10);
-		jTableRefresh();
+		//jTableRefresh();
 		/*vector1 = userInfoDao.getUserList();
 		System.out.println("v=" + vector1);
 		vector2 = getColumn();*/
@@ -115,18 +116,17 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		btnNewButton.setBounds(232, 9, 57, 23);
 		
 		panel.add(btnNewButton);
-		table.setBounds(8, 38, 281, 525);
-		
-		panel.add(table);
 		lblNewLabel_11.setBounds(8, 573, 80, 23);
 		
 		panel.add(lblNewLabel_11);
 		
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"직원명","전화번호","핸드폰"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"직원명","전화번호"}));
 		
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/도","서울","부산","대구","인천","광주","대전","울산","세종",
 				"경기","강원","충북","충남","전북","전남","경북","경남","제주"}));
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"구/군"}));
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"시/군/구"}));
+		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동"}));
+		
 		
 		JButton btnNewButton_1 =new JButton("엑셀로저장");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -139,15 +139,20 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		JButton btnNewButton_2 = new JButton("프린터로 출력");
 		btnNewButton_2.setBounds(179, 573, 110, 23);
 		panel.add(btnNewButton_2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(18, 41, 253, 522);
+		panel.add(scrollPane);
+		scrollPane.setColumnHeaderView(table);
 		tabbedPane_1.setBounds(325, 37, 931, 564);
 		
 		getContentPane().add(tabbedPane_1);
 		
 		tabbedPane_1.addTab("직원 정보", null, panel_1, null);
 		panel_1.setLayout(null);
-		lblNewLabel_1.setBounds(22, 61, 57, 36);
+		lblNewLabel_1.setBounds(22, 127, 57, 36);
 		panel_1.add(lblNewLabel_1);
-		lblNewLabel_2.setBounds(22, 128, 57, 36);
+		lblNewLabel_2.setBounds(22, 61, 57, 36);
 		panel_1.add(lblNewLabel_2);
 		lblNewLabel_3.setBounds(22, 187, 57, 36);
 		panel_1.add(lblNewLabel_3);
@@ -165,12 +170,12 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(lblNewLabel_10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(104, 69, 189, 21);
+		textField_1.setBounds(104, 135, 189, 21);
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(104, 136, 250, 21);
+		textField_2.setBounds(104, 69, 250, 21);
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -189,7 +194,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_4.setColumns(10);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(297, 69, 57, 21);
+		comboBox_1.setBounds(297, 135, 57, 21);
 		panel_1.add(comboBox_1);
 		
 		JComboBox comboBox_2 = new JComboBox();
@@ -281,15 +286,23 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		start();
+		getColumn();
 	}
 	
 	void start(){
 		comboBox_3.addItemListener(this);
-		
+		btnNewButton.addMouseListener(this);
 	}
 
 	
-	
+	public void jTableRefresh(Vector userInfoDto) throws SQLException{
+
+		DefaultTableModel model = new DefaultTableModel();
+		System.out.println(userInfoDto);
+		model.setDataVector(userInfoDto, vector3);
+		table.setModel(model);
+	}
+
 	
 	public Vector getColumn(){
 		vector3.add("아이디");
@@ -301,26 +314,28 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		vector3.add("이메일");
 		return vector3;
 	}
-
-	public void jTableRefresh() throws ClassNotFoundException, SQLException{
-		DefaultTableModel model= new DefaultTableModel(dao.getUserList(), getColumn());
-
-	}	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-			
-/*		int r = jTable1.getSelectedRow();
-		String id = (String) jTable1.getValueAt(r, 0);
-		try {
-			UserRegView mem = new UserRegView(id, this);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
+		
+		if(e.getSource()==btnNewButton) {
+			System.out.println("검색");
+			String searchElement = textField.getText().trim(); //입력 값
+			String searchSort = comboBox.getSelectedItem().toString();
+			System.out.println(searchSort + " / " + searchElement);
+			if(searchSort.equals("직원명")){
+				try {
+					Vector userInfoDto = (new UserInfoDao()).searchUserInfoName(searchElement);
+					this.jTableRefresh(userInfoDto);
+					System.out.println("직원명 정상 검색");
+				} catch (ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+
+		
 	}
 
 

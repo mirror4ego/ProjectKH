@@ -41,9 +41,42 @@ public class UserInfoDao {
 		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
 	}
 
+	public Vector searchUserInfoName(String userInfoName) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Name = ?");
+		ps.setString(1,  userInfoName);
+		Vector vs = new Vector();
+		
+		ResultSet rs = ps.executeQuery();
+System.out.println(rs.getRow());
+		while(rs.next()){
+			Vector vs1 = new Vector();
+			
+			vs1.add(rs.getString("userinfo_id"));
+			vs1.add(rs.getString("userinfo_password"));
+			vs1.add(rs.getString("userinfo_name"));
+			vs1.add(rs.getInt("userinfo_num"));
+			vs1.add(rs.getString("userinfo_address"));
+			vs1.add(rs.getInt("userinfo_phone"));
+			vs1.add(rs.getString("userinfo_email"));
+			vs.add(vs1);
+			
+		}
+	
+		
+		rs.close();
+		ps.close();
+		c.close();
+		System.out.println(vs);
+		return vs;
+	}
+	
 	public UserInfoDto get(String userInfoId) throws ClassNotFoundException, SQLException { // 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 
+		
+		
 		PreparedStatement ps = c.prepareStatement("select * from userinfo where userinfo_id = ?");
 		// preparestatement메소드를 통해서 쿼리문을 날릴 준비를 함
 		ps.setString(1, userInfoId);

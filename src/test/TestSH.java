@@ -15,7 +15,7 @@ public class TestSH {
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
-		UserListView userListView = new UserListView();
+		//UserListView userListView = new UserListView();
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
@@ -25,6 +25,7 @@ public class TestSH {
 		//boolean test = login.login("mirror4ego", "1234");
 
 		//UserSelectView userSelectView = new UserSelectView();
+		UserListView userSelectView = new UserListView();
 		
 		
 

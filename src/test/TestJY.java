@@ -3,12 +3,9 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
-import view.LoginView;
-import view2.OrderMainView;
-=======
+import view.UserListView;
 import view2.CustomerMainView;
->>>>>>> 3f17c7e446f7af581ff662ab1fdc8da1d1aaec68
+
 
 public class TestJY {
 	@SuppressWarnings("unused")
@@ -24,10 +21,11 @@ public class TestJY {
 		//UserSelectView userSelectView = new UserSelectView();
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
-		CustomerMainView customerMainView = new CustomerMainView();
+		//CustomerMainView customerMainView = new CustomerMainView();
 		//OrderSheetView orderSheetView = new OrderSheetView();
 		//OrderListMiniView orderRegView = new OrderListMiniView();
 		//(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
-		OrderMainView OrderMainView = new OrderMainView();
+		//OrderMainView OrderMainView = new OrderMainView();
+		UserListView UserListView = new UserListView();
 	}
 }
