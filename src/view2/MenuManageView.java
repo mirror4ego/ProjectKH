@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,27 +27,26 @@ import javax.swing.tree.DefaultTreeModel;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import javax.swing.ImageIcon;
 
-public class MenuManageView extends JFrame{
+public class MenuManageView extends JFrame implements MouseListener{
 
 	//변수 선언부 시작
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();
-	
+
 	private JPanel panel_2 = new JPanel();
 	private JPanel panel = new JPanel();
 	private JPanel panel_1 = new JPanel();
 	private JPanel panel_3 = new JPanel();
 	private JPanel panel_4 = new JPanel();
-		
+
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	
+
 	private JButton button = new JButton("신규");
 	private JButton button_1 = new JButton("저장");
 	private JButton button_2 = new JButton("삭제");
@@ -56,7 +58,7 @@ public class MenuManageView extends JFrame{
 	private JButton btnNewButton_2 = new JButton("분류추가");
 	private JButton button_4 = new JButton("분류삭제");
 	private JButton button_5 = new JButton("수정");
-		
+
 	private JLabel label_6 = new JLabel("분류명");
 	private JLabel label_7 = new JLabel("상품분류");
 	private JLabel label_2 = new JLabel("상품분류");
@@ -70,18 +72,19 @@ public class MenuManageView extends JFrame{
 
 	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	
+
 	private JTable table;
-	
+
 	private JScrollPane scrollPane = new JScrollPane();
-		
+
 	private JTree tree = new JTree();
 	//변수 선언부 끝
-	
+
 	public MenuManageView() throws ClassNotFoundException, SQLException {
 		super("메뉴 관리");
 		init();
 		start();
+		menuCreation();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(915,720);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -112,7 +115,7 @@ public class MenuManageView extends JFrame{
 		lblNewLabel_1.setIcon(new ImageIcon("img/fried-chicken1.png"));
 
 		lblNewLabel_1.setBounds(35, 12, 32, 32);
-		
+
 		panel.add(lblNewLabel_1);
 
 		tabbedPane.setBounds(10, 65, 338, 617);
@@ -125,40 +128,6 @@ public class MenuManageView extends JFrame{
 		textField.setBounds(91, 504, 161, 25);
 		panel_1.add(textField);
 		textField.setColumns(10);
-
-		tree.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("상품분류") {
-					{
-						DefaultMutableTreeNode node_1;
-						node_1 = new DefaultMutableTreeNode("치킨류");
-						node_1.add(new DefaultMutableTreeNode("후라이드"));
-						node_1.add(new DefaultMutableTreeNode("양념치킨"));
-						node_1.add(new DefaultMutableTreeNode("윙치킨"));
-						node_1.add(new DefaultMutableTreeNode("반반치킨"));
-						node_1.add(new DefaultMutableTreeNode("레드오리지날"));
-						node_1.add(new DefaultMutableTreeNode("순살치킨"));
-						node_1.add(new DefaultMutableTreeNode("갈릭플러스치킨"));
-						node_1.add(new DefaultMutableTreeNode("갈릭반핫양념반"));
-					add(node_1);
-						node_1 = new DefaultMutableTreeNode("사이드류");
-						node_1.add(new DefaultMutableTreeNode("웨지감자"));
-						node_1.add(new DefaultMutableTreeNode("샐러드"));
-						node_1.add(new DefaultMutableTreeNode("치즈스틱"));
-						node_1.add(new DefaultMutableTreeNode("치킨샐러드"));
-						node_1.add(new DefaultMutableTreeNode("치킨소시지"));
-					add(node_1);
-						node_1 = new DefaultMutableTreeNode("음료");
-						node_1.add(new DefaultMutableTreeNode("콜라"));
-						node_1.add(new DefaultMutableTreeNode("사이다"));
-						node_1.add(new DefaultMutableTreeNode("탄산수"));
-						node_1.add(new DefaultMutableTreeNode("스프라이트"));
-					add(node_1);
-					}
-				}
-				));
-		tree.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tree.setBounds(12, 34, 309, 460);
-		panel_1.add(tree);
 
 		label_6.setHorizontalAlignment(SwingConstants.CENTER);
 		label_6.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.GRAY));
@@ -275,20 +244,127 @@ public class MenuManageView extends JFrame{
 		button_9.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		button_9.setBounds(8, 209, 57, 50);
 		panel_4.add(button_9);
-
-		textField_5 = new JTextField();
-		textField_5.setBackground(Color.LIGHT_GRAY);
-		textField_5.setEnabled(false);
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
-		textField_5.setBounds(4, 98, 65, 170);
-		panel_4.add(textField_5);
+		
+				textField_5 = new JTextField();
+				textField_5.setBackground(Color.LIGHT_GRAY);
+				textField_5.setEnabled(false);
+				textField_5.setEditable(false);
+				textField_5.setColumns(10);
+				textField_5.setBounds(4, 98, 65, 170);
+				panel_4.add(textField_5);
 
 		lblNewLabel.setBounds(287, 501, 57, 25);
 		panel_2.add(lblNewLabel);
 	}
 
 	void start(){
-
+		tree.addMouseListener(this);
 	}
+	/**
+	 * 로직
+	  
+	 * db menugroup에서 칼럼 총 데이터행 개수를 확인함 (ex : 3) -> getrow();
+	 * 그 데이터 행을 매개변수로 행 갯수만큼 그룹 데이터를 불러와서(dao에 메소드-> 그룹 데이터를 불러옴)
+	 * 벡터로 불러와서 반환
+	 * 
+	 * db menu에서 각 그룹마다의 데이터행 개수를 확인함 (ex : 7) -> getrow();
+	 * 그 데이터 행을 매개변수로 행 갯수만큼 item 데이터를 불러와서 (jTree의 대분류마다 세팅함)
+	 * 벡터로 불러와서 반환
+	 * 
+	 * jtree의 대분류로 세팅함
+	 *  대분류용 for문{
+	 *  아이템용 for문
+	 *  }
+	 *  
+	 *  
+	 */
+	
+	void menuCreation() {
+		tree.setModel(new DefaultTreeModel(
+				new DefaultMutableTreeNode("상품분류") {
+					{
+				/*		Vector vectorMG = new Vector();
+						Vector vectorM = new Vector();
+						DefaultMutableTreeNode node_1;
+						for(int i = 0;i<vectorMG.size();i++){
+							node_1 = new DefaultMutableTreeNode(vectorMG.elementAt(i));
+							for(int j = 0;j<vectorM.size();j++){//vectorMG분류의 i번째에 해당 하는 vectorM의 사이즈를 불러와야함
+								
+								//메뉴 대분류 그룹에 해당하는 것들만 불러와서 vector에 차례대로 저장
+								node_1.add(new DefaultMutableTreeNode(vectorM.elementAt(j)));
+							}
+							add(node_1);
+						}*/
+											
+						DefaultMutableTreeNode node_1;
+						node_1 = new DefaultMutableTreeNode("치킨류");
+						node_1.add(new DefaultMutableTreeNode("후라이드"));
+						node_1.add(new DefaultMutableTreeNode("양념치킨"));
+						node_1.add(new DefaultMutableTreeNode("윙치킨"));
+						node_1.add(new DefaultMutableTreeNode("반반치킨"));
+						node_1.add(new DefaultMutableTreeNode("레드오리지날"));
+						node_1.add(new DefaultMutableTreeNode("순살치킨"));
+						node_1.add(new DefaultMutableTreeNode("갈릭플러스치킨"));
+						node_1.add(new DefaultMutableTreeNode("갈릭반핫양념반"));
+						add(node_1);
+						node_1 = new DefaultMutableTreeNode("사이드류");
+						node_1.add(new DefaultMutableTreeNode("웨지감자"));
+						node_1.add(new DefaultMutableTreeNode("샐러드"));
+						node_1.add(new DefaultMutableTreeNode("치즈스틱"));
+						node_1.add(new DefaultMutableTreeNode("치킨샐러드"));
+						node_1.add(new DefaultMutableTreeNode("치킨소시지"));
+						add(node_1);
+						node_1 = new DefaultMutableTreeNode("음료");
+						node_1.add(new DefaultMutableTreeNode("콜라"));
+						node_1.add(new DefaultMutableTreeNode("사이다"));
+						node_1.add(new DefaultMutableTreeNode("탄산수"));
+						node_1.add(new DefaultMutableTreeNode("스프라이트"));
+						add(node_1);
+					}
+				}
+				));
+		tree.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		tree.setBounds(12, 34, 309, 460);
+		panel_1.add(tree);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource()==tree){
+			tree.getLastSelectedPathComponent();
+			System.out.println(tree.getLastSelectedPathComponent());
+			
+			//대분류를 클릭하면 DB(MENUGroup)에서 검색
+			//존재하면 그 분류 이름을 매개변수로 MENU에서 검색해서 객체로 반환하고
+			//그 정보를 테이블에 상품분류 테이블 아래에 디스플레이
+			//and 그 분류명을 아래에 텍스트 필드에 입력됨
+			//그리고 그 정보를 가지고 대분류 수정, 삭제
+			
+			//분류 추가를 누르면 
+			
+			//테이블에 로우를 클릭하면 아래에 상품코드와 상품이름, 가격에 디스플레이
+			//그 정보를 가지고 수정, 삭제
+			
+			//상품분류가 성공적으로 로드되었으며 각 상품정보칼럼이 비어 있을경우
+			
+			//정렬
+			
+			
+			//마지막 객체로 검색해서 데이터가 있으면
+		}
+		
+		
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	
+	
 }

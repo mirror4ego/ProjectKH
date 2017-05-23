@@ -15,7 +15,7 @@ public class CustomerDto {
 	private int customerGender;
 
 	public CustomerDto() {}
-
+	
 	public CustomerDto(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
 			String customerAddCity, String customerAddStreet, String customerAddRest, int customerFrequent,
 			int customerAgePredict, int customerReceivable, int customerGender) {
