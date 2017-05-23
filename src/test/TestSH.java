@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import view.UserListView;
-import view2.CustomerMainView;
 
 
 
@@ -13,7 +12,7 @@ public class TestSH {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
-		CustomerMainView customerMainView = new CustomerMainView();
+		//CustomerMainView customerMainView = new CustomerMainView();
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 

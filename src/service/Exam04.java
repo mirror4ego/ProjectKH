@@ -55,9 +55,9 @@ public class Exam04 extends JFrame {
 			if (arr[i] < arr[i + 1]) {
 				max = arr[i];
 			}
-			arr[i] *= 20;
+			arr[i] *= 5;
 		}
-		arr[arr.length-1]*=20;
+		arr[arr.length-1]*=5;
 
 	}
 

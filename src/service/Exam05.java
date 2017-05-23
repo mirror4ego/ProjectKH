@@ -6,20 +6,23 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Panel;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-public class Exam05 extends JFrame {
+import dao.CustomerDao;
 
+public class Exam05 extends JFrame {
+	CustomerDao dao = new CustomerDao();
 	Font font = new Font("Times New Roman",Font.BOLD,18);
 	int aDong[][] = new int[50][2];
 	int bDong[][] = new int[50][2];
 	int cDong[][] = new int[50][2];
 	int dDong[][] = new int[50][2];
-	private String alb = "A";
-	private String blb = "B";
-	private String clb = "C";
-	private String dlb = "D";
+	private String alb = "사당동";
+	private String blb = "금천동";
+	private String clb = "삼성동";
+	private String dlb = "읍면동";
 
 	public Exam05() {
 		super();
@@ -38,21 +41,30 @@ public class Exam05 extends JFrame {
 
 	void start() {
 
-		for (int i = 0; i < 50; i++) {
-			aDong[i][0] = randomRange(0, 250);
-			aDong[i][1] = randomRange(0, 250);
-		}
-		for (int i = 0; i < 50; i++) {
+		try {
+			for (int i = 0; i < dao.sumCustomerLoc("사당동"); i++) {
+				aDong[i][0] = randomRange(0, 250);
+				aDong[i][1] = randomRange(0, 250);
+			}
+		
+		for (int i = 0; i < dao.sumCustomerLoc("금천동"); i++) {
 			bDong[i][0] = randomRange(250, 500);
 			bDong[i][1] = randomRange(0, 250);
 		}
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < dao.sumCustomerLoc("삼성동"); i++) {
 			cDong[i][0] = randomRange(0, 250);
 			cDong[i][1] = randomRange(250, 500);
 		}
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < dao.sumCustomerLoc("읍면동"); i++) {
 			dDong[i][0] = randomRange(250, 500);
 			dDong[i][1] = randomRange(250, 500);
+		}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
