@@ -393,7 +393,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		panel_7.add(label_1);
 		label_8.setBounds(35, 12, 32, 32);
 		label_8.setIcon(new ImageIcon("img/employees.png"));
-		
+
 		panel_7.add(label_8);
 		comboBox_1.setText(format.format(today));
 	}
