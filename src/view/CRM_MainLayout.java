@@ -75,6 +75,7 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 		btn4.addActionListener(this);
 	}
 
+	@SuppressWarnings("restriction")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -89,20 +90,7 @@ class CRM_MainLayout_sub extends JFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 		}else if(e.getSource()==btn2){
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					Exam03 ex03= new Exam03(score);
-					try {
-						ex03.createAndShowGui();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			});
+			javafx.application.Application.launch(Exam03.class);
 		}else if(e.getSource()==btn3){
 			try {
 				Exam04 ex04 = new Exam04();

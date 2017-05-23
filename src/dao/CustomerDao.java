@@ -136,6 +136,38 @@ public class CustomerDao {
 	}
 	*/
 	
+	public int sumCustomerLoc(String str) throws ClassNotFoundException, SQLException {
+
+		Connection c = connectionMaker.makeConnection();
+		
+		//int sum = 0;
+		int cnt=0;
+		try {
+			  
+			PreparedStatement ps = c.prepareStatement(
+					"select customer_add_street from customer where customer_add_street=?"
+					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
+		             ResultSet.CONCUR_UPDATABLE);
+			//last 쓰기위한 추가구문
+			ps.setString(1,str);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			rs.last();
+			cnt=rs.getRow();
+			rs.beforeFirst();
+			// 레코드개수를 구하기위함.
+
+			rs.close();
+		ps.close();
+		c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return cnt;
+	}
+	
 	public int sumCustomerAge(int CusAge,int CusAge2) throws ClassNotFoundException, SQLException {
 
 		Connection c = connectionMaker.makeConnection();
