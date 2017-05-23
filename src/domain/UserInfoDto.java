@@ -9,11 +9,12 @@ public class UserInfoDto {
 	private String userInfoAddress;
 	private int userInfoPhone;
 	private String userInfoEmail;
+	private String userInfoHireDate;
 
 	public UserInfoDto() {}
 
 	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoAddress,
-			int userInfoPhone, String userInfoEmail) {
+			int userInfoPhone, String userInfoEmail, String userInfoHireDate) {
 		this.userInfoId = userInfoId;
 		this.userInfoPassword = userInfoPassword;
 		this.userInfoName = userInfoName;
@@ -21,6 +22,7 @@ public class UserInfoDto {
 		this.userInfoAddress = userInfoAddress;
 		this.userInfoPhone = userInfoPhone;
 		this.userInfoEmail = userInfoEmail;
+		this.userInfoHireDate = userInfoHireDate;
 	}
 
 	public String getUserInfoId() {
@@ -66,10 +68,21 @@ public class UserInfoDto {
 		this.userInfoEmail = userInfoEmail;
 	}
 
+	public String getUserInfoHireDate() {
+		return userInfoHireDate;
+	}
+
+	public void setUserInfoHireDate(String userInfoHireDate) {
+		this.userInfoHireDate = userInfoHireDate;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfoDto [userInfoId=" + userInfoId + ", userInfoPassword=" + userInfoPassword + ", userInfoName="
 				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoAddress=" + userInfoAddress
-				+ ", userInfoPhone=" + userInfoPhone + ", userInfoEmail=" + userInfoEmail + "]";
+				+ ", userInfoPhone=" + userInfoPhone + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate="
+				+ userInfoHireDate + "]";
 	}
+
+
 }

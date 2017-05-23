@@ -3,23 +3,22 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.MainView;
-
-import view.LoginView;
+import view.UserListView;
+import view2.CustomerMainView;
 
 
 
 
 public class TestSH {
-	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
+		CustomerMainView customerMainView = new CustomerMainView();
 		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
 		//UserListView userListView = new UserListView();
-		LoginView loginView = new LoginView();
+		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
@@ -28,6 +27,7 @@ public class TestSH {
 		//boolean test = login.login("mirror4ego", "1234");
 
 		//UserSelectView userSelectView = new UserSelectView();
+		UserListView userSelectView = new UserListView();
 		
 		
 

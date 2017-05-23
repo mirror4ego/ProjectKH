@@ -91,8 +91,6 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		String orderInfoDate=vMem.getOrderInfoDate(); //주문일자
 		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossibility(); //주문가능여부(주문량)
 		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossibility(); //주문가능여부(주문량)
-		int orderInfoMenuNum=vMem.getOrderInfoMenuNum(); //메뉴고유값
-		int orderInfoMenuAmount=vMem.getOrderInfoMenuAmount(); //주문 메뉴양
 		String orderInfoRequestInfo=vMem.getOrderInfoRequestInfo(); //주문요청사항
 		int orderInfoChannelNum=vMem.getOrderInfoChannelNum();//채널고유값
 		String orderInfoRequestDelivery=vMem.getOrderInfoRequestDelivery();//배달요청시간
@@ -110,8 +108,6 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		jTextField12.setText(orderInfoDate);
 		jTextField13.setText(orderInfoLocPossiblity);
 		jTextField14.setText(orderInfoOrderPossiblity);
-		jTextField15.setText(String.valueOf(orderInfoMenuNum));
-		jTextField16.setText(String.valueOf(orderInfoMenuAmount));
 		jTextField17.setText(orderInfoRequestInfo);
 		jTextField18.setText(String.valueOf(orderInfoChannelNum));
 		jTextField19.setText(orderInfoRequestDelivery);
@@ -288,12 +284,6 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		String orderInfoDate = jTextField12.getText();
 		String orderInfoLocPossiblity = jTextField13.getText();
 		String orderInfoOrderPossiblity = jTextField14.getText();
-		String orderInfoMenuNum1 = jTextField15.getText();
-		int orderInfoMenuNum = Integer.parseInt(orderInfoMenuNum1);
-
-
-		String orderInfoMenuAmount1 = jTextField16.getText();
-		int orderInfoMenuAmount = Integer.parseInt(orderInfoMenuAmount1);
 
 		String orderInfoRequestInfo = jTextField17.getText();
 
@@ -312,8 +302,6 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		dto.setOrderInfoDate(orderInfoDate);
 		dto.setOrderInfoLocPossibility(orderInfoLocPossiblity);
 		dto.setOrderInfoOrderPossibility(orderInfoOrderPossiblity);
-		dto.setOrderInfoMenuNum(orderInfoMenuNum);
-		dto.setOrderInfoMenuAmount(orderInfoMenuAmount);
 		dto.setOrderInfoRequestInfo(orderInfoRequestInfo);
 		dto.setOrderInfoChannelNum(orderInfoChannelNum);
 		dto.setOrderInfoRequestDelivery(orderInfoRequestDelivery);

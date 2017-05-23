@@ -2,6 +2,7 @@
     <wb-module deploy-name="projectKH-1.0.0-BUILD-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/.settings"/>
         <property name="context-root" value="projectKH"/>
         <property name="java-output-path" value="/ProjectKH/target/classes"/>
     </wb-module>
