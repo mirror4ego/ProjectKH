@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -61,7 +62,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JLabel lblNewLabel_8 = new JLabel("주요업무");
 	private final JLabel lblNewLabel_9 = new JLabel("출퇴근시간");
 	private final JLabel lblNewLabel_10 = new JLabel("급여지급");
-	private final JLabel lblNewLabel_11 = new JLabel("직원전체현황");
+	private final JLabel lblNewLabel_11 = new JLabel("  전체 직원");
 	private final JButton btnNewButton_3 = new JButton("급여지급현황");
 	private final JButton btnNewButton_4 = new JButton("신규");
 	private final JButton btnNewButton_5 = new JButton("삭제");
@@ -88,9 +89,12 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JLabel lblNewLabel_5 = new JLabel(" ~");
 	private final JComboBox comboBox_9 = new JComboBox();
 	private final JLabel lblNewLabel_12 = new JLabel("주소는 읍면동 단위까지 상세히 기입 해주시고 상세 주소까지 자세히 적어 주세요.");
+	private final JPanel panel_2 = new JPanel();
 	
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
+		getContentPane().setBackground(Color.GRAY);
+		textField_6.setForeground(Color.BLACK);
 		
 		textField_6.setBounds(694, 402, 161, 21);
 		textField_6.setColumns(10);
@@ -100,11 +104,13 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		/*vector1 = userInfoDao.getUserList();
 		System.out.println("v=" + vector1);
 		vector2 = getColumn();*/
+		
 		getContentPane().setLayout(null);
 		tabbedPane.setName("");
 		tabbedPane.setBounds(12, 37, 301, 635);
 		
 		getContentPane().add(tabbedPane);
+		panel.setBackground(Color.DARK_GRAY);
 		
 		tabbedPane.addTab("직원 검색", null, panel, null);
 		panel.setLayout(null);
@@ -116,15 +122,19 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		btnNewButton.setBounds(232, 9, 57, 23);
 		
 		panel.add(btnNewButton);
-		lblNewLabel_11.setBounds(8, 573, 80, 23);
+		lblNewLabel_11.setForeground(Color.WHITE);
+		lblNewLabel_11.setBounds(8, 573, 69, 23);
 		
 		panel.add(lblNewLabel_11);
 		
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"직원명","전화번호"}));
+		comboBox_3.setForeground(Color.BLACK);
 		
 		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/도","서울","부산","대구","인천","광주","대전","울산","세종",
 				"경기","강원","충북","충남","전북","전남","경북","경남","제주"}));
+		comboBox_4.setForeground(Color.BLACK);
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"시/군/구"}));
+		comboBox_5.setForeground(Color.BLACK);
 		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동"}));
 		
 		
@@ -133,82 +143,103 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_1.setBounds(85, 573, 93, 23);
+		btnNewButton_1.setBounds(79, 573, 98, 23);
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("프린터로 출력");
-		btnNewButton_2.setBounds(179, 573, 110, 23);
+		btnNewButton_2.setBounds(180, 573, 109, 23);
 		panel.add(btnNewButton_2);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(18, 41, 253, 522);
+		scrollPane.setBounds(8, 37, 281, 531);
 		panel.add(scrollPane);
 		scrollPane.setColumnHeaderView(table);
 		tabbedPane_1.setBounds(325, 37, 931, 564);
 		
 		getContentPane().add(tabbedPane_1);
+		panel_1.setBackground(Color.DARK_GRAY);
+		panel_1.setForeground(Color.WHITE);
 		
 		tabbedPane_1.addTab("직원 정보", null, panel_1, null);
 		panel_1.setLayout(null);
+		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setBounds(22, 127, 57, 36);
 		panel_1.add(lblNewLabel_1);
+		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setBounds(22, 61, 57, 36);
 		panel_1.add(lblNewLabel_2);
+		lblNewLabel_3.setForeground(Color.WHITE);
 		lblNewLabel_3.setBounds(22, 187, 57, 36);
 		panel_1.add(lblNewLabel_3);
+		lblNewLabel_4.setForeground(Color.WHITE);
 		lblNewLabel_4.setBounds(22, 363, 57, 36);
 		panel_1.add(lblNewLabel_4);
+		lblNewLabel_6.setForeground(Color.WHITE);
 		lblNewLabel_6.setBounds(479, 61, 67, 36);
 		panel_1.add(lblNewLabel_6);
+		lblNewLabel_7.setForeground(Color.WHITE);
 		lblNewLabel_7.setBounds(479, 134, 67, 36);
 		panel_1.add(lblNewLabel_7);
+		lblNewLabel_8.setForeground(Color.WHITE);
 		lblNewLabel_8.setBounds(479, 212, 67, 36);
 		panel_1.add(lblNewLabel_8);
+		lblNewLabel_9.setForeground(Color.WHITE);
 		lblNewLabel_9.setBounds(479, 266, 67, 36);
 		panel_1.add(lblNewLabel_9);
+		lblNewLabel_10.setForeground(Color.WHITE);
 		lblNewLabel_10.setBounds(479, 321, 67, 36);
 		panel_1.add(lblNewLabel_10);
 		
 		textField_1 = new JTextField();
+		textField_1.setForeground(Color.BLACK);
 		textField_1.setBounds(104, 135, 189, 21);
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
+		textField_2.setForeground(Color.BLACK);
 		textField_2.setBounds(104, 69, 250, 21);
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("e-mail");
+		lblEmail.setForeground(Color.WHITE);
 		lblEmail.setBounds(22, 343, 46, 15);
 		panel_1.add(lblEmail);
 		
 		textField_3 = new JTextField();
+		textField_3.setForeground(Color.BLACK);
 		textField_3.setBounds(104, 340, 250, 21);
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 		
 		textField_4 = new JTextField();
+		textField_4.setForeground(Color.BLACK);
 		textField_4.setBounds(104, 402, 585, 21);
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
 		
 		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setForeground(Color.BLACK);
 		comboBox_1.setBounds(297, 135, 57, 21);
 		panel_1.add(comboBox_1);
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(285, 195, 30, 21);
+		comboBox_2.setForeground(Color.BLACK);
+		comboBox_2.setBounds(275, 195, 30, 21);
 		panel_1.add(comboBox_2);
 		
 		textField_5 = new JTextField();
-		textField_5.setBounds(104, 195, 177, 21);
+		textField_5.setForeground(Color.BLACK);
+		textField_5.setBounds(104, 195, 168, 21);
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
 		
 		JButton btnNewButton_8 = new JButton("X");
-		btnNewButton_8.setBounds(318, 194, 46, 23);
+		btnNewButton_8.setForeground(Color.BLACK);
+		btnNewButton_8.setBounds(308, 194, 46, 23);
 		panel_1.add(btnNewButton_8);
+		list.setForeground(Color.BLACK);
 		list.setBounds(104, 222, 250, 108);
 		
 		panel_1.add(list);
@@ -223,38 +254,46 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(comboBox_5);
 		
 		panel_1.add(textField_6);
+		comboBox_6.setForeground(Color.BLACK);
 		comboBox_6.setBounds(552, 69, 284, 21);
 		
 		panel_1.add(comboBox_6);
-		comboBox_7.setBounds(552, 142, 223, 21);
+		comboBox_7.setForeground(Color.BLACK);
+		comboBox_7.setBounds(552, 142, 214, 21);
 		
 		panel_1.add(comboBox_7);
-		comboBox_8.setBounds(552, 217, 223, 21);
+		comboBox_8.setForeground(Color.BLACK);
+		comboBox_8.setBounds(552, 217, 214, 21);
 		
 		panel_1.add(comboBox_8);
-		btnNewButton_9.setBounds(779, 141, 57, 23);
+		btnNewButton_9.setForeground(Color.BLACK);
+		btnNewButton_9.setBounds(767, 141, 69, 23);
 		
 		panel_1.add(btnNewButton_9);
-		button.setBounds(779, 215, 57, 23);
+		button.setForeground(Color.BLACK);
+		button.setBounds(767, 215, 69, 23);
 		
 		panel_1.add(button);
+		list_1.setForeground(Color.BLACK);
 		list_1.setBounds(552, 277, 126, 25);
 		
 		panel_1.add(list_1);
+		list_2.setForeground(Color.BLACK);
 		list_2.setBounds(701, 276, 135, 25);
 		
 		panel_1.add(list_2);
+		lblNewLabel_5.setForeground(Color.WHITE);
 		lblNewLabel_5.setBounds(679, 281, 21, 21);
 		
 		panel_1.add(lblNewLabel_5);
+		comboBox_9.setForeground(Color.BLACK);
 		comboBox_9.setBounds(552, 329, 284, 21);
 		
 		panel_1.add(comboBox_9);
+		lblNewLabel_12.setForeground(Color.WHITE);
 		lblNewLabel_12.setBounds(138, 434, 551, 21);
 		
 		panel_1.add(lblNewLabel_12);
-		lblNewLabel.setBounds(12, 10, 971, 26);
-		getContentPane().add(lblNewLabel);
 		btnNewButton_3.setBounds(325, 611, 148, 48);
 		
 		getContentPane().add(btnNewButton_3);
@@ -274,6 +313,14 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		});
 		btnNewButton_7.setBounds(1155, 611, 97, 48);
 		getContentPane().add(btnNewButton_7);
+		panel_2.setBackground(Color.GRAY);
+		panel_2.setBounds(0, 0, 1264, 39);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		lblNewLabel.setBounds(12, 10, 960, 26);
+		panel_2.add(lblNewLabel);
+		lblNewLabel.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel.setForeground(Color.WHITE);
 		
 		
 		setSize(1280,720);
