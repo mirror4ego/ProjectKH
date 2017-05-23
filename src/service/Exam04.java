@@ -16,9 +16,11 @@ public class Exam04 extends JFrame {
 	int arr[] = new int[6]; // 학생 여,남 청년 여,남 중년 여,남
 	int max = 0;
 
+	
 
 	public Exam04() throws ClassNotFoundException, SQLException {
 		super();
+		
 
 		CustomerDao dao = new CustomerDao();
 		arr[0] = dao.sumCustomerAge(0, 20);
@@ -29,17 +31,21 @@ public class Exam04 extends JFrame {
 		arr[5] = dao.sumCustomerAge(51, 100);
 		this.init();
 		this.start();
+		this.paint(null);
 		this.setSize(600, 700);
 		this.setVisible(true);
 
 	}
 
 	void init() {
-		this.setLayout(new BorderLayout());
-		Panel p = new Panel(new FlowLayout());
+		
 		//p.add(lb1);
 		//p.add(lb2);
+		this.setLayout(new BorderLayout());
+		Panel p = new Panel(new FlowLayout());
 		this.add("North", p);
+
+		
 	}
 
 	void start() throws ClassNotFoundException, SQLException {
@@ -49,14 +55,15 @@ public class Exam04 extends JFrame {
 			if (arr[i] < arr[i + 1]) {
 				max = arr[i];
 			}
-			arr[i] *= 20;
+			arr[i] *= 5;
 		}
-		arr[arr.length-1]*=20;
+		arr[arr.length-1]*=5;
 
 	}
 
+   
 	public void paint(Graphics g) {
-
+	     
 		Dimension di = this.getSize();
 
 		g.drawRect(100, 100, 100, 500);
@@ -104,6 +111,4 @@ public class Exam04 extends JFrame {
 		} catch (Exception ee) {
 		}
 
-
 	}
-}

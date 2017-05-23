@@ -261,6 +261,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 		tabbedPane_1.setBounds(12, 145, 484, 273);
 
 		panel_1.add(tabbedPane_1);
+		///////////////
 		panel_4.setLayout(null);
 
 		tabbedPane_1.addTab("ㅇ주문내역", null, panel_4, null);

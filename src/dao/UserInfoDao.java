@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import domain.CustomerDto;
 import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -72,6 +73,30 @@ System.out.println(rs.getRow());
 		return vs;
 	}
 	
+
+	public Vector userInfoAllPart() throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		UserInfoDto userInfoDto = new UserInfoDto();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from userinfo order by userinfo_num"); // 
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("userinfo_ID"));
+				row.add(rs.getString("userinfo_NAME"));
+				row.add(rs.getInt("userinfo_PHONE"));
+				row.add(rs.getString("userinfo_email"));
+				
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 	public UserInfoDto get(String userInfoId) throws ClassNotFoundException, SQLException { // 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 
