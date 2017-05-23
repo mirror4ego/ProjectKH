@@ -1,26 +1,16 @@
 package domain;
 
 public class MenuDto {
-	private int menuNum;
 	private String menuName;
 	private int menuPrice;
-	private int menuGroupNum;
+	private String menuGroupName;
 	
 	public MenuDto(){}
 	
-	public MenuDto(int menuNum, String menuName, int menuPrice, int menuGroupNum) {
-		this.menuNum = menuNum;
+	public MenuDto(String menuName, int menuPrice, String menuGroupName) {
 		this.menuName = menuName;
 		this.menuPrice = menuPrice;
-		this.menuGroupNum = menuGroupNum;
-	}
-
-	public int getMenuNum() {
-		return menuNum;
-	}
-
-	public void setMenuNum(int menuNum) {
-		this.menuNum = menuNum;
+		this.menuGroupName = menuGroupName;
 	}
 
 	public String getMenuName() {
@@ -39,13 +29,17 @@ public class MenuDto {
 		this.menuPrice = menuPrice;
 	}
 
-	public int getMenuGroupNum() {
-		return menuGroupNum;
+	public String getMenuGroupName() {
+		return menuGroupName;
 	}
 
-	public void setMenuGroupNum(int menuGroupNum) {
-		this.menuGroupNum = menuGroupNum;
+	public void setMenuGroupName(String menuGroupName) {
+		this.menuGroupName = menuGroupName;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "MenuDto [menuName=" + menuName + ", menuPrice=" + menuPrice + ", menuGroupName=" + menuGroupName + "]";
+	}
+
 }

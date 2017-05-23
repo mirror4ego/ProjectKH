@@ -3,7 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import domain.MenuGroupDto;
 import resources.ConnectionMaker;
@@ -36,6 +39,27 @@ public class MenuGroupDao {
 		return menuGroupDto;
 	}
 	
+	public boolean searchMenuGroup(String searchItem) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		boolean searchResult = false;
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menugroup where menugroup_name = ?");
+
+			ps.setString(1, searchItem);
+			
+			ResultSet rs = ps.executeQuery();
+
+			searchResult = (rs.next());
+			
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+		}catch(Exception e){
+			c.close();
+			JOptionPane.showMessageDialog(null, "메뉴그룹 검색 오류");
+		}
+		return searchResult;
+	}
 	//매개로 총 로우의 개수를 반환하는 메소드 필요
 	//모든 그룹이름과 그룹넘버를 벡터로 반환하는 메소드 필요
 	
