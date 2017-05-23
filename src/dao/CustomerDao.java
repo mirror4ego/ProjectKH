@@ -233,10 +233,7 @@ public class CustomerDao {
 		return cnt;
 	}
 	
-=======
-	 */
 
->>>>>>> fb76829f37dd19c2e761e589d5d833ce0ac1960b
 	public int sumCustomerAge(int CusAge,int CusAge2) throws ClassNotFoundException, SQLException {
 
 		Connection c = connectionMaker.makeConnection();
