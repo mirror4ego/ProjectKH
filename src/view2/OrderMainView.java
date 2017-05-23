@@ -1,7 +1,6 @@
 package view2;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,27 +8,25 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.border.MatteBorder;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import javax.swing.border.MatteBorder;
-import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
 
 public class OrderMainView extends JFrame implements MouseListener{
 
@@ -88,7 +85,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JLabel label_16 = new JLabel("고객번호");
 	private JLabel label_17 = new JLabel("전화번호");
 	private JLabel label_18 = new JLabel("배송주소");
-	private JLabel label_19 = new JLabel("주문시간");
+	private JLabel label_19 = new JLabel("배달시간");
 	private JLabel label_20 = new JLabel("담당자");
 	private JLabel label_21 = new JLabel("대기시간");
 	private JTextField txtEx = new JTextField();
@@ -119,12 +116,13 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JLabel label_30 = new JLabel("미수금");
 	private JButton button_2 = new JButton("닫기");
 	private JPanel panel_11 = new JPanel();
-	private JButton button_6 = new JButton("검색");
-	private JButton button_7 = new JButton("검색");
+	private JButton button_6 = new JButton("삭제");
+	private JButton button_7 = new JButton("출력");
 	private JTextField textField_11 = new JTextField();
 	private JPanel panel_12 = new JPanel();
 	private JLabel label_7 = new JLabel("주문 관리");
 	private JLabel label_8 = new JLabel("주문서를 관리(검색, 삭제) 하는 곳입니다.");
+	private final JLabel label_32 = new JLabel();
 
 	public OrderMainView() {
 		super("주문내역 관리");
@@ -236,6 +234,10 @@ public class OrderMainView extends JFrame implements MouseListener{
 		label_8.setForeground(Color.LIGHT_GRAY);
 		label_8.setBounds(88, 28, 297, 20);
 		panel_12.add(label_8);
+		label_32.setBounds(35, 12, 32, 32);
+		label_32.setIcon(new ImageIcon("img/computer.png"));
+		
+		panel_12.add(label_32);
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.WHITE);
 		panel_1.setBounds(394, 62, 506, 620);
@@ -556,6 +558,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 
 		getContentPane().add(panel_11);
 		panel_11.setLayout(new GridLayout(2, 2, 2, 2));
+
 
 		panel_11.add(button_7);
 
