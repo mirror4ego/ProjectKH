@@ -3,18 +3,13 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
-import view.UserListView;
-import view2.CustomerMainView;
-
-=======
 import view.LoginView;
->>>>>>> df96bd4d34a7295a967688d509be1d66a90711f0
+
 
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-		
+		//MenuManageView menuManageView = new MenuManageView();
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
 		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
@@ -26,13 +21,11 @@ public class TestJY {
 		//DaoFactory DaoFactory = new DaoFactory();
 		//DaoFactory.customerDao();
 		//CustomerMainView customerMainView = new CustomerMainView();
-		//OrderSheetView orderSheetView = new OrderSheetView();
+		//OrderSheetView orderSheetView = new OrderSheetView(new CustomerDto());
 		//OrderListMiniView orderRegView = new OrderListMiniView();
 		//(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
 		//OrderMainView OrderMainView = new OrderMainView();
-<<<<<<< HEAD
-		UserListView UserListView = new UserListView();
-=======
->>>>>>> df96bd4d34a7295a967688d509be1d66a90711f0
+
+		//UserListView UserListView = new UserListView();
 	}
 }

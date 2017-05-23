@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -125,6 +127,8 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	Date today = new Date();
 	SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 / HH시 mm분");
 	JScrollPane scrollPane_4 = new JScrollPane();
+	private final JLabel label_27 = new JLabel();
+	private final JLabel lblNewLabel_2 = new JLabel("분");
 
 	public OrderSheetView(CustomerDto customerDto) {
 		super("주문서");
@@ -172,7 +176,14 @@ public class OrderSheetView extends JFrame implements MouseListener {
 
 		textField_11.setEditable(false);
 		textField_11.setText(format.format(today));
+		lblNewLabel_2.setBounds(446, 46, 33, 25);
+		
+		panel.add(lblNewLabel_2);
 		lblNewLabel.setText(format.format(today));
+		label_27.setBounds(35, 12, 32, 32);
+		label_27.setIcon(new ImageIcon("img/paste.png"));
+
+		panel_7.add(label_27);
 		textField_14.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_14.setEditable(false);
 		textField_14.setText(String.valueOf(customerFrequent));
@@ -359,6 +370,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		panel_6.add(label_19);
 		textField_15.setEditable(true);
 		textField_15.setBounds(313, 5, 153, 25);
+		textField_15.setModel(new DefaultComboBoxModel(new String[] {"전화", "어플", "문자", "ARS", "웹페이지"}));
 
 		panel_6.add(textField_15);
 		label_20.setHorizontalAlignment(SwingConstants.CENTER);
@@ -379,15 +391,15 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		panel_6.add(button_3);
 		panel_7.setBounds(-2, 0, 1150, 55);
 
-		panel_7.setBackground(Color.BLUE);
+		panel_7.setBackground(Color.RED);
 		getContentPane().add(panel_7);
 		panel_7.setLayout(null);
-		lblNewLabel_4.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		lblNewLabel_4.setFont(new Font("굴림", Font.PLAIN, 12));
 		lblNewLabel_4.setForeground(Color.WHITE);
 
 		lblNewLabel_4.setBounds(88, 6, 133, 20);
 		panel_7.add(lblNewLabel_4);
-		label_1.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		label_1.setFont(new Font("굴림", Font.PLAIN, 12));
 		label_1.setForeground(Color.LIGHT_GRAY);
 
 
@@ -460,7 +472,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		panel.add(textField_5);
 		textField_8.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_8.setColumns(10);
-		textField_8.setBounds(315, 46, 152, 25);
+		textField_8.setBounds(315, 46, 122, 25);
 
 		panel.add(textField_8);
 		textField_9.setColumns(10);

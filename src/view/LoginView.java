@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -135,23 +136,21 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				jLabel9.setForeground(Color.GRAY);
 				jLabel9.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 				jLabel9.setBounds(313, 139, 301, 37);
+				jLoginTextField1.setCaretColor(Color.CYAN);
+				jLoginTextField1.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
 				// 로그인 필드
 				jLoginTextField1.setOpaque(false);
 				jLoginTextField1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 				jLoginTextField1.setFont(font2);
-				jLoginTextField1.setForeground(Color.GRAY);
+				jLoginTextField1.setForeground(Color.CYAN);
+				jPasswordField1.setCaretColor(Color.CYAN);
 
 				// 패스워드
 				jPasswordField1.setOpaque(false);
 				jPasswordField1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 				jPasswordField1.setFont(font2);
-				jPasswordField1.setForeground(Color.GRAY);
-				jButton2.setBorderPainted(true);
-				jButton2.setFocusPainted(false);
-				jButton2.setContentAreaFilled(false);
-				jButton2.setFont(font2);
-				jButton2.setForeground(Color.gray);
+				jPasswordField1.setForeground(Color.CYAN);
 
 				// 패널 설정
 				jPanel1.setBounds(0, 0, 1600, 900);
@@ -164,7 +163,6 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				jPanel5.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.DARK_GRAY));
 				jPanel3.setOpaque(false);
 				jPanel6.add(jLabel1);
-				jPanel7.add(jButton2);
 				jPanel2.setBounds(650, 150, 300, 260);
 				jPanel2.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
 				jPanel2.add(jPanel6);
@@ -178,14 +176,14 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				jPanel6.setOpaque(false);
 				jPanel7.setOpaque(false);
 				jPanel7.setBackground(Color.DARK_GRAY);
+				jPanel7.add(jButton1);
 
-
-				jPanel7.add(button);
-				button.setForeground(Color.GRAY);
-				button.setFont(new Font("맑은 고딕", Font.BOLD, 15));
-				button.setFocusPainted(false);
-				button.setContentAreaFilled(false);
-				button.setBorderPainted(true);
+				// 로그인 버튼
+				jButton1.setBorderPainted(true);
+				jButton1.setFocusPainted(false);
+				jButton1.setContentAreaFilled(false);
+				jButton1.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				jButton1.setForeground(Color.cyan);
 				jPanel1.setLayout(null);
 
 				// 레이아웃 설정
@@ -245,15 +243,20 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				jLabel8.setFont(new Font("맑은 고딕", Font.BOLD | Font.ITALIC, 40));
 				jLabel8.setBounds(133, 199, 224, 37);
 				jPanel1.add(jLabel8);
-				jButton1.setBounds(651, 408, 298, 64);
-				jPanel1.add(jButton1);
-
-				// 로그인 버튼
-				jButton1.setBorderPainted(true);
-				jButton1.setFocusPainted(false);
-				jButton1.setContentAreaFilled(false);
-				jButton1.setFont(font2);
-				jButton1.setForeground(Color.cyan);
+				jButton2.setBounds(799, 408, 150, 60);
+				jPanel1.add(jButton2);
+				jButton2.setBorderPainted(true);
+				jButton2.setFocusPainted(false);
+				jButton2.setContentAreaFilled(false);
+				jButton2.setFont(font2);
+				jButton2.setForeground(Color.gray);
+				button.setBounds(651, 408, 150, 60);
+				jPanel1.add(button);
+				button.setForeground(Color.GRAY);
+				button.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+				button.setFocusPainted(false);
+				button.setContentAreaFilled(false);
+				button.setBorderPainted(true);
 			}
 
 			public void start() {
@@ -370,6 +373,8 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 					String id = jLoginTextField1.getText().trim();
 					char[] pass = jPasswordField1.getPassword();
 					String password = new String(pass);
+					jLoginTextField1.setText("아이디 입력");
+					jPasswordField1.setText("비밀번호 입력");
 					if(id.equals("admin") && password.equals("1234")) {
 						try {
 							JOptionPane.showMessageDialog(null, "관리자 계정으로 접속하셨습니다");
@@ -383,7 +388,9 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 							JOptionPane.showMessageDialog(null, "관리자 계정 접속 실패");
 							e1.printStackTrace();
 						}
+
 					}else{JOptionPane.showMessageDialog(null, "관리자 계정 ID 또는 비밀번호가 일치하지 않음");}
+
 				}else{}
 
 				if(e.getSource()==button) {
@@ -392,7 +399,11 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 					String id = jLoginTextField1.getText().trim();
 					char[] pass = jPasswordField1.getPassword();
 					String password = new String(pass);
+					jLoginTextField1.setText("아이디 입력");
+					jPasswordField1.setText("비밀번호 입력");
 					if(id.equals("admin") && password.equals("1234")) {
+
+
 						try {
 							JOptionPane.showMessageDialog(null, "관리자 계정으로 메뉴관리 페이지에 접속하셨습니다");
 							MenuManageView menuManageView = new MenuManageView();
@@ -413,6 +424,17 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				if(e.getSource()==jButton3) {
 					OrderMainView orderMainView = new OrderMainView();
 				}else{}
+				
+				if(e.getSource()==jButton5) {
+					try {
+						CRM_MainLayout_sub crm_MainLayout_sub = new CRM_MainLayout_sub();
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}else{}
+				
 			}
 
 			@Override
