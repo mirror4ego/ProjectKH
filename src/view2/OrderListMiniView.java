@@ -133,6 +133,7 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 		System.out.println(vector3);
 		model.setDataVector(customerDto, vector3);
 		table.setModel(model);
+
 	}
 
 	public Vector getColumn(){

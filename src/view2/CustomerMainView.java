@@ -75,7 +75,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 	private JLabel label_5 = new JLabel("미수금");
 	private JLabel label_6 = new JLabel("성별");
 	private JLabel label_7 = new JLabel("특이사항");
-	private JLabel label_9 = new JLabel("가족사항");
+	private JLabel label_9 = new JLabel("특이사항");
 	private JLabel comboBox_1 = new JLabel();
 
 	private JButton button_7 = new JButton("파일저장");
@@ -254,7 +254,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 
 		panel_10.add(textArea);
 
-		tabbedPane_1.addTab("ㅇ가족사항", null, panel_9, null);
+		tabbedPane_1.addTab("ㅇ특이사항", null, panel_9, null);
 		panel_9.setLayout(null);
 		label_9.setBounds(12, 10, 67, 25);
 		label_9.setHorizontalAlignment(SwingConstants.CENTER);
@@ -649,8 +649,6 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		}	
 	}
 
-
-
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
@@ -705,7 +703,6 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			if(a.equals("충남")){
 				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/군/구","계룡시","공주시","금산군","논산시","당진시","보령시",
 						"부여군","서산시","서천군","아산시","예산군","천안시 동남구","천안시 서북구","청양군","태안군","홍성군"}));
-
 			}
 			if(a.equals("전북")){
 				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/군/구","고창군","군산시","김제시","남원시","무주군","부안군",

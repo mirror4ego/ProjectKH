@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import domain.CustomerDto;
 import domain.OrderInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -217,6 +218,33 @@ public class OrderInfoDao {
 		}
 
 		return ok;
+	}
+	
+	public Vector orderInfoAllPart() throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		OrderInfoDto orderInfoDto = new OrderInfoDto();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo"); // 
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getInt("customer_Num"));
+
+				row.add(rs.getString("customer_Phone_Num"));
+
+				row.add(rs.getString("customer_Add_Street"));
+				row.add(rs.getString("customer_Add_Rest"));
+
+
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에

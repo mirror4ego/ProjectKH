@@ -34,6 +34,7 @@ import dao.MenuDao;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
+import java.awt.Component;
 
 public class OrderSheetView extends JFrame implements MouseListener {
 	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
@@ -97,7 +98,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_5 = new JLabel("담당자");
 	private final JLabel label_7 = new JLabel("대기시간");
 	private final JTextField textField_4 = new JTextField();
-	private final JTextField textField_5 = new JTextField();
+	private final JComboBox textField_5 = new JComboBox();
 	private final JTextField textField_8 = new JTextField();
 	private final JTextField textField_9 = new JTextField();
 	private final JTextField textField_10 = new JTextField();
@@ -110,7 +111,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_19 = new JLabel("채널");
 	private final JComboBox textField_15 = new JComboBox();
 	private final JLabel label_20 = new JLabel("등급");
-	private final JTextField textField_16 = new JTextField();
+	private final JComboBox textField_16 = new JComboBox();
 	private final JButton button_3 = new JButton("검색");
 	private final JButton button_4 = new JButton("검색");
 	private JLabel lblNewLabel = new JLabel();
@@ -122,7 +123,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_25 = new JLabel("주문");
 	private final JLabel label_26 = new JLabel("요청사항");
 	private final JTextField txtEx = new JTextField();
-	JScrollPane scrollPane_3 = new JScrollPane();
+	JScrollPane scrollPane_3 = new JScrollPane(table_1);
 	JTextArea textArea_1 = new JTextArea();
 	JTextArea textArea = new JTextArea();
 	JComboBox comboBox = new JComboBox();
@@ -209,6 +210,8 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	void init() {
 		textField_2.setBounds(81, 7, 147, 21);
 		textField_2.setColumns(10);
+		textField.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		textField.setEditable(false);
 		textField.setBounds(85, 124, 171, 18);
 		textField.setColumns(10);
@@ -231,10 +234,15 @@ public class OrderSheetView extends JFrame implements MouseListener {
 
 		tabbedPane_2.addTab("ㅇ주문내역", null, panel_5, null);
 		panel_5.setLayout(null);
+		textField_7.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_7.setText("0");
 		textField_7.setBounds(304, 200, 126, 25);
 		textField_7.setColumns(10);
 
 		panel_5.add(textField_7);
+		textField_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_1.setForeground(Color.RED);
+		textField_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		textField_1.setEditable(false);
 		textField_1.setBounds(79, 200, 171, 38);
 		textField_1.setColumns(10);
@@ -392,8 +400,6 @@ public class OrderSheetView extends JFrame implements MouseListener {
 
 		panel_6.add(label_20);
 		textField_16.setEditable(false);
-		textField_16.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_16.setColumns(10);
 		textField_16.setBounds(313, 35, 153, 25);
 
 		panel_6.add(textField_16);
@@ -476,8 +482,6 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		textField_4.setBounds(79, 10, 157, 25);
 
 		panel.add(textField_4);
-		textField_5.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_5.setColumns(10);
 		textField_5.setBounds(315, 10, 152, 25);
 
 		panel.add(textField_5);
@@ -626,6 +630,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		vector1.add("메뉴이름");
 		vector1.add("메뉴가격");
 		vector1.add("메뉴분류");
+		vector1.add("메뉴수량");
 		return vector1;
 	}
 	
@@ -679,18 +684,31 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			menuSelectedVector.add(menuName);
 			menuSelectedVector.add(menuPrice);
 			menuSelectedVector.add(menuGroupName);
+			menuSelectedVector.add(1);
 			menuAllSelectedVector.add(menuSelectedVector);
-			System.out.println(table_1.getRowCount());
-			
+
+					
 			try {
 				jTableRefresh1(menuAllSelectedVector);
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//table_1.add(menuAllSelectedVector);
-			
-			//자동으로 소계와 합계를 반영해서 디스플레이
+			System.out.println(table_1.getRowCount());
+			int sum = 0;
+			int discount = Integer.parseInt(textField_7.getText());
+			//sum = sum-discount;
+			for(int i = 0;i<table_1.getRowCount();i++){
+				System.out.println((table_1.getValueAt(i, 1)));
+				int price = Integer.parseInt((table_1.getValueAt(i, 1)).toString());
+				int num = Integer.parseInt((table_1.getValueAt(i, 3)).toString());
+				int subSum = (price * num);
+
+				sum += subSum;
+				
+				textField.setText(String.valueOf(sum));
+				textField_1.setText(String.valueOf(sum-discount));
+			}
 			
 			
 		}

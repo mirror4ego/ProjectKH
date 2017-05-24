@@ -38,7 +38,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JLabel lblNewLabel_4 = new JLabel("주문리스트");
 	private JLabel label_1 = new JLabel("고객정보를 입력하고 주문내역을 조회합니다");
 	private JLabel jLabel1 = new JLabel("ㅇ회원정보");
-	private JTable jTable2 = new JTable();
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
 	private JButton button = new JButton("선택된 주문서 삭제");
@@ -123,6 +122,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JLabel label_7 = new JLabel("주문 관리");
 	private JLabel label_8 = new JLabel("주문서를 관리(검색, 삭제) 하는 곳입니다.");
 	private final JLabel label_32 = new JLabel();
+	private JTable table;
 
 	public OrderMainView() {
 		super("주문내역 관리");
@@ -185,10 +185,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 		button_1.setBounds(290, 54, 57, 60);
 
 		panel_2.add(button_1);
-		jTable2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
-
-		jTable2.setBounds(12, 172, 347, 367);
-		panel_2.add(jTable2);
 		button.setBounds(101, 550, 146, 31);
 
 		panel_2.add(button);
@@ -208,6 +204,13 @@ public class OrderMainView extends JFrame implements MouseListener{
 		textArea.setBounds(12, 10, 347, 114);
 
 		panel_2.add(textArea);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(12, 166, 347, 374);
+		panel_2.add(scrollPane_1);
+		
+		table = new JTable();
+		scrollPane_1.setViewportView(table);
 
 		panel_7.setBackground(Color.YELLOW);
 		panel_7.setBounds(-2, 0, 1280, 55);
