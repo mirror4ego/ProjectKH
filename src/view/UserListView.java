@@ -494,9 +494,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 			}
 		}
 	}
-	public void itemStateChanged2(ItemEvent f) {
+	public void itemStateChanged2(ItemEvent e) {
 		// TODO Auto-generated method stub
-		if(f.getStateChange()==ItemEvent.SELECTED){
+		if(e.getStateChange()==ItemEvent.SELECTED){
 			String a = comboBox_4.getSelectedItem().toString();
 			System.out.println(a);
 
@@ -597,7 +597,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 						"외도동","용강동","용담동","우도면","월평동","이도동","이호동","일도동","조천읍","추자면","한경면","한림읍","해안동","화북동","회천동"}));
 			}
 		}
-
 	}
 
 	/*
