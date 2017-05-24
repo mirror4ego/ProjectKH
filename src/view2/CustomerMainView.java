@@ -443,7 +443,6 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		rdbtnNewRadioButton.setSelected(false);
 	}
 
-
 	private void viewData(CustomerDto customerDto){
 
 		int customerNum = customerDto.getCustomerNum();  //주문번호
@@ -718,6 +717,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 						"담양군","목포시","무안군","보성군","순천시","신안군","여수시","영광군","영암군","완도군","장성군","장흥군","진도군","함평군","해남군","화순군"}));
 
 			}
+			
 			if(a.equals("경북")){
 				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/군/구","경산시","경주시","고령군","구미시","군위군","김천시",
 						"문경시","봉화군","상주시","성주군","안동시","영덕군","영양군","영주시","영천시","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군",
@@ -732,8 +732,6 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			if(a.equals("제주")){
 				comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"시/군/구","서귀포시","제주시"}));	 
 			}
-
-
 		}
 	}
 

@@ -134,6 +134,9 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_27 = new JLabel();
 	private final JLabel lblNewLabel_2 = new JLabel("분");
 
+	Vector menuSelectedVector = new Vector();
+	Vector menuAllSelectedVector = new Vector();
+	
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
 		this.init();
@@ -625,12 +628,20 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		vector1.add("메뉴분류");
 		return vector1;
 	}
+	
 
 	public void jTableRefresh(Vector menuDto) throws ClassNotFoundException, SQLException{
 		DefaultTableModel model = new DefaultTableModel();
 		System.out.println(vector1);
 		model.setDataVector(menuDto, vector1);
 		table.setModel(model);
+	}
+	
+	public void jTableRefresh1(Vector menuDto) throws ClassNotFoundException, SQLException{
+		DefaultTableModel model = new DefaultTableModel();
+		System.out.println(vector1);
+		model.setDataVector(menuDto, vector1);
+		table_1.setModel(model);
 	}
 	
 	public void realTime() {
@@ -664,13 +675,20 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			int menuPrice = (int) table.getValueAt(r, 1);
 			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
 			System.out.println("1");
-			Vector menuSelectedVector = new Vector();
-			Vector menuAllSelectedVector = new Vector();
+
 			
 			menuSelectedVector.add(menuName);
 			menuSelectedVector.add(menuPrice);
 			menuSelectedVector.add(menuGroupName);
 			menuAllSelectedVector.add(menuSelectedVector);
+			System.out.println(menuAllSelectedVector);
+			try {
+				jTableRefresh1(menuAllSelectedVector);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//table_1.add(menuAllSelectedVector);
 			
 		}
 	}
