@@ -353,7 +353,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		for (int i = 0; i < tree.getRowCount(); i++) {
 			tree.expandRow(i);
 		}
-
 	}
 
 	@Override
@@ -457,8 +456,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 			}else{
 				JOptionPane.showMessageDialog(null, "상품 대분류를 입력하세요");
 			}
-
-
 		}
 	}
 

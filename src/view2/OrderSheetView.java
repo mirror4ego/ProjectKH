@@ -7,9 +7,11 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -26,7 +28,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
 
+import dao.MenuDao;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
@@ -48,7 +52,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);	
 	private JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
 	private JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
-
+	Vector vector1 = new Vector();
 	private JScrollPane scrollPane = new JScrollPane();
 
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
@@ -130,9 +134,10 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_27 = new JLabel();
 	private final JLabel lblNewLabel_2 = new JLabel("분");
 
-	public OrderSheetView(CustomerDto customerDto) {
+	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
 		this.init();
+
 		this.start();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1150,720);
@@ -193,6 +198,9 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		button_5.setBounds(192, 10, 56, 25);
 		
 		panel_2.add(button_5);
+		
+		this.getColumn();
+		this.jTableRefresh(new MenuDao().menuAllPart());
 	}
 
 	void init() {
@@ -608,8 +616,23 @@ public class OrderSheetView extends JFrame implements MouseListener {
 
 	void start() {
 		btnNewButton.addMouseListener(this);
+		table.addMouseListener(this);
+	}
+	
+	public Vector getColumn(){
+		vector1.add("메뉴이름");
+		vector1.add("메뉴가격");
+		vector1.add("메뉴분류");
+		return vector1;
 	}
 
+	public void jTableRefresh(Vector menuDto) throws ClassNotFoundException, SQLException{
+		DefaultTableModel model = new DefaultTableModel();
+		System.out.println(vector1);
+		model.setDataVector(menuDto, vector1);
+		table.setModel(model);
+	}
+	
 	public void realTime() {
 		Calendar cal = Calendar.getInstance();
 		try{
@@ -633,6 +656,22 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==btnNewButton){
 			this.dispose();
+		}
+		
+		if(e.getSource()==table){
+			int r = table.getSelectedRow();
+			String menuName = String.valueOf(table.getValueAt(r, 0));
+			int menuPrice = (int) table.getValueAt(r, 1);
+			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
+			System.out.println("1");
+			Vector menuSelectedVector = new Vector();
+			Vector menuAllSelectedVector = new Vector();
+			
+			menuSelectedVector.add(menuName);
+			menuSelectedVector.add(menuPrice);
+			menuSelectedVector.add(menuGroupName);
+			menuAllSelectedVector.add(menuSelectedVector);
+			
 		}
 	}
 	
