@@ -32,12 +32,12 @@ import setting.SetUiFont;
 
 
 public class UserListView extends JFrame implements MouseListener,ItemListener{
-/*	//아래부터 임시 실행을 위한 메인 선언
+	//아래부터 임시 실행을 위한 메인 선언
 	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
 		UserListView a = new UserListView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
 	}
 	//메인 종료
-*/	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
+	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	SetUiFont setUiFont = new SetUiFont();
 	Vector vector1;  
 	Vector vector2;

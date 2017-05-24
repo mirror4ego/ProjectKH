@@ -33,6 +33,16 @@ public class DaoFactory { // 클래스를 생성
 		//customerDao.setDataSource(dataSource()); // dataSource메소드 반환값을 매개변수로 이용해 데이터 소스를 set하고 userDao 
 		return userInfoDao; // 리턴
 	}
+	
+	public MenuDao menuDao() { // OrderDao 생성
+		MenuDao menuDao = new MenuDao(); // userDao 클래스의 객체 생성
+		return menuDao; // 리턴
+	}
+	
+	public MenuGroupDao menuGroupDao() { // OrderDao 생성
+		MenuGroupDao menuGroupDao = new MenuGroupDao(); // userDao 클래스의 객체 생성
+		return menuGroupDao; // 리턴
+	}
 
 
 	/*	@Bean

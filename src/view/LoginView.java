@@ -401,7 +401,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 					String password = new String(pass);
 					jLoginTextField1.setText("아이디 입력");
 					jPasswordField1.setText("비밀번호 입력");
-					if(id.equals("admin") && password.equals("1234")) {
+					if(id.equals("admin") && password.equals("4567")) {
 
 
 						try {
