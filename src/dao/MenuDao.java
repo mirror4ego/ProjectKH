@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import domain.CustomerDto;
 import domain.MenuDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -117,5 +119,89 @@ public class MenuDao {
 		return searchResult;
 	}
 
+	public Vector menuAllPart() throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menu order by menu_name"); // 
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("menu_name"));
+				row.add(rs.getInt("menu_price"));
+				row.add(rs.getString("menugroup_name"));
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public Vector menuAllGroupPart(String menuGroupName) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menu where menugroup_name = ?"); // 
+			ps.setString(1, menuGroupName);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("menu_name"));
+				row.add(rs.getInt("menu_price"));
+				row.add(rs.getString("menugroup_name"));
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	
+	
+	public Vector getPartMenuName(String menuGroupName) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menu where menugroup_name = ?"); //
+			ps.setString(1, menuGroupName);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				data.add(rs.getString("menu_name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	public Vector getOneMenu(String menuName) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menu where menu_name = ?"); //
+			ps.setString(1, menuName);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("menu_name"));
+				row.add(rs.getInt("menu_price"));
+				row.add(rs.getString("menugroup_name"));
+				data.add(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 	
 }

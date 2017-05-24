@@ -1,5 +1,6 @@
 package view2;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,8 +27,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import dao.MenuDao;
@@ -57,45 +61,45 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 	private JButton button_1 = new JButton("저장");
 	private JButton button_2 = new JButton("삭제");
 	private JButton button_3 = new JButton("닫기");
-	private JButton button_6 = new JButton("정렬");
+	private JButton button_6 = new JButton("전체");
 	private JButton button_7 = new JButton("∧");
-	private JButton button_8 = new JButton("저장");
 	private JButton button_9 = new JButton("∨");
 	private JButton btnNewButton_2 = new JButton("분류추가");
 	private JButton button_4 = new JButton("분류삭제");
 	private JButton button_5 = new JButton("수정");
 
 	private JLabel label_6 = new JLabel("분류명");
-	private JLabel label_7 = new JLabel("상품분류");
-	private JLabel label_2 = new JLabel("상품분류");
-	private JLabel label_4 = new JLabel("상품이름");
+	private JLabel label_7 = new JLabel("메뉴분류");
+	private JLabel label_2 = new JLabel("메뉴분류");
+	private JLabel label_4 = new JLabel("메뉴이름");
 	private JLabel label_5 = new JLabel("가격");
 	private JLabel lblNewLabel = new JLabel("원");
 	private JLabel lblNewLabel_1 = new JLabel();
-	private JLabel label = new JLabel("상품관리");
-	private JLabel label_1 = new JLabel("상품을 등록하는 곳입니다");
+	private JLabel label = new JLabel("메뉴관리");
+	private JLabel label_1 = new JLabel("상품을 메뉴하는 곳입니다");
 
 	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
 	private JTable table;
 
-	private JScrollPane scrollPane = new JScrollPane();
+	private JScrollPane scrollPane = new JScrollPane(table);
+	Vector vector1 = new Vector();
+	Vector menuGroupName = (new MenuGroupDao()).getAllMenuGroupName();
+	DefaultMutableTreeNode node_1;
 
+	private JTree tree;
 
-
-	DefaultMutableTreeNode node_1 = new DefaultMutableTreeNode("메뉴분류");
-	DefaultMutableTreeNode parent1 = new DefaultMutableTreeNode("치킨류");
-	DefaultMutableTreeNode parent2 = new DefaultMutableTreeNode("사이드류");
-	DefaultMutableTreeNode parent3 = new DefaultMutableTreeNode("음료");
-	private JTree tree = new JTree(node_1);
+	private final JButton button_8 = new JButton("메뉴");
+	private final JButton button_12 = new JButton("새로고침");
 	//변수 선언부 끝
 
 	public MenuManageView() throws ClassNotFoundException, SQLException {
 		super("메뉴 관리");
 		init();
+		jTreeRefresh();
 		start();
-		menuCreation();
+
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(915,720);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -106,6 +110,8 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		this.setResizable(false);
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
+		this.getColumn();
+		this.jTableRefresh(new MenuDao().menuAllPart());
 	}
 
 	void init(){
@@ -147,9 +153,11 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		label_6.setBounds(12, 504, 67, 25);
 		panel_1.add(label_6);
 
-		panel_3.setBounds(56, 539, 222, 39);
+		panel_3.setBounds(12, 539, 309, 39);
 		panel_1.add(panel_3);
 		panel_3.setLayout(new GridLayout(1, 2, 3, 3));
+
+		panel_3.add(button_12);
 
 		panel_3.add(btnNewButton_2);
 
@@ -170,11 +178,13 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 		tabbedPane_1.addTab("ㅇ세부상품", null, panel_2, null);
 		panel_2.setLayout(null);
+		scrollPane.setBackground(Color.WHITE);
 
 		scrollPane.setBounds(12, 45, 434, 411);
 		panel_2.add(scrollPane);
 
 		table = new JTable();
+		table.setBounds(0, 0, 532, 588);
 		scrollPane.setColumnHeaderView(table);
 
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -185,6 +195,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		panel_2.add(label_2);
 
 		textField_1 = new JTextField();
+		textField_1.setEditable(false);
 		textField_1.setBounds(91, 10, 355, 25);
 		panel_2.add(textField_1);
 		textField_1.setColumns(10);
@@ -204,11 +215,13 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		panel_2.add(label_5);
 
 		textField_2 = new JTextField();
+		textField_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_2.setColumns(10);
 		textField_2.setBounds(79, 501, 200, 25);
 		panel_2.add(textField_2);
 
 		textField_3 = new JTextField();
+		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setColumns(10);
 		textField_3.setBounds(79, 466, 367, 25);
 		panel_2.add(textField_3);
@@ -229,15 +242,28 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 
+		JPanel panel_5 = new JPanel();
+		panel_5.setBounds(8, 159, 57, 51);
+		panel_4.add(panel_5);
+		panel_5.setLayout(new CardLayout(0, 0));
+		button_8.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+
+		panel_5.add(button_8, "name_47512106817689");
+
+		JButton button_10 = new JButton("가격");
+		button_10.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		panel_5.add(button_10, "name_47576162690891");
+
+		JButton button_11 = new JButton("분류");
+		button_11.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		panel_5.add(button_11, "name_47578212542697");
+
 		button_6.setBounds(8, 0, 57, 50);
 		panel_4.add(button_6);
 
 		button_7.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		button_7.setBounds(8, 109, 57, 50);
 		panel_4.add(button_7);
-
-		button_8.setBounds(8, 159, 57, 50);
-		panel_4.add(button_8);
 
 		button_9.setVerticalAlignment(SwingConstants.BOTTOM);
 		button_9.setFont(new Font("맑은 고딕", Font.BOLD, 30));
@@ -254,6 +280,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 		lblNewLabel.setBounds(287, 501, 57, 25);
 		panel_2.add(lblNewLabel);
+
 	}
 
 	void start(){
@@ -263,51 +290,61 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		button_1.addMouseListener(this);
 		button_2.addMouseListener(this);
 		button.addMouseListener(this);
+		button_4.addMouseListener(this); // 분류삭제
+		button_5.addMouseListener(this); // 분류수정
+		btnNewButton_2.addMouseListener(this); // 분류추가
+		button_12.addMouseListener(this);
+		button_6.addMouseListener(this);
 	}
-	/**
-	 * 로직
 
-	 * db menugroup에서 칼럼 총 데이터행 개수를 확인함 (ex : 3) -> getrow();
-	 * 그 데이터 행을 매개변수로 행 갯수만큼 그룹 데이터를 불러와서(dao에 메소드-> 그룹 데이터를 불러옴)
-	 * 벡터로 불러와서 반환
-	 * 
-	 * db menu에서 각 그룹마다의 데이터행 개수를 확인함 (ex : 7) -> getrow();
-	 * 그 데이터 행을 매개변수로 행 갯수만큼 item 데이터를 불러와서 (jTree의 대분류마다 세팅함)
-	 * 벡터로 불러와서 반환
-	 * 
-	 * jtree의 대분류로 세팅함
-	 *  대분류용 for문{
-	 *  아이템용 for문
-	 *  }
-	 *  
-	 *  
-	 */
+	public Vector getColumn(){
+		vector1.add("메뉴이름");
+		vector1.add("메뉴가격");
+		vector1.add("메뉴분류");
+		return vector1;
+	}
 
-	void menuCreation() {
+	public void jTableRefresh(Vector menuDto) throws ClassNotFoundException, SQLException{
+		DefaultTableModel model = new DefaultTableModel();
+		System.out.println(vector1);
+		model.setDataVector(menuDto, vector1);
+		table.setModel(model);
+	}
 
+	/*	public void addTextFieldValue() {
+		DefaultMutableTreeNode newNode=new DefaultMutableTreeNode("나");
+		TreePath selectionPath=tree.getSelectionPath();
+		DefaultMutableTreeNode selectedNode=
+				(DefaultMutableTreeNode)selectionPath.getLastPathComponent();
+		((DefaultTreeModel)tree.getModel())
+		.insertNodeInto(newNode,selectedNode,selectedNode.getChildCount());
+	}
 
-		node_1.add(parent1);
-		node_1.add(parent2);
-		node_1.add(parent3);
-		parent1.add(new DefaultMutableTreeNode("후라이드"));
-		parent1.add(new DefaultMutableTreeNode("양념치킨"));
-		parent1.add(new DefaultMutableTreeNode("윙치킨"));
-		parent1.add(new DefaultMutableTreeNode("반반치킨"));
-		parent1.add(new DefaultMutableTreeNode("레드오리지날"));
-		parent1.add(new DefaultMutableTreeNode("순살치킨"));
-		parent1.add(new DefaultMutableTreeNode("갈릭플러스치킨"));
-		parent1.add(new DefaultMutableTreeNode("갈릭반핫양념반"));
+	public void removeSelectedNode() {
+		TreePath selectionPath=tree.getSelectionPath();
+		DefaultMutableTreeNode selectedNode= (DefaultMutableTreeNode)selectionPath.getLastPathComponent();
 
-		parent2.add(new DefaultMutableTreeNode("웨지감자"));
-		parent2.add(new DefaultMutableTreeNode("샐러드"));
-		parent2.add(new DefaultMutableTreeNode("치즈스틱"));
-		parent2.add(new DefaultMutableTreeNode("치킨샐러드"));
-		parent2.add(new DefaultMutableTreeNode("치킨소시지"));
+		((DefaultTreeModel)tree.getModel()).removeNodeFromParent(selectedNode);
 
-		parent3.add(new DefaultMutableTreeNode("콜라"));
-		parent3.add(new DefaultMutableTreeNode("사이다"));
-		parent3.add(new DefaultMutableTreeNode("탄산수"));
-		parent3.add(new DefaultMutableTreeNode("스프라이트"));
+	}*/
+
+	public void jTreeRefresh() throws ClassNotFoundException, SQLException {
+		node_1 = new DefaultMutableTreeNode("메뉴분류");
+		tree = new JTree(node_1);
+
+		System.out.println(menuGroupName);
+		for(int i=0;i<menuGroupName.size();i++){
+			Vector menuName = (new MenuDao()).getPartMenuName((String)(menuGroupName.get(i)));
+			System.out.println(menuGroupName.get(i));
+			DefaultMutableTreeNode parent = new DefaultMutableTreeNode(menuGroupName.get(i));
+			
+			node_1.add(parent);
+			for(int j=0;j<menuName.size();j++){
+				parent.add(new DefaultMutableTreeNode(menuName.get(j)));
+				System.out.println(menuName.get(j));
+			}
+
+		}
 
 		tree.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		tree.setBounds(12, 34, 309, 460);
@@ -316,6 +353,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		for (int i = 0; i < tree.getRowCount(); i++) {
 			tree.expandRow(i);
 		}
+
 	}
 
 	@Override
@@ -332,11 +370,14 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 					MenuDto menuDto = new MenuDto();
 					menuDto.setMenuName(selectTree);
 					MenuDao menuDao = new MenuDao();
+					jTableRefresh(menuDao.getOneMenu(selectTree));
 					textField_3.setText((menuDao.get(menuDto)).getMenuName());
 					textField_2.setText(String.valueOf((menuDao.get(menuDto)).getMenuPrice()));
 					textField_1.setText(tree.getSelectionPath().getParentPath().getLastPathComponent().toString());
 				}else if((new MenuGroupDao()).searchMenuGroup(selectTree)){
 					textField_1.setText(selectTree);
+					jTableRefresh(new MenuDao().menuAllGroupPart(selectTree));
+					System.out.println(selectTree);
 					textField.setText(selectTree);
 				}else{
 					System.out.println("등록되어 있지 않은 메뉴");
@@ -345,7 +386,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 		}
 
 		if(e.getSource()==button_3){
@@ -357,7 +397,15 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 			textField_3.setText("");
 			textField_2.setText("");
 		}
-
+		if(e.getSource()==button_12) {
+			try {
+				this.jTreeRefresh();
+				System.out.println("리플래시 완료");
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		if(e.getSource()==button_2){
 			try {
 				(new MenuDao()).deleteOneMenu(textField_3.getText().trim());
@@ -366,7 +414,16 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 				e1.printStackTrace();
 			};
 		}
-
+		
+		if(e.getSource()==button_6){
+			try {
+				this.jTableRefresh(new MenuDao().menuAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 		if(e.getSource()==button_1){ // 저장
 			MenuDto menuDto = new MenuDto();
 			System.out.println(menuDto.toString());
@@ -403,28 +460,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 
 		}
-
-
-
-		//대분류를 클릭하면 DB(MENUGroup)에서 검색
-		//존재하면 그 분류 이름을 매개변수로 MENU에서 검색해서 객체로 반환하고
-		//그 정보를 테이블에 상품분류 테이블 아래에 디스플레이
-		//and 그 분류명을 아래에 텍스트 필드에 입력됨
-		//그리고 그 정보를 가지고 대분류 수정, 삭제
-
-		//분류 추가를 누르면 
-
-		//테이블에 로우를 클릭하면 아래에 상품코드와 상품이름, 가격에 디스플레이
-		//그 정보를 가지고 수정
-
-		//상품분류가 성공적으로 로드되었으며 각 상품정보칼럼이 비어 있을경우
-
-		//정렬
-
-
-		//마지막 객체로 검색해서 데이터가 있으면
-
-
 	}
 
 	@Override
