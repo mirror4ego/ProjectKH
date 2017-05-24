@@ -12,7 +12,7 @@ public class TestJY {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		//MenuManageView menuManageView = new MenuManageView();
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
-		LoginView loginView = new LoginView();
+		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();
 		//userIsnfoDao.selectAll();
