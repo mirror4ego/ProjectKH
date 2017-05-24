@@ -134,7 +134,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_27 = new JLabel();
 	private final JLabel lblNewLabel_2 = new JLabel("분");
 
-	Vector menuSelectedVector = new Vector();
+
 	Vector menuAllSelectedVector = new Vector();
 	
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
@@ -675,13 +675,13 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			int menuPrice = (int) table.getValueAt(r, 1);
 			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
 			System.out.println("1");
-
-			
+			Vector menuSelectedVector = new Vector();
 			menuSelectedVector.add(menuName);
 			menuSelectedVector.add(menuPrice);
 			menuSelectedVector.add(menuGroupName);
 			menuAllSelectedVector.add(menuSelectedVector);
-			System.out.println(menuAllSelectedVector);
+			System.out.println(table_1.getRowCount());
+			
 			try {
 				jTableRefresh1(menuAllSelectedVector);
 			} catch (ClassNotFoundException | SQLException e1) {
@@ -689,6 +689,9 @@ public class OrderSheetView extends JFrame implements MouseListener {
 				e1.printStackTrace();
 			}
 			//table_1.add(menuAllSelectedVector);
+			
+			//자동으로 소계와 합계를 반영해서 디스플레이
+			
 			
 		}
 	}

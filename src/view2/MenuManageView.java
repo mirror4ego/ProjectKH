@@ -337,7 +337,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 			Vector menuName = (new MenuDao()).getPartMenuName((String)(menuGroupName.get(i)));
 			System.out.println(menuGroupName.get(i));
 			DefaultMutableTreeNode parent = new DefaultMutableTreeNode(menuGroupName.get(i));
-			
+
 			node_1.add(parent);
 			for(int j=0;j<menuName.size();j++){
 				parent.add(new DefaultMutableTreeNode(menuName.get(j)));
@@ -413,7 +413,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 				e1.printStackTrace();
 			};
 		}
-		
+
 		if(e.getSource()==button_6){
 			try {
 				this.jTableRefresh(new MenuDao().menuAllPart());
@@ -422,7 +422,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 				e1.printStackTrace();
 			}
 		}
-		
+
 		if(e.getSource()==button_1){ // 저장
 			MenuDto menuDto = new MenuDto();
 			System.out.println(menuDto.toString());

@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import service.LoginSevice;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import view2.CRM_MainView2;
+import view2.CRM_MainView;
 import view2.CustomerMainView;
 import view2.MenuManageView;
 import view2.OrderMainView;
@@ -427,7 +427,7 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				}else{}
 				
 				if(e.getSource()==jButton5) {
-					CRM_MainView2 cRm_MainView2 = new CRM_MainView2();
+					CRM_MainView cRm_MainView = new CRM_MainView();
 				}else{}
 			}
 
