@@ -32,7 +32,7 @@ public class TestHJ {
 		//Login login = new Login();
 		//boolean test = login.login("mirror4ego", "1234");
 
-		UserSelectView userSelectView = new UserSelectView();
+		//UserSelectView userSelectView = new UserSelectView();
 		
 		
 

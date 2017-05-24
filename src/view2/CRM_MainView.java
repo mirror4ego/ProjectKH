@@ -5,9 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,12 +26,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 
+import service.Exam02;
+import service.Exam03;
+import service.Exam04;
+import service.Exam05;
+import service.Exam06;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CRM_MainView extends JFrame implements MouseListener{
+public class CRM_MainView extends JFrame implements MouseListener,ActionListener{
 
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();
@@ -281,32 +288,42 @@ public class CRM_MainView extends JFrame implements MouseListener{
 
 		tabbedPane_2.addTab("ㅇ종류별", null, panel_A, null);//a통계
 		panel_A.add(JTextArea_A);
-		imageA = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\icon.jpg");  //이미지 경로
-		  lb_A = new JLabel("이미지를 넣자",imageA,JLabel.CENTER);
+		imageA = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\A.png");  //이미지 경로
+		  lb_A = new JLabel(imageA,JLabel.CENTER);
 		  panel_A.add(lb_A);
 		
 		tabbedPane_2.addTab("ㅇ 월별", null, panel_B, null);//b통계
 		panel_B.add(JTextArea_B);
-		 imageB = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\icon.jpg");  //이미지 경로
-		  lb_B = new JLabel("이미지를 넣자",imageB,JLabel.CENTER);
+		String imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\3.png";
+		//ImageIcon객체를 생성
+		ImageIcon originIcon = new ImageIcon(imgPath);  
+		//ImageIcon에서 Image를 추출
+		Image originImg = originIcon.getImage(); 
+		//추출된 Image의 크기를 조절하여 새로운 Image객체 생성
+		Image changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
+		//새로운 Image로 ImageIcon객체를 생성
+		ImageIcon Icon = new ImageIcon(changedImg);
+
+		 //imageB = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\3.png");  //이미지 경로
+		  lb_B = new JLabel(Icon,JLabel.CENTER);
 		  panel_B.add(lb_B);
 		  
 		tabbedPane_2.addTab("ㅇ 세대별", null, panel_C, null);//c통계
 		panel_C.add(JTextArea_C);
 		imageC = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\icon.jpg");  //이미지 경로
-		  lb_C = new JLabel("이미지를 넣자",imageC,JLabel.CENTER);
+		  lb_C = new JLabel(imageC,JLabel.CENTER);
 		  panel_C.add(lb_C);
 		  
 		tabbedPane_2.addTab("ㅇ 재방문률", null, panel_D, null);//d통계
 		panel_D.add(JTextArea_D);
-		imageD = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\icon.jpg");  //이미지 경로
-		  lb_D = new JLabel("이미지를 넣자",imageD,JLabel.CENTER);
+		imageD = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\D.png");  //이미지 경로
+		  lb_D = new JLabel(imageD,JLabel.CENTER);
 		  panel_D.add(lb_D);
 		  
 		tabbedPane_2.addTab("ㅇ주문지역별", null, panel_E, null);//e통계
 		panel_E.add(JTextArea_E);
-		imageE = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\icon.jpg");  //이미지 경로
-		  lb_E = new JLabel("이미지를 넣자",imageE,JLabel.CENTER);
+		imageE = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\E.png");  //이미지 경로
+		  lb_E = new JLabel(imageE,JLabel.CENTER);
 		  panel_E.add(lb_E);
 		/*
 		label_26.setHorizontalAlignment(SwingConstants.CENTER);
@@ -344,6 +361,11 @@ public class CRM_MainView extends JFrame implements MouseListener{
 	}
 	void start() {
 		button_2.addMouseListener(this);
+		button_A.addActionListener(this);
+		button_B.addActionListener(this);
+		button_C.addActionListener(this);
+		button_D.addActionListener(this);
+		button_E.addActionListener(this);
 	}
 
 	@Override
@@ -351,6 +373,45 @@ public class CRM_MainView extends JFrame implements MouseListener{
 		if(e.getSource()==button_2){
 			this.dispose();
 		}
+	}
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==button_A){
+			try {
+				Exam02 ex02= new Exam02();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(e.getSource()==button_B){
+			javafx.application.Application.launch(Exam03.class);
+		}else if(e.getSource()==button_C){
+			try {
+				Exam04 ex04 = new Exam04();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(e.getSource()==button_E){
+			Exam05 ex = new Exam05();
+		}else if(e.getSource()==button_D){
+			try {
+				Exam06 ex = new Exam06();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
 	}
 
 	@Override
