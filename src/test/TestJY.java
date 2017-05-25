@@ -3,7 +3,6 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.LoginView;
 import view2.CustomerMainView;
 
 
@@ -12,7 +11,7 @@ public class TestJY {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		//MenuManageView menuManageView = new MenuManageView();
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
-		LoginView loginView = new LoginView();
+		//LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();
 		//userIsnfoDao.selectAll();
@@ -26,7 +25,7 @@ public class TestJY {
 		//OrderListMiniView orderRegView = new OrderListMiniView();
 		//(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
 		//OrderMainView OrderMainView = new OrderMainView();
-//		new MenuDao().searchMenu("훈제닭1");
+		//new MenuDao().searchMenu("훈제닭1");
 		//UserListView UserListView = new UserListView();
 	}
 }

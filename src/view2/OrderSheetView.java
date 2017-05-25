@@ -34,7 +34,6 @@ import dao.MenuDao;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import java.awt.Component;
 
 public class OrderSheetView extends JFrame implements MouseListener {
 	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
@@ -135,7 +134,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_27 = new JLabel();
 	private final JLabel lblNewLabel_2 = new JLabel("분");
 
-
+	Vector vector2 = new Vector();
 	Vector menuAllSelectedVector = new Vector();
 	
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
@@ -152,7 +151,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
 		this.setResizable(false);
 		this.setVisible(true);
-
+		getColumn1();
 		int customerNum = customerDto.getCustomerNum();
 		String a = customerDto.getCustomerAddState();
 		String b = customerDto.getCustomerAddCity();
@@ -630,8 +629,15 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		vector1.add("메뉴이름");
 		vector1.add("메뉴가격");
 		vector1.add("메뉴분류");
-		vector1.add("메뉴수량");
 		return vector1;
+	}
+	
+	public Vector getColumn1(){
+		vector2.add("메뉴이름");
+		vector2.add("메뉴가격");
+		vector2.add("메뉴분류");
+		vector2.add("메뉴수량");
+		return vector2;
 	}
 	
 
@@ -644,8 +650,8 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	
 	public void jTableRefresh1(Vector menuDto) throws ClassNotFoundException, SQLException{
 		DefaultTableModel model = new DefaultTableModel();
-		System.out.println(vector1);
-		model.setDataVector(menuDto, vector1);
+		System.out.println(vector2);
+		model.setDataVector(menuDto, vector2);
 		table_1.setModel(model);
 	}
 	
