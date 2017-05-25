@@ -51,7 +51,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JPanel panel = new JPanel();
 	private final JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 	private final JPanel panel_1 = new JPanel();
-	private final JLabel lblNewLabel = new JLabel("설명 및 안내");
+	private final JLabel lblNewLabel = new JLabel("직원관리");
 	private final JComboBox comboBox = new JComboBox();
 	private final JTextField textField = new JTextField();
 	private final JButton btnNewButton = new JButton("검색");
@@ -260,14 +260,19 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		btnNewButton_7.setBounds(875, 601, 97, 48);
 
 		getContentPane().add(btnNewButton_7);
-		panel_2.setBounds(0, 0, 1264, 39);
+		panel_2.setBounds(0, 0, 1264, 52);
 		panel_2.setBackground(Color.BLACK);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
-		lblNewLabel.setBounds(12, 10, 960, 26);
+		lblNewLabel.setBounds(84, 0, 56, 26);
 		panel_2.add(lblNewLabel);
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setForeground(Color.WHITE);
+		
+		JLabel lblNewLabel_17 = new JLabel("매장 신규, 기존 직원들의 정보를 관리하는 곳입니다.");
+		lblNewLabel_17.setForeground(Color.WHITE);
+		lblNewLabel_17.setBounds(84, 27, 305, 15);
+		panel_2.add(lblNewLabel_17);
 		tabbedPane_2.setBounds(285, 341, 687, 250);
 
 		getContentPane().add(tabbedPane_2);
