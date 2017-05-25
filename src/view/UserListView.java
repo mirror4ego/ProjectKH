@@ -8,13 +8,16 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,12 +26,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import dao.UserInfoDao;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 import java.awt.Component;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 
 
 public class UserListView extends JFrame implements MouseListener,ItemListener{
@@ -82,7 +91,44 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JComboBox comboBox_4 = new JComboBox();
 	private final JComboBox comboBox_5 = new JComboBox();
 	private final JTextField textField_6 = new JTextField();
-	private final JComboBox comboBox_6 = new JComboBox();
+	private JSpinner jSpinner1 = new JSpinner();
+	
+	
+	
+	/* 
+	 public class SpinnerTest{
+	 public static void main(String[] args){
+	 Date now = new Date();
+	 final SpinnerDateModel model = new SpinnerDateModel(now, null, now, Calendar.DAY_(JSpinner spinner = new JSpinner(model);
+	 final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	 
+	 JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner,"yyyy-MM-dd");
+	 JFormattedField ftf = editor = editor.getTextField();
+	 ftf.setEditable(false);
+	 ftf.setHorizontalAlignment(JTextField.CENTER);
+	 
+	 ftf.setBackground(new Color(255,255,255));
+	 spinner.setEditor(editor);
+	 spinner.addChangeListener(new ChangeListener(){
+	 public void stateChanged(ChangeEvent e){
+	 Date value = (Date)model.getValue();
+	 Date next = (Date)model.getNextValue();
+	 if(value != null && next != null)
+	 System.out.println("value = "+df.format(value) + "\t" + "next = " + df.format(next));
+	 	}
+	 });
+	 JPanel panel = new JPanel();
+	 panel.add(spinner);
+	 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 f.getContentPane().add(panel);
+	 f.setSize(250,100);
+	 f.setLocation(200,200);
+	 f.setVisible(true);
+	 	}
+	 }
+	 
+	 */
+	 
 	private final JComboBox comboBox_7 = new JComboBox();
 	private final JComboBox comboBox_8 = new JComboBox();
 	private final JButton btnNewButton_9 = new JButton("설정");
@@ -90,10 +136,10 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JList list_1 = new JList();
 	private final JList list_2 = new JList();
 	private final JLabel lblNewLabel_5 = new JLabel(" ~");
-	private final JComboBox comboBox_9 = new JComboBox();
+	private final JTextField comboBox_9 = new JTextField();
 	private final JLabel lblNewLabel_12 = new JLabel("주소는 읍면동 단위까지 상세히 기입 해주세요.");
 	private final JPanel panel_2 = new JPanel();
-	private JTextField textField_7;
+	private JPasswordField textField_7;
 	JLabel label = new JLabel("비밀번호");
 	JButton btnNewButton_8 = new JButton("X");
 	JComboBox comboBox_2 = new JComboBox();
@@ -112,7 +158,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
-
+		spinnerWork();
 		init();
 		start();
 		setSize(1000,700);
@@ -126,6 +172,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getColumn();
 		this.jTableRefresh(new UserInfoDao().userInfoAllPart());
+
 	}
 
 	void init() {
@@ -188,9 +235,12 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(textField_2);
 		textField_2.setForeground(Color.BLACK);
 		textField_2.setColumns(10);
-		comboBox_6.setBounds(395, 22, 268, 21);
-		panel_1.add(comboBox_6);
-		comboBox_6.setForeground(Color.BLACK);
+		jSpinner1.setBounds(395, 22, 268, 21);
+		panel_1.add(jSpinner1);
+		jSpinner1.setForeground(Color.BLACK);
+		
+		
+		
 		comboBox_7.setBounds(395, 59, 187, 21);
 		panel_1.add(comboBox_7);
 		comboBox_7.addItem("분류");
@@ -208,18 +258,17 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		btnNewButton_9.setForeground(Color.BLACK);
 		label.setBounds(12, 78, 57, 15);
 		panel_1.add(label);
-		
-
+		((JLabel)comboBox_7.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); //콤보박스에 없는 정렬기능을 라벨에는 있는 정렬기능으로 형변환 시켜서 강제 중앙정렬
 		label.setForeground(Color.WHITE);
 
-		textField_7 = new JTextField();
+		textField_7 = new JPasswordField();
 		textField_7.setBounds(72, 75, 250, 21);
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
 		comboBox_8.setBounds(395, 98, 187, 21);
 		panel_1.add(comboBox_8);
 		comboBox_8.addItem("분류");
-		
+		((JLabel)comboBox_8.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); //콤보박스에 없는 정렬기능을 라벨에는 있는 정렬기능으로 형변환 시켜서 강제 중앙정렬
 		comboBox_8.addItem("주문관리");
 		comboBox_8.addItem("매장관리");
 		comboBox_8.addItem("서빙");
@@ -243,6 +292,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_5.setBounds(188, 132, 21, 21);
 		panel_1.add(lblNewLabel_5);
 		lblNewLabel_5.setForeground(Color.WHITE);
+		comboBox_9.setEditable(false);
 		comboBox_9.setBounds(395, 134, 269, 21);
 		panel_1.add(comboBox_9);
 		comboBox_9.setForeground(Color.BLACK);
@@ -294,7 +344,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		getContentPane().add(tabbedPane_2);
 		panel_3.setBackground(Color.DARK_GRAY);
 
-		tabbedPane_2.addTab("New tab", null, panel_3, null);
+		tabbedPane_2.addTab("신상정보", null, panel_3, null);
 		panel_3.setLayout(null);
 
 		textField_1 = new JTextField();
@@ -440,6 +490,29 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		return vector3;
 	}
 
+	void spinnerWork(){
+	Date now = new Date();
+	final SpinnerDateModel model = new SpinnerDateModel(now, null, now, Calendar.DATE);
+			jSpinner1 = new JSpinner(model);
+	final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+	JSpinner.DateEditor editor = new JSpinner.DateEditor(jSpinner1,"yyyy-MM-dd");
+	JFormattedTextField ftf = editor.getTextField();
+	ftf.setEditable(false);
+	ftf.setHorizontalAlignment(JTextField.CENTER);
+
+	ftf.setBackground(new Color(255,255,255));
+	jSpinner1.setEditor(editor);
+	jSpinner1.addChangeListener(new ChangeListener(){
+		public void stateChanged(ChangeEvent e){
+			Date value = (Date)model.getValue();
+			Date next = (Date)model.getNextValue();
+			if(value != null && next != null)
+				System.out.println("value = "+df.format(value) + "\t" + "next = " + df.format(next));
+		}
+	});
+
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -674,11 +747,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 
 
 	}
-	public void itemStateChanged2(ItemEvent f) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	/*
 	 * (서울 강남구)
 	 * {"읍/면/동","개포동","논현동","대치동","도곡동","삼성동","세곡동","수서동","신사동","압구정동","역삼동","율현동","일원동","자곡동","청담동"}

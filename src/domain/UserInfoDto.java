@@ -25,45 +25,59 @@ public class UserInfoDto {
 		this.userInfoHireDate = userInfoHireDate;
 	}
 
+	
 	public String getUserInfoId() {
 		return userInfoId;
 	}
+
 	public void setUserInfoId(String userInfoId) {
 		this.userInfoId = userInfoId;
 	}
+
 	public String getUserInfoPassword() {
 		return userInfoPassword;
 	}
+
 	public void setUserInfoPassword(String userInfoPassword) {
 		this.userInfoPassword = userInfoPassword;
 	}
+
 	public String getUserInfoName() {
 		return userInfoName;
 	}
+
 	public void setUserInfoName(String userInfoName) {
 		this.userInfoName = userInfoName;
 	}
+
 	public int getUserInfoNum() {
 		return userInfoNum;
 	}
+
 	public void setUserInfoNum(int userInfoNum) {
 		this.userInfoNum = userInfoNum;
 	}
+
 	public String getUserInfoAddress() {
 		return userInfoAddress;
 	}
+
 	public void setUserInfoAddress(String userInfoAddress) {
 		this.userInfoAddress = userInfoAddress;
 	}
+
 	public int getUserInfoPhone() {
 		return userInfoPhone;
 	}
+
 	public void setUserInfoPhone(int userInfoPhone) {
 		this.userInfoPhone = userInfoPhone;
 	}
+
 	public String getUserInfoEmail() {
 		return userInfoEmail;
 	}
+
 	public void setUserInfoEmail(String userInfoEmail) {
 		this.userInfoEmail = userInfoEmail;
 	}
