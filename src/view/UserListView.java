@@ -211,7 +211,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 
 		scrollPane.setBounds(8, 37, 245, 484);
 		panel.add(scrollPane);
-		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 		tabbedPane_1.setBounds(285, 133, 687, 201);
 
 		getContentPane().add(tabbedPane_1);
@@ -235,12 +235,19 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(textField_2);
 		textField_2.setForeground(Color.BLACK);
 		textField_2.setColumns(10);
+<<<<<<< HEAD
 		jSpinner1.setBounds(395, 22, 268, 21);
 		panel_1.add(jSpinner1);
 		jSpinner1.setForeground(Color.BLACK);
 		
 		
 		
+=======
+		comboBox_6.setBounds(395, 22, 268, 21);
+		panel_1.add(comboBox_6);
+		comboBox_6.setForeground(Color.BLACK);
+		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"111"}));
+>>>>>>> 1de47460ce0c14c229a78029204be9e2ace07923
 		comboBox_7.setBounds(395, 59, 187, 21);
 		panel_1.add(comboBox_7);
 		comboBox_7.addItem("분류");
@@ -253,6 +260,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		comboBox_7.addItem("물류기사");
 		
 		comboBox_7.setForeground(Color.BLACK);
+		
+		comboBox_7.getRenderer();
 		btnNewButton_9.setBounds(594, 60, 69, 23);
 		panel_1.add(btnNewButton_9);
 		btnNewButton_9.setForeground(Color.BLACK);

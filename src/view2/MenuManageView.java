@@ -185,7 +185,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 		table = new JTable();
 		table.setBounds(0, 0, 532, 588);
-		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.GRAY));

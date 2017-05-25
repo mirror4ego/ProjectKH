@@ -125,8 +125,9 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private final JLabel label_32 = new JLabel();
 	private JTable table;
 	Vector vector1 = new Vector();
+	Vector vector2 = new Vector();
 
-	public OrderMainView() {
+	public OrderMainView() throws ClassNotFoundException, SQLException {
 		super("주문내역 관리");
 		SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 		SetUiFont setUiFont = new SetUiFont();
@@ -143,8 +144,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
 		getColumn();
-		//jTableRefresh();
-		
+		jTableRefresh(vector1);
 	}
 
 	void init() {
@@ -579,17 +579,15 @@ public class OrderMainView extends JFrame implements MouseListener{
 		table.addMouseListener(this);
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getSource()==button_2){
-			this.dispose();
-		}
-	}
+	public void jTableRefresh(Vector orderInfoDto) throws ClassNotFoundException, SQLException{
 
-	public void jTableRefresh(Vector userInfoDto) throws ClassNotFoundException, SQLException{
-		DefaultTableModel model = new DefaultTableModel();
 		System.out.println(vector1);
-		model.setDataVector(userInfoDto, vector1);
+		Vector v = new Vector();
+
+
+		DefaultTableModel model = new DefaultTableModel();
+		model.setDataVector(vector2, vector1);
+		//model.setDataVector(orderInfoDto, vector1);
 		table.setModel(model);
 	}
 	
@@ -599,6 +597,13 @@ public class OrderMainView extends JFrame implements MouseListener{
 		vector1.add("고객전화");
 		vector1.add("주문번호");
 		return vector1;
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource()==button_2){
+			this.dispose();
+		}
 	}
 
 	@Override

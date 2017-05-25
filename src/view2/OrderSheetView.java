@@ -134,9 +134,10 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_27 = new JLabel();
 	private final JLabel lblNewLabel_2 = new JLabel("분");
 
+	Vector vector11 = new Vector();
 	Vector vector2 = new Vector();
 	Vector menuAllSelectedVector = new Vector();
-	
+
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
 		this.init();
@@ -185,7 +186,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		textField_11.setEditable(false);
 		textField_11.setText(format.format(today));
 		lblNewLabel_2.setBounds(446, 46, 33, 25);
-		
+
 		panel.add(lblNewLabel_2);
 		lblNewLabel.setText(format.format(today));
 		label_27.setBounds(35, 12, 32, 32);
@@ -199,11 +200,10 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		textField_13.setEditable(false);
 		textField_13.setText(String.valueOf(customerReceivable));
 		button_5.setBounds(192, 10, 56, 25);
-		
 		panel_2.add(button_5);
-		
-		this.getColumn();
-		this.jTableRefresh(new MenuDao().menuAllPart());
+
+		getColumn();
+		jTableRefresh(new MenuDao().menuAllPart());
 	}
 
 	void init() {
@@ -252,7 +252,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		scrollPane_3.setBounds(12, 10, 455, 156);
 		panel_5.add(scrollPane_3);
 
-		scrollPane_3.setColumnHeaderView(table_1);
+		scrollPane_3.setViewportView(table_1);
 		textField.setColumns(10);
 		textField.setBounds(79, 176, 171, 25);
 
@@ -297,33 +297,33 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		label_22.setBackground(Color.GRAY);
 		label_22.setAlignmentX(0.5f);
 		label_22.setBounds(12, 10, 67, 25);
-		
+
 		panel_11.add(label_22);
 		label_24.setHorizontalAlignment(SwingConstants.CENTER);
 		label_24.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		label_24.setBackground(Color.GRAY);
 		label_24.setAlignmentX(0.5f);
 		label_24.setBounds(12, 34, 67, 25);
-		
+
 		panel_11.add(label_24);
 		label_25.setHorizontalAlignment(SwingConstants.CENTER);
 		label_25.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		label_25.setBackground(Color.GRAY);
 		label_25.setAlignmentX(0.5f);
 		label_25.setBounds(12, 69, 67, 25);
-		
+
 		panel_11.add(label_25);
 		label_26.setHorizontalAlignment(SwingConstants.CENTER);
 		label_26.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		label_26.setBackground(Color.GRAY);
 		label_26.setAlignmentX(0.5f);
 		label_26.setBounds(12, 93, 67, 25);
-		
+
 		panel_11.add(label_26);
 		txtEx.setText("ex) 2017-05-04/18:30");
 		txtEx.setColumns(10);
 		txtEx.setBounds(79, 10, 389, 25);
-		
+
 		panel_11.add(txtEx);
 
 
@@ -338,7 +338,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		label_23.setBackground(Color.GRAY);
 		label_23.setAlignmentX(0.5f);
 		label_23.setBounds(12, 10, 67, 25);
-		
+
 		panel_4.add(label_23);
 
 		tabbedPane_1.setBounds(12, 10, 484, 125);
@@ -510,7 +510,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		scrollPane.setBounds(12, 56, 296, 553);
 		panel_1.add(scrollPane);
 
-		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 		panel_9.setBounds(12, 10, 296, 35);
 		panel_1.add(panel_9);
 		panel_9.setLayout(null);
@@ -548,12 +548,12 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		tabbedPane_4.addTab("3일간 주문상품", null, scrollPane_1, null);
 
 		table_2 = new JTable();
-		scrollPane_1.setColumnHeaderView(table_2);
+		scrollPane_1.setViewportView(table_2);
 
 		tabbedPane_4.addTab("한달간 주문상품", null, scrollPane_2, null);
 
 		table_3 = new JTable();
-		scrollPane_2.setColumnHeaderView(table_3);
+		scrollPane_2.setViewportView(table_3);
 		label_10.setHorizontalAlignment(SwingConstants.CENTER);
 		label_10.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.GRAY));
 		label_10.setBackground(Color.GRAY);
@@ -581,7 +581,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		panel_2.add(scrollPane_4);
 
 		table_4 = new JTable();
-		scrollPane_4.setColumnHeaderView(table_4);
+		scrollPane_4.setViewportView(table_4);
 		textField_13.setColumns(10);
 		textField_13.setBounds(79, 10, 90, 25);
 
@@ -624,14 +624,14 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		btnNewButton.addMouseListener(this);
 		table.addMouseListener(this);
 	}
-	
+
 	public Vector getColumn(){
 		vector1.add("메뉴이름");
 		vector1.add("메뉴가격");
 		vector1.add("메뉴분류");
 		return vector1;
 	}
-	
+
 	public Vector getColumn1(){
 		vector2.add("메뉴이름");
 		vector2.add("메뉴가격");
@@ -639,22 +639,20 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		vector2.add("메뉴수량");
 		return vector2;
 	}
-	
 
 	public void jTableRefresh(Vector menuDto) throws ClassNotFoundException, SQLException{
 		DefaultTableModel model = new DefaultTableModel();
-		System.out.println(vector1);
 		model.setDataVector(menuDto, vector1);
 		table.setModel(model);
 	}
-	
+
 	public void jTableRefresh1(Vector menuDto) throws ClassNotFoundException, SQLException{
 		DefaultTableModel model = new DefaultTableModel();
 		System.out.println(vector2);
 		model.setDataVector(menuDto, vector2);
 		table_1.setModel(model);
 	}
-	
+
 	public void realTime() {
 		Calendar cal = Calendar.getInstance();
 		try{
@@ -664,7 +662,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			}else{
 				ampm= "PM";
 			}
-			String nowTime = cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH)+1) + "월 " + cal.get(Calendar.DATE) + "일  " +
+			String nowTime = cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH)+1) + "월 " + cal.get(Calendar.DATE) + "일 " +
 					ampm + " " + cal.get(Calendar.HOUR) + "시 " + cal.get(Calendar.MINUTE) + "분 " + cal.get(Calendar.SECOND) + "초 ";
 
 			lblNewLabel.setText(nowTime);
@@ -673,17 +671,26 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			e.printStackTrace();
 		}
 	}
+	
+	public void getAllFieldData() {
+		//고객 테이블에 들어가야할 내용
+		
+		//주문정보 테이블에 들어가야할 내용
+		
+		//주문아이템 테이블에 들어가야할 내용
+		//
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==btnNewButton){
 			this.dispose();
 		}
-		
+
 		if(e.getSource()==table){
 			int r = table.getSelectedRow();
 			String menuName = String.valueOf(table.getValueAt(r, 0));
-			int menuPrice = (int) table.getValueAt(r, 1);
+			int menuPrice = Integer.parseInt(String.valueOf(table.getValueAt(r, 1)));
 			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
 			System.out.println("1");
 			Vector menuSelectedVector = new Vector();
@@ -693,7 +700,6 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			menuSelectedVector.add(1);
 			menuAllSelectedVector.add(menuSelectedVector);
 
-					
 			try {
 				jTableRefresh1(menuAllSelectedVector);
 			} catch (ClassNotFoundException | SQLException e1) {
@@ -711,15 +717,25 @@ public class OrderSheetView extends JFrame implements MouseListener {
 				int subSum = (price * num);
 
 				sum += subSum;
-				
+
 				textField.setText(String.valueOf(sum));
 				textField_1.setText(String.valueOf(sum-discount));
 			}
+		}
+
+		if(e.getSource()==button){
+			//주문서를 작성하고 저장
+			//트랜잭션 처리
+			//1. 일반 orderinfo에 작성될 것 먼저 처리
+			//2. 주문번호를 매개로 orderItem에 주문메뉴 목록 전송 처리
+			//1,2 과정을 트랜잭션 처리
+			//트랜잭션 처리 과정에서 문제가 생기면 롤백하고 어느 과정에서 문제가 생겼는지 다이얼로그로 알려줌
+			//완료 되면 메세지
 			
 			
 		}
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	@Override
