@@ -8,13 +8,13 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
-import domain.CustomerDto;
 import domain.UserInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
 
 public class UserInfoDao {
 	private ConnectionMaker connectionMaker;
+	Vector<Comparable> vector1 = new Vector();
 
 	public UserInfoDao() {
 		connectionMaker = new ConnectionMakerKH();
@@ -70,7 +70,18 @@ System.out.println(rs.getRow());
 		ps.close();
 		c.close();
 		System.out.println(vs);
+		
 		return vs;
+	}
+	
+	public UserInfoDto searchUserInfoId(String userInfoId) throws ClassNotFoundException, SQLException {
+		UserInfoDto userInfoDto = new UserInfoDto();
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Id = ?");
+		
+		
+		
+		return userInfoDto;
 	}
 	
 
@@ -97,6 +108,10 @@ System.out.println(rs.getRow());
 		}
 		return data;
 	}
+	
+ 
+
+	
 	public UserInfoDto get(String userInfoId) throws ClassNotFoundException, SQLException { // 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 

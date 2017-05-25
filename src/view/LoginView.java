@@ -423,7 +423,12 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				}else{}
 
 				if(e.getSource()==jButton3) {
-					OrderMainView orderMainView = new OrderMainView();
+					try {
+						OrderMainView orderMainView = new OrderMainView();
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}else{}
 				
 				if(e.getSource()==jButton5) {
