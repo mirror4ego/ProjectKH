@@ -112,3 +112,4 @@ public class Exam04 extends JFrame {
 		}
 
 	}
+}
