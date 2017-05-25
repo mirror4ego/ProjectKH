@@ -26,7 +26,7 @@ public class TestSH {
 		//boolean test = login.login("mirror4ego", "1234");
 
 		//UserSelectView userSelectView = new UserSelectView();
-		UserListView userSelectView = new UserListView();
+		UserListView userListView = new UserListView();
 		
 		
 
