@@ -341,7 +341,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_3.add(textField_6);
 		textField_6.setForeground(Color.BLACK);
 		textField_6.setColumns(10);
-		lblNewLabel_12.setBounds(72, 104, 273, 21);
+		lblNewLabel_12.setBounds(72, 106, 273, 21);
 		panel_3.add(lblNewLabel_12);
 		lblNewLabel_12.setForeground(Color.WHITE);
 		
@@ -351,13 +351,18 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(Color.DARK_GRAY);
-		tabbedPane_3.addTab("캘린더", null, panel_4, null);
+		tabbedPane_3.addTab("공지사항", null, panel_4, null);
 		panel_4.setLayout(null);
-		lblNewLabel_15.setForeground(Color.WHITE);
 		lblNewLabel_15.setBounds(12, 10, 102, 15);
+		lblNewLabel_15.setForeground(Color.WHITE);
 		
 		panel_4.add(lblNewLabel_15);
 		lblNewLabel_15.setText(format.format(today));
+		
+		JLabel lblNewLabel_16 = new JLabel("복지, 고용보험, 산재보험 관련 문의는 고객센터로 문의 주세요.");
+		lblNewLabel_16.setForeground(Color.WHITE);
+		lblNewLabel_16.setBounds(115, 10, 556, 15);
+		panel_4.add(lblNewLabel_16);
 
 
 	}
