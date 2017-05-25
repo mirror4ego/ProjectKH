@@ -1,5 +1,6 @@
 package setting;
 
+<<<<<<< HEAD
 import java.awt.Component;
 
 import javax.swing.JLabel;
@@ -20,4 +21,8 @@ class ComboBoxRenderer extends JLabel implements ListCellRenderer {
 		return null;
 	}
 	
+=======
+public class ComboBoxRenderer {
+
+>>>>>>> db8af9a8da223763f75a7770f6ea5b187442caa3
 }
