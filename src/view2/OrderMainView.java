@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,11 +24,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
 
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class OrderMainView extends JFrame implements MouseListener{
 
@@ -123,6 +124,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JLabel label_8 = new JLabel("주문서를 관리(검색, 삭제) 하는 곳입니다.");
 	private final JLabel label_32 = new JLabel();
 	private JTable table;
+	Vector vector1 = new Vector();
 
 	public OrderMainView() {
 		super("주문내역 관리");
@@ -140,8 +142,10 @@ public class OrderMainView extends JFrame implements MouseListener{
 		this.setResizable(false);
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
+		getColumn();
+		//jTableRefresh();
+		
 	}
-
 
 	void init() {
 		tabbedPane.setBounds(10, 62, 376, 620);
@@ -224,17 +228,15 @@ public class OrderMainView extends JFrame implements MouseListener{
 		panel_7.add(label_1);
 
 		panel_12.setLayout(null);
-		panel_12.setBackground(Color.BLUE);
+		panel_12.setBackground(new Color(65, 105, 225));
 		panel_12.setBounds(0, 0, 1280, 55);
 		getContentPane().add(panel_12);
-
 
 		label_7.setForeground(Color.WHITE);
 		label_7.setBounds(88, 6, 133, 20);
 		panel_12.add(label_7);
 
-
-		label_8.setForeground(Color.LIGHT_GRAY);
+		label_8.setForeground(new Color(135, 206, 250));
 		label_8.setBounds(88, 28, 297, 20);
 		panel_12.add(label_8);
 		label_32.setBounds(35, 12, 32, 32);
@@ -264,7 +266,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 		tabbedPane_1.setBounds(12, 145, 484, 273);
 
 		panel_1.add(tabbedPane_1);
-		///////////////
 		panel_4.setLayout(null);
 
 		tabbedPane_1.addTab("ㅇ주문내역", null, panel_4, null);
@@ -563,7 +564,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 		getContentPane().add(panel_11);
 		panel_11.setLayout(new GridLayout(2, 2, 2, 2));
 
-
 		panel_11.add(button_7);
 
 		panel_11.add(button_6);
@@ -576,13 +576,29 @@ public class OrderMainView extends JFrame implements MouseListener{
 
 	void start() {
 		button_2.addMouseListener(this);
+		table.addMouseListener(this);
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==button_2){
 			this.dispose();
 		}
+	}
+
+	public void jTableRefresh(Vector userInfoDto) throws ClassNotFoundException, SQLException{
+		DefaultTableModel model = new DefaultTableModel();
+		System.out.println(vector1);
+		model.setDataVector(userInfoDto, vector1);
+		table.setModel(model);
+	}
+	
+	public Vector getColumn(){
+		vector1.add("주문일시");
+		vector1.add("고객번호");
+		vector1.add("고객전화");
+		vector1.add("주문번호");
+		return vector1;
 	}
 
 	@Override
