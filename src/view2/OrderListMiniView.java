@@ -1,26 +1,24 @@
 package view2;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import dao.CustomerDao;
-import dao.UserInfoDao;
+import dao.OrderInfoDao;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
 public class OrderListMiniView extends JFrame implements MouseListener{
 
@@ -63,7 +61,8 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
 		this.getColumn();
-		this.jTableRefresh(new CustomerDao().customerAllPart());
+		
+		this.jTableRefresh(new OrderInfoDao().orderInfoOneCustomer(customerNum));
 		textField.setText(String.valueOf(customerNum));
 		textField_1.setText(String.valueOf(customerPhoneNum));
 		
@@ -137,9 +136,10 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 	}
 
 	public Vector getColumn(){
-		vector3.add("주문일시");
-		vector3.add("상품명");
-		vector3.add("금액");
+		vector3.add("주문번호");
+		vector3.add("주문일자");
+		vector3.add("고객번호");
+		vector3.add("직원번호");
 		return vector3;
 	}
 	
