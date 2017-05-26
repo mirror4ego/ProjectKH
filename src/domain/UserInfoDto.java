@@ -6,11 +6,20 @@ public class UserInfoDto {
 	private String userInfoPassword;
 	private String userInfoName;
 	private int userInfoNum;
-	private String userInfoAddress;
+	private String userInfotask;
 	private int userInfoPhone;
 	private String userInfoEmail;
 	private String userInfoHireDate;
-
+	private String userInfogoto;
+	private String userInfoleave;
+	private String userInfoemploystatus;
+	private String empadd;
+	private String empadd1;
+	private String empadd2;
+	private String empadd3;
+	private String userInfoGender;
+	
+	
 	public UserInfoDto() {}
 
 	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoAddress,
@@ -19,13 +28,94 @@ public class UserInfoDto {
 		this.userInfoPassword = userInfoPassword;
 		this.userInfoName = userInfoName;
 		this.userInfoNum = userInfoNum;
-		this.userInfoAddress = userInfoAddress;
+		this.userInfotask = userInfotask;
 		this.userInfoPhone = userInfoPhone;
 		this.userInfoEmail = userInfoEmail;
 		this.userInfoHireDate = userInfoHireDate;
+		this.userInfogoto = userInfogoto;
+		this.userInfoleave = userInfoleave;
+		this.userInfoemploystatus = userInfoemploystatus;
+		this.empadd = empadd;
+		this.empadd1 = empadd1;
+		this.empadd2 = empadd2;
+		this.empadd3 = empadd3;
+		this.userInfoGender = userInfoGender;
+		
 	}
 
 	
+	public String getUserInfotask() {
+		return userInfotask;
+	}
+
+	public void setUserInfotask(String userInfotask) {
+		this.userInfotask = userInfotask;
+	}
+
+	public String getUserInfogoto() {
+		return userInfogoto;
+	}
+
+	public void setUserInfogoto(String userInfogoto) {
+		this.userInfogoto = userInfogoto;
+	}
+
+	public String getUserInfoleave() {
+		return userInfoleave;
+	}
+
+	public void setUserInfoleave(String userInfoleave) {
+		this.userInfoleave = userInfoleave;
+	}
+
+	public String getUserInfoemploystatus() {
+		return userInfoemploystatus;
+	}
+
+	public void setUserInfoemploystatus(String userInfoemploystatus) {
+		this.userInfoemploystatus = userInfoemploystatus;
+	}
+
+	public String getEmpadd() {
+		return empadd;
+	}
+
+	public void setEmpadd(String empadd) {
+		this.empadd = empadd;
+	}
+
+	public String getEmpadd1() {
+		return empadd1;
+	}
+
+	public void setEmpadd1(String empadd1) {
+		this.empadd1 = empadd1;
+	}
+
+	public String getEmpadd2() {
+		return empadd2;
+	}
+
+	public void setEmpadd2(String empadd2) {
+		this.empadd2 = empadd2;
+	}
+
+	public String getEmpadd3() {
+		return empadd3;
+	}
+
+	public void setEmpadd3(String empadd3) {
+		this.empadd3 = empadd3;
+	}
+
+	public String getUserInfoGender() {
+		return userInfoGender;
+	}
+
+	public void setUserInfoGender(String userInfoGender) {
+		this.userInfoGender = userInfoGender;
+	}
+
 	public String getUserInfoId() {
 		return userInfoId;
 	}
@@ -58,14 +148,6 @@ public class UserInfoDto {
 		this.userInfoNum = userInfoNum;
 	}
 
-	public String getUserInfoAddress() {
-		return userInfoAddress;
-	}
-
-	public void setUserInfoAddress(String userInfoAddress) {
-		this.userInfoAddress = userInfoAddress;
-	}
-
 	public int getUserInfoPhone() {
 		return userInfoPhone;
 	}
@@ -93,8 +175,8 @@ public class UserInfoDto {
 	@Override
 	public String toString() {
 		return "UserInfoDto [userInfoId=" + userInfoId + ", userInfoPassword=" + userInfoPassword + ", userInfoName="
-				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoAddress=" + userInfoAddress
-				+ ", userInfoPhone=" + userInfoPhone + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate="
+				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoAddress=" +
+				+ userInfoPhone + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate="
 				+ userInfoHireDate + "]";
 	}
 
