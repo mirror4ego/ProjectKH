@@ -92,43 +92,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JComboBox comboBox_5 = new JComboBox();
 	private final JTextField textField_6 = new JTextField();
 	private JSpinner jSpinner1 = new JSpinner();
-	
-	
-	
-	/* 
-	 public class SpinnerTest{
-	 public static void main(String[] args){
-	 Date now = new Date();
-	 final SpinnerDateModel model = new SpinnerDateModel(now, null, now, Calendar.DAY_(JSpinner spinner = new JSpinner(model);
-	 final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	 
-	 JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner,"yyyy-MM-dd");
-	 JFormattedField ftf = editor = editor.getTextField();
-	 ftf.setEditable(false);
-	 ftf.setHorizontalAlignment(JTextField.CENTER);
-	 
-	 ftf.setBackground(new Color(255,255,255));
-	 spinner.setEditor(editor);
-	 spinner.addChangeListener(new ChangeListener(){
-	 public void stateChanged(ChangeEvent e){
-	 Date value = (Date)model.getValue();
-	 Date next = (Date)model.getNextValue();
-	 if(value != null && next != null)
-	 System.out.println("value = "+df.format(value) + "\t" + "next = " + df.format(next));
-	 	}
-	 });
-	 JPanel panel = new JPanel();
-	 panel.add(spinner);
-	 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	 f.getContentPane().add(panel);
-	 f.setSize(250,100);
-	 f.setLocation(200,200);
-	 f.setVisible(true);
-	 	}
-	 }
-	 
-	 */
-	 
 	private final JComboBox comboBox_7 = new JComboBox();
 	private final JComboBox comboBox_8 = new JComboBox();
 	private final JButton btnNewButton_9 = new JButton("설정");
@@ -240,7 +203,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(jSpinner1);
 		jSpinner1.setForeground(Color.BLACK);
 		
-		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"111"}));
+		/*comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"111"}));*/
 
 		comboBox_7.setBounds(395, 59, 187, 21);
 		panel_1.add(comboBox_7);
@@ -457,7 +420,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		btnNewButton_1.addMouseListener(this);
 	}
 
-	/*void viewDefault(){
+/*	void viewDefault(){
 		jTextField2.setText("");
 		jTextField4.setText("");
 		jTextField3.setText("");
@@ -470,8 +433,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_2.setText("");
 		radioButton.setSelected(false);
 		rdbtnNewRadioButton.setSelected(false);
-	}*/
-
+	}
+*/
 
 
 
@@ -538,13 +501,13 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		if(e.getSource()==btnNewButton_7) {
 			this.dispose();
 		}
-
-		/*if(e.getSource()==btnf_1){
+	
+	/*	if(e.getSource()==btnf_1){
 			viewDefault();
-		}
+		}*/
 
 
-		 */
+	
 
 		if(e.getSource()==btnNewButton_1) {
 			try {
