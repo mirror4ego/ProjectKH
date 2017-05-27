@@ -82,6 +82,23 @@ public class MenuGroupDao {
 		return vector1;
 	}
 	
+	public void insertMenuGroupName(MenuGroupDto menuGroupDto) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		try{
+			PreparedStatement ps = c.prepareStatement("insert into menuGroup values (?)");
+			
+			ps.setString(1, menuGroupDto.getMenuGroupName());
+
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			JOptionPane.showMessageDialog(null, "고객정보 등록 성공");
+		}catch(Exception e) {
+			c.close();
+			JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (쿼리)");
+		}
+	}
+	
 	
 	//매개로 총 로우의 개수를 반환하는 메소드 필요
 	//모든 그룹이름과 그룹넘버를 벡터로 반환하는 메소드 필요
