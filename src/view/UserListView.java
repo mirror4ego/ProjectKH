@@ -203,11 +203,15 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(jSpinner1);
 		jSpinner1.setForeground(Color.BLACK);
 		
+<<<<<<< HEAD
 		/*comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"111"}));*/
+=======
+		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"분류"}));
+>>>>>>> c23721ad4bc426b3a17ae9839ad67d864c91d3b2
 
 		comboBox_7.setBounds(395, 59, 187, 21);
 		panel_1.add(comboBox_7);
-		comboBox_7.addItem("분류");
+		/*comboBox_7.addItem("분류");*/
 		comboBox_7.addItem("수습직");
 		comboBox_7.addItem("파견직");		
 		comboBox_7.addItem("아르바이트");
@@ -324,7 +328,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
         comboBox_1.addItem("남성");
         comboBox_1.addItem("여성");
         textField.setColumns(20);
-        textField.setEditable(false);
 		comboBox_1.setForeground(Color.BLACK);
 		
 		

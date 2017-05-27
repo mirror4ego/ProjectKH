@@ -14,7 +14,6 @@ import resources.ConnectionMakerKH;
 
 public class UserInfoDao {
 	private ConnectionMaker connectionMaker;
-	Vector<Comparable> vector1 = new Vector();
 
 	public UserInfoDao() {
 		connectionMaker = new ConnectionMakerKH();
@@ -29,9 +28,8 @@ public class UserInfoDao {
 		ps.setString(1, userInfoDto.getUserInfoId());
 		ps.setString(2, userInfoDto.getUserInfoPassword());
 		ps.setString(3, userInfoDto.getUserInfoName());
-		ps.setString(4, userInfoDto.getUserInfoAddress());
-		ps.setInt(5, userInfoDto.getUserInfoPhone());
-		ps.setString(6, userInfoDto.getUserInfoEmail());
+		ps.setInt(4, userInfoDto.getUserInfoPhone());
+		ps.setString(5, userInfoDto.getUserInfoEmail());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는 sql문은
 		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
@@ -48,12 +46,12 @@ public class UserInfoDao {
 		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Name = ?");
 		ps.setString(1,  userInfoName);
 		Vector vs = new Vector();
-		
+
 		ResultSet rs = ps.executeQuery();
-System.out.println(rs.getRow());
+		System.out.println(rs.getRow());
 		while(rs.next()){
 			Vector vs1 = new Vector();
-			
+
 			vs1.add(rs.getString("userinfo_id"));
 			vs1.add(rs.getString("userinfo_password"));
 			vs1.add(rs.getString("userinfo_name"));
@@ -62,28 +60,28 @@ System.out.println(rs.getRow());
 			vs1.add(rs.getInt("userinfo_phone"));
 			vs1.add(rs.getString("userinfo_email"));
 			vs.add(vs1);
-			
+
 		}
-	
-		
+
+
 		rs.close();
 		ps.close();
 		c.close();
 		System.out.println(vs);
-		
+
 		return vs;
 	}
-	
+
 	public UserInfoDto searchUserInfoId(String userInfoId) throws ClassNotFoundException, SQLException {
 		UserInfoDto userInfoDto = new UserInfoDto();
 		Connection c = connectionMaker.makeConnection();
 		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Id = ?");
-		
-		
-		
+
+
+
 		return userInfoDto;
 	}
-	
+
 
 	public Vector userInfoAllPart() throws ClassNotFoundException, SQLException { // 
 
@@ -100,7 +98,7 @@ System.out.println(rs.getRow());
 				row.add(rs.getString("userinfo_NAME"));
 				row.add(rs.getInt("userinfo_PHONE"));
 				row.add(rs.getString("userinfo_email"));
-				
+
 				data.add(row); 
 			}
 		} catch (Exception e) {
@@ -108,15 +106,15 @@ System.out.println(rs.getRow());
 		}
 		return data;
 	}
-	
- 
 
-	
+
+
+
 	public UserInfoDto get(String userInfoId) throws ClassNotFoundException, SQLException { // 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
 
-		
-		
+
+
 		PreparedStatement ps = c.prepareStatement("select * from userinfo where userinfo_id = ?");
 		// preparestatement메소드를 통해서 쿼리문을 날릴 준비를 함
 		ps.setString(1, userInfoId);
@@ -131,7 +129,6 @@ System.out.println(rs.getRow());
 		userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
 		userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 		userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
-		userInfoDto.setUserInfoAddress(rs.getString("userinfo_address"));
 		userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 
@@ -156,35 +153,35 @@ System.out.println(rs.getRow());
 
 	public int chkUserNum(int chkusernum) throws ClassNotFoundException, SQLException {
 
-			Connection c = connectionMaker.makeConnection();
-			c.setAutoCommit(false);
-			//int sum = 0;
-			int cnt=0;
-			try {
-				  
-				PreparedStatement ps = c.prepareStatement(
-						"select userinfo_num from userinfo where userinfo_num>?"
-						,ResultSet.TYPE_SCROLL_INSENSITIVE, 
-			             ResultSet.CONCUR_UPDATABLE);
-				//last 쓰기위한 추가구문
-				ps.setInt(1,chkusernum);
-				
-				ResultSet rs = ps.executeQuery();
-				
-				rs.last();
-				cnt=rs.getRow();
-				rs.beforeFirst();
-				// 레코드개수를 구하기위함.
+		Connection c = connectionMaker.makeConnection();
+		c.setAutoCommit(false);
+		//int sum = 0;
+		int cnt=0;
+		try {
 
-				rs.close();
+			PreparedStatement ps = c.prepareStatement(
+					"select userinfo_num from userinfo where userinfo_num>?"
+					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
+					ResultSet.CONCUR_UPDATABLE);
+			//last 쓰기위한 추가구문
+			ps.setInt(1,chkusernum);
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.last();
+			cnt=rs.getRow();
+			rs.beforeFirst();
+			// 레코드개수를 구하기위함.
+
+			rs.close();
 			ps.close();
 			c.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			return cnt;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		return cnt;
+	}
 
 
 	//모든 사용자 리스트를 가져오는 메소드
@@ -239,7 +236,6 @@ System.out.println(rs.getRow());
 				userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
 				userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 				userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
-				userInfoDto.setUserInfoAddress(rs.getString("userinfo_address"));
 				userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 
@@ -265,7 +261,6 @@ System.out.println(rs.getRow());
 			ps.setString(2, userInfoDto.getUserInfoPassword());
 			ps.setString(3, userInfoDto.getUserInfoName());
 			/*ps.setInt(4, userInfoDto.getUserInfoNum());*/
-			ps.setString(4, userInfoDto.getUserInfoAddress());
 			ps.setInt(5, userInfoDto.getUserInfoPhone());
 			ps.setString(6, userInfoDto.getUserInfoEmail());
 
@@ -300,7 +295,6 @@ System.out.println(rs.getRow());
 
 			ps.setString(1, userInfoDto.getUserInfoPassword());
 			ps.setString(2, userInfoDto.getUserInfoName());
-			ps.setString(3, userInfoDto.getUserInfoAddress());
 			ps.setInt(4, userInfoDto.getUserInfoPhone());
 			ps.setString(5, userInfoDto.getUserInfoEmail());
 			ps.setString(6, userInfoDto.getUserInfoId());

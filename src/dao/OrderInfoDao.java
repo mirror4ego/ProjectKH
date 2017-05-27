@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import domain.CustomerDto;
 import domain.OrderInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -19,26 +18,12 @@ public class OrderInfoDao {
 	}
 
 	public void add(OrderInfoDto orderInfoDto) throws ClassNotFoundException, SQLException { // 고객을
-		// 추가하는
-		// 메소드,
-		// 매개변수는
-		// Customer클래스의
-		// 객체
-		Connection c = connectionMaker.makeConnection(); // data소스에 저장된 커넥션 정보를
-		// c에 저장
+
+		Connection c = connectionMaker.makeConnection();
 
 		PreparedStatement ps = c.prepareStatement(
 				"insert into orderinfo values (seq_orderinfo_num.nextval,?,?,?,?,?,?,?,?,?,?,?,?)");
-		// PreparedStatement ps = c.prepareStatement("insert into
-		// customer(customer_Num, customer_Reg_Date, customer_Phone_Num,
-		// customer_Add_State, customer_Add_City, customer_Add_Street,
-		// customer_Add_Rest, customer_Frequent, customer_Age_Predict)
-		// values(?,?,?,?,?,?,?,?,?)");
-		// c 객체의 메소드인 prepareaStatement를 이용해서 db에 쿼리를 날림
-		// 각 칼럼값에 집어넣을 low값을 ?로 설정
 
-		// 각 물음표 값에 들어갈 값을 지정하고 set
-		// ps.setInt(1, orderInfo.getOrderInfoNum());
 
 		ps.setString(1, orderInfoDto.getOrderInfoDate());
 		ps.setString(2, orderInfoDto.getOrderInfoLocPossibility());
@@ -54,14 +39,35 @@ public class OrderInfoDao {
 		ps.setInt(12, orderInfoDto.getOrderInfoCustomerNum());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는
-		// sql문은
-		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
-		// executeQuery 메소드를 사용해야 한다.
 
 		ps.close(); // 사용한 ps객체 닫기
 		c.close(); // 사용한 c객체 닫기
-		// 공유 자원이기 때문에 닫아주지않으면 연결 세션을 계속 점유 하고 있게 된다.
+
 	}
+	
+	public Vector orderInfoOneCustomer(int orderInfoCustomerNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo where orderinfo_customer_num = ?");
+			ps.setInt(1, orderInfoCustomerNum);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("orderinfo_num"));
+				row.add(rs.getString("orderinfo_date"));
+				row.add(rs.getInt("orderinfo_customer_num"));
+				row.add(rs.getInt("orderinfo_userinfo_num"));
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	
 	// 모든 주문내역 리스트를 가져오는 메소드
 	public Vector getOrderList() throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
@@ -88,7 +94,6 @@ public class OrderInfoDao {
 		}
 		return data;
 	}
-
 
 	//선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
 	public OrderInfoDto getOneOrder(int orderInfoNum) throws ClassNotFoundException, SQLException{
@@ -226,17 +231,15 @@ public class OrderInfoDao {
 		OrderInfoDto orderInfoDto = new OrderInfoDto();
 		Vector data = new Vector();
 		try{
-			PreparedStatement ps = c.prepareStatement("select * from orderinfo"); // 
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo order by orderinfo_num"); // 
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
 				Vector row = new Vector();
-				row.add(rs.getInt("customer_Num"));
+				row.add(rs.getString("orderinfo_num"));
+				row.add(rs.getString("orderinfo_date"));
+				row.add(rs.getInt("orderinfo_customer_num"));
 
-				row.add(rs.getString("customer_Phone_Num"));
-
-				row.add(rs.getString("customer_Add_Street"));
-				row.add(rs.getString("customer_Add_Rest"));
 
 
 				data.add(row); 
@@ -278,5 +281,6 @@ public class OrderInfoDao {
 		}      
 		return ok;
 	}
+
 
 }

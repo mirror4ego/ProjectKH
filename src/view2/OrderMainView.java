@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -26,6 +27,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
+import dao.OrderInfoDao;
+import dao.OrderItemDao;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
@@ -126,6 +129,11 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JTable table;
 	Vector vector1 = new Vector();
 	Vector vector2 = new Vector();
+	JLabel label_31 = new JLabel("~");
+	DefaultTableModel model = new DefaultTableModel();
+	DefaultTableModel model1 = new DefaultTableModel();
+	JScrollPane scrollPane_1 = new JScrollPane();
+	private JTable table_1;
 
 	public OrderMainView() throws ClassNotFoundException, SQLException {
 		super("주문내역 관리");
@@ -144,7 +152,8 @@ public class OrderMainView extends JFrame implements MouseListener{
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
 		getColumn();
-		jTableRefresh(vector1);
+		getColumn1();
+		jTableRefresh(new OrderInfoDao().orderInfoAllPart());
 	}
 
 	void init() {
@@ -158,7 +167,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 		panel_2.add(panel);
 		panel.setLayout(null);
 
-		JLabel label_31 = new JLabel("~");
+
 		label_31.setBounds(200, 24, 57, 15);
 		panel_2.add(label_31);
 		textField_1.setColumns(10);
@@ -209,7 +218,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 
 		panel_2.add(textArea);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
+
 		scrollPane_1.setBounds(12, 166, 347, 374);
 		panel_2.add(scrollPane_1);
 		
@@ -281,6 +290,9 @@ public class OrderMainView extends JFrame implements MouseListener{
 		scrollPane.setBounds(12, 10, 455, 156);
 
 		panel_4.add(scrollPane);
+		
+		table_1 = new JTable();
+		scrollPane.setViewportView(table_1);
 		textField_6.setEditable(false);
 		textField_6.setColumns(10);
 		textField_6.setBounds(79, 176, 171, 25);
@@ -580,31 +592,114 @@ public class OrderMainView extends JFrame implements MouseListener{
 	}
 	
 	public void jTableRefresh(Vector orderInfoDto) throws ClassNotFoundException, SQLException{
-
-		System.out.println(vector1);
-		Vector v = new Vector();
-
-
-		DefaultTableModel model = new DefaultTableModel();
-		model.setDataVector(vector2, vector1);
-		//model.setDataVector(orderInfoDto, vector1);
+		model.setDataVector(orderInfoDto, vector1);
+		model.fireTableDataChanged();
 		table.setModel(model);
 	}
 	
+	public void jTableRefresh1(Vector orderItemDto) throws ClassNotFoundException, SQLException{
+		model1.setDataVector(orderItemDto, vector2);
+		model1.fireTableDataChanged();
+		table_1.setModel(model1);
+	}
+	
 	public Vector getColumn(){
+		vector1.add("주문번호");
 		vector1.add("주문일시");
 		vector1.add("고객번호");
 		vector1.add("고객전화");
-		vector1.add("주문번호");
 		return vector1;
 	}
+	public Vector getColumn1(){
+		vector2.add("주문항목번호");
+		vector2.add("주문번호");
+		vector2.add("메뉴이름");
+		vector2.add("메뉴수량");
+		return vector2;
+	}
+	
+/*	void viewDefault(){
+		jTextField2.setText("");
+		jTextField4.setText("");
+		jTextField3.setText("");
+		comboBox_2.setSelectedIndex(0);
+		comboBox_3.setSelectedIndex(0);
+		comboBox_4.setSelectedIndex(0);
+		jTextField1.setText("");
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		radioButton.setSelected(false);
+		rdbtnNewRadioButton.setSelected(false);
+	}
+	
+	private void viewData(CustomerDto customerDto){
+
+		int customerNum = customerDto.getCustomerNum();  //주문번호
+		String customerRegDate = customerDto.getCustomerRegDate(); //주문일자
+		String customerPhoneNum = customerDto.getCustomerPhoneNum(); //주문가능여부(주문량)
+		String customerAddState = customerDto.getCustomerAddState(); //주문가능여부(주문량)
+		String customerAddCity = customerDto.getCustomerAddCity(); //메뉴고유값
+		String customerAddStreet = customerDto.getCustomerAddStreet(); //주문 메뉴양
+		String customerAddRest = customerDto.getCustomerAddRest(); //주문요청사항
+		int customerFrequent = customerDto.getCustomerFrequent();//채널고유값
+		int customerAgePredict = customerDto.getCustomerAgePredict();//배달요청시간
+		int customerReceivable = customerDto.getCustomerReceivable(); //주문 프로세스(포장)완료여부
+		int customerGender = customerDto.getCustomerGender(); //주문 프로세스(배달)완료여부
+
+		//화면에 세팅
+		viewDefault();
+
+		jTextField2.setText(String.valueOf(customerNum));
+		jTextField4.setText(customerRegDate.substring(0,10));
+		jTextField3.setText(customerPhoneNum);
+		for(int i=0;i<comboBox_2.getItemCount();i++){
+			if(customerAddState.equals(comboBox_2.getItemAt(i).toString())){
+				comboBox_2.setSelectedIndex(i);
+			}
+		}
+		for(int i=0;i<comboBox_3.getItemCount();i++){
+			if(customerAddCity.equals(comboBox_3.getItemAt(i).toString())){
+				comboBox_3.setSelectedIndex(i);
+			}
+		}
+		for(int i=0;i<comboBox_4.getItemCount();i++){
+			if(customerAddStreet.equals(comboBox_4.getItemAt(i).toString())){
+				comboBox_4.setSelectedIndex(i);
+			}
+		}
+		jTextField1.setText(customerAddRest);
+		textField.setText(String.valueOf(customerFrequent));
+		textField_1.setText(String.valueOf(customerAgePredict));
+		textField_2.setText(String.valueOf(customerReceivable));
+		if(customerGender==0){
+			radioButton.setSelected(true);
+		}else{
+			rdbtnNewRadioButton.setSelected(true);
+		}
+	}*/
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==button_2){
 			this.dispose();
 		}
+		
+		if(e.getSource()==table){
+			int r = table.getSelectedRow();
+			int orderInfoNum = Integer.parseInt(String.valueOf(table.getValueAt(r, 0)));
+			System.out.println(orderInfoNum);
+			try {
+				//viewData((new CustomerDao()).get(customerNum));
+				jTableRefresh1((new OrderItemDao().getSelectedOrderItem(orderInfoNum)));
+			}catch(Exception e1){
+				JOptionPane.showMessageDialog(null, "테이블 선택 오류");
+			}
+		}
+		
 	}
+	
+	
 
 	@Override
 	public void mouseEntered(MouseEvent e) {}
