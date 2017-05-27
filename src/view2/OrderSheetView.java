@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -31,11 +33,15 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.MenuDao;
+import dao.OrderInfoDao;
+import dao.OrderItemDao;
 import domain.CustomerDto;
+import domain.OrderInfoDto;
+import domain.OrderItemDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class OrderSheetView extends JFrame implements MouseListener {
+public class OrderSheetView extends JFrame implements MouseListener, KeyListener {
 	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	SetUiFont setUiFont = new SetUiFont();
 	private JLabel lblNewLabel_4 = new JLabel("주문서 관리");
@@ -123,7 +129,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	private final JLabel label_26 = new JLabel("요청사항");
 	private final JTextField txtEx = new JTextField();
 	JScrollPane scrollPane_3 = new JScrollPane(table_1);
-	JTextArea textArea_1 = new JTextArea();
+	JTextArea txtrAa = new JTextArea();
 	JTextArea textArea = new JTextArea();
 	JComboBox comboBox = new JComboBox();
 	JButton btnNewButton_2 = new JButton("검색");
@@ -137,11 +143,13 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	Vector vector11 = new Vector();
 	Vector vector2 = new Vector();
 	Vector menuAllSelectedVector = new Vector();
+	String nowTime;
+	Calendar cal;
 
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
 		this.init();
-
+		realTime();
 		this.start();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1150,720);
@@ -160,11 +168,11 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		String d = customerDto.getCustomerAddRest();
 		String address = (a + " " + b + " " + c + " " + d);
 		int customerAgePredict = customerDto.getCustomerAgePredict();
-		int customerFrequent = customerDto.getCustomerFrequent();
 		int customerGender = customerDto.getCustomerGender();
 		String customerPhoneNum = customerDto.getCustomerPhoneNum();
-		int customerReceivable = customerDto.getCustomerReceivable();
 		String customerRegDate = customerDto.getCustomerRegDate();
+		String customerNoteInfo = customerDto.getCustomerNoteInfo();
+
 		textField_3.setEditable(false);
 		textField_3.setHorizontalAlignment(SwingConstants.TRAILING);
 
@@ -184,7 +192,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		textField_9.setText(customerPhoneNum);
 
 		textField_11.setEditable(false);
-		textField_11.setText(format.format(today));
+		textField_11.setText("2017-05-27 22:13:00");
 		lblNewLabel_2.setBounds(446, 46, 33, 25);
 
 		panel.add(lblNewLabel_2);
@@ -195,10 +203,8 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		panel_7.add(label_27);
 		textField_14.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_14.setEditable(false);
-		textField_14.setText(String.valueOf(customerFrequent));
 		textField_13.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_13.setEditable(false);
-		textField_13.setText(String.valueOf(customerReceivable));
 		button_5.setBounds(192, 10, 56, 25);
 		panel_2.add(button_5);
 
@@ -287,11 +293,12 @@ public class OrderSheetView extends JFrame implements MouseListener {
 
 		tabbedPane_3.addTab("ㅇ요청사항", null, panel_11, null);
 		panel_11.setLayout(null);
+		txtrAa.setText("aa");
 
 
-		textArea_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
-		textArea_1.setBounds(79, 69, 389, 74);
-		panel_11.add(textArea_1);
+		txtrAa.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
+		txtrAa.setBounds(79, 69, 389, 74);
+		panel_11.add(txtrAa);
 		label_22.setHorizontalAlignment(SwingConstants.CENTER);
 		label_22.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 		label_22.setBackground(Color.GRAY);
@@ -320,7 +327,7 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		label_26.setBounds(12, 93, 67, 25);
 
 		panel_11.add(label_26);
-		txtEx.setText("ex) 2017-05-04/18:30");
+		txtEx.setText("2017-05-04 18:30:00");
 		txtEx.setColumns(10);
 		txtEx.setBounds(79, 10, 389, 25);
 
@@ -481,9 +488,11 @@ public class OrderSheetView extends JFrame implements MouseListener {
 		textField_4.setBounds(79, 10, 157, 25);
 
 		panel.add(textField_4);
+		textField_5.setModel(new DefaultComboBoxModel(new String[] {"61"}));
 		textField_5.setBounds(315, 10, 152, 25);
 
 		panel.add(textField_5);
+		textField_8.setText("0");
 		textField_8.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_8.setColumns(10);
 		textField_8.setBounds(315, 46, 122, 25);
@@ -623,6 +632,9 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	void start() {
 		btnNewButton.addMouseListener(this);
 		table.addMouseListener(this);
+		table_1.addMouseListener(this);
+		table_1.addKeyListener(this);
+		button.addMouseListener(this);
 	}
 
 	public Vector getColumn(){
@@ -654,29 +666,27 @@ public class OrderSheetView extends JFrame implements MouseListener {
 	}
 
 	public void realTime() {
-		Calendar cal = Calendar.getInstance();
-		try{
-			String ampm;
-			if(cal.get(Calendar.AM_PM)==0){
-				ampm= "AM";
-			}else{
-				ampm= "PM";
-			}
-			String nowTime = cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH)+1) + "월 " + cal.get(Calendar.DATE) + "일 " +
-					ampm + " " + cal.get(Calendar.HOUR) + "시 " + cal.get(Calendar.MINUTE) + "분 " + cal.get(Calendar.SECOND) + "초 ";
 
-			lblNewLabel.setText(nowTime);
-			Thread.sleep(1000);
-		}catch(InterruptedException e){
-			e.printStackTrace();
+		cal = Calendar.getInstance();
+
+		String ampm;
+		if(cal.get(Calendar.AM_PM)==0){
+			ampm= "AM";
+		}else{
+			ampm= "PM";
 		}
+		nowTime = cal.get(Calendar.YEAR) + "년 " + (cal.get(Calendar.MONTH)+1) + "월 " + cal.get(Calendar.DATE) + "일 " +
+				ampm + " " + cal.get(Calendar.HOUR) + "시 " + cal.get(Calendar.MINUTE) + "분 " + cal.get(Calendar.SECOND) + "초 ";
+
+		lblNewLabel.setText(nowTime);
+
 	}
-	
+
 	public void getAllFieldData() {
 		//고객 테이블에 들어가야할 내용
-		
+
 		//주문정보 테이블에 들어가야할 내용
-		
+
 		//주문아이템 테이블에 들어가야할 내용
 		//
 	}
@@ -692,20 +702,151 @@ public class OrderSheetView extends JFrame implements MouseListener {
 			String menuName = String.valueOf(table.getValueAt(r, 0));
 			int menuPrice = Integer.parseInt(String.valueOf(table.getValueAt(r, 1)));
 			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
-			System.out.println("1");
-			Vector menuSelectedVector = new Vector();
-			menuSelectedVector.add(menuName);
-			menuSelectedVector.add(menuPrice);
-			menuSelectedVector.add(menuGroupName);
-			menuSelectedVector.add(1);
-			menuAllSelectedVector.add(menuSelectedVector);
-
-			try {
-				jTableRefresh1(menuAllSelectedVector);
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			//현재 선택한 열의 값으로 table_1에서 한줄씩 검색으로 해서 존재하지 않을때만 추가
+			int a = 0;
+			for(int i = 0;i<table_1.getRowCount();i++){
+				if(!(table_1.getValueAt(i, 0).equals(menuName))){
+					a = a;
+				}else{
+					a = a + 1;
+				}
 			}
+
+			if(a==0){
+				Vector menuSelectedVector = new Vector();
+				menuSelectedVector.add(menuName);
+				menuSelectedVector.add(menuPrice);
+				menuSelectedVector.add(menuGroupName);
+				menuSelectedVector.add(1);
+				menuAllSelectedVector.add(menuSelectedVector);
+
+				try {
+					jTableRefresh1(menuAllSelectedVector);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println(table_1.getRowCount());
+				int sum = 0;
+				int discount = Integer.parseInt(textField_7.getText());
+				//sum = sum-discount;
+				for(int i = 0;i<table_1.getRowCount();i++){
+					System.out.println((table_1.getValueAt(i, 1)));
+					int price = Integer.parseInt((table_1.getValueAt(i, 1)).toString());
+					int num = Integer.parseInt((table_1.getValueAt(i, 3)).toString());
+					int subSum = (price * num);
+
+					sum += subSum;
+
+					textField.setText(String.valueOf(sum));
+					textField_1.setText(String.valueOf(sum-discount));
+				}
+			}else{
+				System.out.println("이미 존재하는 메뉴이름");
+			}
+
+		}
+
+		if(e.getSource()==button){
+			boolean a = false;
+			System.out.println("저장 버튼 누름");
+			cal.add(Calendar.MINUTE, Integer.parseInt(textField_8.getText().toString()));
+			try{
+
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+				String predictTime = format.format(cal.getTime());
+				System.out.println(predictTime);
+				OrderInfoDto orderInfoDto = new OrderInfoDto();
+
+				orderInfoDto.setOrderInfoDate(textField_11.getText().toString());
+				orderInfoDto.setOrderInfoLocPossibility("1");
+				orderInfoDto.setOrderInfoOrderPossibility("1");
+				orderInfoDto.setOrderInfoRequestInfo(txtrAa.getText().trim().toString());
+				orderInfoDto.setOrderInfoChannelName(textField_15.getSelectedItem().toString());
+				orderInfoDto.setOrderInfoRequestDelivery(txtEx.getText().trim().toString());
+				orderInfoDto.setOrderInfoPackCompletion("0");
+				orderInfoDto.setOrderInfoDeliveryCompletion("0");
+				orderInfoDto.setOrderInfoOrderCompletion("0");
+				orderInfoDto.setOrderInfoMoneyCollection("0");
+				orderInfoDto.setOrderInfoDeliveryPredict(predictTime);
+				orderInfoDto.setOrderInfoCustomerNum(Integer.parseInt(textField_3.getText().trim()));
+				orderInfoDto.setOrderInfoUserInfoNum(Integer.parseInt(textField_5.getSelectedItem().toString()));
+				System.out.println(orderInfoDto.toString());
+				System.out.println("입력3");
+				OrderInfoDao orderInfoDao = new OrderInfoDao();
+				orderInfoDao.addOrderSheet(orderInfoDto);
+				a = true;
+			}catch(Exception e1){
+
+			}
+			System.out.println(a);
+			if(a){
+				//가장 마지막에 생성된 주문번호를 매개변수로 찾아야함
+				OrderInfoDao orderInfoDao = new OrderInfoDao();
+				try {
+					System.out.println(orderInfoDao.getLastOrderNum());
+				} catch (ClassNotFoundException | SQLException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
+				for(int i = 0;i<table_1.getRowCount();i++){
+					OrderItemDto orderItemDto = new OrderItemDto();
+					try {
+						orderItemDto.setOrderItemOrderInfoNum(orderInfoDao.getLastOrderNum().getOrderInfoNum());
+					} catch (ClassNotFoundException | SQLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					orderItemDto.setOrderItemMenuName(table_1.getValueAt(i, 0).toString());
+					orderItemDto.setOrderItemQuantity(Integer.parseInt(table_1.getValueAt(i, 3).toString()));
+
+					OrderItemDao orderItemDao = new OrderItemDao();
+					try {
+						orderItemDao.addOneOrderItem(orderItemDto);
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}else{
+				System.out.println("주문서가 제대로 작성되지 않았습니다");
+			}
+
+		}
+
+		if(e.getSource()==table_1){
+			if(e.getSource()==table_1){
+				System.out.println("테이블에 리스너 작동");
+
+				System.out.println(table_1.getRowCount());
+				int sum = 0;
+				int discount = Integer.parseInt(textField_7.getText());
+				//sum = sum-discount;
+				for(int i = 0;i<table_1.getRowCount();i++){
+					System.out.println((table_1.getValueAt(i, 1)));
+					int price = Integer.parseInt((table_1.getValueAt(i, 1)).toString());
+					int num = Integer.parseInt((table_1.getValueAt(i, 3)).toString());
+					int subSum = (price * num);
+
+					sum += subSum;
+
+					textField.setText(String.valueOf(sum));
+					textField_1.setText(String.valueOf(sum-discount));
+				}
+			}else{
+				System.out.println("이미 존재하는 메뉴이름");
+			}
+		}
+	}
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getSource()==table_1){
+			System.out.println("테이블에 리스너 작동");
+
 			System.out.println(table_1.getRowCount());
 			int sum = 0;
 			int discount = Integer.parseInt(textField_7.getText());
@@ -721,21 +862,15 @@ public class OrderSheetView extends JFrame implements MouseListener {
 				textField.setText(String.valueOf(sum));
 				textField_1.setText(String.valueOf(sum-discount));
 			}
-		}
-
-		if(e.getSource()==button){
-			//주문서를 작성하고 저장
-			//트랜잭션 처리
-			//1. 일반 orderinfo에 작성될 것 먼저 처리
-			//2. 주문번호를 매개로 orderItem에 주문메뉴 목록 전송 처리
-			//1,2 과정을 트랜잭션 처리
-			//트랜잭션 처리 과정에서 문제가 생기면 롤백하고 어느 과정에서 문제가 생겼는지 다이얼로그로 알려줌
-			//완료 되면 메세지
-			
-			
+		}else{
+			System.out.println("이미 존재하는 메뉴이름");
 		}
 	}
 
+	@Override
+	public void keyReleased(KeyEvent e) {}
+	@Override
+	public void keyTyped(KeyEvent e) {}
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	@Override

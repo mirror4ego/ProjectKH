@@ -6,6 +6,10 @@ public class OrderItemDto {
 	private String orderItemMenuName;
 	private int orderItemQuantity;
 	
+	public OrderItemDto(){
+		
+	}
+	
 	OrderItemDto(int orderItemNum, int orderItemOrderInfoNum, String orderItemMenuName, int orderItemQuantity) {
 		this.orderItemNum = orderItemNum;
 		this.orderItemOrderInfoNum = orderItemOrderInfoNum;

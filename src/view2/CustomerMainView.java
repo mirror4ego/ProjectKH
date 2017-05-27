@@ -311,6 +311,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 
 		lblNewLabel_7.setBounds(264, 45, 57, 25);
 		panel_5.add(lblNewLabel_7);
+		textField.setEditable(false);
 		textField.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		textField.setBounds(321, 10, 170, 25);
@@ -326,6 +327,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 
 		label_5.setBounds(264, 80, 57, 25);
 		panel_5.add(label_5);
+		textField_2.setEditable(false);
 		textField_2.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		textField_2.setColumns(10);
@@ -346,6 +348,16 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		buttonGroup.add(radioButton);
 		radioButton.setBounds(410, 115, 57, 25);
 		panel_5.add(radioButton);
+
+		JLabel label_10 = new JLabel("등급");
+		label_10.setHorizontalAlignment(SwingConstants.CENTER);
+		label_10.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		label_10.setBounds(12, 115, 57, 25);
+		panel_5.add(label_10);
+
+		JComboBox comboBox_5 = new JComboBox();
+		comboBox_5.setBounds(69, 115, 170, 25);
+		panel_5.add(comboBox_5);
 
 		panel_6.setLayout(null);
 		panel_6.setBounds(12, 215, 505, 115);
@@ -453,11 +465,9 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		String customerAddCity = customerDto.getCustomerAddCity(); //메뉴고유값
 		String customerAddStreet = customerDto.getCustomerAddStreet(); //주문 메뉴양
 		String customerAddRest = customerDto.getCustomerAddRest(); //주문요청사항
-		int customerFrequent = customerDto.getCustomerFrequent();//채널고유값
 		int customerAgePredict = customerDto.getCustomerAgePredict();//배달요청시간
-		int customerReceivable = customerDto.getCustomerReceivable(); //주문 프로세스(포장)완료여부
 		int customerGender = customerDto.getCustomerGender(); //주문 프로세스(배달)완료여부
-
+		String customerNoteInfo = customerDto.getCustomerNoteInfo();
 		//화면에 세팅
 		viewDefault();
 
@@ -480,9 +490,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			}
 		}
 		jTextField1.setText(customerAddRest);
-		textField.setText(String.valueOf(customerFrequent));
 		textField_1.setText(String.valueOf(customerAgePredict));
-		textField_2.setText(String.valueOf(customerReceivable));
 		if(customerGender==0){
 			radioButton.setSelected(true);
 		}else{
@@ -544,53 +552,48 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		}
 
 		if(e.getSource()==btnf_4){
-			if(!(textField.getText().equals("")||textField_1.getText().equals("")||textField_2.getText().equals(""))){
-				int customerNum = 1; //Integer.parseInt(jTextField2.getText().trim()); //회원번호 입력창
-				//customerNum = Integer.parseInt(jTextField2.getText().trim());
-				String customerRegDate = jTextField4.getText().trim(); //고객 등록날짜 입력창
-				String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
-				String customerAddState = comboBox_2.getItemAt(comboBox_2.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
-				String customerAddCity = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(시군구)의 입력창
-				String customerAddStreet = comboBox_4.getItemAt(comboBox_4.getSelectedIndex()).toString().trim(); //주소(동면읍리)의 입력창
-				String customerAddRest = jTextField1.getText().trim(); //주소(나머지)의 입력창
-				int customerFrequent = Integer.parseInt(textField.getText().trim()); //고객 누적 주문 횟수의 입력창
-				int customerAgePredict = Integer.parseInt(textField_1.getText().trim());
-				int customerReceivable = Integer.parseInt(textField_2.getText().trim());
-				int customerGender = 99;
-				if(radioButton.isSelected()){
-					customerGender = 0;
-				}else if(rdbtnNewRadioButton.isSelected()){
-					customerGender = 1;
-				}else{
-					JOptionPane.showMessageDialog(null, "성별 선택 오류");
-				}
-				CustomerDao customerDao = new DaoFactory().customerDao();
-				if((jTextField2.getText().trim()).equals("")){
-
-					try{
-						CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-								customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict,
-								customerReceivable, customerGender);
-						customerDao.add(customerDto);
-					}catch(Exception e1){JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (입력값 확인)");};
-				}else{
-
-					try {
-						customerNum = Integer.parseInt(jTextField2.getText().trim());
-						CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-								customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict,
-								customerReceivable, customerGender);
-						customerDao.updateCustomer(customerDto);
-					} catch (ClassNotFoundException | SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(null, "고객정보 변경 실패 (입력값 확인)");
-					}
-				}
+			int customerNum = 1; //Integer.parseInt(jTextField2.getText().trim()); //회원번호 입력창
+			//customerNum = Integer.parseInt(jTextField2.getText().trim());
+			String customerRegDate = jTextField4.getText().trim(); //고객 등록날짜 입력창
+			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
+			String customerAddState = comboBox_2.getItemAt(comboBox_2.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
+			String customerAddCity = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(시군구)의 입력창
+			String customerAddStreet = comboBox_4.getItemAt(comboBox_4.getSelectedIndex()).toString().trim(); //주소(동면읍리)의 입력창
+			String customerAddRest = jTextField1.getText().trim(); //주소(나머지)의 입력창
+			int customerAgePredict = Integer.parseInt(textField_1.getText().trim());
+			int customerGender = 99;
+			String customerNoteInfo = "1";
+			String customerGradeName = "1";
+			if(radioButton.isSelected()){
+				customerGender = 0;
+			}else if(rdbtnNewRadioButton.isSelected()){
+				customerGender = 1;
 			}else{
-				JOptionPane.showMessageDialog(null, "필수 사항을 전부 입력하세요");
+				JOptionPane.showMessageDialog(null, "성별 선택 오류");
 			}
+			CustomerDao customerDao = new DaoFactory().customerDao();
+			if((jTextField2.getText().trim()).equals("")){
 
+				try{
+					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
+							customerGradeName);
+					customerDao.add(customerDto);
+				}catch(Exception e1){JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (입력값 확인)");};
+			}else{
+
+				try {
+					customerNum = Integer.parseInt(jTextField2.getText().trim());
+					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
+							customerGradeName);
+					customerDao.updateCustomer(customerDto);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "고객정보 변경 실패 (입력값 확인)");
+				}
+			}
 		}else{}
 
 		if(e.getSource()==table){
@@ -837,8 +840,8 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			}
 		}
 	}
-	
-	
+
+
 
 	@Override
 	public void mousePressed(MouseEvent e) {}
