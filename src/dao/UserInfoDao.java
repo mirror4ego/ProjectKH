@@ -28,9 +28,8 @@ public class UserInfoDao {
 		ps.setString(1, userInfoDto.getUserInfoId());
 		ps.setString(2, userInfoDto.getUserInfoPassword());
 		ps.setString(3, userInfoDto.getUserInfoName());
-		ps.setString(4, userInfoDto.getUserInfoAddress());
-		ps.setInt(5, userInfoDto.getUserInfoPhone());
-		ps.setString(6, userInfoDto.getUserInfoEmail());
+		ps.setInt(4, userInfoDto.getUserInfoPhone());
+		ps.setString(5, userInfoDto.getUserInfoEmail());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는 sql문은
 		// 결과값을 받아올 필요가 없기 때문이다. 쿼리문을 날리고 결과 값을 받아올 필요가 있을때는(ex : select문)
@@ -130,7 +129,6 @@ public class UserInfoDao {
 		userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
 		userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 		userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
-		userInfoDto.setUserInfoAddress(rs.getString("userinfo_address"));
 		userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 
@@ -238,7 +236,6 @@ public class UserInfoDao {
 				userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
 				userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 				userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
-				userInfoDto.setUserInfoAddress(rs.getString("userinfo_address"));
 				userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 
@@ -264,7 +261,6 @@ public class UserInfoDao {
 			ps.setString(2, userInfoDto.getUserInfoPassword());
 			ps.setString(3, userInfoDto.getUserInfoName());
 			/*ps.setInt(4, userInfoDto.getUserInfoNum());*/
-			ps.setString(4, userInfoDto.getUserInfoAddress());
 			ps.setInt(5, userInfoDto.getUserInfoPhone());
 			ps.setString(6, userInfoDto.getUserInfoEmail());
 
@@ -299,7 +295,6 @@ public class UserInfoDao {
 
 			ps.setString(1, userInfoDto.getUserInfoPassword());
 			ps.setString(2, userInfoDto.getUserInfoName());
-			ps.setString(3, userInfoDto.getUserInfoAddress());
 			ps.setInt(4, userInfoDto.getUserInfoPhone());
 			ps.setString(5, userInfoDto.getUserInfoEmail());
 			ps.setString(6, userInfoDto.getUserInfoId());

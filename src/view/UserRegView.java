@@ -86,7 +86,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		String pwd = vMem.getUserInfoPassword();
 		String name = vMem.getUserInfoName();
 		int tel = vMem.getUserInfoPhone();
-		String addr = vMem.getUserInfoAddress();
+		//String addr = vMem.getUserInfoAddress();
 		//String birth = vMem.getBirth();
 		//String job = vMem.getJob();
 		//String gender = vMem.getGender();
@@ -104,7 +104,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		//jTextField1.setText(tels[0]);
 		//jTextField2.setText(tels[1]);
 		//jTextField3.setText(tels[2]);
-		jTextField6.setText(addr);
+		//jTextField6.setText(addr);
 
 		//jTextArea8.setText(birth.substring(0, 4));
 		//jTextArea9.setText(birth.substring(4, 6));
@@ -387,7 +387,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		dto.setUserInfoPassword(pwd);
 		dto.setUserInfoName(name);
 		dto.setUserInfoPhone(tel);
-		dto.setUserInfoAddress(addr);
+		//dto.setUserInfoAddress(addr);
 		dto.setUserInfoNum(num);
 		/*		dto.setBirth(birth);
 		dto.setJob(job);
