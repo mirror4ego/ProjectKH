@@ -55,7 +55,38 @@ public class MenuDao {
 			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 실패!");
 		}
 	}
+	
+	public void deleteMenuGroupSub(String menuGroupName) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		try{
+			PreparedStatement ps = c.prepareStatement("delete from menu where MenuGroup_name = ?");
+			ps.setString(1, menuGroupName);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 성공!");
+		}catch(Exception e){
+			c.close();
+			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 실패!");
+		}
+	}
 
+	public void updateMenuGroupSub(String menuGroupNameBefore, String menuGroupNameAfter) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		try{
+			PreparedStatement ps = c.prepareStatement("update menu set MenuGroup_name = ? where MenuGroup_name = ?");
+			ps.setString(1, menuGroupNameAfter);
+			ps.setString(2, menuGroupNameBefore);
+			ps.executeUpdate();
+			ps.close();
+			c.close();
+			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 성공!");
+		}catch(Exception e){
+			c.close();
+			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 실패!");
+		}
+	}
+	
 	public void insertMenu(MenuDto menuDto) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
 		try{
@@ -203,5 +234,7 @@ public class MenuDao {
 		}
 		return data;
 	}
+	
+	
 	
 }

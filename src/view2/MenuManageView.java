@@ -29,13 +29,12 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import dao.MenuDao;
 import dao.MenuGroupDao;
 import domain.MenuDto;
+import domain.MenuGroupDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
@@ -44,19 +43,19 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 	//변수 선언부 시작
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();
-
+	JFrame modifyFrame = new JFrame("분류명 변경");
 	private JPanel panel_2 = new JPanel();
 	private JPanel panel = new JPanel();
 	private JPanel panel_1 = new JPanel();
 	private JPanel panel_3 = new JPanel();
 	private JPanel panel_4 = new JPanel();
-
+	JPanel panel_5 = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_5;
-
+	JTextField textField_6;
 	private JButton button = new JButton("신규");
 	private JButton button_1 = new JButton("저장");
 	private JButton button_2 = new JButton("삭제");
@@ -67,7 +66,9 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 	private JButton btnNewButton_2 = new JButton("분류추가");
 	private JButton button_4 = new JButton("분류삭제");
 	private JButton button_5 = new JButton("수정");
-
+	CardLayout cardLayout = new CardLayout(0, 0);
+	JButton btnNewButton = new JButton("변경");
+	
 	private JLabel label_6 = new JLabel("분류명");
 	private JLabel label_7 = new JLabel("메뉴분류");
 	private JLabel label_2 = new JLabel("메뉴분류");
@@ -96,8 +97,9 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 	public MenuManageView() throws ClassNotFoundException, SQLException {
 		super("메뉴 관리");
-		init();
 		jTreeRefresh();
+		init();
+
 		start();
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -184,6 +186,7 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		panel_2.add(scrollPane);
 
 		table = new JTable();
+		table.setBackground(Color.WHITE);
 		table.setBounds(0, 0, 532, 588);
 		scrollPane.setViewportView(table);
 
@@ -242,10 +245,11 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 
-		JPanel panel_5 = new JPanel();
+
 		panel_5.setBounds(8, 159, 57, 51);
 		panel_4.add(panel_5);
-		panel_5.setLayout(new CardLayout(0, 0));
+
+		panel_5.setLayout(cardLayout);
 		button_8.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 
 		panel_5.add(button_8, "name_47512106817689");
@@ -280,6 +284,8 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 		lblNewLabel.setBounds(287, 501, 57, 25);
 		panel_2.add(lblNewLabel);
+		panel_1.add(tree);
+		
 
 	}
 
@@ -295,6 +301,10 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		btnNewButton_2.addMouseListener(this); // 분류추가
 		button_12.addMouseListener(this);
 		button_6.addMouseListener(this);
+		btnNewButton.addMouseListener(this);
+		table.addMouseListener(this);
+		button_7.addMouseListener(this);
+		button_9.addMouseListener(this);
 	}
 
 	public Vector getColumn(){
@@ -310,23 +320,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		model.setDataVector(menuDto, vector1);
 		table.setModel(model);
 	}
-
-	/*	public void addTextFieldValue() {
-		DefaultMutableTreeNode newNode=new DefaultMutableTreeNode("나");
-		TreePath selectionPath=tree.getSelectionPath();
-		DefaultMutableTreeNode selectedNode=
-				(DefaultMutableTreeNode)selectionPath.getLastPathComponent();
-		((DefaultTreeModel)tree.getModel())
-		.insertNodeInto(newNode,selectedNode,selectedNode.getChildCount());
-	}
-
-	public void removeSelectedNode() {
-		TreePath selectionPath=tree.getSelectionPath();
-		DefaultMutableTreeNode selectedNode= (DefaultMutableTreeNode)selectionPath.getLastPathComponent();
-
-		((DefaultTreeModel)tree.getModel()).removeNodeFromParent(selectedNode);
-
-	}*/
 
 	public void jTreeRefresh() throws ClassNotFoundException, SQLException {
 		node_1 = new DefaultMutableTreeNode("메뉴분류");
@@ -348,8 +341,8 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 
 		tree.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		tree.setBounds(12, 34, 309, 460);
-		//tree.expandPath(path);;
-		panel_1.add(tree);
+		tree.repaint();
+
 		for (int i = 0; i < tree.getRowCount(); i++) {
 			tree.expandRow(i);
 		}
@@ -386,11 +379,97 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 				e1.printStackTrace();
 			}
 		}
+		
+		if(e.getSource()==table){
+			int r = table.getSelectedRow();
+			textField_3.setText(table.getValueAt(r, 0).toString());
+			textField_2.setText(table.getValueAt(r, 1).toString());
+			textField_1.setText(table.getValueAt(r, 2).toString());
+			
+					
+		}
+		if(e.getSource()==button_5){
 
+			
+			if(!(textField.getText().trim()).equals("")){
+
+				modifyFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				modifyFrame.setSize(270,85);
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Dimension dimension1 = toolkit.getScreenSize();
+				Dimension dimension2 = modifyFrame.getSize();
+				modifyFrame.setLocation((int)(dimension1.getWidth() / 2 - dimension2.getWidth() / 2), 
+						(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
+				modifyFrame.setResizable(false);
+				modifyFrame.getContentPane().setLayout(null);
+				
+				textField_6 = new JTextField();
+				textField_6.setBounds(68, 14, 116, 25);
+				modifyFrame.getContentPane().add(textField_6);
+				textField_6.setColumns(10);
+				
+
+				btnNewButton.setBounds(196, 14, 57, 25);
+				modifyFrame.getContentPane().add(btnNewButton);
+				
+				JLabel label = new JLabel("분류명");
+				label.setBounds(13, 14, 57, 25);
+				modifyFrame.getContentPane().add(label);
+				modifyFrame.setVisible(true);
+			}else{
+				JOptionPane.showMessageDialog(null, "삭제할 메뉴분류 항목을 선택하세요");
+			}
+		}
+		
+		if(e.getSource()==btnNewButton){
+			System.out.println("변경 뷰");
+			try {
+				
+				String menuGroupNameBefore = textField.getText().toString();
+				String menuGroupNameAfter = textField_6.getText().toString();
+				MenuGroupDto menuGroupDto = new MenuGroupDto();
+				menuGroupDto.setMenuGroupName(menuGroupNameAfter); // 새로운 분류명 생성
+				new MenuGroupDao().insertMenuGroupName(menuGroupDto); // 새로운 분류명 생성
+				
+				(new MenuDao()).updateMenuGroupSub(menuGroupNameBefore, menuGroupNameAfter); //Menu들을 새로운 분류명으로 옮기는 작업
+				
+				new MenuGroupDao().deleteMenuGroupName(menuGroupNameBefore);//다 옮겼으면 필요없어진 기존 분류명 삭제
+				
+				//(new MenuGroupDao()).updateMenuGroupName(menuGroupName);
+
+		} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		}
+		
 		if(e.getSource()==button_3){
 			this.dispose();
 		}
+		
+		if(e.getSource()==button_4){
 
+
+			if(!(textField.getText().trim()).equals("")){
+				try {
+					int result = JOptionPane.showConfirmDialog(null, "메뉴분류 항목을 삭제 하시겠습니까? (하위메뉴도 모두 함께 삭제됩니다)");
+					if(result==0){
+						String menuGroupName = textField.getText().toString();
+						(new MenuDao()).deleteMenuGroupSub(menuGroupName);
+						(new MenuGroupDao()).deleteMenuGroupName(menuGroupName);
+					}else{
+						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
+					}
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "삭제할 메뉴분류 항목을 선택하세요");
+			}
+		
+		}
+		
 		if(e.getSource()==button){
 
 			textField_3.setText("");
@@ -421,6 +500,13 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		}
+		
+		if(e.getSource()==button_7){ // 카드레이아웃 회전
+			
+		}
+		if(e.getSource()==button_9){ // 카드레이아웃 회전
+
 		}
 
 		if(e.getSource()==button_1){ // 저장
