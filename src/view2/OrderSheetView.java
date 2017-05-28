@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -31,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import dao.MenuDao;
 import dao.OrderInfoDao;
@@ -38,6 +40,7 @@ import dao.OrderItemDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
 import domain.OrderItemDto;
+import setting.ButtonCellRenderer;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
@@ -68,66 +71,66 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 	private JTabbedPane tabbedPane_4 = new JTabbedPane(JTabbedPane.TOP);
 	private JScrollPane scrollPane_1 = new JScrollPane();
 	private JScrollPane scrollPane_2 = new JScrollPane();
-	private final JPanel panel_10 = new JPanel();
-	private final JButton btnNewButton = new JButton("닫기");
-	private final JButton button = new JButton("저장");
-	private final JButton button_1 = new JButton("출력");
-	private final JPanel panel_11 = new JPanel();
-	private final JTextField textField_1 = new JTextField(); 
-	private final JTextField textField_3 = new JTextField(); // 고객번호
-	private final JTextField textField_6 = new JTextField(); // 주소
-	private final JTextField textField_7 = new JTextField(); 
-	private final JTable table_1 = new JTable();
-	private final JButton btnNewButton_1 = new JButton("동일주문서");
+	private JPanel panel_10 = new JPanel();
+	private JButton btnNewButton = new JButton("닫기");
+	private JButton button = new JButton("저장");
+	private JButton button_1 = new JButton("출력");
+	private JPanel panel_11 = new JPanel();
+	private JTextField textField_1 = new JTextField(); 
+	private JTextField textField_3 = new JTextField(); // 고객번호
+	private JTextField textField_6 = new JTextField(); // 주소
+	private JTextField textField_7 = new JTextField(); 
+	private JTable table_1 = new JTable();
+	private JButton btnNewButton_1 = new JButton("동일주문서");
 	private JTable table_2;
 	private JTable table_3;
-	private final JPanel panel_12 = new JPanel();
+	private JPanel panel_12 = new JPanel();
 	private JLabel label_10 = new JLabel("미수금");
-	private final JLabel label_12 = new JLabel("총주문");
-	private final JLabel label_13 = new JLabel("최다주문상품");
+	private JLabel label_12 = new JLabel("총주문");
+	private JLabel label_13 = new JLabel("최다주문메뉴");
 	private JTable table_4;
-	private final JTextField textField_13 = new JTextField();
-	private final JTextField textField_14 = new JTextField();
-	private final JTextField textField = new JTextField();
-	private final JButton button_2 = new JButton("신규입력");
-	private final JLabel label_14 = new JLabel("고객번호");
-	private final JLabel label_2 = new JLabel("주소");
-	private final JLabel label_3 = new JLabel("전화번호");
-	private final JLabel label = new JLabel("소계");
-	private final JLabel label_6 = new JLabel("합계");
-	private final JLabel label_15 = new JLabel("할인");
-	private final JLabel label_4 = new JLabel("고객번호");
-	private final JLabel label_16 = new JLabel("전화번호");
-	private final JLabel label_17 = new JLabel("배송주소");
-	private final JLabel label_18 = new JLabel("주문시간");
-	private final JLabel label_5 = new JLabel("담당자");
-	private final JLabel label_7 = new JLabel("대기시간");
-	private final JTextField textField_4 = new JTextField();
-	private final JComboBox textField_5 = new JComboBox();
-	private final JTextField textField_8 = new JTextField();
-	private final JTextField textField_9 = new JTextField();
-	private final JTextField textField_10 = new JTextField();
-	private final JTextField textField_11 = new JTextField();
-	private final JLabel lblNewLabel_1 = new JLabel("회");
-	private final JTextField textField_2 = new JTextField(); // 전화번호
-	private final JLabel label_9 = new JLabel("원");
-	private final JTextField textField_12 = new JTextField();
-	private final JLabel label_11 = new JLabel("원");
-	private final JLabel label_19 = new JLabel("채널");
-	private final JComboBox textField_15 = new JComboBox();
-	private final JLabel label_20 = new JLabel("등급");
-	private final JComboBox textField_16 = new JComboBox();
-	private final JButton button_3 = new JButton("검색");
-	private final JButton button_4 = new JButton("검색");
+	private JTextField textField_13 = new JTextField();
+	private JTextField textField_14 = new JTextField();
+	private JTextField textField = new JTextField();
+	private JButton button_2 = new JButton("신규입력");
+	private JLabel label_14 = new JLabel("고객번호");
+	private JLabel label_2 = new JLabel("주소");
+	private JLabel label_3 = new JLabel("전화번호");
+	private JLabel label = new JLabel("소계");
+	private JLabel label_6 = new JLabel("합계");
+	private JLabel label_15 = new JLabel("할인");
+	private JLabel label_4 = new JLabel("고객번호");
+	private JLabel label_16 = new JLabel("전화번호");
+	private JLabel label_17 = new JLabel("배송주소");
+	private JLabel label_18 = new JLabel("주문시간");
+	private JLabel label_5 = new JLabel("담당자");
+	private JLabel label_7 = new JLabel("대기시간");
+	private JTextField textField_4 = new JTextField();
+	private JComboBox textField_5 = new JComboBox();
+	private JTextField textField_8 = new JTextField();
+	private JTextField textField_9 = new JTextField();
+	private JTextField textField_10 = new JTextField();
+	private JTextField textField_11 = new JTextField();
+	private JLabel lblNewLabel_1 = new JLabel("회");
+	private JTextField textField_2 = new JTextField(); // 전화번호
+	private JLabel label_9 = new JLabel("원");
+	private JTextField textField_12 = new JTextField();
+	private JLabel label_11 = new JLabel("원");
+	private JLabel label_19 = new JLabel("채널");
+	private JComboBox textField_15 = new JComboBox();
+	private JLabel label_20 = new JLabel("등급");
+	private JComboBox textField_16 = new JComboBox();
+	private JButton button_3 = new JButton("검색");
+	private JButton button_4 = new JButton("검색");
 	private JLabel lblNewLabel = new JLabel();
-	private final JLabel label_21 = new JLabel("접수일시");
-	private final JLabel label_22 = new JLabel("배달");
-	private final JLabel label_23 = new JLabel("특이사항");
-	private final JButton button_5 = new JButton("입력");
-	private final JLabel label_24 = new JLabel("요청시간");
-	private final JLabel label_25 = new JLabel("주문");
-	private final JLabel label_26 = new JLabel("요청사항");
-	private final JTextField txtEx = new JTextField();
+	private JLabel label_21 = new JLabel("접수일시");
+	private JLabel label_22 = new JLabel("배달");
+	private JLabel label_23 = new JLabel("특이사항");
+	private JButton button_5 = new JButton("입력");
+	private JLabel label_24 = new JLabel("요청시간");
+	private JLabel label_25 = new JLabel("주문");
+	private JLabel label_26 = new JLabel("요청사항");
+	private JTextField txtEx = new JTextField();
 	JScrollPane scrollPane_3 = new JScrollPane(table_1);
 	JTextArea txtrAa = new JTextArea();
 	JTextArea textArea = new JTextArea();
@@ -137,8 +140,8 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 	Date today = new Date();
 	SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일 / HH시 mm분");
 	JScrollPane scrollPane_4 = new JScrollPane();
-	private final JLabel label_27 = new JLabel();
-	private final JLabel lblNewLabel_2 = new JLabel("분");
+	private JLabel label_27 = new JLabel();
+	private JLabel lblNewLabel_2 = new JLabel("분");
 
 	Vector vector11 = new Vector();
 	Vector vector2 = new Vector();
@@ -150,6 +153,10 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		super("주문서");
 		this.init();
 		realTime();
+		getColumn1();
+		viewData(customerDto);
+		getColumn();
+		jTableRefresh(new MenuDao().menuAllPart());
 		this.start();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1150,720);
@@ -160,56 +167,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 				(int)(dimension1.getHeight() / 2 - dimension2.getHeight() / 2));
 		this.setResizable(false);
 		this.setVisible(true);
-		getColumn1();
-		int customerNum = customerDto.getCustomerNum();
-		String a = customerDto.getCustomerAddState();
-		String b = customerDto.getCustomerAddCity();
-		String c = customerDto.getCustomerAddStreet();
-		String d = customerDto.getCustomerAddRest();
-		String address = (a + " " + b + " " + c + " " + d);
-		int customerAgePredict = customerDto.getCustomerAgePredict();
-		int customerGender = customerDto.getCustomerGender();
-		String customerPhoneNum = customerDto.getCustomerPhoneNum();
-		String customerRegDate = customerDto.getCustomerRegDate();
-		String customerNoteInfo = customerDto.getCustomerNoteInfo();
 
-		textField_3.setEditable(false);
-		textField_3.setHorizontalAlignment(SwingConstants.TRAILING);
-
-		textField_3.setText(String.valueOf(customerNum));
-		textField_4.setEditable(false);
-		textField_4.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_4.setText(String.valueOf(customerNum));
-		textField_6.setEditable(false);
-		textField_6.setText(address);
-		textField_10.setEditable(false);
-		textField_10.setText(address);
-		textField_2.setEditable(false);
-		textField_2.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_2.setText(customerPhoneNum);
-		textField_9.setEditable(false);
-		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_9.setText(customerPhoneNum);
-
-		textField_11.setEditable(false);
-		textField_11.setText("2017-05-27 22:13:00");
-		lblNewLabel_2.setBounds(446, 46, 33, 25);
-
-		panel.add(lblNewLabel_2);
-		lblNewLabel.setText(format.format(today));
-		label_27.setBounds(35, 12, 32, 32);
-		label_27.setIcon(new ImageIcon("img/paste.png"));
-
-		panel_7.add(label_27);
-		textField_14.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_14.setEditable(false);
-		textField_13.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_13.setEditable(false);
-		button_5.setBounds(192, 10, 56, 25);
-		panel_2.add(button_5);
-
-		getColumn();
-		jTableRefresh(new MenuDao().menuAllPart());
 	}
 
 	void init() {
@@ -239,6 +197,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 
 		tabbedPane_2.addTab("ㅇ주문내역", null, panel_5, null);
 		panel_5.setLayout(null);
+		textField_7.setEditable(false);
 		textField_7.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_7.setText("0");
 		textField_7.setBounds(304, 200, 126, 25);
@@ -293,7 +252,6 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 
 		tabbedPane_3.addTab("ㅇ요청사항", null, panel_11, null);
 		panel_11.setLayout(null);
-		txtrAa.setText("aa");
 
 
 		txtrAa.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.LIGHT_GRAY));
@@ -327,7 +285,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		label_26.setBounds(12, 93, 67, 25);
 
 		panel_11.add(label_26);
-		txtEx.setText("2017-05-04 18:30:00");
+		txtEx.setText("ex) 2017-05-24 17:34:40");
 		txtEx.setColumns(10);
 		txtEx.setBounds(79, 10, 389, 25);
 
@@ -393,9 +351,8 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		label_19.setBounds(246, 5, 67, 25);
 
 		panel_6.add(label_19);
-		textField_15.setEditable(true);
 		textField_15.setBounds(313, 5, 153, 25);
-		textField_15.setModel(new DefaultComboBoxModel(new String[] {"전화", "어플", "문자", "ARS", "웹페이지"}));
+		textField_15.setModel(new DefaultComboBoxModel(new String[] {"채널선택", "전화", "어플", "문자", "ARS", "웹페이지"}));
 
 		panel_6.add(textField_15);
 		label_20.setHorizontalAlignment(SwingConstants.CENTER);
@@ -405,7 +362,9 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		label_20.setBounds(246, 35, 67, 25);
 
 		panel_6.add(label_20);
-		textField_16.setEditable(false);
+		textField_16.setEnabled(false);
+		textField_16.setEditable(true);
+		textField_16.setModel(new DefaultComboBoxModel(new String[] {"등급선택", "신규고객", "일반고객", "단골고객", "VIP고객"}));
 		textField_16.setBounds(313, 35, 153, 25);
 
 		panel_6.add(textField_16);
@@ -523,6 +482,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		panel_9.setBounds(12, 10, 296, 35);
 		panel_1.add(panel_9);
 		panel_9.setLayout(null);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"전체보기", "치킨류", "사이드류", "음료류"}));
 
 
 		comboBox.setEditable(true);
@@ -554,12 +514,12 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 
 		panel_2.add(tabbedPane_4);
 
-		tabbedPane_4.addTab("3일간 주문상품", null, scrollPane_1, null);
+		tabbedPane_4.addTab("3일간 주문메뉴", null, scrollPane_1, null);
 
 		table_2 = new JTable();
 		scrollPane_1.setViewportView(table_2);
 
-		tabbedPane_4.addTab("한달간 주문상품", null, scrollPane_2, null);
+		tabbedPane_4.addTab("한달간 주문메뉴", null, scrollPane_2, null);
 
 		table_3 = new JTable();
 		scrollPane_2.setViewportView(table_3);
@@ -627,6 +587,22 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		button_1.setBounds(12, 10, 70, 65);
 
 		panel_10.add(button_1);
+		
+		textField_11.setEditable(false);
+		lblNewLabel_2.setBounds(446, 46, 33, 25);
+
+		panel.add(lblNewLabel_2);
+		lblNewLabel.setText(format.format(today));
+		label_27.setBounds(35, 12, 32, 32);
+		label_27.setIcon(new ImageIcon("img/paste.png"));
+
+		panel_7.add(label_27);
+		textField_14.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_14.setEditable(false);
+		textField_13.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_13.setEditable(false);
+		button_5.setBounds(192, 10, 56, 25);
+		panel_2.add(button_5);
 	}
 
 	void start() {
@@ -649,6 +625,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		vector2.add("메뉴가격");
 		vector2.add("메뉴분류");
 		vector2.add("메뉴수량");
+		vector2.add("삭제");
 		return vector2;
 	}
 
@@ -660,9 +637,58 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 
 	public void jTableRefresh1(Vector menuDto) throws ClassNotFoundException, SQLException{
 		DefaultTableModel model = new DefaultTableModel();
-		System.out.println(vector2);
 		model.setDataVector(menuDto, vector2);
 		table_1.setModel(model);
+
+		//table_1.setBackground(Color.getColor("F0F0F0"));
+		ButtonCellRenderer renderer = new ButtonCellRenderer(table_1, model);
+		TableColumn column4 = table_1.getColumnModel().getColumn(4);
+		column4.setCellEditor(renderer);
+		column4.setCellRenderer(renderer);
+	}
+	
+	private void viewData(CustomerDto customerDto) throws ClassNotFoundException, SQLException{
+
+		int customerNum = customerDto.getCustomerNum();
+		String a = customerDto.getCustomerAddState();
+		String b = customerDto.getCustomerAddCity();
+		String c = customerDto.getCustomerAddStreet();
+		String d = customerDto.getCustomerAddRest();
+		String address = (a + " " + b + " " + c + " " + d);
+		int customerAgePredict = customerDto.getCustomerAgePredict();
+		int customerGender = customerDto.getCustomerGender();
+		String customerPhoneNum = customerDto.getCustomerPhoneNum();
+		String customerRegDate = customerDto.getCustomerRegDate();
+		String customerNoteInfo = customerDto.getCustomerNoteInfo();
+
+		textField_3.setEditable(false);
+		textField_3.setHorizontalAlignment(SwingConstants.TRAILING);
+
+		textField_3.setText(String.valueOf(customerNum));
+		textField_4.setEditable(false);
+		textField_4.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_4.setText(String.valueOf(customerNum));
+		textField_6.setEditable(false);
+		textField_6.setText(address);
+		textField_10.setEditable(false);
+		textField_10.setText(address);
+		textField_2.setEditable(false);
+		textField_2.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_2.setText(customerPhoneNum);
+		textField_9.setEditable(false);
+		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_9.setText(customerPhoneNum);
+		
+		OrderInfoDao orderInfoDao = new OrderInfoDao();
+		int orderInfoCount = orderInfoDao.getOneCustomerOrderFrequency(customerNum);
+		textField_14.setText(String.valueOf(orderInfoCount));
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String time = format.format(cal.getTime());
+		textField_11.setText(time);
+		textArea.setText(customerNoteInfo);
+		
 	}
 
 	public void realTime() {
@@ -718,7 +744,9 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 				menuSelectedVector.add(menuPrice);
 				menuSelectedVector.add(menuGroupName);
 				menuSelectedVector.add(1);
+				menuSelectedVector.add("-");
 				menuAllSelectedVector.add(menuSelectedVector);
+
 
 				try {
 					jTableRefresh1(menuAllSelectedVector);
@@ -752,7 +780,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 			System.out.println("저장 버튼 누름");
 			cal.add(Calendar.MINUTE, Integer.parseInt(textField_8.getText().toString()));
 			try{
-
+				
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 				String predictTime = format.format(cal.getTime());
@@ -804,18 +832,30 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 					OrderItemDao orderItemDao = new OrderItemDao();
 					try {
 						orderItemDao.addOneOrderItem(orderItemDto);
+						
 					} catch (ClassNotFoundException | SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+
+
 				}
+				JOptionPane.showMessageDialog(null, "주문서가 저장되었습니다");
+				this.dispose();
+				try {
+					OrderMainView orderMainView = new OrderMainView();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}else{
-				System.out.println("주문서가 제대로 작성되지 않았습니다");
+				JOptionPane.showMessageDialog(null, "주문서가 제대로 작성되지 않았습니다");
 			}
 
 		}
 
-		if(e.getSource()==table_1){
+		/*if(e.getSource()==table_1){
 			if(e.getSource()==table_1){
 				System.out.println("테이블에 리스너 작동");
 
@@ -833,11 +873,12 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 
 					textField.setText(String.valueOf(sum));
 					textField_1.setText(String.valueOf(sum-discount));
+
 				}
 			}else{
 				System.out.println("이미 존재하는 메뉴이름");
 			}
-		}
+		}*/
 	}
 
 

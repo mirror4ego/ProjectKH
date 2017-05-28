@@ -92,7 +92,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		String orderInfoOrderPossiblity=vMem.getOrderInfoOrderPossibility(); //주문가능여부(주문량)
 		String orderInfoLocPossiblity=vMem.getOrderInfoLocPossibility(); //주문가능여부(주문량)
 		String orderInfoRequestInfo=vMem.getOrderInfoRequestInfo(); //주문요청사항
-		int orderInfoChannelNum=vMem.getOrderInfoChannelNum();//채널고유값
+		String orderInfoChannelName=vMem.getOrderInfoChannelName();//채널고유값
 		String orderInfoRequestDelivery=vMem.getOrderInfoRequestDelivery();//배달요청시간
 		String orderInfoPackCompletion=vMem.getOrderInfoPackCompletion(); //주문 프로세스(포장)완료여부
 		String orderInfoDeliveryCompletion=vMem.getOrderInfoDeliveryCompletion(); //주문 프로세스(배달)완료여부
@@ -109,7 +109,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		jTextField13.setText(orderInfoLocPossiblity);
 		jTextField14.setText(orderInfoOrderPossiblity);
 		jTextField17.setText(orderInfoRequestInfo);
-		jTextField18.setText(String.valueOf(orderInfoChannelNum));
+		jTextField18.setText(String.valueOf(orderInfoChannelName));
 		jTextField19.setText(orderInfoRequestDelivery);
 		jTextField20.setText(orderInfoPackCompletion);
 		jTextField21.setText(orderInfoDeliveryCompletion);
@@ -287,9 +287,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 
 		String orderInfoRequestInfo = jTextField17.getText();
 
-		String orderInfoChannelNum1 = jTextField18.getText();
-		int orderInfoChannelNum = Integer.parseInt(orderInfoChannelNum1);
-
+		String orderInfoChannelName = jTextField18.getText();
 		String orderInfoRequestDelivery = jTextField19.getText();
 		String orderInfoPackCompletion = jTextField20.getText();
 		String orderInfoDeliveryCompletion = jTextField21.getText();
@@ -303,7 +301,7 @@ public class OrderRegView<getOrderList> extends JFrame implements ActionListener
 		dto.setOrderInfoLocPossibility(orderInfoLocPossiblity);
 		dto.setOrderInfoOrderPossibility(orderInfoOrderPossiblity);
 		dto.setOrderInfoRequestInfo(orderInfoRequestInfo);
-		dto.setOrderInfoChannelNum(orderInfoChannelNum);
+		dto.setOrderInfoChannelName(orderInfoChannelName);
 		dto.setOrderInfoRequestDelivery(orderInfoRequestDelivery);
 		dto.setOrderInfoPackCompletion(orderInfoPackCompletion);
 		dto.setOrderInfoDeliveryCompletion(orderInfoDeliveryCompletion);

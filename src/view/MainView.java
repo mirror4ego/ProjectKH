@@ -417,16 +417,14 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String customerAddCity = jTextField5.getText().trim(); //주소(시군구)의 입력창
 			String customerAddStreet = jTextField6.getText().trim(); //주소(동면읍리)의 입력창
 			String customerAddRest = jTextField7.getText().trim(); //주소(나머지)의 입력창
-			int customerFrequent = Integer.parseInt(jTextField8.getText().trim()); //고객 누적 주문 횟수의 입력창
 			int customerAgePredict = Integer.parseInt(jTextField9.getText().trim()); //고객 누적 주문 횟수의 입력창
-			int customerReceivable = Integer.parseInt(jTextField25.getText().trim()); //고객 누적 주문 횟수의 입력창
 			int customerGender = Integer.parseInt(jTextField26.getText().trim()); //고객 누적 주문 횟수의 입력창
+			String customerNoteInfo;
+			String customerGradeName;
 
 			//CustomerDao
 			CustomerDao customerDao = new DaoFactory().customerDao();
-			CustomerDto customer = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-					customerAddCity, customerAddStreet, customerAddRest, customerFrequent, customerAgePredict,
-					customerReceivable, customerGender);
+			CustomerDto customer = new CustomerDto();
 			try{
 				customerDao.add(customer);
 				System.out.println("등록완료");
@@ -450,11 +448,7 @@ public class MainView extends JFrame implements ActionListener, KeyListener, Foc
 			String orderInfoDeliveryPredict = jTextField24.getText().trim();
 			//OrderInfoDao 
 			OrderInfoDao orderInfoDao = new DaoFactory().orderInfoDao();
-			OrderInfoDto orderInfo = new OrderInfoDto(orderInfoNum, orderInfoDate, orderInfoLocPossibility, orderInfoOrderPossibility,
-					orderInfoRequestInfo, orderInfoChannelNum,
-					orderInfoRequestDelivery, orderInfoPackCompletion, orderInfoDeliveryCompletion,
-					orderInfoOrderCompletion, orderInfoMoneyCollection, orderInfoDeliveryPredict, 
-					orderInfoCustomerNum);
+			OrderInfoDto orderInfo = new OrderInfoDto();
 			try{
 				orderInfoDao.add(orderInfo);
 				System.out.println("등록완료");

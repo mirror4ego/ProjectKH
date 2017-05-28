@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import view.LoginView;
+import view2.CustomerMainView;
 
 
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		//MenuManageView menuManageView = new MenuManageView();
-		//CustomerMainView customerMainView = new CustomerMainView();
+		CustomerMainView customerMainView = new CustomerMainView();
 		LoginView loginView = new LoginView();
 		
 		

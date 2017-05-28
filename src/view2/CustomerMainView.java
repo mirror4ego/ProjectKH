@@ -39,6 +39,8 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.CustomerDao;
 import dao.DaoFactory;
+import dao.OrderInfoDao;
+import dao.OrderItemDao;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
@@ -123,7 +125,8 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnNewRadioButton = new JRadioButton("여성");
 	private JRadioButton radioButton = new JRadioButton("남성");
-
+	JLabel label_10 = new JLabel("등급");
+	JComboBox comboBox_5 = new JComboBox();
 	private Vector vector3 = new Vector();
 	private JTable table = new JTable();
 
@@ -353,13 +356,14 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		radioButton.setBounds(410, 115, 57, 25);
 		panel_5.add(radioButton);
 
-		JLabel label_10 = new JLabel("등급");
+
 		label_10.setHorizontalAlignment(SwingConstants.CENTER);
 		label_10.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		label_10.setBounds(12, 115, 57, 25);
 		panel_5.add(label_10);
 
-		JComboBox comboBox_5 = new JComboBox();
+
+		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"등급선택", "신규고객", "일반고객", "단골고객", "VIP고객"}));
 		comboBox_5.setBounds(69, 115, 170, 25);
 		panel_5.add(comboBox_5);
 
@@ -458,9 +462,12 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		textField_2.setText("");
 		radioButton.setSelected(false);
 		rdbtnNewRadioButton.setSelected(false);
+		comboBox_5.setSelectedIndex(0);
+		textArea_2.setText("");
+		
 	}
 
-	private void viewData(CustomerDto customerDto){
+	private void viewData(CustomerDto customerDto) throws ClassNotFoundException, SQLException{
 
 		int customerNum = customerDto.getCustomerNum();  //주문번호
 		String customerRegDate = customerDto.getCustomerRegDate(); //주문일자
@@ -471,8 +478,10 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		String customerAddRest = customerDto.getCustomerAddRest(); //주문요청사항
 		int customerAgePredict = customerDto.getCustomerAgePredict();//배달요청시간
 		int customerGender = customerDto.getCustomerGender(); //주문 프로세스(배달)완료여부
+		String customerGradeName = customerDto.getCustomerGradeName();
 		String customerNoteInfo = customerDto.getCustomerNoteInfo();
 		//화면에 세팅
+		
 		viewDefault();
 
 		jTextField2.setText(String.valueOf(customerNum));
@@ -500,6 +509,16 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		}else{
 			rdbtnNewRadioButton.setSelected(true);
 		}
+		for(int i=0;i<comboBox_5.getItemCount();i++){
+			if(customerGradeName.equals(comboBox_5.getItemAt(i).toString())){
+				comboBox_5.setSelectedIndex(i);
+			}
+		}
+		textArea_2.setText(customerNoteInfo);
+		//누적 주문
+		OrderInfoDao orderInfoDao = new OrderInfoDao();
+		int orderInfoCount = orderInfoDao.getOneCustomerOrderFrequency(customerNum);
+		textField.setText(String.valueOf(orderInfoCount));
 	}
 
 
@@ -566,8 +585,9 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			String customerAddRest = jTextField1.getText().trim(); //주소(나머지)의 입력창
 			int customerAgePredict = Integer.parseInt(textField_1.getText().trim());
 			int customerGender = 99;
-			String customerNoteInfo = "1";
-			String customerGradeName = "1";
+			String customerNoteInfo = textArea_2.getText().toString();
+			String customerGradeName = String.valueOf(comboBox_5.getSelectedItem());
+			System.out.println(customerGradeName);
 			if(radioButton.isSelected()){
 				customerGender = 0;
 			}else if(rdbtnNewRadioButton.isSelected()){
@@ -583,6 +603,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
 							customerGradeName);
 					customerDao.add(customerDto);
+
 				}catch(Exception e1){JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (입력값 확인)");};
 			}else{
 
@@ -597,6 +618,12 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "고객정보 변경 실패 (입력값 확인)");
 				}
+			}
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}else{}
 
@@ -629,6 +656,16 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 				try {
 					int result = JOptionPane.showConfirmDialog(null, "고객정보를 삭제하시겠습니까?");
 					if(result==0){
+						OrderItemDao orderItemDao = new OrderItemDao();
+						OrderInfoDao orderInfoDao = new OrderInfoDao();
+						//OrderItem 목록 삭제 (고객번호로 검색한 하위 orderinfo_num들의 아래에 있는 결과들)
+
+						Vector vector3 = orderInfoDao.getOrderListNum(Integer.parseInt(jTextField2.getText().trim()));
+						for(int i = 0;i<vector3.size();i++){
+							orderItemDao.deleteOrderItem(Integer.parseInt(vector3.get(i).toString()));
+						}
+						//OrderInfo 목록 삭제 (고객번호로 검색되어 나온 결과들)
+						orderInfoDao.delteOrderInfo(Integer.parseInt(jTextField2.getText().trim()));
 						(new CustomerDao()).deleteOneCustomer(Integer.parseInt(jTextField2.getText().trim()));
 					}else{
 						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
