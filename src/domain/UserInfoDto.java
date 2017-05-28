@@ -9,7 +9,6 @@ public class UserInfoDto {
 	private String userInfoTask;
 	private int userInfoPhone;
 	private String userInfoEmail;
-	private String userInfoHireDate;
 	private String userInfoAttendanceTime;
 	private String userInfoQuittingTime;
 	private String userInfoEmployStatus;
@@ -23,7 +22,7 @@ public class UserInfoDto {
 	public UserInfoDto() {}
 
 	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoTask,
-			int userInfoPhone, String userInfoEmail, String userInfoHireDate, String userInfoAttendanceTime, String userInfoQuittingTime,
+			int userInfoPhone, String userInfoEmail, String userInfoAttendanceTime, String userInfoQuittingTime,
 			String userInfoEmployStatus, String userInfoAddState, String userInfoAddCity, String userInfoAddStreet,
 			String userInfoAddRest, String userInfoGender) {
 		this.userInfoId = userInfoId;
@@ -33,7 +32,6 @@ public class UserInfoDto {
 		this.userInfoTask = userInfoTask;
 		this.userInfoPhone = userInfoPhone;
 		this.userInfoEmail = userInfoEmail;
-		this.userInfoHireDate = userInfoHireDate;
 		this.userInfoAttendanceTime = userInfoAttendanceTime;
 		this.userInfoQuittingTime = userInfoQuittingTime;
 		this.userInfoEmployStatus = userInfoEmployStatus;
@@ -99,14 +97,6 @@ public class UserInfoDto {
 
 	public void setUserInfoEmail(String userInfoEmail) {
 		this.userInfoEmail = userInfoEmail;
-	}
-
-	public String getUserInfoHireDate() {
-		return userInfoHireDate;
-	}
-
-	public void setUserInfoHireDate(String userInfoHireDate) {
-		this.userInfoHireDate = userInfoHireDate;
 	}
 
 	public String getUserInfoAttendanceTime() {
@@ -177,7 +167,7 @@ public class UserInfoDto {
 	public String toString() {
 		return "UserInfoDto [userInfoId=" + userInfoId + ", userInfoPassword=" + userInfoPassword + ", userInfoName="
 				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoTask=" + userInfoTask + ", userInfoPhone="
-				+ userInfoPhone + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate=" + userInfoHireDate
+				+ userInfoPhone + ", userInfoEmail=" + userInfoEmail 
 				+ ", userInfoAttendanceTime=" + userInfoAttendanceTime + ", userInfoQuittingTime="
 				+ userInfoQuittingTime + ", userInfoEmployStatus=" + userInfoEmployStatus + ", userInfoAddState="
 				+ userInfoAddState + ", userInfoAddCity=" + userInfoAddCity + ", userInfoAddStreet=" + userInfoAddStreet
