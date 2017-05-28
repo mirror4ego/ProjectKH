@@ -25,7 +25,11 @@ import domain.UserInfoDto;
 
 
 public class UserRegView extends JFrame implements ActionListener {
+	//실행을 위한 메
+	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
+		UserRegView a = new UserRegView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
 
+	} //여기까지
 	JPanel jPanel1;
 	JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7; //전화
 	JTextField jTextArea8, jTextArea9, jTextArea10; //생년월일
@@ -125,7 +129,7 @@ public class UserRegView extends JFrame implements ActionListener {
 	private void createUI(){
 		this.setTitle("회원정보");
 		gridBagLayout1 = new GridBagLayout();
-		setLayout(gridBagLayout1);
+		getContentPane().setLayout(gridBagLayout1);
 		gridBagConstraints1 = new GridBagConstraints();
 		gridBagConstraints1.fill = GridBagConstraints.BOTH;
 		gridBagConstraints1.weightx = 1.0;
@@ -261,7 +265,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		gridBagConstraints1.gridheight = h;
 		gridBagLayout1.setConstraints(c, gridBagConstraints1);
 		gridBagConstraints1.insets = new Insets(2, 2, 2, 2);
-		add(c, gridBagConstraints1);
+		getContentPane().add(c, gridBagConstraints1);
 	}//gbAdd
 
 	@Override

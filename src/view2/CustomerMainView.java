@@ -42,9 +42,13 @@ import dao.DaoFactory;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
+import view.UserSelectView;
 
 public class CustomerMainView extends JFrame implements MouseListener, ItemListener {
+	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
+		CustomerMainView a = new CustomerMainView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
 
+	}
 	// 변수 선언부
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();

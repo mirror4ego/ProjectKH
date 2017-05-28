@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,11 +23,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -35,9 +39,6 @@ import javax.swing.table.DefaultTableModel;
 import dao.UserInfoDao;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import java.awt.Component;
-import javax.swing.JPasswordField;
-import javax.swing.JSpinner;
 
 
 public class UserListView extends JFrame implements MouseListener,ItemListener{
@@ -232,7 +233,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_7.setColumns(10);
 		comboBox_8.setBounds(395, 98, 187, 21);
 		panel_1.add(comboBox_8);
-		comboBox_8.addItem("분류");
+//		comboBox_8.addItem("분류");
+		comboBox_8.setModel(new DefaultComboBoxModel(new String[] {"분류"}));
 		((JLabel)comboBox_8.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); //콤보박스에 없는 정렬기능을 라벨에는 있는 정렬기능으로 형변환 시켜서 강제 중앙정렬
 		comboBox_8.addItem("주문관리");
 		comboBox_8.addItem("매장관리");
@@ -300,7 +302,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setForeground(Color.WHITE);
 
-		JLabel lblNewLabel_17 = new JLabel("매장 기존, 신규 직원들의 정보를 관리하는 곳입니다.");
+		JLabel lblNewLabel_17 = new JLabel("신규, 기존 직원들의 정보를 관리하는 곳입니다.");
 		lblNewLabel_17.setForeground(Color.WHITE);
 		lblNewLabel_17.setBounds(84, 27, 305, 15);
 		panel_2.add(lblNewLabel_17);
@@ -319,7 +321,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_1.setColumns(10);
 		comboBox_1.setBounds(265, 16, 57, 21);
 		panel_3.add(comboBox_1);		
-		comboBox_1.addItem("성별");
+//		comboBox_1.addItem("성별");
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"성별"}));
         comboBox_1.addItem("남성");
         comboBox_1.addItem("여성");
         textField.setColumns(20);
@@ -414,28 +417,11 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		comboBox_4.addItemListener(this);
 		comboBox_5.addItemListener(this);
 		btnNewButton.addMouseListener(this);
-		btnNewButton_7.addMouseListener(this);
 		btnNewButton_1.addMouseListener(this);
+		btnNewButton_4.addMouseListener(this);
+		btnNewButton_5.addMouseListener(this);
+		btnNewButton_7.addMouseListener(this);
 	}
-
-/*	void viewDefault(){
-		jTextField2.setText("");
-		jTextField4.setText("");
-		jTextField3.setText("");
-		comboBox_2.setSelectedIndex(0);
-		comboBox_3.setSelectedIndex(0);
-		comboBox_4.setSelectedIndex(0);
-		jTextField1.setText("");
-		textField.setText("");
-		textField_1.setText("");
-		textField_2.setText("");
-		radioButton.setSelected(false);
-		rdbtnNewRadioButton.setSelected(false);
-	}
-*/
-
-
-
 
 	public void jTableRefresh(Vector userInfoDto) throws SQLException{
 
@@ -444,7 +430,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		model.setDataVector(userInfoDto, vector3);
 		table.setModel(model);
 	}
-
 
 	public Vector getColumn(){ //표시해주는 기능
 		vector3.add("아이디");
@@ -475,9 +460,27 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 				System.out.println("value = "+df.format(value) + "\t" + "next = " + df.format(next));
 		}
 	});
-
 	}
 
+	void viewDefault(){
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		textField_5.setText("");
+		textField_6.setText("");
+		//		jSpinner1.setValue(value);
+		AbstractButton spinner = null;
+		jSpinner1.setValue(((SpinnerNumberModel) spinner.getModel()).getMinimum());
+		comboBox_1.setSelectedIndex(0);
+		comboBox_3.setSelectedIndex(0);
+		comboBox_4.setSelectedIndex(0);
+		comboBox_5.setSelectedIndex(0);
+		comboBox_7.setSelectedIndex(0);
+		comboBox_8.setSelectedIndex(0);
+		
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -496,17 +499,17 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 				}
 			}
 		}
-		if(e.getSource()==btnNewButton_7) {
-			this.dispose();
+		
+		
+		if(e.getSource()==btnNewButton_4){
+			viewDefault();
 		}
 	
-	/*	if(e.getSource()==btnf_1){
-			viewDefault();
-		}*/
-
-
-	
-
+		if(e.getSource()==btnNewButton_7){
+//			System.out.println("종료 버튼");
+			this.dispose();
+		}
+		
 		if(e.getSource()==btnNewButton_1) {
 			try {
 				this.jTableRefresh(new UserInfoDao().userInfoAllPart());
@@ -518,13 +521,17 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	}
 
 
+	private void voidviewDefault() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==comboBox_3){
 			if(e.getStateChange()==ItemEvent.SELECTED){
 				String a = comboBox_3.getSelectedItem().toString();
-				System.out.println(a);
 
 				if(a.equals("서울시")){
 					comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"구/군","강남구","강동구","강북구","강서구","관악구","광진구","구로구",
@@ -606,7 +613,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		}else if (e.getSource()==comboBox_4){
 			if(e.getStateChange()==ItemEvent.SELECTED){
 			String b = comboBox_4.getSelectedItem().toString();
-			System.out.println(b);
 
 			if(b.equals("강남구")){
 				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","개포동","논현동","대치동","도곡동","삼성동","세곡동","수서동",
