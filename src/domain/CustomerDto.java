@@ -9,16 +9,16 @@ public class CustomerDto {
 	private String customerAddCity;
 	private String customerAddStreet;
 	private String customerAddRest;
-	private int customerFrequent;
 	private int customerAgePredict;
-	private int customerReceivable;
 	private int customerGender;
-
+	private String customerNoteInfo;
+	private String customerGradeName;
+	
 	public CustomerDto() {}
 	
 	public CustomerDto(int customerNum, String customerRegDate, String customerPhoneNum, String customerAddState,
-			String customerAddCity, String customerAddStreet, String customerAddRest, int customerFrequent,
-			int customerAgePredict, int customerReceivable, int customerGender) {
+			String customerAddCity, String customerAddStreet, String customerAddRest,
+			int customerAgePredict, int customerGender, String customerNoteInfo, String customerGradeName) {
 		this.customerNum = customerNum;
 		this.customerRegDate = customerRegDate;
 		this.customerPhoneNum = customerPhoneNum;
@@ -26,10 +26,10 @@ public class CustomerDto {
 		this.customerAddCity = customerAddCity;
 		this.customerAddStreet = customerAddStreet;
 		this.customerAddRest = customerAddRest;
-		this.customerFrequent = customerFrequent;
 		this.customerAgePredict = customerAgePredict;
-		this.customerReceivable = customerReceivable;
 		this.customerGender = customerGender;
+		this.customerNoteInfo = customerNoteInfo;
+		this.customerGradeName = customerGradeName;
 	}
 
 	public int getCustomerNum() {
@@ -88,28 +88,12 @@ public class CustomerDto {
 		this.customerAddRest = customerAddRest;
 	}
 
-	public int getCustomerFrequent() {
-		return customerFrequent;
-	}
-
-	public void setCustomerFrequent(int customerFrequent) {
-		this.customerFrequent = customerFrequent;
-	}
-
 	public int getCustomerAgePredict() {
 		return customerAgePredict;
 	}
 
 	public void setCustomerAgePredict(int customerAgePredict) {
 		this.customerAgePredict = customerAgePredict;
-	}
-	
-	public int getCustomerReceivable() {
-		return customerReceivable;
-	}
-
-	public void setCustomerReceivable(int customerReceivable) {
-		this.customerReceivable = customerReceivable;
 	}
 
 	public int getCustomerGender() {
@@ -120,16 +104,29 @@ public class CustomerDto {
 		this.customerGender = customerGender;
 	}
 
+	public String getCustomerNoteInfo() {
+		return customerNoteInfo;
+	}
+
+	public void setCustomerNoteInfo(String customerNoteInfo) {
+		this.customerNoteInfo = customerNoteInfo;
+	}
+
+	public String getCustomerGradeName() {
+		return customerGradeName;
+	}
+
+	public void setCustomerGradeName(String customerGradeName) {
+		this.customerGradeName = customerGradeName;
+	}
+
 	@Override
 	public String toString() {
 		return "CustomerDto [customerNum=" + customerNum + ", customerRegDate=" + customerRegDate
 				+ ", customerPhoneNum=" + customerPhoneNum + ", customerAddState=" + customerAddState
 				+ ", customerAddCity=" + customerAddCity + ", customerAddStreet=" + customerAddStreet
-				+ ", customerAddRest=" + customerAddRest + ", customerFrequent=" + customerFrequent
-				+ ", customerAgePredict=" + customerAgePredict + ", customerReceivable=" + customerReceivable
-				+ ", customerGender=" + customerGender + "]";
+				+ ", customerAddRest=" + customerAddRest + ", customerAgePredict=" + customerAgePredict
+				+ ", customerGender=" + customerGender + ", customerNoteInfo=" + customerNoteInfo
+				+ ", customerGradeName=" + customerGradeName + "]";
 	}
-
-
-
 }

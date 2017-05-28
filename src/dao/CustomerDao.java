@@ -33,10 +33,10 @@ public class CustomerDao {
 			ps.setString(4, customerDto.getCustomerAddCity());
 			ps.setString(5, customerDto.getCustomerAddStreet());
 			ps.setString(6, customerDto.getCustomerAddRest());
-			ps.setInt(7, customerDto.getCustomerFrequent());
-			ps.setInt(8, customerDto.getCustomerAgePredict());
-			ps.setInt(9, customerDto.getCustomerReceivable());
-			ps.setInt(10, customerDto.getCustomerGender());
+			ps.setInt(7, customerDto.getCustomerAgePredict());
+			ps.setInt(8, customerDto.getCustomerGender());
+			ps.setString(9, customerDto.getCustomerNoteInfo());
+			ps.setString(10, customerDto.getCustomerGradeName());
 
 			ps.executeUpdate();
 			ps.close();
@@ -73,8 +73,8 @@ public class CustomerDao {
 
 		try{
 			PreparedStatement ps = c.prepareStatement("update customer set customer_reg_date = ?, customer_phone_num = ?, customer_add_state = ?,"
-					+ "customer_add_city = ?, customer_add_street = ?, customer_add_rest = ?, customer_frequent = ?, customer_age_predict = ?,"
-					+ "customer_receivable = ?, customer_gender = ?"
+					+ "customer_add_city = ?, customer_add_street = ?, customer_add_rest = ?, customer_frequent = ?,"
+					+ "customer_gender = ?, customer_grade_name = ?"
 					+ "where customer_num = ?");
 
 			ps.setString(1, customerDto.getCustomerRegDate());
@@ -83,10 +83,10 @@ public class CustomerDao {
 			ps.setString(4, customerDto.getCustomerAddCity());
 			ps.setString(5, customerDto.getCustomerAddStreet());
 			ps.setString(6, customerDto.getCustomerAddRest());
-			ps.setInt(7, customerDto.getCustomerFrequent());
-			ps.setInt(8, customerDto.getCustomerAgePredict());
-			ps.setInt(9, customerDto.getCustomerReceivable());
-			ps.setInt(10, customerDto.getCustomerGender());
+			ps.setInt(7, customerDto.getCustomerAgePredict());
+			ps.setInt(8, customerDto.getCustomerGender());
+			ps.setString(9, customerDto.getCustomerNoteInfo());
+			ps.setString(10, customerDto.getCustomerGradeName());
 			ps.setInt(11, customerDto.getCustomerNum());
 			ps.executeUpdate();
 
@@ -119,11 +119,11 @@ public class CustomerDao {
 		customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
 		customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
 		customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
-		customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
 		customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
-		customerDto.setCustomerReceivable(rs.getInt("customer_Receivable"));
 		customerDto.setCustomerGender(rs.getInt("customer_Gender"));
-
+		customerDto.setCustomerNoteInfo(rs.getString("customer_NoteInfo"));
+		customerDto.setCustomerGradeName(rs.getString("customer_Grade_Name"));
+		
 		rs.close();
 		ps.close();
 		c.close();
@@ -146,10 +146,10 @@ public class CustomerDao {
 		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
 		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
 		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
-		customerDto.setCustomerFrequent(rs.getInt("customerFrequent"));
 		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
-		customerDto.setCustomerReceivable(rs.getInt("customer_Receivable"));
 		customerDto.setCustomerGender(rs.getInt("customer_Gender"));
+		customerDto.setCustomerNoteInfo(rs.getString("customer_NoteInfo"));
+		customerDto.setCustomerGradeName(rs.getString("customer_Grade_Name"));
 
 		rs.close();
 		ps.close();
@@ -169,37 +169,6 @@ public class CustomerDao {
 		c.close();
 	}
 
-	//뭔지모르겠어서 일단 주석
-	//Connection c = connectionMaker.makeConnection();
-	//PreparedStatement ps = c.prepareStatement("select * from customer where customer_reg_date = ?");
-	//ps.setString(1, customerRegDate);
-	//ResultSet rs = ps.executeQuery();
-
-	//날짜미완
-	/*
-	public int sumCustomerNum(int customerDate) throws ClassNotFoundException, SQLException{
-
-		int sum=0;
-		Connection c = connectionMaker.makeConnection();
-
-		try{
-			PreparedStatement ps = c.prepareStatement("select * orderby customer_reg_date from customer");
-			//ps.setInt(1,customerDate);
-			ResultSet rs = ps.executeQuery();
-
-			if(rs.next()){
-				sum+=rs.getInt("customer_frequent");
-			}else{
-				JOptionPane.showMessageDialog(null, "고객번호가 존재하지 않습니다");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sum;    
-	}
-<<<<<<< HEAD
-	*/
-	
 	public int sumCustomerLoc(String str) throws ClassNotFoundException, SQLException {
 
 		Connection c = connectionMaker.makeConnection();
@@ -285,10 +254,10 @@ public class CustomerDao {
 				customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
 				customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
 				customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
-				customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
 				customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
-				customerDto.setCustomerReceivable(rs.getInt("customer_Receivable"));
 				customerDto.setCustomerGender(rs.getInt("customer_Gender"));
+				customerDto.setCustomerNoteInfo(rs.getString("customer_NoteInfo"));
+				customerDto.setCustomerGradeName(rs.getString("customer_Grade_Name"));
 			}else{
 				JOptionPane.showMessageDialog(null, "고객번호가 존재하지 않습니다");
 			}
@@ -311,17 +280,9 @@ public class CustomerDao {
 			while(rs.next()){
 				Vector row = new Vector();
 				row.add(rs.getInt("customer_Num"));
-				//row.add(rs.getString("customer_Reg_Date"));
 				row.add(rs.getString("customer_Phone_Num"));
-				//row.add(rs.getString("customer_Add_State"));
-				//row.add(rs.getString("customer_Add_City"));
 				row.add(rs.getString("customer_Add_Street"));
 				row.add(rs.getString("customer_Add_Rest"));
-				//row.add(rs.getInt("customer_Frequent"));
-				//row.add(rs.getInt("customer_Age_Predict"));
-				//row.add(rs.getInt("customer_Receivable"));
-				//row.add(rs.getInt("customer_Gender"));
-
 				data.add(row); 
 			}
 		} catch (Exception e) {
@@ -343,16 +304,9 @@ public class CustomerDao {
 			while(rs.next()){
 				Vector row = new Vector();
 				row.add(rs.getInt("customer_Num"));
-				//row.add(rs.getString("customer_Reg_Date"));
 				row.add(rs.getString("customer_Phone_Num"));
-				//row.add(rs.getString("customer_Add_State"));
-				//row.add(rs.getString("customer_Add_City"));
 				row.add(rs.getString("customer_Add_Street"));
 				row.add(rs.getString("customer_Add_Rest"));
-				//row.add(rs.getInt("customer_Frequent"));
-				//row.add(rs.getInt("customer_Age_Predict"));
-				//row.add(rs.getInt("customer_Receivable"));
-				//row.add(rs.getInt("customer_Gender"));
 
 				data.add(row); 
 			}
@@ -374,16 +328,9 @@ public class CustomerDao {
 			while(rs.next()){
 				Vector row = new Vector();
 				row.add(rs.getInt("customer_Num"));
-				//row.add(rs.getString("customer_Reg_Date"));
 				row.add(rs.getString("customer_Phone_Num"));
-				//row.add(rs.getString("customer_Add_State"));
-				//row.add(rs.getString("customer_Add_City"));
 				row.add(rs.getString("customer_Add_Street"));
 				row.add(rs.getString("customer_Add_Rest"));
-				//row.add(rs.getInt("customer_Frequent"));
-				//row.add(rs.getInt("customer_Age_Predict"));
-				//row.add(rs.getInt("customer_Receivable"));
-				//row.add(rs.getInt("customer_Gender"));
 
 				data.add(row); 
 			}
@@ -411,10 +358,10 @@ public class CustomerDao {
 			customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
 			customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
 			customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
-			customerDto.setCustomerFrequent(rs.getInt("customer_Frequent"));
 			customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
-			customerDto.setCustomerReceivable(rs.getInt("customer_Receivable"));
 			customerDto.setCustomerGender(rs.getInt("customer_Gender"));
+			customerDto.setCustomerNoteInfo(rs.getString("customer_NoteInfo"));
+			customerDto.setCustomerGradeName(rs.getString("customer_Grade_Name"));
 
 		}else{
 			JOptionPane.showMessageDialog(null, "고객의 주소가 존재하지 않습니다");

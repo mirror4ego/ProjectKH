@@ -388,6 +388,19 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 			
 					
 		}
+		
+		if(e.getSource()==btnNewButton_2){
+			String menuGroupNameNew = textField.getText().toString();
+			MenuGroupDto menuGroupDto = new MenuGroupDto();
+			menuGroupDto.setMenuGroupName(menuGroupNameNew); // 새로운 분류명 생성
+			try {
+				new MenuGroupDao().insertMenuGroupName(menuGroupDto);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} // 새로운 분류명 생성
+		}
+		
 		if(e.getSource()==button_5){
 
 			

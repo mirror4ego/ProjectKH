@@ -7,7 +7,7 @@ public class OrderInfoDto {
 	private String orderInfoLocPossibility;
 	private String orderInfoOrderPossibility;
 	private String orderInfoRequestInfo;
-	private int orderInfoChannelNum;
+	private String orderInfoChannelName;
 	private String orderInfoRequestDelivery;
 	private String orderInfoPackCompletion;
 	private String orderInfoDeliveryCompletion;
@@ -15,20 +15,21 @@ public class OrderInfoDto {
 	private String orderInfoMoneyCollection;
 	private String orderInfoDeliveryPredict;
 	private int orderInfoCustomerNum;
+	private int orderInfoUserInfoNum;
 
 	public OrderInfoDto() {}
 
 	public OrderInfoDto(int orderInfoNum, String orderInfoDate, String orderInfoLocPossibility, String orderInfoOrderPossibility,
-			String orderInfoRequestInfo, int orderInfoChannelNum,
+			String orderInfoRequestInfo, String orderInfoChannelName,
 			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
-			int orderInfoCustomerNum) {
+			int orderInfoCustomerNum, int orderInfoUserInfoNum) {
 		this.orderInfoNum = orderInfoNum;
 		this.orderInfoDate = orderInfoDate;
 		this.orderInfoLocPossibility = orderInfoLocPossibility;
 		this.orderInfoOrderPossibility = orderInfoOrderPossibility;
 		this.orderInfoRequestInfo = orderInfoRequestInfo;
-		this.orderInfoChannelNum = orderInfoChannelNum;
+		this.orderInfoChannelName = orderInfoChannelName;
 		this.orderInfoRequestDelivery = orderInfoRequestDelivery;
 		this.orderInfoPackCompletion = orderInfoPackCompletion;
 		this.orderInfoDeliveryCompletion = orderInfoDeliveryCompletion;
@@ -36,6 +37,7 @@ public class OrderInfoDto {
 		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
 		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
+		this.orderInfoUserInfoNum = orderInfoUserInfoNum;
 	}
 
 	public int getOrderInfoNum() {
@@ -78,12 +80,12 @@ public class OrderInfoDto {
 		this.orderInfoRequestInfo = orderInfoRequestInfo;
 	}
 
-	public int getOrderInfoChannelNum() {
-		return orderInfoChannelNum;
+	public String getOrderInfoChannelName() {
+		return orderInfoChannelName;
 	}
 
-	public void setOrderInfoChannelNum(int orderInfoChannelNum) {
-		this.orderInfoChannelNum = orderInfoChannelNum;
+	public void setOrderInfoChannelName(String orderInfoChannelName) {
+		this.orderInfoChannelName = orderInfoChannelName;
 	}
 
 	public String getOrderInfoRequestDelivery() {
@@ -142,15 +144,29 @@ public class OrderInfoDto {
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
 	}
 
+	
+	public int getOrderInfoUserInfoNum() {
+		return orderInfoUserInfoNum;
+	}
+
+	public void setOrderInfoUserInfoNum(int orderInfoUserInfoNum) {
+		this.orderInfoUserInfoNum = orderInfoUserInfoNum;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderInfoDto [orderInfoNum=" + orderInfoNum + ", orderInfoDate=" + orderInfoDate
 				+ ", orderInfoLocPossibility=" + orderInfoLocPossibility + ", orderInfoOrderPossibility="
-				+ orderInfoOrderPossibility + ", orderInfoRequestInfo=" + orderInfoRequestInfo + ", orderInfoChannelNum="
-				+ orderInfoChannelNum + ", orderInfoRequestDelivery=" + orderInfoRequestDelivery
-				+ ", orderInfoPackCompletion=" + orderInfoPackCompletion + ", orderInfoDeliveryCompletion="
-				+ orderInfoDeliveryCompletion + ", orderInfoOrderCompletion=" + orderInfoOrderCompletion
-				+ ", orderInfoMoneyCollection=" + orderInfoMoneyCollection + ", orderInfoDeliveryPredict="
-				+ orderInfoDeliveryPredict + ", orderInfoCustomerNum=" + orderInfoCustomerNum + "]";
+				+ orderInfoOrderPossibility + ", orderInfoRequestInfo=" + orderInfoRequestInfo
+				+ ", orderInfoChannelName=" + orderInfoChannelName + ", orderInfoRequestDelivery="
+				+ orderInfoRequestDelivery + ", orderInfoPackCompletion=" + orderInfoPackCompletion
+				+ ", orderInfoDeliveryCompletion=" + orderInfoDeliveryCompletion + ", orderInfoOrderCompletion="
+				+ orderInfoOrderCompletion + ", orderInfoMoneyCollection=" + orderInfoMoneyCollection
+				+ ", orderInfoDeliveryPredict=" + orderInfoDeliveryPredict + ", orderInfoCustomerNum="
+				+ orderInfoCustomerNum + ", orderInfoUserInfoNum=" + orderInfoUserInfoNum + "]";
 	}
+
+
+
+	
 }
