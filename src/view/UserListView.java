@@ -203,11 +203,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_1.add(jSpinner1);
 		jSpinner1.setForeground(Color.BLACK);
 		
-<<<<<<< HEAD
-		/*comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"111"}));*/
-=======
+
 		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"분류"}));
->>>>>>> c23721ad4bc426b3a17ae9839ad67d864c91d3b2
+
 
 		comboBox_7.setBounds(395, 59, 187, 21);
 		panel_1.add(comboBox_7);

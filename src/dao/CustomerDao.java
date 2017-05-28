@@ -74,8 +74,8 @@ public class CustomerDao {
 
 		try{
 			PreparedStatement ps = c.prepareStatement("update customer set customer_reg_date = ?, customer_phone_num = ?, customer_add_state = ?,"
-					+ "customer_add_city = ?, customer_add_street = ?, customer_add_rest = ?, customer_frequent = ?,"
-					+ "customer_gender = ?, customer_grade_name = ?"
+					+ "customer_add_city = ?, customer_add_street = ?, customer_add_rest = ?, customer_age_predict = ?,"
+					+ "customer_gender = ?, customer_noteInfo = ?, customer_grade_name = ?"
 					+ "where customer_num = ?");
 
 			ps.setString(1, customerDto.getCustomerRegDate());
