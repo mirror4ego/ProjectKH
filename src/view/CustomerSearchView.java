@@ -167,7 +167,6 @@ public class CustomerSearchView extends JFrame implements ActionListener, MouseL
 		jTextField2.setText(String.valueOf(customerDto.getCustomerRegDate()).substring(0,10));  // 문자열 앞에서 10개만 가져와서 디스플레이
 		jTextField3.setText(customerDto.getCustomerPhoneNum());
 		jTextField4.setText(customerDto.getCustomerAddState());
-		jTextField5.setText(String.valueOf(customerDto.getCustomerFrequent()));
 		jTextField6.setText(String.valueOf(customerDto.getCustomerAgePredict()));
 		jTextField7.setText(customerDto.getCustomerAddCity());
 		jTextField8.setText(customerDto.getCustomerAddStreet());
