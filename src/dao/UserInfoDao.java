@@ -56,10 +56,18 @@ public class UserInfoDao {
 			vs1.add(rs.getString("userinfo_password"));
 			vs1.add(rs.getString("userinfo_name"));
 			vs1.add(rs.getInt("userinfo_num"));
-			vs1.add(rs.getString("userinfo_address"));
+			vs1.add(rs.getString("userinfo_hiredate"));
+			vs1.add(rs.getString("userinfo_task"));
 			vs1.add(rs.getInt("userinfo_phone"));
 			vs1.add(rs.getString("userinfo_email"));
-			vs.add(vs1);
+			/*vs1.add(rs.getString("userinfo_AttendanceTime"));
+			vs1.add(rs.getString("userinfo_QuittingTime"));
+			vs1.add(rs.getString("userinfo_employ_status"))*/;
+			vs1.add(rs.getString("userinfo_AddState"));
+			vs1.add(rs.getString("userinfo_AddCity"));
+			vs1.add(rs.getString("userinfo_AddStreet"));
+			vs1.add(rs.getString("userinfo_AddRest"));
+			vs1.add(rs.getString("userinfo_Gender"));
 
 		}
 
@@ -94,12 +102,23 @@ public class UserInfoDao {
 
 			while(rs.next()){
 				Vector row = new Vector();
-				row.add(rs.getString("userinfo_ID"));
-				row.add(rs.getString("userinfo_NAME"));
-				row.add(rs.getInt("userinfo_PHONE"));
+				row.add(rs.getString("userinfo_id"));
+				row.add(rs.getString("userinfo_password"));
+				row.add(rs.getString("userinfo_name"));
+				row.add(rs.getInt("userinfo_num"));
+				row.add(rs.getString("userinfo_hiredate"));
+				row.add(rs.getString("userinfo_task"));
+				row.add(rs.getInt("userinfo_phone"));
 				row.add(rs.getString("userinfo_email"));
-
-				data.add(row); 
+				row.add(rs.getString("userinfo_AttendanceTime"));
+				row.add(rs.getString("userinfo_QuittingTime"));
+				row.add(rs.getString("userinfo_employ_status"));
+				row.add(rs.getString("userinfo_AddState"));
+				row.add(rs.getString("userinfo_AddCity"));
+				row.add(rs.getString("userinfo_AddStreet"));
+				row.add(rs.getString("userinfo_AddRest"));
+				row.add(rs.getString("userinfo_Gender"));
+				data.add(row);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,6 +150,17 @@ public class UserInfoDao {
 		userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
 		userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
+		/*userInfoDto.setUserInfoHiredate(rs.getString("userinfo_hiredate"));*/
+		userInfoDto.setUserInfoEmployStatus(rs.getString("userinfo_EmployStatus"));
+		userInfoDto.setUserInfoTask(rs.getString("userinfo_Task"));
+		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
+		userInfoDto.setUserInfoAttendanceTime(rs.getString("userinfo_AttendanceTime"));
+		userInfoDto.setUserInfoQuittingTime(rs.getString("userinfo_QuittingTime"));
+		userInfoDto.setUserInfoAddState(rs.getString("userinfo_AddState"));
+		userInfoDto.setUserInfoAddCity(rs.getString("userinfo_AddCity"));
+		userInfoDto.setUserInfoAddStreet(rs.getString("userinfo_AddStreet"));
+		userInfoDto.setUserInfoAddRest(rs.getString("userinfo_Rest"));
+		userInfoDto.setUserInfoGender(rs.getString("userinfo_Gender"));
 
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		rs.close();
@@ -198,19 +228,27 @@ public class UserInfoDao {
 				String userinfo_password = rs.getString("userinfo_password");
 				String userinfo_name = rs.getString("userinfo_name");
 				int userinfo_num = rs.getInt("userinfo_num");
-				String userinfo_address = rs.getString("userinfo_address");
 				int userinfo_phone = rs.getInt("userinfo_phone");
 				String userinfo_email = rs.getString("userinfo_email");
-
+				String userinfo_hiredate = rs.getString("userinfo_hiredate");
+				String userinfo_employstatus = rs.getString("userinfo_employstatus");
+				String userinfo_task = rs.getString("userinfo_task");
+				String userinfo_AttendanceTime = rs.getString("userinfo_AttendanceTime");
+				String userinfo_QuittingTime = rs.getString("userinfo_QuittingTime");
+				String userinfo_AddState = rs.getString("userinfo_AddState");
+				String userinfo_AddCity = rs.getString("userinfo_AddCity");
+				String userinfo_AddStreet = rs.getString("userinfo_AddStreet");
+				String userinfo_AddRest = rs.getString("userinfo_AddRest");
+				
+				
+				
 				Vector row = new Vector();
 				row.add(userinfo_id);
 				row.add(userinfo_password);
 				row.add(userinfo_name);
 				row.add(userinfo_num);
-				row.add(userinfo_address);
 				row.add(userinfo_phone);
-				row.add(userinfo_email);
-
+				row.add(userinfo_email);				
 				data.add(row);             
 			}
 		}catch(Exception e){
@@ -247,6 +285,14 @@ public class UserInfoDao {
 		}      
 
 		return userInfoDto;    
+	}
+
+	public ConnectionMaker getConnectionMaker() {
+		return connectionMaker;
+	}
+
+	public void setConnectionMaker(ConnectionMaker connectionMaker) {
+		this.connectionMaker = connectionMaker;
 	}
 
 	//사용자 등록 메소드
