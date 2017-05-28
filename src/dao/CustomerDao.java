@@ -27,7 +27,6 @@ public class CustomerDao {
 		try{
 			PreparedStatement ps = c.prepareStatement("insert into customer values (seq_customer_num.nextval,?,?,?,?,?,?,?,?,?,?)");
 
-
 			ps.setString(1, customerDto.getCustomerRegDate());
 			ps.setString(2, customerDto.getCustomerPhoneNum());
 			ps.setString(3, customerDto.getCustomerAddState());
