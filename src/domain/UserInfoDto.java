@@ -6,9 +6,10 @@ public class UserInfoDto {
 	private String userInfoPassword;
 	private String userInfoName;
 	private int userInfoNum;
-	private String userInfoTask;
 	private int userInfoPhone;
+	private String userInfoTask;
 	private String userInfoEmail;
+	private String userInfoHireDate;
 	private String userInfoAttendanceTime;
 	private String userInfoQuittingTime;
 	private String userInfoEmployStatus;
@@ -21,7 +22,7 @@ public class UserInfoDto {
 	
 	public UserInfoDto() {}
 
-	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoTask,
+	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoHireDate, String userInfoTask,
 			int userInfoPhone, String userInfoEmail, String userInfoAttendanceTime, String userInfoQuittingTime,
 			String userInfoEmployStatus, String userInfoAddState, String userInfoAddCity, String userInfoAddStreet,
 			String userInfoAddRest, String userInfoGender) {
@@ -40,6 +41,7 @@ public class UserInfoDto {
 		this.userInfoAddStreet = userInfoAddStreet;
 		this.userInfoAddRest = userInfoAddRest;
 		this.userInfoGender = userInfoGender;
+		this.userInfoHireDate = userInfoHireDate;
 		
 	}
 
@@ -163,14 +165,24 @@ public class UserInfoDto {
 		this.userInfoGender = userInfoGender;
 	}
 
+	public String getUserInfoHireDate() {
+		return userInfoHireDate;
+	}
+
+	public void setUserInfoHireDate(String userInfoHireDate) {
+		this.userInfoHireDate = userInfoHireDate;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfoDto [userInfoId=" + userInfoId + ", userInfoPassword=" + userInfoPassword + ", userInfoName="
-				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoTask=" + userInfoTask + ", userInfoPhone="
-				+ userInfoPhone + ", userInfoEmail=" + userInfoEmail 
+				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoPhone=" + userInfoPhone + ", userInfoTask="
+				+ userInfoTask + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate=" + userInfoHireDate
 				+ ", userInfoAttendanceTime=" + userInfoAttendanceTime + ", userInfoQuittingTime="
 				+ userInfoQuittingTime + ", userInfoEmployStatus=" + userInfoEmployStatus + ", userInfoAddState="
 				+ userInfoAddState + ", userInfoAddCity=" + userInfoAddCity + ", userInfoAddStreet=" + userInfoAddStreet
 				+ ", userInfoAddRest=" + userInfoAddRest + ", userInfoGender=" + userInfoGender + "]";
 	}
+
+
 }

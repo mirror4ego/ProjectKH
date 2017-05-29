@@ -47,7 +47,40 @@ public class CustomerDao {
 			JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (쿼리)");
 		}
 	}
+	
+	
 
+	public CustomerDto getSelectedCustomerInfo(int orderInfoCustomerNum) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+
+		PreparedStatement ps = c.prepareStatement("select * from customer where customer_num = ?");
+		ps.setInt(1, orderInfoCustomerNum);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+		CustomerDto customerDto = new CustomerDto();
+
+		customerDto.setCustomerNum(rs.getInt("customer_Num"));
+		customerDto.setCustomerRegDate(rs.getString("customer_Reg_Date"));
+		customerDto.setCustomerPhoneNum(rs.getString("customer_Phone_Num"));
+		customerDto.setCustomerAddState(rs.getString("customer_Add_State"));
+		customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
+		customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
+		customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
+		customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
+		customerDto.setCustomerGender(rs.getInt("customer_Gender"));
+		customerDto.setCustomerNoteInfo(rs.getString("customer_NoteInfo"));
+		customerDto.setCustomerGradeName(rs.getString("customer_Grade_Name"));
+		
+		rs.close();
+		ps.close();
+		c.close();
+
+		return customerDto;
+	}
+	
 	public void deleteOneCustomer(int customerNum) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
 		

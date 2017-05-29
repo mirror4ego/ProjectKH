@@ -3,16 +3,15 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.LoginView;
-import view2.CustomerMainView;
+import view2.MenuManageView;
 
 
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-		//MenuManageView menuManageView = new MenuManageView();
-		CustomerMainView customerMainView = new CustomerMainView();
-		LoginView loginView = new LoginView();
+		MenuManageView menuManageView = new MenuManageView();
+		//CustomerMainView customerMainView = new CustomerMainView();
+		//LoginView loginView = new LoginView();
 		
 		
 		//CustomerSearchView customerSearchView = new CustomerSearchView();
@@ -32,5 +31,6 @@ public class TestJY {
 		//OrderMainView OrderMainView = new OrderMainView();
 		//new MenuDao().searchMenu("훈제닭1");
 		//UserListView UserListView = new UserListView();
+		//UserRegView userRegView = new UserRegView();
 	}
 }
