@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;
 
-import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,7 +29,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -470,9 +468,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_4.setText("");
 		textField_5.setText("");
 		textField_6.setText("");
-		//		jSpinner1.setValue(value);
-		AbstractButton spinner = null;
-		jSpinner1.setValue(((SpinnerNumberModel) spinner.getModel()).getMinimum());
 		comboBox_1.setSelectedIndex(0);
 		comboBox_3.setSelectedIndex(0);
 		comboBox_4.setSelectedIndex(0);
