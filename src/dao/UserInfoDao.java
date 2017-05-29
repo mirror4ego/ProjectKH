@@ -72,7 +72,6 @@ public class UserInfoDao {
 
 		}
 
-
 		rs.close();
 		ps.close();
 		c.close();
