@@ -68,7 +68,8 @@ public class UserInfoDao {
 			vs1.add(rs.getString("userinfo_AddStreet"));
 			vs1.add(rs.getString("userinfo_AddRest"));
 			vs1.add(rs.getString("userinfo_Gender"));*/
-
+			vs.add(vs1);
+			
 		}
 
 

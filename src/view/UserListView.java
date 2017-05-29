@@ -21,6 +21,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -34,7 +35,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
+import dao.OrderInfoDao;
 import dao.UserInfoDao;
+import domain.UserInfoDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
@@ -415,10 +418,12 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		comboBox_3.addItemListener(this);
 		comboBox_4.addItemListener(this);
 		comboBox_5.addItemListener(this);
+		table.addMouseListener(this);
 		btnNewButton.addMouseListener(this);
 		btnNewButton_1.addMouseListener(this);
 		btnNewButton_4.addMouseListener(this);
 		btnNewButton_5.addMouseListener(this);
+		btnNewButton_6.addMouseListener(this);
 		btnNewButton_7.addMouseListener(this);
 	}
 
@@ -468,6 +473,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_4.setText("");
 		textField_5.setText("");
 		textField_6.setText("");
+		textField_7.setText("");
+		
 		comboBox_1.setSelectedIndex(0);
 		comboBox_3.setSelectedIndex(0);
 		comboBox_4.setSelectedIndex(0);
@@ -476,6 +483,37 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		comboBox_8.setSelectedIndex(0);
 		
 	}
+	
+	
+	
+	private void viewData(UserInfoDto UserInfoDto) throws ClassNotFoundException, SQLException{
+
+		String UserInfoId = UserInfoDto.getUserInfoId();
+		String UserInfoPassword = UserInfoDto.getUserInfoPassword();
+		String UserInfoName = UserInfoDto.getUserInfoName();
+		int UserInfoNum = UserInfoDto.getUserInfoNum(); 
+		int UserInfoPhone = UserInfoDto.getUserInfoPhone(); 
+		String UserInfoTask = UserInfoDto.getUserInfoTask();
+		String UserInfoEmail = UserInfoDto.getUserInfoEmail(); 
+		String UserInfoHireDate = UserInfoDto.getUserInfoHireDate();
+		String UserInfoAttendanceTime = UserInfoDto.getUserInfoAttendanceTime(); 
+		String UserInfoQuittingTime = UserInfoDto.getUserInfoQuittingTime();
+		String UserInfoEmployStatus = UserInfoDto.getUserInfoEmployStatus();
+		String UserInfoAddState = UserInfoDto.getUserInfoAddState();
+		String UserInfoAddCity = UserInfoDto.getUserInfoAddCity();
+		String UserInfoAddStreet = UserInfoDto.getUserInfoAddStreet();
+		String UserInfoAddRest = UserInfoDto.getUserInfoAddRest();
+		
+		viewDefault();
+		textField_2.setText(UserInfoId);
+		
+		
+	}
+
+	
+	
+	
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -501,6 +539,28 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 			viewDefault();
 		}
 	
+		if(e.getSource()==table){
+				int r = table.getSelectedRow();
+				String UserInfoId = String.valueOf(table.getValueAt(r, 0));
+				try {
+					viewData((new UserInfoDao()).get(UserInfoId));
+				}catch(Exception e1){
+					JOptionPane.showMessageDialog(null, "테이블 선택 오류");
+				}
+			}	
+		
+		
+		if(e.getSource()==btnNewButton_5){
+		
+		}
+
+		
+		if(e.getSource()==btnNewButton_6){
+			
+		}
+	
+		
+		
 		if(e.getSource()==btnNewButton_7){
 //			System.out.println("종료 버튼");
 			this.dispose();
@@ -516,11 +576,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		}
 	}
 
-
-	private void voidviewDefault() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
