@@ -14,12 +14,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+
+
 public class UserSelectView extends JFrame implements ActionListener {
 	JScrollPane scrollPane;
 	ImageIcon icon;
 	JButton button1 = new JButton("직원 목록");
 	JButton button2 = new JButton("출결 관리");
 
+	//실행을 위한 메인 추가
+	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
+		UserSelectView a = new UserSelectView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
+
+	}
+	//여기까지
 	public UserSelectView() {
 		
 		super("배경 사진");

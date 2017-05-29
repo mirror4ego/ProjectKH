@@ -6,8 +6,8 @@ public class UserInfoDto {
 	private String userInfoPassword;
 	private String userInfoName;
 	private int userInfoNum;
-	private String userInfoTask;
 	private int userInfoPhone;
+	private String userInfoTask;
 	private String userInfoEmail;
 	private String userInfoHireDate;
 	private String userInfoAttendanceTime;
@@ -22,8 +22,8 @@ public class UserInfoDto {
 	
 	public UserInfoDto() {}
 
-	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoTask,
-			int userInfoPhone, String userInfoEmail, String userInfoHireDate, String userInfoAttendanceTime, String userInfoQuittingTime,
+	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoHireDate, String userInfoTask,
+			int userInfoPhone, String userInfoEmail, String userInfoAttendanceTime, String userInfoQuittingTime,
 			String userInfoEmployStatus, String userInfoAddState, String userInfoAddCity, String userInfoAddStreet,
 			String userInfoAddRest, String userInfoGender) {
 		this.userInfoId = userInfoId;
@@ -33,7 +33,6 @@ public class UserInfoDto {
 		this.userInfoTask = userInfoTask;
 		this.userInfoPhone = userInfoPhone;
 		this.userInfoEmail = userInfoEmail;
-		this.userInfoHireDate = userInfoHireDate;
 		this.userInfoAttendanceTime = userInfoAttendanceTime;
 		this.userInfoQuittingTime = userInfoQuittingTime;
 		this.userInfoEmployStatus = userInfoEmployStatus;
@@ -42,6 +41,7 @@ public class UserInfoDto {
 		this.userInfoAddStreet = userInfoAddStreet;
 		this.userInfoAddRest = userInfoAddRest;
 		this.userInfoGender = userInfoGender;
+		this.userInfoHireDate = userInfoHireDate;
 		
 	}
 
@@ -99,14 +99,6 @@ public class UserInfoDto {
 
 	public void setUserInfoEmail(String userInfoEmail) {
 		this.userInfoEmail = userInfoEmail;
-	}
-
-	public String getUserInfoHireDate() {
-		return userInfoHireDate;
-	}
-
-	public void setUserInfoHireDate(String userInfoHireDate) {
-		this.userInfoHireDate = userInfoHireDate;
 	}
 
 	public String getUserInfoAttendanceTime() {
@@ -173,14 +165,24 @@ public class UserInfoDto {
 		this.userInfoGender = userInfoGender;
 	}
 
+	public String getUserInfoHireDate() {
+		return userInfoHireDate;
+	}
+
+	public void setUserInfoHireDate(String userInfoHireDate) {
+		this.userInfoHireDate = userInfoHireDate;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfoDto [userInfoId=" + userInfoId + ", userInfoPassword=" + userInfoPassword + ", userInfoName="
-				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoTask=" + userInfoTask + ", userInfoPhone="
-				+ userInfoPhone + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate=" + userInfoHireDate
+				+ userInfoName + ", userInfoNum=" + userInfoNum + ", userInfoPhone=" + userInfoPhone + ", userInfoTask="
+				+ userInfoTask + ", userInfoEmail=" + userInfoEmail + ", userInfoHireDate=" + userInfoHireDate
 				+ ", userInfoAttendanceTime=" + userInfoAttendanceTime + ", userInfoQuittingTime="
 				+ userInfoQuittingTime + ", userInfoEmployStatus=" + userInfoEmployStatus + ", userInfoAddState="
 				+ userInfoAddState + ", userInfoAddCity=" + userInfoAddCity + ", userInfoAddStreet=" + userInfoAddStreet
 				+ ", userInfoAddRest=" + userInfoAddRest + ", userInfoGender=" + userInfoGender + "]";
 	}
+
+
 }

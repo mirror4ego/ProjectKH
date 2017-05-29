@@ -44,9 +44,13 @@ import dao.OrderItemDao;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
+import view.UserSelectView;
 
 public class CustomerMainView extends JFrame implements MouseListener, ItemListener {
+	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
+		CustomerMainView a = new CustomerMainView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
 
+	}
 	// 변수 선언부
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();
@@ -672,6 +676,13 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 				}
 			}else{
 				JOptionPane.showMessageDialog(null, "삭제할 고객 정보를 선택하세요");
+			}
+			
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 
