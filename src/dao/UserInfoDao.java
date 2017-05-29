@@ -150,15 +150,15 @@ public class UserInfoDao {
 		userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
 		userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
 		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
-		userInfoDto.setUserInfoEmployStatus(rs.getString("userinfo_EmployStatus"));
+		userInfoDto.setUserInfoEmployStatus(rs.getString("userinfo_Employ_Status"));
 		userInfoDto.setUserInfoTask(rs.getString("userinfo_Task"));
 		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
-		userInfoDto.setUserInfoAttendanceTime(rs.getString("userinfo_AttendanceTime"));
-		userInfoDto.setUserInfoQuittingTime(rs.getString("userinfo_QuittingTime"));
-		userInfoDto.setUserInfoAddState(rs.getString("userinfo_AddState"));
-		userInfoDto.setUserInfoAddCity(rs.getString("userinfo_AddCity"));
-		userInfoDto.setUserInfoAddStreet(rs.getString("userinfo_AddStreet"));
-		userInfoDto.setUserInfoAddRest(rs.getString("userinfo_Rest"));
+		userInfoDto.setUserInfoAttendanceTime(rs.getString("userinfo_Attendance_Time"));
+		userInfoDto.setUserInfoQuittingTime(rs.getString("userinfo_Quitting_Time"));
+		userInfoDto.setUserInfoAddState(rs.getString("userinfo_Add_State"));
+		userInfoDto.setUserInfoAddCity(rs.getString("userinfo_Add_City"));
+		userInfoDto.setUserInfoAddStreet(rs.getString("userinfo_Add_Street"));
+		userInfoDto.setUserInfoAddRest(rs.getString("userinfo_Add_Rest"));
 		userInfoDto.setUserInfoGender(rs.getString("userinfo_Gender"));
 
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다

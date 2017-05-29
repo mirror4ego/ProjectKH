@@ -677,6 +677,13 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			}else{
 				JOptionPane.showMessageDialog(null, "삭제할 고객 정보를 선택하세요");
 			}
+			
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 		if(e.getSource()==button){
