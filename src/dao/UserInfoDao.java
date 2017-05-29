@@ -43,12 +43,11 @@ public class UserInfoDao {
 	public Vector searchUserInfoName(String userInfoName) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Name = ?");
+		PreparedStatement ps = c.prepareStatement("select * from userinfo where userinfo_name = ?");
 		ps.setString(1,  userInfoName);
 		Vector vs = new Vector();
 
 		ResultSet rs = ps.executeQuery();
-		System.out.println(rs.getRow());
 		while(rs.next()){
 			Vector vs1 = new Vector();
 
@@ -56,6 +55,7 @@ public class UserInfoDao {
 			vs1.add(rs.getString("userinfo_name"));
 			vs1.add(rs.getInt("userinfo_phone"));
 			vs1.add(rs.getString("userinfo_email"));
+			vs.add(vs1);
 			
 			/*vs1.add(rs.getInt("userinfo_num"));
 			vs1.add(rs.getString("userinfo_password"));			
@@ -68,6 +68,7 @@ public class UserInfoDao {
 			vs1.add(rs.getString("userinfo_AddStreet"));
 			vs1.add(rs.getString("userinfo_AddRest"));
 			vs1.add(rs.getString("userinfo_Gender"));*/
+			//vs.addElement(vs1);
 
 		}
 
