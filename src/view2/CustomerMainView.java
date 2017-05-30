@@ -624,7 +624,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			} //여기까지 버튼 4
 		}else{}
 
 		if(e.getSource()==table){

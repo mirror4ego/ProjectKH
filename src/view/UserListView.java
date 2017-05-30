@@ -217,9 +217,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		comboBox_7.addItem("매니저");
 		comboBox_7.addItem("슈퍼바이저");
 		comboBox_7.addItem("물류기사");
-		
+
 		comboBox_7.setForeground(Color.BLACK);
-		
+
 		comboBox_7.getRenderer();
 		btnNewButton_9.setBounds(594, 60, 69, 23);
 		panel_1.add(btnNewButton_9);
@@ -235,7 +235,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_7.setColumns(10);
 		comboBox_8.setBounds(395, 98, 187, 21);
 		panel_1.add(comboBox_8);
-//		comboBox_8.addItem("분류");
+		//		comboBox_8.addItem("분류");
 		comboBox_8.setModel(new DefaultComboBoxModel(new String[] {"분류"}));
 		((JLabel)comboBox_8.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER); //콤보박스에 없는 정렬기능을 라벨에는 있는 정렬기능으로 형변환 시켜서 강제 중앙정렬
 		comboBox_8.addItem("주문관리");
@@ -270,17 +270,17 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_14.setBounds(72, 106, 256, 15);
 
 		panel_1.add(lblNewLabel_14);
-		
+
 		textField_8 = new JTextField();
 		textField_8.setBounds(72, 132, 116, 21);
 		panel_1.add(textField_8);
 		textField_8.setColumns(10);
-		
+
 		textField_9 = new JTextField();
 		textField_9.setBounds(206, 132, 116, 21);
 		panel_1.add(textField_9);
 		textField_9.setColumns(10);
-		
+
 		textField_10 = new JTextField();
 		textField_10.setBounds(395, 132, 268, 21);
 		panel_1.add(textField_10);
@@ -329,12 +329,12 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		comboBox_1.setBounds(265, 16, 57, 21);
 		panel_3.add(comboBox_1);		
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"성별"})); //콤보 박스 기본 값 지정
-        comboBox_1.addItem("남성");
-        comboBox_1.addItem("여성");
-        textField.setColumns(20);
+		comboBox_1.addItem("남성");
+		comboBox_1.addItem("여성");
+		textField.setColumns(20);
 		comboBox_1.setForeground(Color.BLACK);
-		
-		
+
+
 		comboBox_2.setBounds(584, 18, 30, 21);
 		panel_3.add(comboBox_2);
 		comboBox_2.setForeground(Color.BLACK);
@@ -389,7 +389,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_12.setBounds(72, 106, 273, 21);
 		panel_3.add(lblNewLabel_12);
 		lblNewLabel_12.setForeground(Color.WHITE);
-		
+
 		JLabel label_1 = new JLabel("나머지");
 		label_1.setForeground(Color.WHITE);
 		label_1.setBounds(12, 191, 46, 15);
@@ -447,26 +447,26 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	}
 
 	void spinnerWork(){
-	Date now = new Date();
-	final SpinnerDateModel model = new SpinnerDateModel(now, null, now, Calendar.DATE);
-			jSpinner1 = new JSpinner(model);
-	final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		final SpinnerDateModel model = new SpinnerDateModel(now, null, now, Calendar.DATE);
+		jSpinner1 = new JSpinner(model);
+		final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-	JSpinner.DateEditor editor = new JSpinner.DateEditor(jSpinner1,"yyyy-MM-dd");
-	JFormattedTextField ftf = editor.getTextField();
-	ftf.setEditable(false);
-	ftf.setHorizontalAlignment(JTextField.CENTER);
+		JSpinner.DateEditor editor = new JSpinner.DateEditor(jSpinner1,"yyyy-MM-dd");
+		JFormattedTextField ftf = editor.getTextField();
+		ftf.setEditable(false);
+		ftf.setHorizontalAlignment(JTextField.CENTER);
 
-	ftf.setBackground(new Color(255,255,255));
-	jSpinner1.setEditor(editor);
-	jSpinner1.addChangeListener(new ChangeListener(){
-		public void stateChanged(ChangeEvent e){
-			Date value = (Date)model.getValue();
-			Date next = (Date)model.getNextValue();
-			if(value != null && next != null)
-				System.out.println("value = "+df.format(value) + "\t" + "next = " + df.format(next));
-		}
-	});
+		ftf.setBackground(new Color(255,255,255));
+		jSpinner1.setEditor(editor);
+		jSpinner1.addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e){
+				Date value = (Date)model.getValue();
+				Date next = (Date)model.getNextValue();
+				if(value != null && next != null)
+					System.out.println("value = "+df.format(value) + "\t" + "next = " + df.format(next));
+			}
+		});
 	}
 
 	void viewDefault(){
@@ -479,25 +479,25 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_8.setText("");
 		textField_9.setText("");
 		textField_10.setText("");
-		
+
 		comboBox_1.setSelectedIndex(0);
 		comboBox_3.setSelectedIndex(0);
 		comboBox_4.setSelectedIndex(0);
 		comboBox_5.setSelectedIndex(0);
 		comboBox_7.setSelectedIndex(0);
 		comboBox_8.setSelectedIndex(0);
-		
+
 	}
-	
-	
-	
+
+
+
 	private void viewData(UserInfoDto UserInfoDto) throws ClassNotFoundException, SQLException{
 
 		String UserInfoId = UserInfoDto.getUserInfoId();
 		String UserInfoPassword = UserInfoDto.getUserInfoPassword();
 		String UserInfoName = UserInfoDto.getUserInfoName();
 		int UserInfoNum = UserInfoDto.getUserInfoNum(); 
-		int UserInfoPhone = UserInfoDto.getUserInfoPhone(); 
+		String UserInfoPhone = UserInfoDto.getUserInfoPhone(); 
 		String UserInfoTask = UserInfoDto.getUserInfoTask();
 		String UserInfoEmail = UserInfoDto.getUserInfoEmail(); 
 		String UserInfoHireDate = UserInfoDto.getUserInfoHireDate();
@@ -508,21 +508,21 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		String UserInfoAddCity = UserInfoDto.getUserInfoAddCity();
 		String UserInfoAddStreet = UserInfoDto.getUserInfoAddStreet();
 		String UserInfoAddRest = UserInfoDto.getUserInfoAddRest();
-		
+
 		viewDefault();
 		textField_2.setText(UserInfoId);
 		textField_7.setText(UserInfoPassword);
 		textField_1.setText(UserInfoName);
 		textField_3.setText(UserInfoEmail);	
 		textField_5.setText(String.valueOf(UserInfoPhone));	
-		
+
 	}
 
-	
-	
-	
-	
-	
+
+
+
+
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -541,7 +541,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 				}
 			}
 		}
-	
+
 		if(e.getSource()==btnNewButton) {
 			System.out.println("검색");
 			String searchElement1 = textField.getText().trim(); //입력 값
@@ -557,40 +557,134 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 				}
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 		if(e.getSource()==btnNewButton_4){
 			viewDefault();
 		}
-	
+
 		if(e.getSource()==table){
-				int r = table.getSelectedRow();
-				String UserInfoId = String.valueOf(table.getValueAt(r, 0));
-				try {
-					viewData((new UserInfoDao()).get(UserInfoId));
-				}catch(Exception e1){
-					JOptionPane.showMessageDialog(null, "테이블 선택 오류");
-				}
-			}	
-		
-		
+			int r = table.getSelectedRow();
+			String UserInfoId = String.valueOf(table.getValueAt(r, 0));
+			try {
+				viewData((new UserInfoDao()).get(UserInfoId));
+			}catch(Exception e1){
+				JOptionPane.showMessageDialog(null, "테이블 선택 오류");
+			}
+		}	
+
+
 		if(e.getSource()==btnNewButton_5){
-		
+			String userInfoId = textField_2.getText().trim();
+			String userInfoPassword = textField_7.getText().trim();
+			
+			new UserInfoDao().deleteUser(userInfoId, userInfoPassword);
 		}
 
-		
-		if(e.getSource()==btnNewButton_6){
-			
-		}
-	
-		
-		
+
+		if(e.getSource()==btnNewButton_6){ //저장버튼 시작
+
+			String userInfoId = textField_2.getText().trim(); //회원 ID 입력창
+			String userInfoPassword = textField_7.getText().trim(); //회원 PW 입력창
+			String userInfoName = textField_1.getText().trim(); //이름 입력창
+			String userInfoHireDate = "2017-12-10 17:23:30"; //이름 입력창
+			String userInfoAttendanceTime = textField_8.getText().trim(); // 출근 시간 입력창
+			String userInfoQuittingTime = textField_9.getText().trim(); // 퇴근 시간 입력창			
+			String userInfoEmail = textField_3.getText().trim(); //이메일 입력창
+			String userInfoPhone = textField_5.getText().trim(); // 입력창
+			String userInfoAddState = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
+			String userInfoAddCity = comboBox_4.getItemAt(comboBox_4.getSelectedIndex()).toString().trim(); //주소(시군구)의 입력창
+			String userInfoAddStreet = comboBox_5.getItemAt(comboBox_5.getSelectedIndex()).toString().trim(); //주소(동면읍리)의 입력창
+			String userInfoAddRest = textField_6.getText().trim(); //나머지 주소
+			String userInfoEmployStatus  = String.valueOf(comboBox_7.getSelectedItem()); //고용형태 
+			String userInfoTask = String.valueOf(comboBox_8.getSelectedItem()); //주요업무
+			String userInfoGender = String.valueOf(comboBox_1.getSelectedItem()); //성별
+			//입사일도 넣어야 하지만 일단 보류
+			UserInfoDto userInfoDto = new UserInfoDto();
+			userInfoDto.setUserInfoId(userInfoId);
+			userInfoDto.setUserInfoPassword(userInfoPassword);
+			userInfoDto.setUserInfoName(userInfoName);
+			userInfoDto.setUserInfoHireDate(userInfoHireDate);
+			userInfoDto.setUserInfoAttendanceTime(userInfoAttendanceTime);
+			userInfoDto.setUserInfoQuittingTime(userInfoQuittingTime);
+			userInfoDto.setUserInfoEmail(userInfoEmail);
+			userInfoDto.setUserInfoPhone(userInfoPhone);
+			userInfoDto.setUserInfoAddState(userInfoAddState);
+			userInfoDto.setUserInfoAddCity(userInfoAddCity);
+			userInfoDto.setUserInfoAddStreet(userInfoAddStreet);
+			userInfoDto.setUserInfoAddRest(userInfoAddRest);
+			userInfoDto.setUserInfoEmployStatus(userInfoEmployStatus);
+			userInfoDto.setUserInfoTask(userInfoTask);
+			userInfoDto.setUserInfoGender(userInfoGender);
+
+			try {
+				new UserInfoDao().setUserInfoAll(userInfoDto);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			/* 
+			Integer.parseInt(jTextField2.getText().trim()); //회원번호 입력창
+			customerNum = Integer.parseInt(jTextField2.getText().trim());
+			String customerRegDate = jTextField4.getText().trim(); //고객 등록날짜 입력창
+			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
+			String customerAddState = comboBox_2.getItemAt(comboBox_2.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
+			String customerAddCity = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(시군구)의 입력창
+			String customerAddStreet = comboBox_4.getItemAt(comboBox_4.getSelectedIndex()).toString().trim(); //주소(동면읍리)의 입력창
+			String customerAddRest = jTextField1.getText().trim(); //주소(나머지)의 입력창
+			int customerAgePredict = Integer.parseInt(textField_1.getText().trim());
+			int customerGender = 99;
+			String customerNoteInfo = textArea_2.getText().toString();
+			String customerGradeName = String.valueOf(comboBox_5.getSelectedItem());
+			System.out.println(customerGradeName);
+			if(radioButton.isSelected()){
+				customerGender = 0;
+			}else if(rdbtnNewRadioButton.isSelected()){
+				customerGender = 1;
+			}else{
+				JOptionPane.showMessageDialog(null, "성별 선택 오류");
+			}
+			CustomerDao customerDao = new DaoFactory().customerDao();
+			if((jTextField2.getText().trim()).equals("")){
+
+				try{
+					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
+							customerGradeName);
+					customerDao.add(customerDto);
+
+				}catch(Exception e1){JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (입력값 확인)");};
+			}else{
+
+				try {
+					customerNum = Integer.parseInt(jTextField2.getText().trim());
+					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
+							customerGradeName);
+					customerDao.updateCustomer(customerDto);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "고객정보 변경 실패 (입력값 확인)");
+				}
+			}
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}*/
+		} //여기까지 저장 버튼
+
+
+
 		if(e.getSource()==btnNewButton_7){
 			this.dispose();
 		}
-		
+
 		if(e.getSource()==btnNewButton_1) {
 			try {
 				this.jTableRefresh(new UserInfoDao().userInfoAllPart());
@@ -688,112 +782,112 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 			}
 		}else if (e.getSource()==comboBox_4){
 			if(e.getStateChange()==ItemEvent.SELECTED){
-			String b = comboBox_4.getSelectedItem().toString();
+				String b = comboBox_4.getSelectedItem().toString();
 
-			if(b.equals("강남구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","개포동","논현동","대치동","도곡동","삼성동","세곡동","수서동",
-						"신사동","압구정동","역삼동","율현동","일원동","자곡동","청담동"}));
+				if(b.equals("강남구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","개포동","논현동","대치동","도곡동","삼성동","세곡동","수서동",
+							"신사동","압구정동","역삼동","율현동","일원동","자곡동","청담동"}));
+				}
+				if(b.equals("강동구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","강일동","고덕동","길동","둔촌동","명일동","상일동","성내동","암사동","천호동"}));
+				}
+				if(b.equals("강북구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","미아동","번동","삼각산동","삼양동","송중동","송천동","수유동","우이동","인수동"}));
+				}
+				if(b.equals("강서구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가양동","개화동","공항동","과해동","내발산동","등촌동","마곡동","방화동","염창동","오곡동","오쇠동","외발산동","우장산동","화곡동"}));
+				}
+				if(b.equals("관악구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","낙성대동","난곡동","난향동","남현동","대학동","미성동","보라매동","봉천동","삼성동","서림동","서원동","성현동","신림동","신사동","신원동",
+							"은천동","인헌동","조원동","중앙동","청룡동","청림동","행운동"}));
+				}
+				if(b.equals("광진구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","광장동","구의동","군자동","능동","자양동","중곡동","화양동"}));
+				}
+				if(b.equals("구로구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가리봉동","개봉동","고척동","구로동","궁동","신도림동","오류동","온수동","천왕동","항동"}));
+				}
+				if(b.equals("금천구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가산동","독산동","시흥동"}));
+				}
+				if(b.equals("노원구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","공릉동","상계동","월계동","중계동","하계동"}));
+				}
+				if(b.equals("도봉구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","도봉동","방학동","쌍문동","창동"}));
+				}
+				if(b.equals("동대문구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","답십리동","신설동","용두동","이문동","장안동","전농동","제기동","청량리동","회기동","휘경동"}));
+				}
+				if(b.equals("동작구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","노량진동","대방동","동작동","본동","사당동","상도동","신대방동","흑석동"}));
+				}
+				if(b.equals("마포구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","공덕동","구수동","노고산동","당인동","대흥동","도화동","동교동","마포동","망원동","상수동","상암동","서교동","성산동","신공덕동",
+							"신수동","신정동","아현동","연남동","염리동","용강동","중동","창전동","토정동","하중동","합정동","현석동"}));
+				}
+				if(b.equals("서대문구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","남가좌동","냉천동","대신동","대현동","미근동","봉원동","북가좌동","북아현동","신촌동","연희동","영천동","옥천동","창천동","천연동",
+							"충정로","합동","현저동","홍은동","홍제동"}));
+				}
+				if(b.equals("서초구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","내곡동","반포동","반포본동","방배동","방배본동","서초동","신원동","양재동","염곡동","우면동","원지동","잠원동"}));
+				}
+				if(b.equals("성동구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","금호동","도선동","마장동","사근동","상왕십리동","성수동","송정동","옥수동","왕십리동","용답동","응봉동","하왕십리동","행당동","홍익동"}));
+				}
+				if(b.equals("성북구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","길음동","돈암동","동선동","동소문동","보문동","삼선동","상월곡동","석관동","성북동","안암동","월곡동","장위동","정릉동","종암동","하월곡동"}));
+				}
+				if(b.equals("송파구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가락동","가락본동","거여동","마천동","문정동","방이동","삼전동","석촌동","송파동","신천동","오금동","오륜동","잠실동","잠실본동","장지동",
+					"풍납동"}));
+				}
+				if(b.equals("양천구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","목동","신월동","신정동"}));
+				}
+				if(b.equals("영등포구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","당산동","대림동","도림동","문래동","신길동","양평동","양화동","여의도동","영등포동","영등포본동"}));
+				}	
+				if(b.equals("용산구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","갈월동","남영동","도원동","동빙고동","동자동","문배동","보광동","산천동","서계동","서빙고동","신계동","신창동","용문동","용산동","원효로",
+							"이촌동","이태원동","주성동","청암동","청파동","한강로","한남동","효창동","후암동"}));
+				}		
+				if(b.equals("은평구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","갈현동","구산동","녹번동","대조동","불광동","수색동","신사동","역촌동","응암동","증산동","진관동"}));
+				}
+				if(b.equals("종로구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가회동","견지동","경운동","계동","공평동","관수동","관철동","관훈동","교남동","교북동","구기동","관수동","관철동","관훈동","교남동","교북동",
+							"구기동","궁정동","권농동","낙원동","내수동","내자동","누상동","누하동","당주동","도렴동","돈의동","동숭동","명륜동","묘동","무악동","봉익동",
+							"부암동","사간동","사직동","삼청동","서린동","세종로","소격동","송월동","송현동","수송동","숭인동","신교동","신문로","신영동","안국동","연건동",
+							"연지동","예지동","옥인동","와룡동","운니동","원남동","원서동","이화동","익선동","인사동","인의동","장사동","재동","적선동","종로1가","종로2가",
+							"종로3가","종로4가","종로5가","종로6가","중학동","창성동","창신동","청운동","청진동","체부동","충신동","통의동","통인동","팔판동","평동",
+							"평창동","필운동","행촌동","혜화동","홍지동","홍파동","화동","효자동","효제동","훈정동"}));
+				}	
+				if(b.equals("중구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","광희동","남대문로","남산동","남창동","남학동","다동","만리동","명동","무교동","무학동","묵정동","방산동","봉래동","북창동","산림동","삼각동",
+							"서소문동","소공동","수표동","수하동","순화동","신당동","쌍림동","예관동","예장동","오장동","을지로","의주로","인현동","입정동","장교동",
+							"장충동","저동","정동","주교동","주자동","중림동","초동","충무로","충정로","태평로","필동","황학동","회현동","흥인동"}));
+				}
+				if(b.equals("중랑구")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","망우동","망우본동","면목동","면목본동","묵동","상봉동","신내동","중화동"}));
+				}		
+				if(b.equals("서귀포시")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","강정동","남원읍","대정읍","대포동","도순동","동홍동","법환동","보목동","상예동","상효동","색달동","서귀동","서호동","서홍동","성산읍","송산동",
+							"신효동","안덕면","영남동","용흥동","월평동","정방동","중문동","중앙동","천지동","토평동","표선면","하예동","하원동","하효동","호근동","회수동"}));
+				}							
+				if(b.equals("제주시")){
+					comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","건입동","구좌읍","내도동","노형동","도남동","도두동","도련동","도평동","봉개동","삼도동","삼양동","아라동","애월읍","연동","영평동","오등동","오라동",
+							"외도동","용강동","용담동","우도면","월평동","이도동","이호동","일도동","조천읍","추자면","한경면","한림읍","해안동","화북동","회천동"}));
+				}
 			}
-			if(b.equals("강동구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","강일동","고덕동","길동","둔촌동","명일동","상일동","성내동","암사동","천호동"}));
-			}
-			if(b.equals("강북구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","미아동","번동","삼각산동","삼양동","송중동","송천동","수유동","우이동","인수동"}));
-			}
-			if(b.equals("강서구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가양동","개화동","공항동","과해동","내발산동","등촌동","마곡동","방화동","염창동","오곡동","오쇠동","외발산동","우장산동","화곡동"}));
-			}
-			if(b.equals("관악구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","낙성대동","난곡동","난향동","남현동","대학동","미성동","보라매동","봉천동","삼성동","서림동","서원동","성현동","신림동","신사동","신원동",
-						"은천동","인헌동","조원동","중앙동","청룡동","청림동","행운동"}));
-			}
-			if(b.equals("광진구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","광장동","구의동","군자동","능동","자양동","중곡동","화양동"}));
-			}
-			if(b.equals("구로구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가리봉동","개봉동","고척동","구로동","궁동","신도림동","오류동","온수동","천왕동","항동"}));
-			}
-			if(b.equals("금천구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가산동","독산동","시흥동"}));
-			}
-			if(b.equals("노원구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","공릉동","상계동","월계동","중계동","하계동"}));
-			}
-			if(b.equals("도봉구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","도봉동","방학동","쌍문동","창동"}));
-			}
-			if(b.equals("동대문구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","답십리동","신설동","용두동","이문동","장안동","전농동","제기동","청량리동","회기동","휘경동"}));
-			}
-			if(b.equals("동작구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","노량진동","대방동","동작동","본동","사당동","상도동","신대방동","흑석동"}));
-			}
-			if(b.equals("마포구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","공덕동","구수동","노고산동","당인동","대흥동","도화동","동교동","마포동","망원동","상수동","상암동","서교동","성산동","신공덕동",
-						"신수동","신정동","아현동","연남동","염리동","용강동","중동","창전동","토정동","하중동","합정동","현석동"}));
-			}
-			if(b.equals("서대문구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","남가좌동","냉천동","대신동","대현동","미근동","봉원동","북가좌동","북아현동","신촌동","연희동","영천동","옥천동","창천동","천연동",
-						"충정로","합동","현저동","홍은동","홍제동"}));
-			}
-			if(b.equals("서초구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","내곡동","반포동","반포본동","방배동","방배본동","서초동","신원동","양재동","염곡동","우면동","원지동","잠원동"}));
-			}
-			if(b.equals("성동구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","금호동","도선동","마장동","사근동","상왕십리동","성수동","송정동","옥수동","왕십리동","용답동","응봉동","하왕십리동","행당동","홍익동"}));
-			}
-			if(b.equals("성북구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","길음동","돈암동","동선동","동소문동","보문동","삼선동","상월곡동","석관동","성북동","안암동","월곡동","장위동","정릉동","종암동","하월곡동"}));
-			}
-			if(b.equals("송파구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가락동","가락본동","거여동","마천동","문정동","방이동","삼전동","석촌동","송파동","신천동","오금동","오륜동","잠실동","잠실본동","장지동",
-				"풍납동"}));
-			}
-			if(b.equals("양천구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","목동","신월동","신정동"}));
-			}
-			if(b.equals("영등포구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","당산동","대림동","도림동","문래동","신길동","양평동","양화동","여의도동","영등포동","영등포본동"}));
-			}	
-			if(b.equals("용산구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","갈월동","남영동","도원동","동빙고동","동자동","문배동","보광동","산천동","서계동","서빙고동","신계동","신창동","용문동","용산동","원효로",
-						"이촌동","이태원동","주성동","청암동","청파동","한강로","한남동","효창동","후암동"}));
-			}		
-			if(b.equals("은평구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","갈현동","구산동","녹번동","대조동","불광동","수색동","신사동","역촌동","응암동","증산동","진관동"}));
-			}
-			if(b.equals("종로구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","가회동","견지동","경운동","계동","공평동","관수동","관철동","관훈동","교남동","교북동","구기동","관수동","관철동","관훈동","교남동","교북동",
-						"구기동","궁정동","권농동","낙원동","내수동","내자동","누상동","누하동","당주동","도렴동","돈의동","동숭동","명륜동","묘동","무악동","봉익동",
-						"부암동","사간동","사직동","삼청동","서린동","세종로","소격동","송월동","송현동","수송동","숭인동","신교동","신문로","신영동","안국동","연건동",
-						"연지동","예지동","옥인동","와룡동","운니동","원남동","원서동","이화동","익선동","인사동","인의동","장사동","재동","적선동","종로1가","종로2가",
-						"종로3가","종로4가","종로5가","종로6가","중학동","창성동","창신동","청운동","청진동","체부동","충신동","통의동","통인동","팔판동","평동",
-						"평창동","필운동","행촌동","혜화동","홍지동","홍파동","화동","효자동","효제동","훈정동"}));
-			}	
-			if(b.equals("중구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","광희동","남대문로","남산동","남창동","남학동","다동","만리동","명동","무교동","무학동","묵정동","방산동","봉래동","북창동","산림동","삼각동",
-						"서소문동","소공동","수표동","수하동","순화동","신당동","쌍림동","예관동","예장동","오장동","을지로","의주로","인현동","입정동","장교동",
-						"장충동","저동","정동","주교동","주자동","중림동","초동","충무로","충정로","태평로","필동","황학동","회현동","흥인동"}));
-			}
-			if(b.equals("중랑구")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","망우동","망우본동","면목동","면목본동","묵동","상봉동","신내동","중화동"}));
-			}		
-			if(b.equals("서귀포시")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","강정동","남원읍","대정읍","대포동","도순동","동홍동","법환동","보목동","상예동","상효동","색달동","서귀동","서호동","서홍동","성산읍","송산동",
-						"신효동","안덕면","영남동","용흥동","월평동","정방동","중문동","중앙동","천지동","토평동","표선면","하예동","하원동","하효동","호근동","회수동"}));
-			}							
-			if(b.equals("제주시")){
-				comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동","건입동","구좌읍","내도동","노형동","도남동","도두동","도련동","도평동","봉개동","삼도동","삼양동","아라동","애월읍","연동","영평동","오등동","오라동",
-						"외도동","용강동","용담동","우도면","월평동","이도동","이호동","일도동","조천읍","추자면","한경면","한림읍","해안동","화북동","회천동"}));
-			}
-		}
 		}
 
 
 
 
 	}
-	
+
 	/*
 	 * (서울 강남구)
 	 * {"읍/면/동","개포동","논현동","대치동","도곡동","삼성동","세곡동","수서동","신사동","압구정동","역삼동","율현동","일원동","자곡동","청담동"}
