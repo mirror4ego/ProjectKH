@@ -526,7 +526,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 		comboBox_4.setSelectedItem(userInfoAddCity);
 		comboBox_5.setSelectedItem(userInfoAddStreet);
 		textField_6.setText(userInfoAddRest);
-		
+		textField_8.setText(userInfoAttendanceTime.substring(11, 16)); //표시할 곳 만 지정 11번째 자리부터 16번째 자리까지
+		textField_9.setText(userInfoQuittingTime.substring(11, 16));
 	}
 
 
@@ -809,8 +810,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 			String userInfoPassword = textField_7.getText().trim(); //회원 PW 입력창
 			String userInfoName = textField_1.getText().trim(); //이름 입력창
 			String userInfoHireDate = "2017-12-10 17:23:30"; //이름 입력창
-			String userInfoAttendanceTime = textField_8.getText().trim(); // 출근 시간 입력창
-			String userInfoQuittingTime = textField_9.getText().trim(); // 퇴근 시간 입력창			
+			String userInfoAttendanceTime = "2017-01-01 "+(textField_8.getText().trim()); // 출근 시간 입력창
+			String userInfoQuittingTime = "2017-01-01 "+(textField_9.getText().trim()); // 퇴근 시간 입력창			
 			String userInfoEmail = textField_3.getText().trim(); //이메일 입력창
 			String userInfoPhone = textField_5.getText().trim(); // 입력창
 			String userInfoAddState = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
@@ -849,8 +850,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 				JOptionPane.showMessageDialog(null, "저장이 실패했습니다.");
 				e1.printStackTrace();
 			}
-
-
+		}
+		
 		if(e.getSource()==btnNewButton_7){
 			this.dispose();
 		}
@@ -862,8 +863,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-	
 		}
 	}
 }

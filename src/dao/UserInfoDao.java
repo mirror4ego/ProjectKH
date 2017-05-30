@@ -121,23 +121,23 @@ public class UserInfoDao {
 	public boolean setUserInfoAll(UserInfoDto userInfoDto) throws ClassNotFoundException, SQLException{
 		Connection c = connectionMaker.makeConnection();
 		boolean ok = false;
-		PreparedStatement ps = c.prepareStatement("insert into userinfo values(?,?,?,seq_userinfo_num.nextval,?,?,sysdate,?,?,sysdate,sysdate,?,?,?,?,?)");
-		//to_date(?,'yyyy-mm-dd hh24:mi;ss')
+		PreparedStatement ps = c.prepareStatement("insert into userinfo values(?,?,?,seq_userinfo_num.nextval,?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,?,to_date(?,'yyyy-mm-dd hh24:mi:ss'),to_date(?,'yyyy-mm-dd hh24:mi:ss'),?,?,?,?,?)");
+		//to_date(?,'yyyy-mm-dd hh24:mi:ss')
 		ps.setString(1, userInfoDto.getUserInfoId());
 		ps.setString(2, userInfoDto.getUserInfoPassword());
 		ps.setString(3, userInfoDto.getUserInfoName());
 		ps.setString(4, userInfoDto.getUserInfoPhone());
 		ps.setString(5, userInfoDto.getUserInfoEmail());
-		//ps.setString(6, userInfoDto.getUserInfoHireDate());
-		ps.setString(6, userInfoDto.getUserInfoEmployStatus());
-		ps.setString(7, userInfoDto.getUserInfoTask());
-		//ps.setString(9, userInfoDto.getUserInfoAttendanceTime());
-		//ps.setString(10, userInfoDto.getUserInfoQuittingTime());
-		ps.setString(8, userInfoDto.getUserInfoAddState());
-		ps.setString(9, userInfoDto.getUserInfoAddCity());
-		ps.setString(10, userInfoDto.getUserInfoAddStreet());
-		ps.setString(11, userInfoDto.getUserInfoAddRest());
-		ps.setString(12, userInfoDto.getUserInfoGender()); 
+		ps.setString(6, userInfoDto.getUserInfoHireDate());
+		ps.setString(7, userInfoDto.getUserInfoEmployStatus());
+		ps.setString(8, userInfoDto.getUserInfoTask());
+		ps.setString(9, userInfoDto.getUserInfoAttendanceTime());
+		ps.setString(10, userInfoDto.getUserInfoQuittingTime());
+		ps.setString(11, userInfoDto.getUserInfoAddState());
+		ps.setString(12, userInfoDto.getUserInfoAddCity());
+		ps.setString(13, userInfoDto.getUserInfoAddStreet());
+		ps.setString(14, userInfoDto.getUserInfoAddRest());
+		ps.setString(15, userInfoDto.getUserInfoGender()); 
 
 		int r = ps.executeUpdate();
 
