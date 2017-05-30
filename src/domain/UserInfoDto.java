@@ -6,7 +6,7 @@ public class UserInfoDto {
 	private String userInfoPassword;
 	private String userInfoName;
 	private int userInfoNum;
-	private int userInfoPhone;
+	private String userInfoPhone;
 	private String userInfoTask;
 	private String userInfoEmail;
 	private String userInfoHireDate;
@@ -23,7 +23,7 @@ public class UserInfoDto {
 	public UserInfoDto() {}
 
 	public UserInfoDto(String userInfoId, String userInfoPassword, String userInfoName, int userInfoNum, String userInfoHireDate, String userInfoTask,
-			int userInfoPhone, String userInfoEmail, String userInfoAttendanceTime, String userInfoQuittingTime,
+			String userInfoPhone, String userInfoEmail, String userInfoAttendanceTime, String userInfoQuittingTime,
 			String userInfoEmployStatus, String userInfoAddState, String userInfoAddCity, String userInfoAddStreet,
 			String userInfoAddRest, String userInfoGender) {
 		this.userInfoId = userInfoId;
@@ -85,11 +85,11 @@ public class UserInfoDto {
 		this.userInfoTask = userInfoTask;
 	}
 
-	public int getUserInfoPhone() {
+	public String getUserInfoPhone() {
 		return userInfoPhone;
 	}
 
-	public void setUserInfoPhone(int userInfoPhone) {
+	public void setUserInfoPhone(String userInfoPhone) {
 		this.userInfoPhone = userInfoPhone;
 	}
 

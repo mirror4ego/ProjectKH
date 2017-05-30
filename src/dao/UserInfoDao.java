@@ -28,7 +28,7 @@ public class UserInfoDao {
 		ps.setString(1, userInfoDto.getUserInfoId());
 		ps.setString(2, userInfoDto.getUserInfoPassword());
 		ps.setString(3, userInfoDto.getUserInfoName());
-		ps.setInt(4, userInfoDto.getUserInfoPhone());
+		ps.setString(4, userInfoDto.getUserInfoPhone());
 		ps.setString(5, userInfoDto.getUserInfoEmail());
 
 		ps.executeUpdate(); // 쿼리 날리기... executeUpdate를 사용한 이유는 insert into라는 sql문은
@@ -53,24 +53,9 @@ public class UserInfoDao {
 
 			vs1.add(rs.getString("userinfo_id"));
 			vs1.add(rs.getString("userinfo_name"));
-			vs1.add(rs.getInt("userinfo_phone"));
+			vs1.add(rs.getString("userinfo_phone"));
 			vs1.add(rs.getString("userinfo_email"));
 			vs.add(vs1);
-			
-			/*vs1.add(rs.getInt("userinfo_num"));
-			vs1.add(rs.getString("userinfo_password"));			
-			vs1.add(rs.getString("userinfo_task"));
-			vs1.add(rs.getString("userinfo_AttendanceTime"));
-			vs1.add(rs.getString("userinfo_QuittingTime"));
-			vs1.add(rs.getString("userinfo_employ_status"));
-			vs1.add(rs.getString("userinfo_AddState"));
-			vs1.add(rs.getString("userinfo_AddCity"));
-			vs1.add(rs.getString("userinfo_AddStreet"));
-			vs1.add(rs.getString("userinfo_AddRest"));
-			vs1.add(rs.getString("userinfo_Gender"));*/
-
-			//vs.addElement(vs1);
-
 		}
 
 		rs.close();
@@ -81,14 +66,29 @@ public class UserInfoDao {
 		return vs;
 	}
 
-	public UserInfoDto searchUserInfoId(String userInfoId) throws ClassNotFoundException, SQLException {
-		UserInfoDto userInfoDto = new UserInfoDto();
-		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Id = ?");
+	public Vector searchUserInfoId(String userInfoId) throws ClassNotFoundException, SQLException {
+		Connection d = connectionMaker.makeConnection();
+		PreparedStatement ps = d.prepareStatement("select * from userInfo where UserInfo_Id = ?");
+		ps.setString(1,  userInfoId);
+		Vector vs3 = new Vector();
 
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Vector vs4 = new Vector();
 
+			vs4.add(rs.getString("userinfo_id"));
+			vs4.add(rs.getString("userinfo_name"));
+			vs4.add(rs.getString("userinfo_phone"));
+			vs4.add(rs.getString("userinfo_email"));
+			vs3.add(vs4);
+		}
 
-		return userInfoDto;
+		rs.close();
+		ps.close();
+		d.close();
+		System.out.println(vs3);
+
+		return vs3;
 	}
 
 
@@ -105,20 +105,10 @@ public class UserInfoDao {
 				Vector row = new Vector();
 				row.add(rs.getString("userinfo_id"));
 				row.add(rs.getString("userinfo_name"));
-				row.add(rs.getInt("userinfo_phone"));
+				row.add(rs.getString("userinfo_phone"));
 				row.add(rs.getString("userinfo_email"));
-				
-				/*row.add(rs.getInt("userinfo_num"));
-				row.add(rs.getString("userinfo_employ_status"));				
-				row.add(rs.getString("userinfo_task"));
-				row.add(rs.getString("userinfo_password"));
-				row.add(rs.getString("userinfo_AttendanceTime"));
-				row.add(rs.getString("userinfo_QuittingTime"));
-				row.add(rs.getString("userinfo_AddState"));
-				row.add(rs.getString("userinfo_AddCity"));
-				row.add(rs.getString("userinfo_AddStreet"));
-				row.add(rs.getString("userinfo_AddRest"));
-				row.add(rs.getString("userinfo_Gender"));*/
+
+
 				data.add(row);
 			}
 		} catch (Exception e) {
@@ -128,7 +118,38 @@ public class UserInfoDao {
 	}
 
 
+	public boolean setUserInfoAll(UserInfoDto userInfoDto) throws ClassNotFoundException, SQLException{
+		Connection c = connectionMaker.makeConnection();
+		boolean ok = false;
+		PreparedStatement ps = c.prepareStatement("insert into userinfo values(?,?,?,seq_userinfo_num.nextval,?,?,sysdate,?,?,sysdate,sysdate,?,?,?,?,?)");
+		//to_date(?,'yyyy-mm-dd hh24:mi;ss')
+		ps.setString(1, userInfoDto.getUserInfoId());
+		ps.setString(2, userInfoDto.getUserInfoPassword());
+		ps.setString(3, userInfoDto.getUserInfoName());
+		ps.setString(4, userInfoDto.getUserInfoPhone());
+		ps.setString(5, userInfoDto.getUserInfoEmail());
+		//ps.setString(6, userInfoDto.getUserInfoHireDate());
+		ps.setString(6, userInfoDto.getUserInfoEmployStatus());
+		ps.setString(7, userInfoDto.getUserInfoTask());
+		//ps.setString(9, userInfoDto.getUserInfoAttendanceTime());
+		//ps.setString(10, userInfoDto.getUserInfoQuittingTime());
+		ps.setString(8, userInfoDto.getUserInfoAddState());
+		ps.setString(9, userInfoDto.getUserInfoAddCity());
+		ps.setString(10, userInfoDto.getUserInfoAddStreet());
+		ps.setString(11, userInfoDto.getUserInfoAddRest());
+		ps.setString(12, userInfoDto.getUserInfoGender()); 
 
+		int r = ps.executeUpdate();
+
+		if(r>0){
+			System.out.println("가입 성공");   
+			ok=true;
+		}else{
+			System.out.println("가입 실패");
+		}
+		return ok;
+
+	}
 
 	public UserInfoDto get(String userInfoId) throws ClassNotFoundException, SQLException { // 
 		Connection c = connectionMaker.makeConnection(); // DB로의 커넥션 객체 생성
@@ -149,7 +170,7 @@ public class UserInfoDao {
 		userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
 		userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 		userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));
-		userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
+		userInfoDto.setUserInfoPhone(rs.getString("userinfo_phone"));
 		userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
 		userInfoDto.setUserInfoEmployStatus(rs.getString("userinfo_Employ_Status"));
 		userInfoDto.setUserInfoTask(rs.getString("userinfo_Task"));
@@ -168,7 +189,6 @@ public class UserInfoDao {
 		c.close();
 
 		return userInfoDto; // 최종적으로 불러온 유저 정보에 관련한 객체를 리턴
-
 	}
 
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에 저장된 데이터를 전부 삭제하는 메소드
@@ -181,6 +201,42 @@ public class UserInfoDao {
 		c.close();
 	}
 
+<<<<<<< HEAD
+=======
+	public int chkUserNum(int chkusernum) throws ClassNotFoundException, SQLException {
+
+		Connection c = connectionMaker.makeConnection();
+		c.setAutoCommit(false);
+
+		int cnt=0;
+		try {
+
+			PreparedStatement ps = c.prepareStatement(
+					"select userinfo_num from userinfo where userinfo_num>?"
+					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
+					ResultSet.CONCUR_UPDATABLE);
+			//last 쓰기위한 추가구문
+			ps.setInt(1,chkusernum);
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.last();
+			cnt=rs.getRow();
+			rs.beforeFirst();
+			// 레코드개수를 구하기위함.
+
+			rs.close();
+			ps.close();
+			c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cnt;
+	}
+
+
+>>>>>>> bde2113bece138369fac164b16cb2d71a498c89f
 	//모든 사용자 리스트를 가져오는 메소드
 	public Vector getUserList() throws ClassNotFoundException, SQLException{
 		Connection c = connectionMaker.makeConnection();
@@ -195,27 +251,15 @@ public class UserInfoDao {
 				String userinfo_name = rs.getString("userinfo_name");
 				int userinfo_phone = rs.getInt("userinfo_phone");
 				String userinfo_email = rs.getString("userinfo_email");
-				
-				/*int userinfo_num = rs.getInt("userinfo_num");
-				String userinfo_password = rs.getString("userinfo_password");
-				String userinfo_employstatus = rs.getString("userinfo_employstatus");
-				String userinfo_task = rs.getString("userinfo_task");
-				String userinfo_AttendanceTime = rs.getString("userinfo_AttendanceTime");
-				String userinfo_QuittingTime = rs.getString("userinfo_QuittingTime");
-				String userinfo_AddState = rs.getString("userinfo_AddState");
-				String userinfo_AddCity = rs.getString("userinfo_AddCity");
-				String userinfo_AddStreet = rs.getString("userinfo_AddStreet");
-				String userinfo_AddRest = rs.getString("userinfo_AddRest");*/
-				
+
+
 				Vector row = new Vector();
 				row.add(userinfo_id);
 				row.add(userinfo_name);
 				row.add(userinfo_phone);
 				row.add(userinfo_email);
-	
-				/*row.add(userinfo_password);
-				row.add(userinfo_num);*/
-				
+
+
 				data.add(row);             
 			}
 		}catch(Exception e){
@@ -239,11 +283,9 @@ public class UserInfoDao {
 
 				userInfoDto.setUserInfoId(rs.getString("userinfo_id"));
 				userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
-				userInfoDto.setUserInfoPhone(rs.getInt("userinfo_phone"));
+				userInfoDto.setUserInfoPhone(rs.getString("userinfo_phone"));
 				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
-				
-				/*userInfoDto.setUserInfoPassword(rs.getString("userinfo_password"));
-				userInfoDto.setUserInfoNum(rs.getInt("userinfo_num"));*/
+
 			}else{
 				JOptionPane.showMessageDialog(null, "사용자의 ID가 존재하지 않습니다");
 			}
@@ -272,15 +314,9 @@ public class UserInfoDao {
 			PreparedStatement ps = c.prepareStatement("insert into userinfo values(?,?,?,seq_userinfo_num.nextval,?,?,?)");
 			ps.setString(1, userInfoDto.getUserInfoId());
 			ps.setString(2, userInfoDto.getUserInfoName());
-			ps.setInt(3, userInfoDto.getUserInfoPhone());
+			ps.setString(3, userInfoDto.getUserInfoPhone());
 			ps.setString(4, userInfoDto.getUserInfoEmail());
-			
-			/*ps.setString(2, userInfoDto.getUserInfoPassword());
-			ps.setInt(3, userInfoDto.getUserInfoNum());
-			ps.setString(6, userInfoDto.getBirth());
-			ps.setString(7, userInfoDto.getJob());
-			ps.setString(8, userInfoDto.getGender());
-			ps.setString(10, userInfoDto.getIntro());*/          
+
 			int r = ps.executeUpdate();
 
 			if(r>0){
@@ -308,7 +344,7 @@ public class UserInfoDao {
 
 			ps.setString(1, userInfoDto.getUserInfoPassword());
 			ps.setString(2, userInfoDto.getUserInfoName());
-			ps.setInt(4, userInfoDto.getUserInfoPhone());
+			ps.setString(4, userInfoDto.getUserInfoPhone());
 			ps.setString(5, userInfoDto.getUserInfoEmail());
 			ps.setString(6, userInfoDto.getUserInfoId());
 			ps.setString(7, userInfoDto.getUserInfoPassword());

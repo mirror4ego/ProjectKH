@@ -89,7 +89,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		String id = vMem.getUserInfoId();
 		String pwd = vMem.getUserInfoPassword();
 		String name = vMem.getUserInfoName();
-		int tel = vMem.getUserInfoPhone();
+		String tel = vMem.getUserInfoPhone();
 		//String addr = vMem.getUserInfoAddress();
 		//String birth = vMem.getBirth();
 		//String job = vMem.getJob();
@@ -382,7 +382,7 @@ public class UserRegView extends JFrame implements ActionListener {
 		String tel1 = jTextField1.getText();
 		String tel2 = jTextField2.getText();
 		String tel3 = jTextField3.getText();
-		int tel = Integer.parseInt(String.valueOf(tel1+tel2+tel3));
+		String tel = String.valueOf(tel1+tel2+tel3);
 		String addr = jTextField6.getText();
 		String email = jTextField7.getText();
 
