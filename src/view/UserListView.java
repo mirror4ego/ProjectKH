@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -119,6 +120,8 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
+	JLabel label_2 = new JLabel();
+	private final JLabel label_3 = new JLabel();
 
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
@@ -140,7 +143,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	}
 
 	void init() {
-
 		getContentPane().setBackground(Color.GRAY);
 		getContentPane().setLayout(null);
 		textField.setBounds(90, 10, 98, 21);
@@ -304,6 +306,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_2.setBackground(Color.BLACK);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
+		label_2.setBounds(33, 9, 32, 32);
+		panel_2.add(label_2);
+		label_2.setIcon(new ImageIcon("img/network.png"));
 		lblNewLabel.setBounds(84, 0, 56, 26);
 		panel_2.add(lblNewLabel);
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
@@ -413,6 +418,10 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_16.setForeground(Color.WHITE);
 		lblNewLabel_16.setBounds(324, 10, 347, 15);
 		panel_4.add(lblNewLabel_16);
+		label_3.setIcon(new ImageIcon(UserListView.class.getResource("/com/sun/deploy/uitoolkit/impl/fx/ui/resources/image/graybox_error.png")));
+		label_3.setBounds(299, 3, 30, 30);
+		
+		panel_4.add(label_3);
 
 
 	}
