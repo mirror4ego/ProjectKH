@@ -81,14 +81,30 @@ public class UserInfoDao {
 		return vs;
 	}
 
-	public UserInfoDto searchUserInfoId(String userInfoId) throws ClassNotFoundException, SQLException {
-		UserInfoDto userInfoDto = new UserInfoDto();
-		Connection c = connectionMaker.makeConnection();
-		PreparedStatement ps = c.prepareStatement("select * from userInfo where UserInfo_Id = ?");
+	public Vector searchUserInfoId(String userInfoId) throws ClassNotFoundException, SQLException {
+		Connection d = connectionMaker.makeConnection();
+		PreparedStatement ps = d.prepareStatement("select * from userInfo where UserInfo_Id = ?");
+		ps.setString(1,  userInfoId);
+		Vector vs3 = new Vector();
 
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Vector vs4 = new Vector();
 
+			vs4.add(rs.getString("userinfo_id"));
+			vs4.add(rs.getString("userinfo_name"));
+			vs4.add(rs.getInt("userinfo_phone"));
+			vs4.add(rs.getString("userinfo_email"));
+			vs3.add(vs4);
+			
+		}
 
-		return userInfoDto;
+		rs.close();
+		ps.close();
+		d.close();
+		System.out.println(vs3);
+
+		return vs3;
 	}
 
 

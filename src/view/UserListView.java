@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -35,7 +36,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
-import dao.OrderInfoDao;
 import dao.UserInfoDao;
 import domain.UserInfoDto;
 import setting.SetLookAndFeel;
@@ -70,7 +70,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JTable table = new JTable();
 	private final JLabel lblNewLabel_1 = new JLabel("이름");
 	private final JLabel lblNewLabel_2 = new JLabel("직원 ID");
-	private final JLabel lblNewLabel_3 = new JLabel("  연락처");
+	private final JLabel lblNewLabel_3 = new JLabel("연락처");
 	private final JLabel lblNewLabel_4 = new JLabel("주소");
 	private final JLabel lblNewLabel_6 = new JLabel("입사일");
 	private final JLabel lblNewLabel_7 = new JLabel("고용형태");
@@ -86,7 +86,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
 	private JTextField textField_5;
 	private final JList list = new JList();
 	private final JComboBox comboBox_3 = new JComboBox();
@@ -98,10 +97,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JComboBox comboBox_8 = new JComboBox();
 	private final JButton btnNewButton_9 = new JButton("설정");
 	private final JButton button = new JButton("설정");
-	private final JList list_1 = new JList();
-	private final JList list_2 = new JList();
 	private final JLabel lblNewLabel_5 = new JLabel(" ~");
-	private final JTextField comboBox_9 = new JTextField();
 	private final JLabel lblNewLabel_12 = new JLabel("주소는 읍면동 단위까지 상세히 기입 해주세요.");
 	private final JPanel panel_2 = new JPanel();
 	private JPasswordField textField_7;
@@ -120,6 +116,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 	private final JLabel lblNewLabel_15 = new JLabel("New label");
 	private Date today = new Date();
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
 
 	public UserListView() throws ClassNotFoundException, SQLException{
 		super("사용자 관리");
@@ -159,6 +158,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel.add(comboBox);
 
 		panel.add(textField);
+		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 11));
 		btnNewButton.setBounds(196, 9, 57, 23);
 
 		panel.add(btnNewButton);
@@ -252,19 +252,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_9.setBounds(12, 122, 46, 36);
 		panel_1.add(lblNewLabel_9);
 		lblNewLabel_9.setForeground(Color.WHITE);
-		list_1.setBounds(73, 132, 110, 21);
-		panel_1.add(list_1);
-		list_1.setForeground(Color.BLACK);
-		list_2.setBounds(210, 132, 112, 21);
-		panel_1.add(list_2);
-		list_2.setForeground(Color.BLACK);
 		lblNewLabel_5.setBounds(188, 132, 21, 21);
 		panel_1.add(lblNewLabel_5);
 		lblNewLabel_5.setForeground(Color.WHITE);
-		comboBox_9.setEditable(false);
-		comboBox_9.setBounds(395, 134, 269, 21);
-		panel_1.add(comboBox_9);
-		comboBox_9.setForeground(Color.BLACK);
 		lblNewLabel_10.setBounds(334, 126, 57, 36);
 		panel_1.add(lblNewLabel_10);
 		lblNewLabel_10.setForeground(Color.WHITE);
@@ -280,6 +270,21 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_14.setBounds(72, 106, 256, 15);
 
 		panel_1.add(lblNewLabel_14);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(72, 132, 116, 21);
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		textField_9 = new JTextField();
+		textField_9.setBounds(206, 132, 116, 21);
+		panel_1.add(textField_9);
+		textField_9.setColumns(10);
+		
+		textField_10 = new JTextField();
+		textField_10.setBounds(395, 132, 268, 21);
+		panel_1.add(textField_10);
+		textField_10.setColumns(10);
 		btnNewButton_3.setBounds(289, 601, 148, 48);
 
 		getContentPane().add(btnNewButton_3);
@@ -323,8 +328,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_1.setColumns(10);
 		comboBox_1.setBounds(265, 16, 57, 21);
 		panel_3.add(comboBox_1);		
-//		comboBox_1.addItem("성별");
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"성별"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"성별"})); //콤보 박스 기본 값 지정
         comboBox_1.addItem("남성");
         comboBox_1.addItem("여성");
         textField.setColumns(20);
@@ -346,7 +350,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		lblNewLabel_1.setBounds(12, 8, 46, 36);
 		panel_3.add(lblNewLabel_1);
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_3.setBounds(341, 10, 46, 36);
+		lblNewLabel_3.setBounds(334, 8, 46, 36);
 		panel_3.add(lblNewLabel_3);
 		lblNewLabel_3.setForeground(Color.WHITE);
 		lblEmail.setBounds(12, 60, 46, 15);
@@ -378,19 +382,18 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		panel_3.add(comboBox_5);
 		comboBox_5.setForeground(Color.BLACK);
 		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"읍/면/동"}));
-
-		textField_4 = new JTextField();
-		textField_4.setBounds(69, 185, 424, 21);
-		panel_3.add(textField_4);
-		textField_4.setForeground(Color.BLACK);
-		textField_4.setColumns(10);
-		textField_6.setBounds(501, 185, 161, 21);
+		textField_6.setBounds(72, 185, 590, 21);
 		panel_3.add(textField_6);
 		textField_6.setForeground(Color.BLACK);
 		textField_6.setColumns(10);
 		lblNewLabel_12.setBounds(72, 106, 273, 21);
 		panel_3.add(lblNewLabel_12);
 		lblNewLabel_12.setForeground(Color.WHITE);
+		
+		JLabel label_1 = new JLabel("나머지");
+		label_1.setForeground(Color.WHITE);
+		label_1.setBounds(12, 191, 46, 15);
+		panel_3.add(label_1);
 
 		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane_3.setBounds(284, 62, 688, 64);
@@ -408,7 +411,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 
 		JLabel lblNewLabel_16 = new JLabel("복지, 고용보험, 산재보험 관련 문의는 고객센터로 문의 주세요.");
 		lblNewLabel_16.setForeground(Color.WHITE);
-		lblNewLabel_16.setBounds(115, 10, 556, 15);
+		lblNewLabel_16.setBounds(324, 10, 347, 15);
 		panel_4.add(lblNewLabel_16);
 
 
@@ -470,10 +473,12 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		textField_1.setText("");
 		textField_2.setText("");
 		textField_3.setText("");
-		textField_4.setText("");
 		textField_5.setText("");
 		textField_6.setText("");
 		textField_7.setText("");
+		textField_8.setText("");
+		textField_9.setText("");
+		textField_10.setText("");
 		
 		comboBox_1.setSelectedIndex(0);
 		comboBox_3.setSelectedIndex(0);
@@ -506,7 +511,10 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		
 		viewDefault();
 		textField_2.setText(UserInfoId);
-		
+		textField_7.setText(UserInfoPassword);
+		textField_1.setText(UserInfoName);
+		textField_3.setText(UserInfoEmail);	
+		textField_5.setText(String.valueOf(UserInfoPhone));	
 		
 	}
 
@@ -533,6 +541,24 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 				}
 			}
 		}
+	
+		if(e.getSource()==btnNewButton) {
+			System.out.println("검색");
+			String searchElement1 = textField.getText().trim(); //입력 값
+			String searchSort1 = comboBox.getSelectedItem().toString();
+			System.out.println(searchSort1 + " / " + searchElement1);
+			if(searchSort1.equals("ID")){
+				try {
+					Vector vs3 = (new UserInfoDao()).searchUserInfoId(searchElement1);
+					this.jTableRefresh(vs3);
+					System.out.println("ID 정상 검색");
+				} catch (ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		
 		
 		
 		if(e.getSource()==btnNewButton_4){
@@ -562,7 +588,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener{
 		
 		
 		if(e.getSource()==btnNewButton_7){
-//			System.out.println("종료 버튼");
 			this.dispose();
 		}
 		
