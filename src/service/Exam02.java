@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import dao.OrderInfoDao;
+import dao.OrderItemDao;
 
 
 public class Exam02 extends JFrame {
@@ -21,8 +21,8 @@ public class Exam02 extends JFrame {
 	Color[] color = { Color.RED, Color.BLUE, // 색상
 			Color.MAGENTA, Color.ORANGE };
 
-	String[] itemName = { "양념", "후라이드", // 비교대상, DB_name
-			"간장", "크림" };
+	String[] itemName = { "양념치킨", "후라이드", // 비교대상, DB_name
+			"간장치킨", "크림치킨" };
 
 	JTextField[] tf = new JTextField[4]; // 텍스트필드
 	ChartPanel chartPanel = new ChartPanel(); // 차트패널
@@ -35,11 +35,11 @@ public class Exam02 extends JFrame {
 		// contentPane.add(new InputPanel(), BorderLayout.NORTH);
 		con.add(chartPanel, BorderLayout.CENTER);
 
-		OrderInfoDao dao = new OrderInfoDao();
-		data[0] = dao.sumOrderMenu(1);
-		data[1] = dao.sumOrderMenu(2);
-		data[2] = dao.sumOrderMenu(3);
-		data[3] = dao.sumOrderMenu(4);
+		OrderItemDao dao = new OrderItemDao();
+		data[0] = dao.sumOrderItemNum("양념치킨");
+		data[1] = dao.sumOrderItemNum("후라이드");
+		data[2] = dao.sumOrderItemNum("간장치킨");
+		data[3] = dao.sumOrderItemNum("크림치킨");
 		setSize(500, 350);
 		setVisible(true);
 		drawChart(); // 차트 메소드 호출

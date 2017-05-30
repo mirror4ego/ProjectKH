@@ -22,7 +22,7 @@ public class Exam05 extends JFrame {
 	private String alb = "사당동";
 	private String blb = "금천동";
 	private String clb = "삼성동";
-	private String dlb = "읍면동";
+	private String dlb = "녹번동";
 
 	public Exam05() {
 		super();
@@ -47,15 +47,15 @@ public class Exam05 extends JFrame {
 				aDong[i][1] = randomRange(0, 250);
 			}
 		
-		for (int i = 0; i < dao.sumCustomerLoc("금천동"); i++) {
+		for (int i = 0; i < dao.sumCustomerLoc("가산동"); i++) {
 			bDong[i][0] = randomRange(250, 500);
 			bDong[i][1] = randomRange(0, 250);
 		}
-		for (int i = 0; i < dao.sumCustomerLoc("삼성동"); i++) {
+		for (int i = 0; i < dao.sumCustomerLoc("방학동"); i++) {
 			cDong[i][0] = randomRange(0, 250);
 			cDong[i][1] = randomRange(250, 500);
 		}
-		for (int i = 0; i < dao.sumCustomerLoc("읍면동"); i++) {
+		for (int i = 0; i < dao.sumCustomerLoc("녹번동"); i++) {
 			dDong[i][0] = randomRange(250, 500);
 			dDong[i][1] = randomRange(250, 500);
 		}

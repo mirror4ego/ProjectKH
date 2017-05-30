@@ -48,7 +48,23 @@ public class CustomerDao {
 		}
 	}
 	
-	
+	public Vector getAllCustomerNum() throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector vector = new Vector();
+		PreparedStatement ps = c.prepareStatement("select customer_num from customer");
+
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next()){
+		vector.add(rs.getInt("customer_Num"));
+		}
+		
+		rs.close();
+		ps.close();
+		c.close();
+
+		return vector;
+	}
 
 	public CustomerDto getSelectedCustomerInfo(int orderInfoCustomerNum) throws ClassNotFoundException, SQLException { // 
 
@@ -130,6 +146,37 @@ public class CustomerDao {
 			c.close();
 			JOptionPane.showMessageDialog(null, "고객정보 변경 실패!");
 		}
+	}
+	public int chkUserNum(int chkUserNum) throws ClassNotFoundException, SQLException {
+
+		Connection c = connectionMaker.makeConnection();
+		c.setAutoCommit(false);
+		//int sum = 0;
+		int cnt=0;
+		try {
+
+			PreparedStatement ps = c.prepareStatement(
+					"select customer_num from customer where customer_num>?"
+					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
+					ResultSet.CONCUR_UPDATABLE);
+			//last 쓰기위한 추가구문
+			ps.setInt(1,chkUserNum);
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.last();
+			cnt=rs.getRow();
+			rs.beforeFirst();
+			// 레코드개수를 구하기위함.
+
+			rs.close();
+			ps.close();
+			c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cnt;
 	}
 
 

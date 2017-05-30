@@ -213,30 +213,7 @@ public class OrderInfoDao {
 		return orderInfoDto;    
 	}
 
-	//수정 필요
-	public int sumOrderMenu(int orderInfoNum) throws ClassNotFoundException, SQLException {
 
-		Connection c = connectionMaker.makeConnection();
-		//OrderInfoDto orderInfoDto = new OrderInfoDto();
-		int sum = 0;
-		try {
-			PreparedStatement ps = c.prepareStatement(
-					"select * from orderinfo where orderinfo_menu_num=?");
-			ps.setInt(1, orderInfoNum);
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) {
-				//			orderInfoDto.setOrderInfoMenuNum(rs.getInt("orderInfoMenuNum"));// 메뉴고유값
-				//		orderInfoDto.setOrderInfoMenuAmount(rs.getInt("orderInfoMenuAmount"));// 주문
-				// 메뉴양
-				sum += rs.getInt("orderinfo_menu_amount");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return sum;
-	}
 
 	public OrderInfoDto get(int orderInfoNum) throws ClassNotFoundException, SQLException { //
 

@@ -54,7 +54,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_5;
 	JTextField textField_6;
 	private JButton button = new JButton("신규");
 	private JButton button_1 = new JButton("저장");
@@ -273,14 +272,6 @@ public class MenuManageView extends JFrame implements MouseListener, TreeSelecti
 		button_9.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		button_9.setBounds(8, 209, 57, 50);
 		panel_4.add(button_9);
-
-		textField_5 = new JTextField();
-		textField_5.setBackground(Color.LIGHT_GRAY);
-		textField_5.setEnabled(false);
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
-		textField_5.setBounds(4, 98, 65, 170);
-		panel_4.add(textField_5);
 
 		lblNewLabel.setBounds(287, 501, 57, 25);
 		panel_2.add(lblNewLabel);

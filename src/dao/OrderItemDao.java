@@ -41,6 +41,24 @@ public class OrderItemDao {
 		return data;
 	}
 
+	//수정 필요
+	public int sumOrderItemNum(String orderInfoName) throws ClassNotFoundException, SQLException {
+
+		Connection c = connectionMaker.makeConnection();
+		//OrderInfoDto orderInfoDto = new OrderInfoDto();
+		int sum = 0;
+
+			PreparedStatement ps = c.prepareStatement("select * from orderitem where orderitem_menu_Name=?", ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_UPDATABLE);
+			ps.setString(1, orderInfoName);
+			ResultSet rs = ps.executeQuery();
+			rs.last();
+			sum=rs.getRow();
+			rs.beforeFirst();
+
+		return sum;
+	}
+	
 	public void addOneOrderItem(OrderItemDto orderItemDto) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
 		System.out.println("정상입력1");

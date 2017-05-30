@@ -31,7 +31,7 @@ public class Exam04 extends JFrame {
 		arr[5] = dao.sumCustomerAge(51, 100);
 		this.init();
 		this.start();
-		this.paint(null);
+		//this.paint(null);
 		this.setSize(600, 700);
 		this.setVisible(true);
 

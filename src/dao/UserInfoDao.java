@@ -181,39 +181,6 @@ public class UserInfoDao {
 		c.close();
 	}
 
-	public int chkUserNum(int chkusernum) throws ClassNotFoundException, SQLException {
-
-		Connection c = connectionMaker.makeConnection();
-		c.setAutoCommit(false);
-		//int sum = 0;
-		int cnt=0;
-		try {
-
-			PreparedStatement ps = c.prepareStatement(
-					"select userinfo_num from userinfo where userinfo_num>?"
-					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
-					ResultSet.CONCUR_UPDATABLE);
-			//last 쓰기위한 추가구문
-			ps.setInt(1,chkusernum);
-
-			ResultSet rs = ps.executeQuery();
-
-			rs.last();
-			cnt=rs.getRow();
-			rs.beforeFirst();
-			// 레코드개수를 구하기위함.
-
-			rs.close();
-			ps.close();
-			c.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return cnt;
-	}
-
-
 	//모든 사용자 리스트를 가져오는 메소드
 	public Vector getUserList() throws ClassNotFoundException, SQLException{
 		Connection c = connectionMaker.makeConnection();
