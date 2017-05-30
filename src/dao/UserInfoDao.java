@@ -201,8 +201,7 @@ public class UserInfoDao {
 		c.close();
 	}
 
-<<<<<<< HEAD
-=======
+
 	public int chkUserNum(int chkusernum) throws ClassNotFoundException, SQLException {
 
 		Connection c = connectionMaker.makeConnection();
@@ -235,8 +234,6 @@ public class UserInfoDao {
 		return cnt;
 	}
 
-
->>>>>>> bde2113bece138369fac164b16cb2d71a498c89f
 	//모든 사용자 리스트를 가져오는 메소드
 	public Vector getUserList() throws ClassNotFoundException, SQLException{
 		Connection c = connectionMaker.makeConnection();
