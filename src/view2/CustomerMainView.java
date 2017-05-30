@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -44,9 +46,8 @@ import dao.OrderItemDao;
 import domain.CustomerDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
-import view.UserSelectView;
 
-public class CustomerMainView extends JFrame implements MouseListener, ItemListener {
+public class CustomerMainView extends JFrame implements MouseListener, ItemListener, ActionListener {
 	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
 		CustomerMainView a = new CustomerMainView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
 
@@ -419,16 +420,16 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 	}
 
 	void start() {
-		btnf.addMouseListener(this);
-		btnf_5.addMouseListener(this);
-		btnNewButton.addMouseListener(this);
-		button_7.addMouseListener(this);
+		btnf.addActionListener(this);
+		btnf_5.addActionListener(this);
+		btnNewButton.addActionListener(this);
+		button_7.addActionListener(this);
 		table.addMouseListener(this);
-		btnf_4.addMouseListener(this);
-		btnNewButton_1.addMouseListener(this);
-		btnf_1.addMouseListener(this);
-		btnf_3.addMouseListener(this);
-		button.addMouseListener(this);
+		btnf_4.addActionListener(this);
+		btnNewButton_1.addActionListener(this);
+		btnf_1.addActionListener(this);
+		btnf_3.addActionListener(this);
+		button.addActionListener(this);
 		comboBox_2.addItemListener(this);
 		comboBox_3.addItemListener(this);
 	}
@@ -460,8 +461,9 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		textField.setText("");
 		textField_1.setText("");
 		textField_2.setText("");
-		radioButton.setSelected(false);
 		rdbtnNewRadioButton.setSelected(false);
+		radioButton.setSelected(false);
+
 		comboBox_5.setSelectedIndex(0);
 		textArea_2.setText("");
 		
@@ -521,185 +523,8 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		textField.setText(String.valueOf(orderInfoCount));
 	}
 
-
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getSource()==btnf) {
-			if(!(jTextField2.getText().trim()).equals("")){
-				try {
-
-					new OrderListMiniView(Integer.parseInt(jTextField2.getText().trim()), jTextField3.getText().trim());
-
-				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}else{
-				JOptionPane.showMessageDialog(null, "주문내역을 확인할 고객 정보를 선택하세요");
-			}
-		}
-
-		if(e.getSource()==btnNewButton) {
-			System.out.println("검색");
-			String searchElement = jTextField5.getText().trim();
-			String searchSort = comboBox.getSelectedItem().toString();
-			System.out.println(searchSort + " / " + searchElement);
-			if(searchSort.equals("고객번호")){
-				try {
-					Vector customerDto = (new CustomerDao()).searchCustomerNum(searchElement);
-					this.jTableRefresh(customerDto);
-					System.out.println("고객번호 정상 검색");
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}else if(searchSort.equals("전화번호")){
-				try {
-					Vector customerDto = (new CustomerDao()).searchCustomerPhoneNum(searchElement);
-					this.jTableRefresh(customerDto);
-					System.out.println("전화번호 정상 검색");
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}else if(searchSort.equals("주소")){
-				System.out.println("789");
-			}else{
-				JOptionPane.showMessageDialog(null, "검색 오류");
-			}
-		}
-
-		if(e.getSource()==btnf_5){
-			System.out.println("종료 버튼");
-			this.dispose();
-		}
-
-		if(e.getSource()==btnf_4){
-			int customerNum = 1; //Integer.parseInt(jTextField2.getText().trim()); //회원번호 입력창
-			//customerNum = Integer.parseInt(jTextField2.getText().trim());
-			String customerRegDate = jTextField4.getText().trim(); //고객 등록날짜 입력창
-			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
-			String customerAddState = comboBox_2.getItemAt(comboBox_2.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
-			String customerAddCity = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(시군구)의 입력창
-			String customerAddStreet = comboBox_4.getItemAt(comboBox_4.getSelectedIndex()).toString().trim(); //주소(동면읍리)의 입력창
-			String customerAddRest = jTextField1.getText().trim(); //주소(나머지)의 입력창
-			int customerAgePredict = Integer.parseInt(textField_1.getText().trim());
-			int customerGender = 99;
-			String customerNoteInfo = textArea_2.getText().toString();
-			String customerGradeName = String.valueOf(comboBox_5.getSelectedItem());
-			System.out.println(customerGradeName);
-			if(radioButton.isSelected()){
-				customerGender = 0;
-			}else if(rdbtnNewRadioButton.isSelected()){
-				customerGender = 1;
-			}else{
-				JOptionPane.showMessageDialog(null, "성별 선택 오류");
-			}
-			CustomerDao customerDao = new DaoFactory().customerDao();
-			if((jTextField2.getText().trim()).equals("")){
-
-				try{
-					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
-							customerGradeName);
-					customerDao.add(customerDto);
-
-				}catch(Exception e1){JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (입력값 확인)");};
-			}else{
-
-				try {
-					customerNum = Integer.parseInt(jTextField2.getText().trim());
-					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
-							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
-							customerGradeName);
-					customerDao.updateCustomer(customerDto);
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "고객정보 변경 실패 (입력값 확인)");
-				}
-			}
-			try {
-				this.jTableRefresh(new CustomerDao().customerAllPart());
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} //여기까지 버튼 4
-		}else{}
-
-		if(e.getSource()==table){
-			int r = table.getSelectedRow();
-			int customerNum = (int) table.getValueAt(r, 0);
-			try {
-				viewData((new CustomerDao()).get(customerNum));
-			}catch(Exception e1){
-				JOptionPane.showMessageDialog(null, "테이블 선택 오류");
-			}
-		}
-
-		if(e.getSource()==btnNewButton_1){
-			try {
-				this.jTableRefresh(new CustomerDao().customerAllPart());
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-
-		if(e.getSource()==btnf_1){
-			viewDefault();
-		}
-
-		if(e.getSource()==btnf_3){
-
-			if(!(jTextField2.getText().trim()).equals("")){
-				try {
-					int result = JOptionPane.showConfirmDialog(null, "고객정보를 삭제하시겠습니까?");
-					if(result==0){
-						OrderItemDao orderItemDao = new OrderItemDao();
-						OrderInfoDao orderInfoDao = new OrderInfoDao();
-						//OrderItem 목록 삭제 (고객번호로 검색한 하위 orderinfo_num들의 아래에 있는 결과들)
-
-						Vector vector3 = orderInfoDao.getOrderListNum(Integer.parseInt(jTextField2.getText().trim()));
-						for(int i = 0;i<vector3.size();i++){
-							orderItemDao.deleteOrderItem(Integer.parseInt(vector3.get(i).toString()));
-						}
-						//OrderInfo 목록 삭제 (고객번호로 검색되어 나온 결과들)
-						orderInfoDao.delteOrderInfo(Integer.parseInt(jTextField2.getText().trim()));
-						(new CustomerDao()).deleteOneCustomer(Integer.parseInt(jTextField2.getText().trim()));
-					}else{
-						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
-					}
-				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}else{
-				JOptionPane.showMessageDialog(null, "삭제할 고객 정보를 선택하세요");
-			}
-			
-			try {
-				this.jTableRefresh(new CustomerDao().customerAllPart());
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-
-		if(e.getSource()==button){
-			if(!(jTextField2.getText().trim()).equals("")){
-				try {
-					new OrderSheetView((new CustomerDao()).searchCustomerNum(Integer.parseInt(jTextField2.getText().trim())));
-
-				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}else{
-				JOptionPane.showMessageDialog(null, "먼저 고객 정보를 선택하세요");
-			}
-		}	
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -887,18 +712,201 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 						"외도동","용강동","용담동","우도면","월평동","이도동","이호동","일도동","조천읍","추자면","한경면","한림읍","해안동","화북동","회천동"}));
 			}
 		}
+		
 	}
-
-
-
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource()==table){
+			int r = table.getSelectedRow();
+			int customerNum = (int) table.getValueAt(r, 0);
+			try {
+				viewData((new CustomerDao()).get(customerNum));
+			}catch(Exception e1){
+				JOptionPane.showMessageDialog(null, "테이블 선택 오류");
+			}
+		}
+	}
 	@Override
 	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+
+		if(e.getSource()==btnf) {
+			if(!(jTextField2.getText().trim()).equals("")){
+				try {
+
+					new OrderListMiniView(Integer.parseInt(jTextField2.getText().trim()), jTextField3.getText().trim());
+
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "주문내역을 확인할 고객 정보를 선택하세요");
+			}
+		}
+
+		if(e.getSource()==btnNewButton) {
+			System.out.println("검색");
+			String searchElement = jTextField5.getText().trim();
+			String searchSort = comboBox.getSelectedItem().toString();
+			System.out.println(searchSort + " / " + searchElement);
+			if(searchSort.equals("고객번호")){
+				try {
+					Vector customerDto = (new CustomerDao()).searchCustomerNum(searchElement);
+					this.jTableRefresh(customerDto);
+					System.out.println("고객번호 정상 검색");
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else if(searchSort.equals("전화번호")){
+				try {
+					Vector customerDto = (new CustomerDao()).searchCustomerPhoneNum(searchElement);
+					this.jTableRefresh(customerDto);
+					System.out.println("전화번호 정상 검색");
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else if(searchSort.equals("주소")){
+				System.out.println("789");
+			}else{
+				JOptionPane.showMessageDialog(null, "검색 오류");
+			}
+		}
+
+		if(e.getSource()==btnf_5){
+			System.out.println("종료 버튼");
+			this.dispose();
+		}
+
+		if(e.getSource()==btnf_4){
+			int customerNum = 1; //Integer.parseInt(jTextField2.getText().trim()); //회원번호 입력창
+			//customerNum = Integer.parseInt(jTextField2.getText().trim());
+			String customerRegDate = jTextField4.getText().trim(); //고객 등록날짜 입력창
+			String customerPhoneNum = jTextField3.getText().trim(); //전화번호 입력창
+			String customerAddState = comboBox_2.getItemAt(comboBox_2.getSelectedIndex()).toString().trim(); //주소(특별시,광역시,도)의 입력창
+			String customerAddCity = comboBox_3.getItemAt(comboBox_3.getSelectedIndex()).toString().trim(); //주소(시군구)의 입력창
+			String customerAddStreet = comboBox_4.getItemAt(comboBox_4.getSelectedIndex()).toString().trim(); //주소(동면읍리)의 입력창
+			String customerAddRest = jTextField1.getText().trim(); //주소(나머지)의 입력창
+			int customerAgePredict = Integer.parseInt(textField_1.getText().trim());
+			int customerGender = 99;
+			String customerNoteInfo = textArea_2.getText().toString();
+			String customerGradeName = String.valueOf(comboBox_5.getSelectedItem());
+			System.out.println(customerGradeName);
+			if(radioButton.isSelected()){
+				customerGender = 0;
+			}else if(rdbtnNewRadioButton.isSelected()){
+				customerGender = 1;
+			}else{
+				JOptionPane.showMessageDialog(null, "성별 선택 오류");
+			}
+			CustomerDao customerDao = new DaoFactory().customerDao();
+			if((jTextField2.getText().trim()).equals("")){
+
+				try{
+					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
+							customerGradeName);
+					customerDao.add(customerDto);
+
+				}catch(Exception e1){JOptionPane.showMessageDialog(null, "고객정보 등록 실패 (입력값 확인)");};
+			}else{
+
+				try {
+					customerNum = Integer.parseInt(jTextField2.getText().trim());
+					CustomerDto customerDto = new CustomerDto(customerNum, customerRegDate, customerPhoneNum, customerAddState,
+							customerAddCity, customerAddStreet, customerAddRest, customerAgePredict,customerGender, customerNoteInfo,
+							customerGradeName);
+					customerDao.updateCustomer(customerDto);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "고객정보 변경 실패 (입력값 확인)");
+				}
+			}
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} //여기까지 버튼 4
+		}else{}
+
+
+		if(e.getSource()==btnNewButton_1){
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		if(e.getSource()==btnf_1){
+			viewDefault();
+		}
+
+		if(e.getSource()==btnf_3){
+
+			if(!(jTextField2.getText().trim()).equals("")){
+				try {
+					int result = JOptionPane.showConfirmDialog(null, "고객정보를 삭제하시겠습니까?");
+					if(result==0){
+						OrderItemDao orderItemDao = new OrderItemDao();
+						OrderInfoDao orderInfoDao = new OrderInfoDao();
+						//OrderItem 목록 삭제 (고객번호로 검색한 하위 orderinfo_num들의 아래에 있는 결과들)
+
+						Vector vector3 = orderInfoDao.getOrderListNum(Integer.parseInt(jTextField2.getText().trim()));
+						for(int i = 0;i<vector3.size();i++){
+							orderItemDao.deleteOrderItem(Integer.parseInt(vector3.get(i).toString()));
+						}
+						//OrderInfo 목록 삭제 (고객번호로 검색되어 나온 결과들)
+						orderInfoDao.delteOrderInfo(Integer.parseInt(jTextField2.getText().trim()));
+						(new CustomerDao()).deleteOneCustomer(Integer.parseInt(jTextField2.getText().trim()));
+					}else{
+						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
+					}
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "삭제할 고객 정보를 선택하세요");
+			}
+			
+			try {
+				this.jTableRefresh(new CustomerDao().customerAllPart());
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		if(e.getSource()==button){
+			if(!(jTextField2.getText().trim()).equals("")){
+				try {
+					new OrderSheetView((new CustomerDao()).searchCustomerNum(Integer.parseInt(jTextField2.getText().trim())));
+
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "먼저 고객 정보를 선택하세요");
+			}
+		}	
+	
+	}
+	
 }
 
 
