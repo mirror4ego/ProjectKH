@@ -864,10 +864,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 			}
 		}
 	
-	
-		
-		
+		}
 	}
 }
-
 
