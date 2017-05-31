@@ -78,7 +78,7 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 	private JLabel lblNewLabel = new JLabel("원");
 	private JLabel lblNewLabel_1 = new JLabel();
 	private JLabel label = new JLabel("메뉴관리");
-	private JLabel label_1 = new JLabel("상품을 메뉴하는 곳입니다");
+	private JLabel label_1 = new JLabel("메뉴를 관리하는 곳입니다");
 
 	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

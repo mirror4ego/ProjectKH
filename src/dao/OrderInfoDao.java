@@ -180,6 +180,38 @@ public class OrderInfoDao {
 		}      
 		return orderInfoDto;    
 	}
+	
+	public int chkOrderNum(int chkordernum) throws ClassNotFoundException, SQLException {
+
+		Connection c = connectionMaker.makeConnection();
+		c.setAutoCommit(false);
+
+		int cnt=0;
+		try {
+
+			PreparedStatement ps = c.prepareStatement(
+					"select count(*) from orderinfo group by orderinfo_customer_num having count(*)>?"
+					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
+					ResultSet.CONCUR_UPDATABLE);
+			//last 쓰기위한 추가구문
+			ps.setInt(1,chkordernum);
+
+			ResultSet rs = ps.executeQuery();
+
+			rs.last();
+			cnt=rs.getRow();
+			rs.beforeFirst();
+			// 레코드개수를 구하기위함.
+
+			rs.close();
+			ps.close();
+			c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return cnt;
+	}
 	//선택한 주문내역 정보를 가져오는 메소드 (주문번호를 기준으로)
 	public OrderInfoDto getOneOrder(int orderInfoNum) throws ClassNotFoundException, SQLException{
 

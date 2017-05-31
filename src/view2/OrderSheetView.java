@@ -289,7 +289,9 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		label_26.setBounds(12, 93, 67, 25);
 
 		panel_11.add(label_26);
+		
 		txtEx.setText("ex) 2017-05-24 17:34:40");
+		
 		txtEx.setColumns(10);
 		txtEx.setBounds(79, 10, 389, 25);
 
@@ -367,7 +369,6 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 
 		panel_6.add(label_20);
 		textField_16.setEnabled(false);
-		textField_16.setEditable(true);
 		textField_16.setModel(new DefaultComboBoxModel(new String[] {"등급선택", "신규고객", "일반고객", "단골고객", "VIP고객"}));
 		textField_16.setBounds(313, 35, 153, 25);
 
@@ -613,7 +614,7 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		btnNewButton.addActionListener(this);
 		table.addMouseListener(this);
 		table_1.addMouseListener(this);
-		table_1.addMouseListener(this);
+
 		button.addActionListener(this);
 	}
 
@@ -664,7 +665,9 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		String customerPhoneNum = customerDto.getCustomerPhoneNum();
 		String customerRegDate = customerDto.getCustomerRegDate();
 		String customerNoteInfo = customerDto.getCustomerNoteInfo();
-
+		String customerGradeName = customerDto.getCustomerGradeName();
+		
+		textField_16.setSelectedItem(customerGradeName);
 		textField_3.setEditable(false);
 		textField_3.setHorizontalAlignment(SwingConstants.TRAILING);
 
@@ -682,6 +685,8 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		textField_9.setEditable(false);
 		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_9.setText(customerPhoneNum);
+		
+		
 		
 		OrderInfoDao orderInfoDao = new OrderInfoDao();
 		int orderInfoCount = orderInfoDao.getOneCustomerOrderFrequency(customerNum);
@@ -795,8 +800,6 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-
-
 				}
 				JOptionPane.showMessageDialog(null, "주문서가 저장되었습니다");
 				this.dispose();

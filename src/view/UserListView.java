@@ -49,7 +49,6 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 	//아래부터 임시 실행을 위한 메인 선언
 	public static void main(String ar[]) throws ClassNotFoundException, SQLException{
 		UserListView a = new UserListView(); //클래스 파일의 객체를 직접 생성 (실행을 위해)
-
 	}
 	//메인 종료
 
@@ -451,9 +450,9 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 
 	public Vector getColumn(){ //표시해주는 기능
 		vector3.add("아이디");
+		vector3.add("직급");
 		vector3.add("이름");
 		vector3.add("번호");
-		vector3.add("이메일");
 		return vector3;
 	}
 
@@ -764,7 +763,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 
 
 		if(e.getSource()==btnNewButton) {
-			System.out.println("검색");
+			System.out.println("직원명 검색");
 			String searchElement = textField.getText().trim(); //입력 값
 			String searchSort = comboBox.getSelectedItem().toString();
 			System.out.println(searchSort + " / " + searchElement);
@@ -780,7 +779,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 		}
 
 		if(e.getSource()==btnNewButton) {
-			System.out.println("검색");
+			System.out.println("ID 검색");
 			String searchElement1 = textField.getText().trim(); //입력 값
 			String searchSort1 = comboBox.getSelectedItem().toString();
 			System.out.println(searchSort1 + " / " + searchElement1);
@@ -800,6 +799,7 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 
 		if(e.getSource()==btnNewButton_4){
 			viewDefault();
+			
 		}
 
 			
@@ -808,8 +808,22 @@ public class UserListView extends JFrame implements MouseListener,ItemListener,A
 		if(e.getSource()==btnNewButton_5){
 			String userInfoId = textField_2.getText().trim();
 			String userInfoPassword = textField_7.getText().trim();
+	
+			try {
+			new UserInfoDao().deleteUser(userInfoId, userInfoPassword);			
+				JOptionPane.showMessageDialog(null, "삭제가 성공적으로 처리 되었습니다.");
+				viewDefault();
+				this.jTableRefresh(new UserInfoDao().userInfoAllPart());
+				
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "삭제 실패, 다시 시도해 주세요.");
+				e1.printStackTrace();
+			}
 			
-			new UserInfoDao().deleteUser(userInfoId, userInfoPassword);
+			
+			
+			
 		}
 
 
