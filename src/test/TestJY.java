@@ -3,18 +3,19 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.CustomerSearchView;
+import view.UserListView;
+import view2.CustomerMainView;
 
 
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		//MenuManageView menuManageView = new MenuManageView();
-		//CustomerMainView customerMainView = new CustomerMainView();
+		CustomerMainView customerMainView = new CustomerMainView();
 		//LoginView loginView = new LoginView();
 		
 		
-		CustomerSearchView customerSearchView = new CustomerSearchView();
+		//CustomerSearchView customerSearchView = new CustomerSearchView();
 
 		//MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();
@@ -30,7 +31,7 @@ public class TestJY {
 		//(new OrderInfoDao()).add(new OrderInfoDto(1, "19840903", "1", "1", "빠르게 배달", 3, "19850904", "1", "1", "1", "1", "19440301", 1100));
 		//OrderMainView OrderMainView = new OrderMainView();
 		//new MenuDao().searchMenu("훈제닭1");
-		//UserListView UserListView = new UserListView();
+		UserListView UserListView = new UserListView();
 		//UserRegView userRegView = new UserRegView();
 
 	}
