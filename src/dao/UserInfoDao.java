@@ -51,10 +51,11 @@ public class UserInfoDao {
 		while(rs.next()){
 			Vector vs1 = new Vector();
 
+
 			vs1.add(rs.getString("userinfo_id"));
+			vs1.add(rs.getString("userinfo_employ_status"));
 			vs1.add(rs.getString("userinfo_name"));
 			vs1.add(rs.getString("userinfo_phone"));
-			vs1.add(rs.getString("userinfo_email"));
 			vs.add(vs1);
 		}
 
@@ -77,9 +78,9 @@ public class UserInfoDao {
 			Vector vs4 = new Vector();
 
 			vs4.add(rs.getString("userinfo_id"));
+			vs4.add(rs.getString("userinfo_employ_status"));
 			vs4.add(rs.getString("userinfo_name"));
 			vs4.add(rs.getString("userinfo_phone"));
-			vs4.add(rs.getString("userinfo_email"));
 			vs3.add(vs4);
 		}
 
@@ -104,9 +105,9 @@ public class UserInfoDao {
 			while(rs.next()){
 				Vector row = new Vector();
 				row.add(rs.getString("userinfo_id"));
+				row.add(rs.getString("userinfo_employ_status"));
 				row.add(rs.getString("userinfo_name"));
 				row.add(rs.getString("userinfo_phone"));
-				row.add(rs.getString("userinfo_email"));
 
 
 				data.add(row);
@@ -202,37 +203,7 @@ public class UserInfoDao {
 	}
 
 
-	public int chkUserNum(int chkusernum) throws ClassNotFoundException, SQLException {
-
-		Connection c = connectionMaker.makeConnection();
-		c.setAutoCommit(false);
-
-		int cnt=0;
-		try {
-
-			PreparedStatement ps = c.prepareStatement(
-					"select userinfo_num from userinfo where userinfo_num>?"
-					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
-					ResultSet.CONCUR_UPDATABLE);
-			//last 쓰기위한 추가구문
-			ps.setInt(1,chkusernum);
-
-			ResultSet rs = ps.executeQuery();
-
-			rs.last();
-			cnt=rs.getRow();
-			rs.beforeFirst();
-			// 레코드개수를 구하기위함.
-
-			rs.close();
-			ps.close();
-			c.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return cnt;
-	}
+	
 
 	//모든 사용자 리스트를 가져오는 메소드
 	public Vector getUserList() throws ClassNotFoundException, SQLException{
@@ -245,10 +216,9 @@ public class UserInfoDao {
 
 			while(rs.next()){	
 				String userinfo_id = rs.getString("userinfo_id");
-				String userinfo_name = rs.getString("userinfo_name");
-				int userinfo_phone = rs.getInt("userinfo_phone");
-				String userinfo_email = rs.getString("userinfo_email");
-
+				String userinfo_name = rs.getString("userinfo_employ_status");
+				int userinfo_phone = rs.getInt("userinfo_name");
+				String userinfo_email = rs.getString("userinfo_phone");
 
 				Vector row = new Vector();
 				row.add(userinfo_id);
@@ -279,10 +249,11 @@ public class UserInfoDao {
 			if(rs.next()){
 
 				userInfoDto.setUserInfoId(rs.getString("userinfo_id"));
+				userInfoDto.setUserInfoEmployStatus(rs.getString("userinfo_employ_status"));
 				userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 				userInfoDto.setUserInfoPhone(rs.getString("userinfo_phone"));
-				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
-
+//사용되지 않는 메소드
+				
 			}else{
 				JOptionPane.showMessageDialog(null, "사용자의 ID가 존재하지 않습니다");
 			}

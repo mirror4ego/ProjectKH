@@ -13,12 +13,10 @@ class AttendanceView extends JFrame{
 	int eLeave; //조퇴
 
 	public AttendanceView(){
-
 		super("고객정보검색");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(750,200);
 		this.setResizable(false);
-
 		init();
 		start();
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
