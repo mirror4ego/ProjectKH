@@ -59,10 +59,10 @@ public class Exam04 extends JFrame {
 			if (arr[i] < arr[i + 1]) {
 				max = arr[i];
 			}
-			arr[i] *= 15;
+			arr[i] *= 20;
 		}
-		arr[arr.length-1]*=15;
-
+		arr[arr.length-1]*=20;
+		//크기배율조정
 	}
 
    
@@ -81,9 +81,9 @@ public class Exam04 extends JFrame {
 		for (int i = 0; i <= arr[0] + arr[1]; i++) {
 			g.drawLine(100, 600 - i, 200, 600 - i);
 			if (i < arr[0])
-				g.setColor(Color.red);
+				g.setColor(new Color(185,24,35));
 			else if (i < arr[0] + arr[1])
-				g.setColor(Color.BLUE);
+				g.setColor(new Color(13,72,145));
 			try {
 				Thread.sleep(10);
 			} catch (Exception ee) {
@@ -92,9 +92,9 @@ public class Exam04 extends JFrame {
 		for (int j = 0; j <= arr[2] + arr[3]; j++) {
 			g.drawLine(250, 600 - j, 350, 600 - j);
 			if (j < arr[2])
-				g.setColor(Color.red);
+				g.setColor(new Color(185,24,35));
 			else if (j < arr[2] + arr[3])
-				g.setColor(Color.BLUE);
+				g.setColor(new Color(13,72,145));
 			try {
 				Thread.sleep(10);
 			} catch (Exception ee) {
@@ -103,9 +103,9 @@ public class Exam04 extends JFrame {
 		for (int k = 0; k <= arr[4] + arr[5]; k++) {
 			g.drawLine(400, 600 - k, 500, 600 - k);
 			if (k < arr[4])
-				g.setColor(Color.red);
+				g.setColor(new Color(185,24,35));
 			else if (k < arr[4] + arr[5])
-				g.setColor(Color.BLUE);
+				g.setColor(new Color(13,72,145));
 			try {
 				Thread.sleep(10);
 			} catch (Exception ee) {

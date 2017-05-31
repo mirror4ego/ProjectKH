@@ -3,6 +3,7 @@ package service;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
@@ -26,8 +27,8 @@ public class Exam06 extends JFrame {
 	int[] data = new int[2];// {250,150,100,200}; // 차트의 값 저장배열 ,DB에서 누적된 값가져오기.
 	int[] arcAngle = new int[2]; // 비율을계산,각으로변환
 	OrderInfoDao dao = new OrderInfoDao();
-	Color[] color = { Color.RED, Color.BLUE };
-
+	Color[] color = { new Color(236,121,154), new Color(143,188,219) };
+	Font font = new Font("맑은 고딕", Font.BOLD, 16);
 	String[] itemName = { "이상", "이하" };
 	Panel panel = new Panel();
 	JTextField tf = new JTextField(10);
@@ -74,12 +75,12 @@ public class Exam06 extends JFrame {
 		public void paintComponent(Graphics g) {
 
 			super.paintComponent(g);// 부모 패인트호출
-
+g.setFont(font);
 			int startAngle = 0;
 
 			for (int i = 0; i < data.length; i++) {
 				g.setColor(color[i]);
-				g.drawString(itemName[i] + "" + Math.round(arcAngle[i] * 100 / 360) + "%", 50 + i * 100, 20);
+				g.drawString(itemName[i] + "" + Math.round(arcAngle[i] * 100 / 360) + "%", 50 + i * 100, 30);
 			}
 
 			for (int i = 0; i < data.length; i++) {

@@ -12,17 +12,17 @@ import javafx.stage.Stage;
 public class Exam03 extends Application {
  
     @Override public void start(Stage stage) {
-        stage.setTitle("Line Chart Sample");
+        stage.setTitle("월별 / 메뉴별 주문누적량");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
          xAxis.setLabel("Month");
         final LineChart<String,Number> lineChart = 
                 new LineChart<String,Number>(xAxis,yAxis);
        
-        lineChart.setTitle("Stock Monitoring, 2010");
+        lineChart.setTitle("월별 / 메뉴별 주문 누적량, 2017");
                           
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Portfolio 1");
+        series1.setName("양념 치킨");
         
         series1.getData().add(new XYChart.Data("Jan", 23));
         series1.getData().add(new XYChart.Data("Feb", 14));
@@ -38,7 +38,7 @@ public class Exam03 extends Application {
         series1.getData().add(new XYChart.Data("Dec", 25));
         
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Portfolio 2");
+        series2.setName("후라이드 치킨");
         series2.getData().add(new XYChart.Data("Jan", 33));
         series2.getData().add(new XYChart.Data("Feb", 34));
         series2.getData().add(new XYChart.Data("Mar", 25));
@@ -53,7 +53,7 @@ public class Exam03 extends Application {
         series2.getData().add(new XYChart.Data("Dec", 29));
         
         XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Portfolio 3");
+        series3.setName("크림 치킨");
         series3.getData().add(new XYChart.Data("Jan", 44));
         series3.getData().add(new XYChart.Data("Feb", 35));
         series3.getData().add(new XYChart.Data("Mar", 36));
