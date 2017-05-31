@@ -51,10 +51,11 @@ public class UserInfoDao {
 		while(rs.next()){
 			Vector vs1 = new Vector();
 
+
 			vs1.add(rs.getString("userinfo_id"));
+			vs1.add(rs.getString("userinfo_employ_status"));
 			vs1.add(rs.getString("userinfo_name"));
 			vs1.add(rs.getString("userinfo_phone"));
-			vs1.add(rs.getString("userinfo_email"));
 			vs.add(vs1);
 		}
 
@@ -77,9 +78,9 @@ public class UserInfoDao {
 			Vector vs4 = new Vector();
 
 			vs4.add(rs.getString("userinfo_id"));
+			vs4.add(rs.getString("userinfo_employ_status"));
 			vs4.add(rs.getString("userinfo_name"));
 			vs4.add(rs.getString("userinfo_phone"));
-			vs4.add(rs.getString("userinfo_email"));
 			vs3.add(vs4);
 		}
 
@@ -104,9 +105,9 @@ public class UserInfoDao {
 			while(rs.next()){
 				Vector row = new Vector();
 				row.add(rs.getString("userinfo_id"));
+				row.add(rs.getString("userinfo_employ_status"));
 				row.add(rs.getString("userinfo_name"));
 				row.add(rs.getString("userinfo_phone"));
-				row.add(rs.getString("userinfo_email"));
 
 
 				data.add(row);
@@ -245,10 +246,9 @@ public class UserInfoDao {
 
 			while(rs.next()){	
 				String userinfo_id = rs.getString("userinfo_id");
-				String userinfo_name = rs.getString("userinfo_name");
-				int userinfo_phone = rs.getInt("userinfo_phone");
-				String userinfo_email = rs.getString("userinfo_email");
-
+				String userinfo_name = rs.getString("userinfo_employ_status");
+				int userinfo_phone = rs.getInt("userinfo_name");
+				String userinfo_email = rs.getString("userinfo_phone");
 
 				Vector row = new Vector();
 				row.add(userinfo_id);
@@ -279,10 +279,11 @@ public class UserInfoDao {
 			if(rs.next()){
 
 				userInfoDto.setUserInfoId(rs.getString("userinfo_id"));
+				userInfoDto.setUserInfoEmployStatus(rs.getString("userinfo_employ_status"));
 				userInfoDto.setUserInfoName(rs.getString("userinfo_name"));
 				userInfoDto.setUserInfoPhone(rs.getString("userinfo_phone"));
-				userInfoDto.setUserInfoEmail(rs.getString("userinfo_email"));
-
+//사용되지 않는 메소드
+				
 			}else{
 				JOptionPane.showMessageDialog(null, "사용자의 ID가 존재하지 않습니다");
 			}
