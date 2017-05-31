@@ -908,5 +908,3 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 	}
 	
 }
-
-

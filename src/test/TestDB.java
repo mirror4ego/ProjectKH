@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import view.CRM_MainLayout;
+import view2.CRM_MainView;
 
 public class TestDB {
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
@@ -32,8 +33,6 @@ public class TestDB {
 		//UserSelectView userSelectView = new UserSelectView();
 		
 		
-
-		CRM_MainLayout crm = new CRM_MainLayout();
-
+		CRM_MainView cRm_MainView = new CRM_MainView();
 	}
 }

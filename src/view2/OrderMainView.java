@@ -38,7 +38,7 @@ import domain.OrderInfoDto;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class OrderMainView extends JFrame implements MouseListener{
+public class OrderMainView extends JFrame implements ActionListener, MouseListener{
 
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();
@@ -66,7 +66,7 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JTextField textField_3 = new JTextField();
 	private JPanel panel_1 = new JPanel();
 	private JPanel panel_3 = new JPanel();
-	private JLabel button_3 = new JLabel("ex) 2015-09-03/04:30");
+	private JLabel button_3 = new JLabel("");
 	private JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 	private JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
 	private JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
@@ -125,8 +125,8 @@ public class OrderMainView extends JFrame implements MouseListener{
 	private JLabel label_30 = new JLabel("미수금");
 	private JButton button_2 = new JButton("닫기");
 	private JPanel panel_11 = new JPanel();
-	private JButton button_6 = new JButton("저장");
-	private JButton button_7 = new JButton("출력");
+	private JButton btnn = new JButton("변경저장");
+	private JButton button_7 = new JButton("프린트");
 	private JPanel panel_12 = new JPanel();
 	private JLabel label_7 = new JLabel("주문 관리");
 	private JLabel label_8 = new JLabel("주문서를 관리(검색, 삭제) 하는 곳입니다.");
@@ -382,7 +382,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 		label_21.setBounds(248, 46, 67, 25);
 
 		panel_6.add(label_21);
-		txtEx.setText("ex) 1199");
 		txtEx.setHorizontalAlignment(SwingConstants.TRAILING);
 		txtEx.setEditable(false);
 		txtEx.setColumns(10);
@@ -398,20 +397,17 @@ public class OrderMainView extends JFrame implements MouseListener{
 		textField_13.setBounds(315, 46, 152, 25);
 
 		panel_6.add(textField_13);
-		txtEx_2.setText("ex) 01032883311");
 		txtEx_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		txtEx_2.setEditable(false);
 		txtEx_2.setColumns(10);
 		txtEx_2.setBounds(79, 46, 157, 25);
 
 		panel_6.add(txtEx_2);
-		txtEx_4.setText("ex) 서울 강남구 삼성동 1933-31 2층");
 		txtEx_4.setEditable(false);
 		txtEx_4.setColumns(10);
 		txtEx_4.setBounds(79, 82, 319, 25);
 
 		panel_6.add(txtEx_4);
-		textField_16.setText("ex)2017년 05월 22일 / 14시 17분");
 		textField_16.setEditable(false);
 		textField_16.setColumns(10);
 		textField_16.setBounds(79, 118, 319, 25);
@@ -455,7 +451,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 		label_25.setBounds(12, 93, 67, 25);
 
 		panel_8.add(label_25);
-		textField_17.setText("ex) 2017-05-04/18:30");
 		textField_17.setColumns(10);
 		textField_17.setBounds(79, 10, 389, 25);
 
@@ -479,14 +474,12 @@ public class OrderMainView extends JFrame implements MouseListener{
 		panel_5.setLayout(null);
 
 		tabbedPane_3.addTab("ㅇ고객정보", null, panel_5, null);
-		txtEx_1.setText("ex) 1199");
 		txtEx_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		txtEx_1.setEditable(false);
 		txtEx_1.setColumns(10);
 		txtEx_1.setBounds(79, 5, 151, 25);
 
 		panel_5.add(txtEx_1);
-		txtEx_5.setText("ex) 서울 강남구 삼성동 1933-31 2층");
 		txtEx_5.setEditable(false);
 		txtEx_5.setColumns(10);
 		txtEx_5.setBounds(79, 65, 314, 25);
@@ -513,7 +506,6 @@ public class OrderMainView extends JFrame implements MouseListener{
 		label_13.setBounds(12, 35, 67, 25);
 
 		panel_5.add(label_13);
-		txtEx_3.setText("ex) 01032883311");
 		txtEx_3.setHorizontalAlignment(SwingConstants.TRAILING);
 		txtEx_3.setEditable(false);
 		txtEx_3.setColumns(10);
@@ -589,22 +581,22 @@ public class OrderMainView extends JFrame implements MouseListener{
 
 		getContentPane().add(panel_11);
 		panel_11.setLayout(new GridLayout(2, 2, 2, 2));
+		
+				panel_11.add(button_7);
+		
+				JButton button_9 = new JButton("파일");
+				button_9.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				panel_11.add(button_9);
 
-		panel_11.add(button_6);
-
-		JButton button_9 = new JButton("삭제");
-		button_9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		panel_11.add(button_9);
-
-		panel_11.add(button_7);
+		panel_11.add(btnn);
 		panel_11.add(button_2);
 	}
 
 	void start() {
-		button_2.addMouseListener(this);
+		button_2.addActionListener(this);
 		table.addMouseListener(this);
 	}
 
@@ -771,11 +763,16 @@ public class OrderMainView extends JFrame implements MouseListener{
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		if(e.getSource()==button_2){
 			this.dispose();
 		}
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==table){
 			int r = table.getSelectedRow();
 			int orderInfoNum = Integer.parseInt(String.valueOf(table.getValueAt(r, 0)));
