@@ -126,10 +126,10 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 	
 	
 	private JTextArea JTextArea_A = new JTextArea("치킨 종류별 주문량 그래프",5,40);
-	private JTextArea JTextArea_B = new JTextArea("치킨 종류별 주문량 그래프",5,40);
-	private JTextArea JTextArea_C = new JTextArea("치킨 종류별 주문량 그래프",5,40);
-	private JTextArea JTextArea_D = new JTextArea("치킨 종류별 주문량 그래프",5,40);
-	private JTextArea JTextArea_E = new JTextArea("치킨 종류별 주문량 그래프",5,40);
+	private JTextArea JTextArea_B = new JTextArea("월별 주문량 누적 그래프",5,40);
+	private JTextArea JTextArea_C = new JTextArea("세대별 주문량 그래프",5,40);
+	private JTextArea JTextArea_D = new JTextArea("재방문률",5,40);
+	private JTextArea JTextArea_E = new JTextArea("주문지역별 주문량",5,40);
 	
 	private JTabbedPane tabbedPane_4 = new JTabbedPane(JTabbedPane.TOP);
 	private JButton button_A = new JButton("치킨 종류별 주문량 그래프");

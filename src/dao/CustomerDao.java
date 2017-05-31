@@ -282,7 +282,7 @@ public class CustomerDao {
 	}
 	
 
-	public int sumCustomerAge(int CusAge,int CusAge2) throws ClassNotFoundException, SQLException {
+	public int sumCustomerAge(int CusAge,int CusAge2,int CusGen) throws ClassNotFoundException, SQLException {
 
 		Connection c = connectionMaker.makeConnection();
 
@@ -291,12 +291,13 @@ public class CustomerDao {
 		try {
 
 			PreparedStatement ps = c.prepareStatement(
-					"select customer_age_predict from customer where (customer_age_predict>? and customer_age_predict<?)"
+					"select customer_age_predict from customer where (customer_age_predict>? and customer_age_predict<? and customer_gender=?)"
 					,ResultSet.TYPE_SCROLL_INSENSITIVE, 
 					ResultSet.CONCUR_UPDATABLE);
 			//last 쓰기위한 추가구문
 			ps.setInt(1,CusAge);
 			ps.setInt(2,CusAge2);
+			ps.setInt(3,CusGen);
 
 			ResultSet rs = ps.executeQuery();
 
