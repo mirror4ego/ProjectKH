@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -44,10 +47,10 @@ import setting.ButtonCellRenderer;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class OrderSheetView extends JFrame implements MouseListener, KeyListener {
+public class OrderSheetView extends JFrame implements ActionListener, MouseListener {
 	SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	SetUiFont setUiFont = new SetUiFont();
-	private JLabel lblNewLabel_4 = new JLabel("주문서 관리");
+	private JLabel lblNewLabel_4 = new JLabel("주문서 작성");
 	private JLabel label_1 = new JLabel("주문사항을 입력하는 곳입니다.");
 	private JPanel panel_9 = new JPanel();
 	private JPanel panel_3 = new JPanel();
@@ -148,6 +151,7 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 	Vector menuAllSelectedVector = new Vector();
 	String nowTime;
 	Calendar cal;
+	DefaultTableModel model1 = new DefaultTableModel();
 
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
@@ -606,11 +610,11 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 	}
 
 	void start() {
-		btnNewButton.addMouseListener(this);
+		btnNewButton.addActionListener(this);
 		table.addMouseListener(this);
 		table_1.addMouseListener(this);
-		table_1.addKeyListener(this);
-		button.addMouseListener(this);
+		table_1.addMouseListener(this);
+		button.addActionListener(this);
 	}
 
 	public Vector getColumn(){
@@ -636,12 +640,12 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 	}
 
 	public void jTableRefresh1(Vector menuDto) throws ClassNotFoundException, SQLException{
-		DefaultTableModel model = new DefaultTableModel();
-		model.setDataVector(menuDto, vector2);
-		table_1.setModel(model);
+
+		model1.setDataVector(menuDto, vector2);
+		table_1.setModel(model1);
 
 		//table_1.setBackground(Color.getColor("F0F0F0"));
-		ButtonCellRenderer renderer = new ButtonCellRenderer(table_1, model);
+		ButtonCellRenderer renderer = new ButtonCellRenderer(table_1, model1, this);
 		TableColumn column4 = table_1.getColumnModel().getColumn(4);
 		column4.setCellEditor(renderer);
 		column4.setCellRenderer(renderer);
@@ -716,65 +720,19 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		//주문아이템 테이블에 들어가야할 내용
 		//
 	}
+	
+	private void fireEditingStopped() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		if(e.getSource()==btnNewButton){
 			this.dispose();
 		}
-
-		if(e.getSource()==table){
-			int r = table.getSelectedRow();
-			String menuName = String.valueOf(table.getValueAt(r, 0));
-			int menuPrice = Integer.parseInt(String.valueOf(table.getValueAt(r, 1)));
-			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
-			//현재 선택한 열의 값으로 table_1에서 한줄씩 검색으로 해서 존재하지 않을때만 추가
-			int a = 0;
-			for(int i = 0;i<table_1.getRowCount();i++){
-				if(!(table_1.getValueAt(i, 0).equals(menuName))){
-					a = a;
-				}else{
-					a = a + 1;
-				}
-			}
-
-			if(a==0){
-				Vector menuSelectedVector = new Vector();
-				menuSelectedVector.add(menuName);
-				menuSelectedVector.add(menuPrice);
-				menuSelectedVector.add(menuGroupName);
-				menuSelectedVector.add(1);
-				menuSelectedVector.add("-");
-				menuAllSelectedVector.add(menuSelectedVector);
-
-
-				try {
-					jTableRefresh1(menuAllSelectedVector);
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				System.out.println(table_1.getRowCount());
-				int sum = 0;
-				int discount = Integer.parseInt(textField_7.getText());
-				//sum = sum-discount;
-				for(int i = 0;i<table_1.getRowCount();i++){
-					System.out.println((table_1.getValueAt(i, 1)));
-					int price = Integer.parseInt((table_1.getValueAt(i, 1)).toString());
-					int num = Integer.parseInt((table_1.getValueAt(i, 3)).toString());
-					int subSum = (price * num);
-
-					sum += subSum;
-
-					textField.setText(String.valueOf(sum));
-					textField_1.setText(String.valueOf(sum-discount));
-				}
-			}else{
-				System.out.println("이미 존재하는 메뉴이름");
-			}
-
-		}
-
+		
 		if(e.getSource()==button){
 			boolean a = false;
 			System.out.println("저장 버튼 누름");
@@ -854,8 +812,62 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 			}
 
 		}
+	}
 
-		/*if(e.getSource()==table_1){
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource()==table){
+			int r = table.getSelectedRow();
+			String menuName = String.valueOf(table.getValueAt(r, 0));
+			int menuPrice = Integer.parseInt(String.valueOf(table.getValueAt(r, 1)));
+			String menuGroupName = String.valueOf(table.getValueAt(r, 2));
+			//현재 선택한 열의 값으로 table_1에서 한줄씩 검색으로 해서 존재하지 않을때만 추가
+			int a = 0;
+			for(int i = 0;i<table_1.getRowCount();i++){
+				if(!(table_1.getValueAt(i, 0).equals(menuName))){
+					a = a;
+				}else{
+					a = a + 1;
+				}
+			}
+
+			if(a==0){
+				Vector menuSelectedVector = new Vector();
+				menuSelectedVector.add(menuName);
+				menuSelectedVector.add(menuPrice);
+				menuSelectedVector.add(menuGroupName);
+				menuSelectedVector.add(1);
+				menuSelectedVector.add("-");
+				menuAllSelectedVector.add(menuSelectedVector);
+
+
+				try {
+					jTableRefresh1(menuAllSelectedVector);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println(table_1.getRowCount());
+				int sum = 0;
+				int discount = Integer.parseInt(textField_7.getText());
+				//sum = sum-discount;
+				for(int i = 0;i<table_1.getRowCount();i++){
+					System.out.println((table_1.getValueAt(i, 1)));
+					int price = Integer.parseInt((table_1.getValueAt(i, 1)).toString());
+					int num = Integer.parseInt((table_1.getValueAt(i, 3)).toString());
+					int subSum = (price * num);
+
+					sum += subSum;
+
+					textField.setText(String.valueOf(sum));
+					textField_1.setText(String.valueOf(sum-discount));
+				}
+			}else{
+				System.out.println("이미 존재하는 메뉴이름");
+			}
+		}
+		
+		if(e.getSource()==table_1){
 			if(e.getSource()==table_1){
 				System.out.println("테이블에 리스너 작동");
 
@@ -873,18 +885,28 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 
 					textField.setText(String.valueOf(sum));
 					textField_1.setText(String.valueOf(sum-discount));
+					
 
+				
 				}
 			}else{
 				System.out.println("이미 존재하는 메뉴이름");
 			}
-		}*/
-	}
+			
+			Point point = e.getPoint();
+			System.out.println("작동");
+			if (table_1.columnAtPoint(point) == 4) {
+				fireEditingStopped();
+				int row = table.rowAtPoint(point);
+				if (row >= 0) {
+					model1.removeRow(row);
+				}
 
+			}
 
-
-	@Override
-	public void keyPressed(KeyEvent e) {
+			table.repaint();
+		}
+		
 		if(e.getSource()==table_1){
 			System.out.println("테이블에 리스너 작동");
 
@@ -908,10 +930,6 @@ public class OrderSheetView extends JFrame implements MouseListener, KeyListener
 		}
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {}
-	@Override
-	public void keyTyped(KeyEvent e) {}
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	@Override

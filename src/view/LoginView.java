@@ -8,10 +8,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,7 +42,7 @@ import view2.OrderMainView;
 
 
 @SuppressWarnings("serial")
-public class LoginView extends JFrame implements MouseListener, FocusListener {
+public class LoginView extends JFrame implements ActionListener, FocusListener {
 
 	//변수 선언부 시작
 	//패널 선언
@@ -261,16 +261,17 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 			}
 
 			public void start() {
-				jLoginTextField1.addMouseListener(this);
-				jPasswordField1.addMouseListener(this);
+				jLoginTextField1.addActionListener(this);
+				jLoginTextField1.addFocusListener(this);
+				jPasswordField1.addActionListener(this);
 				jPasswordField1.addFocusListener(this);
-				jButton1.addMouseListener(this);
-				jButton2.addMouseListener(this);
-				jButton3.addMouseListener(this);
-				jButton4.addMouseListener(this);
-				jButton5.addMouseListener(this);
-				jButton6.addMouseListener(this);
-				button.addMouseListener(this);
+				jButton1.addActionListener(this);
+				jButton2.addActionListener(this);
+				jButton3.addActionListener(this);
+				jButton4.addActionListener(this);
+				jButton5.addActionListener(this);
+				jButton6.addActionListener(this);
+				button.addActionListener(this);
 
 			}
 
@@ -302,8 +303,11 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				}
 			}
 
+			
+			
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
 				if(e.getSource()==jButton6) {
 					try {
 						CustomerMainView customerMainView = new CustomerMainView();
@@ -436,21 +440,21 @@ public class LoginView extends JFrame implements MouseListener, FocusListener {
 				}else{}
 			}
 
+
+
 			@Override
 			public void focusGained(FocusEvent e) {
 				if(e.getSource()==jPasswordField1) {
 					jPasswordField1.setText("");
 				}
+				if(e.getSource()==jLoginTextField1) {
+					jLoginTextField1.setText("");
+				}
 			}
 
 			@Override
-			public void focusLost(FocusEvent e) {}
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			@Override
-			public void mouseReleased(MouseEvent e) {}
+			public void focusLost(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
 }

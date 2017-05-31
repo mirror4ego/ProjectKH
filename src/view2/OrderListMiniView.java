@@ -2,6 +2,8 @@ package view2;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -20,7 +22,7 @@ import dao.OrderInfoDao;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
-public class OrderListMiniView extends JFrame implements MouseListener{
+public class OrderListMiniView extends JFrame implements MouseListener, ActionListener{
 
 	private SetLookAndFeel setLookAndFeel = new SetLookAndFeel();
 	private SetUiFont setUiFont = new SetUiFont();
@@ -121,10 +123,10 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 
 	void start() {
 		table.addMouseListener(this);
-		btnNewButton.addMouseListener(this);
-		button.addMouseListener(this);
-		button_1.addMouseListener(this);
-		button_2.addMouseListener(this);
+		btnNewButton.addActionListener(this);
+		button.addActionListener(this);
+		button_1.addActionListener(this);
+		button_2.addActionListener(this);
 	}
 
 	public void jTableRefresh(Vector customerDto) throws ClassNotFoundException, SQLException{
@@ -144,10 +146,16 @@ public class OrderListMiniView extends JFrame implements MouseListener{
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		if(e.getSource()==button_2){
 			this.dispose();
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
 	}
 
 	@Override
