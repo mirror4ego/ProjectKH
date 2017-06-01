@@ -20,8 +20,8 @@ public class Exam05 extends JFrame {
 	int cDong[][] = new int[50][2];
 	int dDong[][] = new int[50][2];
 	private String alb = "사당동";
-	private String blb = "금천동";
-	private String clb = "삼성동";
+	private String blb = "가산동";
+	private String clb = "방학동";
 	private String dlb = "녹번동";
 
 	public Exam05() {
@@ -77,27 +77,27 @@ public class Exam05 extends JFrame {
 		g.drawLine(0, 250, 500, 250);// 시작좌표(왼쪽위),끝나는좌표(오른쪽아래)
 		g.drawLine(250, 0, 250, 500);
 		g.setFont(font);
-		g.drawString("A", 125, 125);
-		g.drawString("B", 375, 125);
-		g.drawString("C", 125, 375);
-		g.drawString("D", 375, 375);
+		g.drawString(alb, 125, 125);
+		g.drawString(blb, 375, 125);
+		g.drawString(clb, 125, 375);
+		g.drawString(dlb, 375, 375);
 		for (int i = 0; i < 50; i++) {
 			g.setColor(new Color(221,30,47));
-			g.fillOval(aDong[i][0], aDong[i][1], 5, 5);
+			g.fillOval(aDong[i][0], aDong[i][1], 10, 10);
 		}
 
 
 		for (int i = 0; i < 50; i++) {
 			g.setColor(new Color(235,176,53));
-			g.fillOval(bDong[i][0], bDong[i][1], 5, 5);
+			g.fillOval(bDong[i][0], bDong[i][1], 10, 10);
 		}
 		for (int i = 0; i < 50; i++) {
 			g.setColor(new Color(6,162,203));
-			g.fillOval(cDong[i][0], cDong[i][1], 5, 5);
+			g.fillOval(cDong[i][0], cDong[i][1], 10, 10);
 		}
 		for (int i = 0; i < 50; i++) {
 			g.setColor(new Color(33,133,89));
-			g.fillOval(dDong[i][0], dDong[i][1], 5, 5);
+			g.fillOval(dDong[i][0], dDong[i][1], 10, 10);
 		}
 	}
 }

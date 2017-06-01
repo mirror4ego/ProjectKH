@@ -59,9 +59,9 @@ public class Exam04 extends JFrame {
 			if (arr[i] < arr[i + 1]) {
 				max = arr[i];
 			}
-			arr[i] *= 20;
+			arr[i] *= 5;
 		}
-		arr[arr.length-1]*=20;
+		arr[arr.length-1]*=5;
 		//크기배율조정
 	}
 
@@ -85,7 +85,7 @@ public class Exam04 extends JFrame {
 			else if (i < arr[0] + arr[1])
 				g.setColor(new Color(13,72,145));
 			try {
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (Exception ee) {
 			}
 		}
@@ -96,7 +96,7 @@ public class Exam04 extends JFrame {
 			else if (j < arr[2] + arr[3])
 				g.setColor(new Color(13,72,145));
 			try {
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (Exception ee) {
 			}
 		}
@@ -107,7 +107,7 @@ public class Exam04 extends JFrame {
 			else if (k < arr[4] + arr[5])
 				g.setColor(new Color(13,72,145));
 			try {
-				Thread.sleep(10);
+				Thread.sleep(5);
 			} catch (Exception ee) {
 			}
 
