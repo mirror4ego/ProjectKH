@@ -98,7 +98,7 @@ public class OrderItemDao {
 		ps.setString(10, orderInfoDto.getOrderInfoMoneyCollection());
 		ps.setString(11, orderInfoDto.getOrderInfoDeliveryPredict());
 		ps.setInt(12, orderInfoDto.getOrderInfoCustomerNum());
-		ps.setInt(13, orderInfoDto.getOrderInfoUserInfoNum());
+		ps.setString(13, orderInfoDto.getOrderInfoUserInfoId());
 		System.out.println("정상입력3");
 		ps.executeUpdate();
 		System.out.println("정상입력4");

@@ -193,8 +193,6 @@ public class MenuDao {
 		return data;
 	}
 	
-	
-	
 	public Vector getPartMenuName(String menuGroupName) throws ClassNotFoundException, SQLException { // 
 
 		Connection c = connectionMaker.makeConnection();

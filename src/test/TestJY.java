@@ -3,26 +3,17 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-<<<<<<< HEAD
-import view2.CustomerMainView;
-=======
-import view.CustomerSearchView;
->>>>>>> db654978a8d3bcd98565abf2a0aa0ac5b775ccf5
-
+import view.LoginView;
 
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		//MenuManageView menuManageView = new MenuManageView();
-<<<<<<< HEAD
-		CustomerMainView customerMainView = new CustomerMainView();
-=======
-		//CustomerMainView customerMainView = new CustomerMainView();
->>>>>>> db654978a8d3bcd98565abf2a0aa0ac5b775ccf5
-		//LoginView loginView = new LoginView();
+
+		LoginView loginView = new LoginView();
 		
 		
-		CustomerSearchView customerSearchView = new CustomerSearchView();
+		//CustomerSearchView customerSearchView = new CustomerSearchView();
 
 		//MainView mainView = new MainView();
 		//UsserInfoDao userInfoDao = new UserInfoDao();

@@ -69,7 +69,7 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 	private JButton button_5 = new JButton("수정");
 	CardLayout cardLayout = new CardLayout(0, 0);
 	JButton btnNewButton = new JButton("변경");
-
+	JScrollPane scrollPane_1 = new JScrollPane();
 	private JLabel label_6 = new JLabel("분류명");
 	private JLabel label_7 = new JLabel("메뉴분류");
 	private JLabel label_2 = new JLabel("메뉴분류");
@@ -277,7 +277,16 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 
 		lblNewLabel.setBounds(287, 501, 57, 25);
 		panel_2.add(lblNewLabel);
-		panel_1.add(tree);
+		scrollPane_1.setBorder(null);
+		
+
+		scrollPane_1.setBounds(12, 34, 309, 460);
+		panel_1.add(scrollPane_1);
+		tree = new JTree(node_1);
+		scrollPane_1.setViewportView(tree);
+		
+				tree.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(0, 0, 0)));
+				tree.repaint();
 
 
 	}
@@ -316,7 +325,6 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 
 	public void jTreeRefresh() throws ClassNotFoundException, SQLException {
 		node_1 = new DefaultMutableTreeNode("메뉴분류");
-		tree = new JTree(node_1);
 
 		System.out.println(menuGroupName);
 		for(int i=0;i<menuGroupName.size();i++){
@@ -330,14 +338,6 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 				System.out.println(menuName.get(j));
 			}
 
-		}
-
-		tree.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		tree.setBounds(12, 34, 309, 460);
-		tree.repaint();
-
-		for (int i = 0; i < tree.getRowCount(); i++) {
-			tree.expandRow(i);
 		}
 	}
 	

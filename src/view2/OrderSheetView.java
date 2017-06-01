@@ -8,8 +8,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -35,15 +33,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import dao.MenuDao;
 import dao.OrderInfoDao;
 import dao.OrderItemDao;
+import dao.UserInfoDao;
 import domain.CustomerDto;
 import domain.OrderInfoDto;
 import domain.OrderItemDto;
-import setting.ButtonCellRenderer;
 import setting.SetLookAndFeel;
 import setting.SetUiFont;
 
@@ -66,7 +63,7 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 	private JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
 	Vector vector1 = new Vector();
 	private JScrollPane scrollPane = new JScrollPane();
-
+	JButton button_6 = new JButton("삭제");
 	private Font font1 = new Font("맑은 고딕", Font.BOLD, 15);
 	private JTable table = new JTable();
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -145,14 +142,15 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 	JScrollPane scrollPane_4 = new JScrollPane();
 	private JLabel label_27 = new JLabel();
 	private JLabel lblNewLabel_2 = new JLabel("분");
-
+	DefaultTableModel model = new DefaultTableModel();
 	Vector vector11 = new Vector();
 	Vector vector2 = new Vector();
 	Vector menuAllSelectedVector = new Vector();
 	String nowTime;
 	Calendar cal;
 	DefaultTableModel model1 = new DefaultTableModel();
-
+	Calendar cal1 = Calendar.getInstance();
+	
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
 		this.init();
@@ -204,7 +202,7 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		textField_7.setEditable(false);
 		textField_7.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_7.setText("0");
-		textField_7.setBounds(304, 200, 126, 25);
+		textField_7.setBounds(282, 206, 107, 25);
 		textField_7.setColumns(10);
 
 		panel_5.add(textField_7);
@@ -244,9 +242,13 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		label_15.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.GRAY));
 		label_15.setBackground(Color.GRAY);
 		label_15.setAlignmentX(0.5f);
-		label_15.setBounds(304, 176, 67, 25);
+		label_15.setBounds(282, 182, 67, 25);
 
 		panel_5.add(label_15);
+		
+
+		button_6.setBounds(410, 176, 57, 25);
+		panel_5.add(button_6);
 
 		tabbedPane_3.setBounds(12, 428, 484, 182);
 		panel_3.add(tabbedPane_3);
@@ -290,7 +292,12 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 
 		panel_11.add(label_26);
 		
-		txtEx.setText("ex) 2017-05-24 17:34:40");
+		cal1.add(Calendar.MINUTE, 40);
+	
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			String predictTime = format.format(cal1.getTime());
+		txtEx.setText(predictTime);
 		
 		txtEx.setColumns(10);
 		txtEx.setBounds(79, 10, 389, 25);
@@ -452,11 +459,10 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		textField_4.setBounds(79, 10, 157, 25);
 
 		panel.add(textField_4);
-		textField_5.setModel(new DefaultComboBoxModel(new String[] {"61"}));
 		textField_5.setBounds(315, 10, 152, 25);
 
 		panel.add(textField_5);
-		textField_8.setText("0");
+		textField_8.setText("40");
 		textField_8.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_8.setColumns(10);
 		textField_8.setBounds(315, 46, 122, 25);
@@ -614,8 +620,9 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		btnNewButton.addActionListener(this);
 		table.addMouseListener(this);
 		table_1.addMouseListener(this);
-
+		button_6.addActionListener(this);
 		button.addActionListener(this);
+		btnNewButton_2.addActionListener(this);
 	}
 
 	public Vector getColumn(){
@@ -630,12 +637,11 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		vector2.add("메뉴가격");
 		vector2.add("메뉴분류");
 		vector2.add("메뉴수량");
-		vector2.add("삭제");
 		return vector2;
 	}
 
 	public void jTableRefresh(Vector menuDto) throws ClassNotFoundException, SQLException{
-		DefaultTableModel model = new DefaultTableModel();
+
 		model.setDataVector(menuDto, vector1);
 		table.setModel(model);
 	}
@@ -646,10 +652,7 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		table_1.setModel(model1);
 
 		//table_1.setBackground(Color.getColor("F0F0F0"));
-		ButtonCellRenderer renderer = new ButtonCellRenderer(table_1, model1, this);
-		TableColumn column4 = table_1.getColumnModel().getColumn(4);
-		column4.setCellEditor(renderer);
-		column4.setCellRenderer(renderer);
+		//TableColumn column4 = table_1.getColumnModel().getColumn(4);
 	}
 	
 	private void viewData(CustomerDto customerDto) throws ClassNotFoundException, SQLException{
@@ -686,7 +689,10 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_9.setText(customerPhoneNum);
 		
-		
+		Vector allUserIdList = new UserInfoDao().getAllUserIdList();
+		for(int i = 0;i<allUserIdList.size();i++){
+			textField_5.addItem(allUserIdList.get(i));;
+		}
 		
 		OrderInfoDao orderInfoDao = new OrderInfoDao();
 		int orderInfoCount = orderInfoDao.getOneCustomerOrderFrequency(customerNum);
@@ -734,8 +740,38 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
+		
+		if(e.getSource()==btnNewButton_2){
+			if(comboBox.getSelectedItem().equals("전체보기")){
+				Vector menuAllPart;
+				try {
+					menuAllPart = new MenuDao().menuAllPart();
+					jTableRefresh(menuAllPart);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}else{
+				
+				try {
+					Vector menuAllGroupPart = new MenuDao().menuAllGroupPart(comboBox.getSelectedItem().toString());
+					jTableRefresh(menuAllGroupPart);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			
+		}
 		if(e.getSource()==btnNewButton){
 			this.dispose();
+		}
+		
+		if(e.getSource()==button_6){
+			model1.removeRow(table_1.getSelectedRow());
 		}
 		
 		if(e.getSource()==button){
@@ -762,7 +798,7 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 				orderInfoDto.setOrderInfoMoneyCollection("0");
 				orderInfoDto.setOrderInfoDeliveryPredict(predictTime);
 				orderInfoDto.setOrderInfoCustomerNum(Integer.parseInt(textField_3.getText().trim()));
-				orderInfoDto.setOrderInfoUserInfoNum(Integer.parseInt(textField_5.getSelectedItem().toString()));
+				orderInfoDto.setOrderInfoUserInfoId(textField_5.getSelectedItem().toString());
 				System.out.println(orderInfoDto.toString());
 				System.out.println("입력3");
 				OrderInfoDao orderInfoDao = new OrderInfoDao();

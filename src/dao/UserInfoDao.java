@@ -206,7 +206,7 @@ public class UserInfoDao {
 	
 
 	//모든 사용자 리스트를 가져오는 메소드
-	public Vector getUserList() throws ClassNotFoundException, SQLException{
+	public Vector getAllUserIdList() throws ClassNotFoundException, SQLException{
 		Connection c = connectionMaker.makeConnection();
 		Vector data = new Vector();
 
@@ -216,18 +216,7 @@ public class UserInfoDao {
 
 			while(rs.next()){	
 				String userinfo_id = rs.getString("userinfo_id");
-				String userinfo_name = rs.getString("userinfo_employ_status");
-				int userinfo_phone = rs.getInt("userinfo_name");
-				String userinfo_email = rs.getString("userinfo_phone");
-
-				Vector row = new Vector();
-				row.add(userinfo_id);
-				row.add(userinfo_name);
-				row.add(userinfo_phone);
-				row.add(userinfo_email);
-
-
-				data.add(row);             
+				data.add(userinfo_id);             
 			}
 		}catch(Exception e){
 			e.printStackTrace();
