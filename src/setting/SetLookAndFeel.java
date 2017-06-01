@@ -1,13 +1,18 @@
 package setting;
 
 import javax.swing.UIManager;
+<<<<<<< HEAD
 import javax.swing.UIManager.LookAndFeelInfo;
+=======
+import com.jgoodies.looks.plastic.*;
+>>>>>>> 13358d34de3335d10c4e045c71417dc763381529
 
 public class SetLookAndFeel {
 	public SetLookAndFeel() {
 		
 		try {
 			UIManager.setLookAndFeel("com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
+<<<<<<< HEAD
 			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
 			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -22,6 +27,10 @@ public class SetLookAndFeel {
 			System.out.println(info[6]);
 			System.out.println(info[7]);
 			System.out.println(info[8]);
+=======
+			//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			//UIManager.setLookAndFeel(newLookAndFeel);
+>>>>>>> 13358d34de3335d10c4e045c71417dc763381529
 		} catch (Exception exc){}
 	}
 }
