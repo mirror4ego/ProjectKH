@@ -3,7 +3,7 @@ package test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import view.UserListView;
+import view.LoginView;
 
 
 
@@ -17,7 +17,7 @@ public class TestSH {
 		//MainView mainView = new MainView();
 
 		//UserListView userListView = new UserListView();
-		//LoginView loginView = new LoginView();
+		LoginView loginView = new LoginView();
 		//MainView mainView = new MainView();
 
 		//UserInfoDao userInfoDao = new UserInfoDao();
@@ -26,7 +26,7 @@ public class TestSH {
 		//boolean test = login.login("mirror4ego", "1234");
 
 		//UserSelectView userSelectView = new UserSelectView();
-		UserListView userListView = new UserListView();
+		//UserListView userListView = new UserListView();
 		
 		
 

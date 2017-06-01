@@ -714,6 +714,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		}
 		
 	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==table){
@@ -726,18 +727,17 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 			}
 		}
 	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
-
 		if(e.getSource()==btnf) {
 			if(!(jTextField2.getText().trim()).equals("")){
 				try {
@@ -870,7 +870,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 							orderItemDao.deleteOrderItem(Integer.parseInt(vector3.get(i).toString()));
 						}
 						//OrderInfo 목록 삭제 (고객번호로 검색되어 나온 결과들)
-						orderInfoDao.delteOrderInfo(Integer.parseInt(jTextField2.getText().trim()));
+						orderInfoDao.deleteOrderInfo(Integer.parseInt(jTextField2.getText().trim()));
 						(new CustomerDao()).deleteOneCustomer(Integer.parseInt(jTextField2.getText().trim()));
 					}else{
 						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
@@ -908,5 +908,3 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 	}
 	
 }
-
-

@@ -152,12 +152,9 @@ public class OrderListMiniView extends JFrame implements MouseListener, ActionLi
 			this.dispose();
 		}
 	}
-
+	
 	@Override
-	public void mouseClicked(MouseEvent e) {
-
-	}
-
+	public void mouseClicked(MouseEvent e) {}
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override

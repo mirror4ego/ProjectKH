@@ -15,7 +15,7 @@ public class OrderInfoDto {
 	private String orderInfoMoneyCollection;
 	private String orderInfoDeliveryPredict;
 	private int orderInfoCustomerNum;
-	private int orderInfoUserInfoNum;
+	private String orderInfoUserInfoId;
 
 	public OrderInfoDto() {}
 
@@ -23,7 +23,7 @@ public class OrderInfoDto {
 			String orderInfoRequestInfo, String orderInfoChannelName,
 			String orderInfoRequestDelivery, String orderInfoPackCompletion, String orderInfoDeliveryCompletion,
 			String orderInfoOrderCompletion, String orderInfoMoneyCollection, String orderInfoDeliveryPredict, 
-			int orderInfoCustomerNum, int orderInfoUserInfoNum) {
+			int orderInfoCustomerNum, String orderInfoUserInfoId) {
 		this.orderInfoNum = orderInfoNum;
 		this.orderInfoDate = orderInfoDate;
 		this.orderInfoLocPossibility = orderInfoLocPossibility;
@@ -37,7 +37,7 @@ public class OrderInfoDto {
 		this.orderInfoMoneyCollection = orderInfoMoneyCollection;
 		this.orderInfoDeliveryPredict = orderInfoDeliveryPredict;
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
-		this.orderInfoUserInfoNum = orderInfoUserInfoNum;
+		this.orderInfoUserInfoId = orderInfoUserInfoId;
 	}
 
 	public int getOrderInfoNum() {
@@ -144,13 +144,12 @@ public class OrderInfoDto {
 		this.orderInfoCustomerNum = orderInfoCustomerNum;
 	}
 
-	
-	public int getOrderInfoUserInfoNum() {
-		return orderInfoUserInfoNum;
+	public String getOrderInfoUserInfoId() {
+		return orderInfoUserInfoId;
 	}
 
-	public void setOrderInfoUserInfoNum(int orderInfoUserInfoNum) {
-		this.orderInfoUserInfoNum = orderInfoUserInfoNum;
+	public void setOrderInfoUserInfoId(String orderInfoUserInfoId) {
+		this.orderInfoUserInfoId = orderInfoUserInfoId;
 	}
 
 	@Override
@@ -163,10 +162,7 @@ public class OrderInfoDto {
 				+ ", orderInfoDeliveryCompletion=" + orderInfoDeliveryCompletion + ", orderInfoOrderCompletion="
 				+ orderInfoOrderCompletion + ", orderInfoMoneyCollection=" + orderInfoMoneyCollection
 				+ ", orderInfoDeliveryPredict=" + orderInfoDeliveryPredict + ", orderInfoCustomerNum="
-				+ orderInfoCustomerNum + ", orderInfoUserInfoNum=" + orderInfoUserInfoNum + "]";
+				+ orderInfoCustomerNum + ", orderInfoUserInfoId=" + orderInfoUserInfoId + "]";
 	}
 
-
-
-	
 }

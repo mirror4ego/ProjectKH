@@ -5,12 +5,11 @@ import java.sql.SQLException;
 
 import view.LoginView;
 
-
 public class TestJY {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
 		//MenuManageView menuManageView = new MenuManageView();
-		//CustomerMainView customerMainView = new CustomerMainView();
+
 		LoginView loginView = new LoginView();
 		
 		
@@ -32,5 +31,6 @@ public class TestJY {
 		//new MenuDao().searchMenu("훈제닭1");
 		//UserListView UserListView = new UserListView();
 		//UserRegView userRegView = new UserRegView();
+
 	}
 }

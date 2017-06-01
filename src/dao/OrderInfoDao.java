@@ -86,7 +86,7 @@ public class OrderInfoDao {
 		ps.setString(10, orderInfoDto.getOrderInfoMoneyCollection());
 		ps.setString(11, orderInfoDto.getOrderInfoDeliveryPredict());
 		ps.setInt(12, orderInfoDto.getOrderInfoCustomerNum());
-		ps.setInt(13, orderInfoDto.getOrderInfoUserInfoNum());
+		ps.setString(13, orderInfoDto.getOrderInfoUserInfoId());
 		System.out.println("정상입력3");
 		ps.executeUpdate();
 		System.out.println("정상입력4");
@@ -108,7 +108,7 @@ public class OrderInfoDao {
 				row.add(rs.getString("orderinfo_num"));
 				row.add(rs.getString("orderinfo_date"));
 				row.add(rs.getInt("orderinfo_customer_num"));
-				row.add(rs.getInt("orderinfo_userinfo_num"));
+				row.add(rs.getInt("orderinfo_userinfo_id"));
 				data.add(row); 
 			}
 		} catch (Exception e) {
@@ -312,7 +312,7 @@ public class OrderInfoDao {
 		orderInfoDto.setOrderInfoMoneyCollection(rs.getString("orderInfo_Money_Collection"));//수금여부
 		orderInfoDto.setOrderInfoDeliveryPredict(rs.getString("orderInfo_Delivery_Predict"));//배달예측시간
 		orderInfoDto.setOrderInfoCustomerNum(rs.getInt("orderInfo_Customer_Num"));//고객번호
-		orderInfoDto.setOrderInfoUserInfoNum(rs.getInt("orderInfo_UserInfo_Num"));
+		orderInfoDto.setOrderInfoUserInfoId(rs.getString("orderInfo_UserInfo_Id"));
 		// DB사용이 끝났으므로 모든 커넥션을 순서대로 닫아준다
 		System.out.println("??4");
 		rs.close();
@@ -417,10 +417,20 @@ public class OrderInfoDao {
 	}
 
 	// customer_num를 파라미터로 받아  관련된 OrderInfo 모든 항목을 지우는 메소드
-	public void delteOrderInfo(int customerNum) throws ClassNotFoundException, SQLException {
+	public void deleteOrderInfo(int customerNum) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
 		PreparedStatement ps = c.prepareStatement("delete orderinfo where orderinfo_customer_num = ?");
 		ps.setInt(1, customerNum);
+		ps.executeUpdate();
+		ps.close();
+		c.close();
+	}
+	
+	// orderinfo_num를 파라미터로 받아  관련된 OrderInfo 모든 항목을 지우는 메소드
+	public void deleteNumOrderInfo(int orderInfoNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		PreparedStatement ps = c.prepareStatement("delete orderinfo where orderinfo_num = ?");
+		ps.setInt(1, orderInfoNum);
 		ps.executeUpdate();
 		ps.close();
 		c.close();
