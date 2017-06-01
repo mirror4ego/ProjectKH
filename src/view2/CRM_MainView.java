@@ -74,11 +74,34 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 	private JPanel panel_10 = new JPanel();
 	
 	
-	private JTextArea JTextArea_A = new JTextArea("치킨 종류별 주문량 그래프",5,40);
-	private JTextArea JTextArea_B = new JTextArea("월별 주문량 누적 그래프",5,40);
-	private JTextArea JTextArea_C = new JTextArea("세대별 주문량 그래프",5,40);
-	private JTextArea JTextArea_D = new JTextArea("재방문률",5,40);
-	private JTextArea JTextArea_E = new JTextArea("주문지역별 주문량",5,40);
+	private JTextArea JTextArea_A = new JTextArea(
+			"치킨 종류별 주문량 그래프입니다 \n"
+			+ "치킨의 종류별로 총량 대비양을 퍼센트로 표시합니다.\n"
+			+ "각 퍼센트를 차지하는 원 그래프를 그리며 글씨 색과 동일합니다\n"
+			+ "인기 순 상위 8개 종류만 분석합니다.\n" 
+			,5,40);
+	private JTextArea JTextArea_B = new JTextArea(
+			"월별 주문량 누적 그래프입니다 \n"
+			+ "월별 인기 순 3위이내로 주문되는 치킨의 누적 개수를 그래프로 표시합니다\n"
+			+ "개업한지 얼마 되지않아 데이터가 모자랍니다. \n ",5,40);
+	private JTextArea JTextArea_C = new JTextArea(
+			"세대별 주문량 그래프입니다 \n"
+			+ "총 주문 횟수가 아닌 고객별 주문 횟수를 카운트 합니다.\n"
+			+ "첫번째 그래프는 20-30대 청년층,\n "
+			+ "두번째 그래프는 40-50대 중년층,\n"
+			+ "세번째 그래프는 60-70대 장년층입니다.\n"
+			+ "붉은색은 여성고객, 파란색은 남성고객을 나타냅니다.",5,40);
+	private JTextArea JTextArea_D = new JTextArea(
+			"고객 재방문률 그래프입니다.\n"
+			+ "누적된 고객의 방문 횟수를 퍼센트로 표현합니다.\n"
+			+ "예를들어 5를 입력하고 확인을 클릭하시면\n"
+			+ "5회 이상주문한 고객의 퍼센트를 이상-이하로 표시하여 나타냅니다\n"
+			+ "2를 입력하시면 최소 한번이상 재방문한 고객의 비율을 나타내며\n"
+			+ "이하는 재방문 하지 않은 고객의 비율을 나타낸다는점 참고해주시기 바랍니다\n",5,40);
+	private JTextArea JTextArea_E = new JTextArea(
+			"주문지역별 주문량을 나타내는 그래프입니다.\n"
+			+ "고객의 주소를 분석해 주문량을 가시적으로 표현합니다.\n"
+			+ "칭찬스티커 아닙니다.",5,40);
 	
 	private JTabbedPane tabbedPane_4 = new JTabbedPane(JTabbedPane.TOP);
 	private JButton button_A = new JButton("치킨 종류별 주문량 그래프");
