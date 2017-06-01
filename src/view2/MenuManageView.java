@@ -337,7 +337,6 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 				parent.add(new DefaultMutableTreeNode(menuName.get(j)));
 				System.out.println(menuName.get(j));
 			}
-
 		}
 	}
 	

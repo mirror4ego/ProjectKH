@@ -291,6 +291,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		panel_4.setLayout(null);
 
 		tabbedPane_1.addTab("ㅇ주문내역", null, panel_4, null);
+		textField_4.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_4.setText("0");
 		textField_4.setEditable(false);
 		textField_4.setColumns(10);
 		textField_4.setBounds(304, 200, 126, 25);
@@ -393,7 +395,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		panel_6.add(textField_12);
 		textField_13.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_13.setColumns(10);
-		textField_13.setBounds(315, 46, 152, 25);
+		textField_13.setBounds(315, 46, 116, 25);
 
 		panel_6.add(textField_13);
 		txtEx_2.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -415,6 +417,10 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		button_5.setBounds(410, 81, 57, 25);
 
 		panel_6.add(button_5);
+		
+		JLabel label_33 = new JLabel("분");
+		label_33.setBounds(443, 51, 57, 15);
+		panel_6.add(label_33);
 		panel_8.setLayout(null);
 
 		tabbedPane_2.addTab("ㅇ요청사항", null, panel_8, null);
@@ -550,10 +556,14 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		label_28.setBounds(12, 16, 67, 25);
 
 		panel_10.add(label_28);
+		textField_7.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_7.setText("0");
 		textField_7.setColumns(10);
 		textField_7.setBounds(12, 41, 151, 25);
 
 		panel_10.add(textField_7);
+		textField_8.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_8.setText("0");
 		textField_8.setColumns(10);
 		textField_8.setBounds(12, 101, 151, 25);
 
@@ -565,6 +575,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		label_29.setBounds(12, 76, 67, 25);
 
 		panel_10.add(label_29);
+		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
+		textField_9.setText("0");
 		textField_9.setColumns(10);
 		textField_9.setBounds(12, 161, 151, 25);
 
@@ -645,14 +657,35 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		textArea_2.setText(""); //특이사항
 		textField_6.setText(""); //소계
 		textField_5.setText(""); //합계
-
-		textField_7.setText(""); //현금
-		textField_8.setText(""); //카드
-		textField_9.setText(""); //미수금
+		textField_4.setText("0"); //디스카운트
+		textField_7.setText("0"); //현금
+		textField_8.setText("0"); //카드
+		textField_9.setText("0"); //미수금
 	}
 
 	private void viewData(OrderInfoDto orderInfoDto, CustomerDto customerDto) throws ClassNotFoundException, SQLException{
-
+		
+		Vector allOrderInfoNum = new OrderInfoDao().getOrderListNum(customerDto.getCustomerNum());
+		Vector allOrderItem = null;
+		for(int i = 0; i<allOrderInfoNum.size(); i++) {
+			allOrderInfoNum.get(i); // 이 벡터의 주문번호들을 가지고 하위 주문'메뉴'를 검색
+			Vector rawItemData = new OrderItemDao().getSelectedOrderItem(Integer.parseInt((allOrderInfoNum.get(i)).toString()));
+			for(int j = 0; j<rawItemData.size();j++){ // 가져온 주문아이템들을 한줄씩 분해해서 최종 데이터에 넣는 for문
+				allOrderItem.add(rawItemData.get(j));
+			}
+		}
+		
+		for(int i = 0;i<allOrderItem.size();i++){
+			for(int j = 0;j<(allOrderItem.size()-1);j++){
+			
+				//벡터에 있는 값중 중복된 이름을 찾아서 먼저 그 안에 있는 데이터를 첫번째 이름 벡터 로우쪽 칼럼에 합산
+				//그 뒤에 벡터에서 해당 중복 로우를 삭제
+			
+			}
+		}
+		
+		
+				
 		//orderinfo
 		int orderInfoNum = orderInfoDto.getOrderInfoNum();
 		String orderInfoDate = orderInfoDto.getOrderInfoDate();
@@ -849,6 +882,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 			}
 		}
 	}
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

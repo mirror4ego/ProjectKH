@@ -108,7 +108,7 @@ public class OrderInfoDao {
 				row.add(rs.getString("orderinfo_num"));
 				row.add(rs.getString("orderinfo_date"));
 				row.add(rs.getInt("orderinfo_customer_num"));
-				row.add(rs.getInt("orderinfo_userinfo_id"));
+				row.add(rs.getString("orderinfo_userinfo_id"));
 				data.add(row); 
 			}
 		} catch (Exception e) {
@@ -325,7 +325,6 @@ public class OrderInfoDao {
 	}
 
 	// 주문 수정 메소드
-
 
 	public boolean updateOrder(OrderInfoDto orderInfoDto){
 		System.out.println("dto="+orderInfoDto.toString());
