@@ -218,9 +218,8 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		
 		tabbedPane_2.addTab("ㅇ종류별", null,panel_A, null);//a통계
 		panel_A.add(JTextArea_A);
-		String imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\1.JPG";
 		//ImageIcon객체를 생성
-		ImageIcon originIcon = new ImageIcon(imgPath);  
+		ImageIcon originIcon = new ImageIcon("img/5.jpg");  
 		//ImageIcon에서 Image를 추출
 		Image originImg = originIcon.getImage(); 
 		//추출된 Image의 크기를 조절하여 새로운 Image객체 생성
@@ -232,8 +231,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		
 		tabbedPane_2.addTab("ㅇ 월별", null, panel_B, null);//b통계
 		panel_B.add(JTextArea_B);
-		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\2.JPG";
-		originIcon = new ImageIcon(imgPath);  
+		originIcon = new ImageIcon("img/4.jpg");  
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
@@ -242,8 +240,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		  
 		tabbedPane_2.addTab("ㅇ 세대별", null, panel_C, null);//c통계
 		panel_C.add(JTextArea_C);
-		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\3.JPG";
-		originIcon = new ImageIcon(imgPath);  
+		originIcon = new ImageIcon("img/3.jpg");  
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
@@ -252,8 +249,9 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		  
 		tabbedPane_2.addTab("ㅇ 재방문률", null, panel_D, null);//d통계
 		panel_D.add(JTextArea_D);
-		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\4.JPG";
-		originIcon = new ImageIcon(imgPath);  
+		
+		originIcon = new ImageIcon("img/2.jpg");  
+		
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
@@ -262,8 +260,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		  
 		tabbedPane_2.addTab("ㅇ주문지역별", null, panel_E, null);//e통계
 		panel_E.add(JTextArea_E);
-		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\5.JPG";
-		originIcon = new ImageIcon(imgPath);  
+		originIcon = new ImageIcon("img/1.png");  
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
