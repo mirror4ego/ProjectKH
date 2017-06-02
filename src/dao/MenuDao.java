@@ -80,10 +80,9 @@ public class MenuDao {
 			ps.executeUpdate();
 			ps.close();
 			c.close();
-			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 성공!");
 		}catch(Exception e){
 			c.close();
-			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 실패!");
+		
 		}
 	}
 	
@@ -233,6 +232,22 @@ public class MenuDao {
 		return data;
 	}
 	
-	
+	public int getOneMenuPrice(String menuName) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		int data = 0;
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menu where menu_name = ?"); //
+			ps.setString(1, menuName);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				data = (rs.getInt("menu_price"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 	
 }

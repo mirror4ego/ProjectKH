@@ -141,7 +141,7 @@ public class OrderListMiniView extends JFrame implements MouseListener, ActionLi
 		vector3.add("주문번호");
 		vector3.add("주문일자");
 		vector3.add("고객번호");
-		vector3.add("직원번호");
+		vector3.add("직원ID");
 		return vector3;
 	}
 	

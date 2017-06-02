@@ -7,6 +7,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import domain.CustomerDto;
 import domain.OrderInfoDto;
 import resources.ConnectionMaker;
 import resources.ConnectionMakerKH;
@@ -108,7 +109,7 @@ public class OrderInfoDao {
 				row.add(rs.getString("orderinfo_num"));
 				row.add(rs.getString("orderinfo_date"));
 				row.add(rs.getInt("orderinfo_customer_num"));
-				row.add(rs.getInt("orderinfo_userinfo_id"));
+				row.add(rs.getString("orderinfo_userinfo_id"));
 				data.add(row); 
 			}
 		} catch (Exception e) {
@@ -326,7 +327,6 @@ public class OrderInfoDao {
 
 	// 주문 수정 메소드
 
-
 	public boolean updateOrder(OrderInfoDto orderInfoDto){
 		System.out.println("dto="+orderInfoDto.toString());
 		boolean ok = false;
@@ -383,6 +383,29 @@ public class OrderInfoDao {
 		}
 		return data;
 	}
+	
+	public Vector orderInfoAllPartPlus() throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		OrderInfoDto orderInfoDto = new OrderInfoDto();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo a INNER JOIN customer b on a.orderinfo_customer_num=b.customer_num where orderinfo_num is not null order by a.orderinfo_num"); // 
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("orderinfo_num"));
+				row.add(rs.getString("orderinfo_date"));
+				row.add(rs.getInt("orderinfo_customer_num"));
+				row.add(rs.getString("customer_phone_num"));
+				data.add(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 
 	public void deleteAll() throws ClassNotFoundException, SQLException { // DB에
 		Connection c = connectionMaker.makeConnection();
@@ -393,6 +416,55 @@ public class OrderInfoDao {
 
 		ps.close();
 		c.close();
+	}
+
+	public Vector searchCustomerPhoneNum(String customerSearchPhoneNum) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		CustomerDto customerDto = new CustomerDto();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo a INNER JOIN customer b on a.orderinfo_customer_num=b.customer_num where customer_phone_num like ?");
+			ps.setString(1, "%"+customerSearchPhoneNum+"%");
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("orderinfo_num"));
+				row.add(rs.getString("orderinfo_date"));
+				row.add(rs.getInt("orderinfo_customer_num"));
+				row.add(rs.getString("customer_phone_num"));
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public Vector searchCustomerNum(String customerSearchNum) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		CustomerDto customerDto = new CustomerDto();
+		Vector data = new Vector();
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from orderinfo a INNER JOIN customer b on a.orderinfo_customer_num=b.customer_num where customer_num = ?"); // 
+			ps.setString(1, customerSearchNum);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				Vector row = new Vector();
+				row.add(rs.getString("orderinfo_num"));
+				row.add(rs.getString("orderinfo_date"));
+				row.add(rs.getInt("orderinfo_customer_num"));
+				row.add(rs.getString("customer_phone_num"));
+
+				data.add(row); 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 
 

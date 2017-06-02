@@ -18,6 +18,139 @@ public class OrderItemDao {
 	}
 
 
+	public Vector getSelectedOrderItemPlus(int orderItemOrderInfoNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+
+		try {
+			PreparedStatement ps = c.prepareStatement("select * from orderitem a inner join menu b on a.orderitem_menu_name=b.menu_name where orderitem_orderinfo_num = ?");
+			ps.setInt(1, orderItemOrderInfoNum);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Vector row = new Vector();
+				row.add(rs.getInt("orderItem_Num"));
+				row.add(rs.getInt("orderItem_OrderInfo_Num"));
+				row.add(rs.getString("orderItem_Menu_Name"));
+				row.add(rs.getInt("orderItem_Quantity"));
+				row.add(rs.getInt("menu_price"));
+				data.add(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public Vector getBestSellingItem(int customerNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+
+		try {
+			PreparedStatement ps = c.prepareStatement("select orderitem_menu_name, sum(orderitem_quantity) as total "
+					+ "from orderitem a inner join orderinfo b "
+					+ "on a.orderitem_orderinfo_num = b.orderinfo_num "
+					+ "inner join customer c "
+					+ "on b.orderinfo_customer_num = c.customer_num "
+					+ "where c.customer_num = ? group by orderitem_menu_name order by total desc");
+			ps.setInt(1, customerNum);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Vector row = new Vector();
+				row.add(rs.getString("orderItem_Menu_Name"));
+				row.add(rs.getInt("total"));
+				data.add(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public int getBestSellingItemSum(int customerNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+		int sumOrder = 0;
+		try {
+			PreparedStatement ps = c.prepareStatement("select menu_price, sum(orderitem_quantity) as total "
+					+ "from orderitem a inner join orderinfo b "
+					+ "on a.orderitem_orderinfo_num = b.orderinfo_num "
+					+ "inner join customer c "
+					+ "on b.orderinfo_customer_num = c.customer_num "
+					+ "inner join menu d "
+					+ "on d.menu_name = orderitem_menu_name "
+					+ "where c.customer_num = ? group by menu_price order by total desc");
+			ps.setInt(1, customerNum);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				//rs.getInt("menu_price");
+				//rs.getInt("total");
+				sumOrder=sumOrder + (Integer.parseInt(String.valueOf(rs.getInt("menu_price")))*Integer.parseInt(String.valueOf(rs.getInt("total"))));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sumOrder;
+	}
+
+	public Vector getSellingItemDateM(int customerNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+
+		try {
+			PreparedStatement ps = c.prepareStatement("select orderitem_menu_name, sum(orderitem_quantity) as total "
+					+ "from orderitem a inner join orderinfo b "
+					+ "on a.orderitem_orderinfo_num = b.orderinfo_num "
+					+ "inner join customer c "
+					+ "on b.orderinfo_customer_num = c.customer_num "
+					+ "where c.customer_num = ? and (select to_date(to_char(sysdate, 'yyyymmdd')) - to_date(to_char(b.orderinfo_date, 'yyyymmdd')) from dual)<=30 "
+					+ "group by orderitem_menu_name order by total desc");
+			ps.setInt(1, customerNum);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Vector row = new Vector();
+				row.add(rs.getString("orderItem_Menu_Name"));
+				row.add(rs.getInt("total"));
+				data.add(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public Vector getSellingItemDate3D(int customerNum) throws ClassNotFoundException, SQLException {
+		Connection c = connectionMaker.makeConnection();
+		Vector data = new Vector();
+
+		try {
+			PreparedStatement ps = c.prepareStatement("select orderitem_menu_name, sum(orderitem_quantity) as total "
+					+ "from orderitem a inner join orderinfo b "
+					+ "on a.orderitem_orderinfo_num = b.orderinfo_num "
+					+ "inner join customer c "
+					+ "on b.orderinfo_customer_num = c.customer_num "
+					+ "where c.customer_num = ? and (select to_date(to_char(sysdate, 'yyyymmdd')) - to_date(to_char(b.orderinfo_date, 'yyyymmdd')) from dual)<=3 "
+					+ "group by orderitem_menu_name order by total desc");
+			ps.setInt(1, customerNum);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Vector row = new Vector();
+				row.add(rs.getString("orderItem_Menu_Name"));
+				row.add(rs.getInt("total"));
+				data.add(row);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+
+
 	public Vector getSelectedOrderItem(int orderItemOrderInfoNum) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
 		Vector data = new Vector();
@@ -48,17 +181,17 @@ public class OrderItemDao {
 		//OrderInfoDto orderInfoDto = new OrderInfoDto();
 		int sum = 0;
 
-			PreparedStatement ps = c.prepareStatement("select * from orderitem where orderitem_menu_Name=?", ResultSet.TYPE_SCROLL_INSENSITIVE,
-					ResultSet.CONCUR_UPDATABLE);
-			ps.setString(1, orderInfoName);
-			ResultSet rs = ps.executeQuery();
-			rs.last();
-			sum=rs.getRow();
-			rs.beforeFirst();
+		PreparedStatement ps = c.prepareStatement("select * from orderitem where orderitem_menu_Name=?", ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_UPDATABLE);
+		ps.setString(1, orderInfoName);
+		ResultSet rs = ps.executeQuery();
+		rs.last();
+		sum=rs.getRow();
+		rs.beforeFirst();
 
 		return sum;
 	}
-	
+
 	public void addOneOrderItem(OrderItemDto orderItemDto) throws ClassNotFoundException, SQLException {
 		Connection c = connectionMaker.makeConnection();
 		System.out.println("정상입력1");
