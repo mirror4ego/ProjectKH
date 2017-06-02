@@ -80,10 +80,9 @@ public class MenuDao {
 			ps.executeUpdate();
 			ps.close();
 			c.close();
-			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 성공!");
 		}catch(Exception e){
 			c.close();
-			JOptionPane.showMessageDialog(null, "메뉴정보 삭제 실패!");
+		
 		}
 	}
 	

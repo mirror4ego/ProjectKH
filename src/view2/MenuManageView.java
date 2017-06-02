@@ -356,6 +356,8 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 			menuGroupDto.setMenuGroupName(menuGroupNameNew); // 새로운 분류명 생성
 			try {
 				new MenuGroupDao().insertMenuGroupName(menuGroupDto);
+				new MenuManageView();
+				this.dispose();
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -390,6 +392,7 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 				label.setBounds(13, 14, 57, 25);
 				modifyFrame.getContentPane().add(label);
 				modifyFrame.setVisible(true);
+
 			}else{
 				JOptionPane.showMessageDialog(null, "삭제할 메뉴분류 항목을 선택하세요");
 			}
@@ -410,7 +413,10 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 				new MenuGroupDao().deleteMenuGroupName(menuGroupNameBefore);//다 옮겼으면 필요없어진 기존 분류명 삭제
 
 				//(new MenuGroupDao()).updateMenuGroupName(menuGroupName);
-
+				
+				new MenuManageView();
+				modifyFrame.dispose();
+				this.dispose();
 			} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -431,6 +437,8 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 						String menuGroupName = textField.getText().toString();
 						(new MenuDao()).deleteMenuGroupSub(menuGroupName);
 						(new MenuGroupDao()).deleteMenuGroupName(menuGroupName);
+						new MenuManageView();
+						this.dispose();
 					}else{
 						JOptionPane.showMessageDialog(null, "삭제를 취소 하셨습니다");
 					}
@@ -452,6 +460,8 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 		if(e.getSource()==button_12) {
 			try {
 				this.jTreeRefresh();
+				new MenuManageView();
+				this.dispose();
 				System.out.println("리플래시 완료");
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
@@ -461,6 +471,8 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 		if(e.getSource()==button_2){
 			try {
 				(new MenuDao()).deleteOneMenu(textField_3.getText().trim());
+				new MenuManageView();
+				this.dispose();
 			} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -504,6 +516,8 @@ public class MenuManageView extends JFrame implements ActionListener, MouseListe
 						menuDto.setMenuGroupName(textField_1.getText().trim()); // 상품분류
 						try {
 							new MenuDao().insertMenu(menuDto);
+							new MenuManageView();
+							this.dispose();
 						} catch (ClassNotFoundException | SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
