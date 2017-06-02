@@ -215,15 +215,10 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		panel_1.add(tabbedPane_2);
 		
 
+		
 		tabbedPane_2.addTab("ㅇ종류별", null,panel_A, null);//a통계
 		panel_A.add(JTextArea_A);
-		imageA = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\A.png");  //이미지 경로
-		  lb_A = new JLabel(imageA,JLabel.CENTER);
-		  panel_A.add(lb_A);
-		
-		tabbedPane_2.addTab("ㅇ 월별", null, panel_B, null);//b통계
-		panel_B.add(JTextArea_B);
-		String imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\3.png";
+		String imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\1.JPG";
 		//ImageIcon객체를 생성
 		ImageIcon originIcon = new ImageIcon(imgPath);  
 		//ImageIcon에서 Image를 추출
@@ -232,28 +227,51 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		Image changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		//새로운 Image로 ImageIcon객체를 생성
 		ImageIcon Icon = new ImageIcon(changedImg);
-
-		 //imageB = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\3.png");  //이미지 경로
+		  lb_A = new JLabel(Icon,JLabel.CENTER);
+		  panel_A.add(lb_A);
+		
+		tabbedPane_2.addTab("ㅇ 월별", null, panel_B, null);//b통계
+		panel_B.add(JTextArea_B);
+		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\2.JPG";
+		originIcon = new ImageIcon(imgPath);  
+		originImg = originIcon.getImage(); 
+		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
+		Icon = new ImageIcon(changedImg);
 		  lb_B = new JLabel(Icon,JLabel.CENTER);
 		  panel_B.add(lb_B);
 		  
 		tabbedPane_2.addTab("ㅇ 세대별", null, panel_C, null);//c통계
 		panel_C.add(JTextArea_C);
-		imageC = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\icon.jpg");  //이미지 경로
-		  lb_C = new JLabel(imageC,JLabel.CENTER);
+		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\3.JPG";
+		originIcon = new ImageIcon(imgPath);  
+		originImg = originIcon.getImage(); 
+		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
+		Icon = new ImageIcon(changedImg);
+		  lb_C = new JLabel(Icon,JLabel.CENTER);
 		  panel_C.add(lb_C);
 		  
 		tabbedPane_2.addTab("ㅇ 재방문률", null, panel_D, null);//d통계
 		panel_D.add(JTextArea_D);
-		imageD = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\D.png");  //이미지 경로
-		  lb_D = new JLabel(imageD,JLabel.CENTER);
+		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\4.JPG";
+		originIcon = new ImageIcon(imgPath);  
+		originImg = originIcon.getImage(); 
+		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
+		Icon = new ImageIcon(changedImg);
+		  lb_D = new JLabel(Icon,JLabel.CENTER);
 		  panel_D.add(lb_D);
 		  
 		tabbedPane_2.addTab("ㅇ주문지역별", null, panel_E, null);//e통계
 		panel_E.add(JTextArea_E);
-		imageE = new ImageIcon("C:\\Users\\Public\\Pictures\\Sample Pictures\\E.png");  //이미지 경로
-		  lb_E = new JLabel(imageE,JLabel.CENTER);
+		imgPath = "C:\\Users\\Public\\Pictures\\Sample Pictures\\5.JPG";
+		originIcon = new ImageIcon(imgPath);  
+		originImg = originIcon.getImage(); 
+		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
+		Icon = new ImageIcon(changedImg);
+		  lb_E = new JLabel(Icon,JLabel.CENTER);
 		  panel_E.add(lb_E);
+		  
+		  
+		  
 		/*
 		label_26.setHorizontalAlignment(SwingConstants.CENTER);
 		label_26.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
