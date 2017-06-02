@@ -113,7 +113,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 				getContentPane().setLayout(null);
-				this.setSize(1600,900);
+				this.setSize(1200,800);
 				this.setResizable(false);
 				init();
 				start();
@@ -200,7 +200,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 				jTextField1.setBounds(133, 264, 421, 246);
 				jTextField1.setOpaque(false);
 				jPanel1.add(jTextField1);
-				jPanel8.setBounds(346, 580, 908, 116);
+				jPanel8.setBounds(140, 591, 908, 116);
 				jPanel8.setLayout(new GridLayout(1, 4, 0, 0));
 				jPanel8.setOpaque(false);
 				jPanel1.add(jPanel8);
