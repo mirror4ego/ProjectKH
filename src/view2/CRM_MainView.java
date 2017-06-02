@@ -219,7 +219,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		tabbedPane_2.addTab("ㅇ종류별", null,panel_A, null);//a통계
 		panel_A.add(JTextArea_A);
 		//ImageIcon객체를 생성
-		ImageIcon originIcon = new ImageIcon("img/5.jpg");  
+		ImageIcon originIcon = new ImageIcon("img/1.png");  
 		//ImageIcon에서 Image를 추출
 		Image originImg = originIcon.getImage(); 
 		//추출된 Image의 크기를 조절하여 새로운 Image객체 생성
@@ -231,7 +231,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		
 		tabbedPane_2.addTab("ㅇ 월별", null, panel_B, null);//b통계
 		panel_B.add(JTextArea_B);
-		originIcon = new ImageIcon("img/4.jpg");  
+		originIcon = new ImageIcon("img/2.png");  
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
@@ -240,7 +240,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		  
 		tabbedPane_2.addTab("ㅇ 세대별", null, panel_C, null);//c통계
 		panel_C.add(JTextArea_C);
-		originIcon = new ImageIcon("img/3.jpg");  
+		originIcon = new ImageIcon("img/3.png");  
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
@@ -250,7 +250,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		tabbedPane_2.addTab("ㅇ 재방문률", null, panel_D, null);//d통계
 		panel_D.add(JTextArea_D);
 		
-		originIcon = new ImageIcon("img/2.jpg");  
+		originIcon = new ImageIcon("img/4.png");  
 		
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
@@ -260,7 +260,7 @@ public class CRM_MainView extends JFrame implements MouseListener,ActionListener
 		  
 		tabbedPane_2.addTab("ㅇ주문지역별", null, panel_E, null);//e통계
 		panel_E.add(JTextArea_E);
-		originIcon = new ImageIcon("img/1.png");  
+		originIcon = new ImageIcon("img/5.png");  
 		originImg = originIcon.getImage(); 
 		changedImg= originImg.getScaledInstance(500, 500, Image.SCALE_SMOOTH );
 		Icon = new ImageIcon(changedImg);
