@@ -884,7 +884,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 			}
 
 			try {
-				jTableRefresh(new OrderInfoDao().orderInfoAllPart());
+				jTableRefresh(new OrderInfoDao().orderInfoAllPartPlus());
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
