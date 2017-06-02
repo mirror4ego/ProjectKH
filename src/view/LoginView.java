@@ -134,7 +134,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 				jLabel2.setBounds(0, 0, 10, 10);
 				jLabel2.setIcon(new ImageIcon("img/icon_user.png"));
 				jLabel3.setIcon(new ImageIcon("img/icon_pw.png"));
-				jLabel9.setForeground(Color.GRAY);
+				jLabel9.setForeground(Color.ORANGE);
 				jLabel9.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 				jLabel9.setBounds(313, 139, 301, 37);
 				jLoginTextField1.setCaretColor(Color.CYAN);
@@ -236,7 +236,7 @@ public class LoginView extends JFrame implements ActionListener, FocusListener {
 				jLabel6.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.LIGHT_GRAY));
 				jLabel6.setBounds(250, 147, 48, 24);
 				jPanel1.add(jLabel6);
-				jLabel7.setForeground(Color.GRAY);
+				jLabel7.setForeground(Color.ORANGE);
 				jLabel7.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 				jLabel7.setBounds(142, 139, 202, 37);
 				jPanel1.add(jLabel7);
