@@ -77,10 +77,10 @@ public class Exam05 extends JFrame {
 		g.drawLine(0, 250, 500, 250);// 시작좌표(왼쪽위),끝나는좌표(오른쪽아래)
 		g.drawLine(250, 0, 250, 500);
 		g.setFont(font);
-		g.drawString(alb, 125, 125);
-		g.drawString(blb, 375, 125);
-		g.drawString(clb, 125, 375);
-		g.drawString(dlb, 375, 375);
+		g.drawString("A", 125, 125);
+		g.drawString("B", 375, 125);
+		g.drawString("C", 125, 375);
+		g.drawString("D", 375, 375);
 		for (int i = 0; i < 50; i++) {
 			g.setColor(new Color(221,30,47));
 			g.fillOval(aDong[i][0], aDong[i][1], 10, 10);
