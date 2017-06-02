@@ -31,6 +31,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.CustomerDao;
+import dao.MenuDao;
 import dao.OrderInfoDao;
 import dao.OrderItemDao;
 import dao.UserInfoDao;
@@ -160,7 +161,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		this.setVisible(true);
 		getColumn();
 		getColumn1();
-		jTableRefresh(new OrderInfoDao().orderInfoAllPart());
+		jTableRefresh(new OrderInfoDao().orderInfoAllPartPlus());
 	}
 
 	void init() {
@@ -186,7 +187,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		comboBox.setBounds(63, 54, 215, 25);
 
 		panel_2.add(comboBox);
-		textField_2.setText("2016-06-02");
+		textField_2.setText("2016-06-01");
 		textField_2.setColumns(10);
 		textField_2.setBounds(63, 19, 130, 25);
 
@@ -214,6 +215,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		label_9.setBounds(12, 141, 57, 15);
 
 		panel_2.add(label_9);
+		textField.setText("0");
+		textField.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField.setColumns(10);
 		textField.setBounds(76, 139, 42, 19);
 
@@ -298,6 +301,9 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		textField_4.setBounds(304, 200, 126, 25);
 
 		panel_4.add(textField_4);
+		textField_5.setForeground(Color.BLUE);
+		textField_5.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+		textField_5.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
 		textField_5.setBounds(79, 200, 171, 38);
@@ -309,6 +315,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 
 		table_1 = new JTable();
 		scrollPane.setViewportView(table_1);
+		textField_6.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		textField_6.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_6.setEditable(false);
 		textField_6.setColumns(10);
 		textField_6.setBounds(79, 176, 171, 25);
@@ -417,7 +425,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		button_5.setBounds(410, 81, 57, 25);
 
 		panel_6.add(button_5);
-		
+
 		JLabel label_33 = new JLabel("분");
 		label_33.setBounds(443, 51, 57, 15);
 		panel_6.add(label_33);
@@ -608,6 +616,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		table.addMouseListener(this);
 		button_8.addActionListener(this);
 		button.addActionListener(this);
+		button_1.addActionListener(this);
 	}
 
 	public void jTableRefresh(Vector orderInfoDto) throws ClassNotFoundException, SQLException{
@@ -633,8 +642,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 		vector2.add("주문항목번호");
 		vector2.add("주문번호");
 		vector2.add("메뉴이름");
-		vector2.add("메뉴가격");
 		vector2.add("메뉴수량");
+		vector2.add("메뉴가격");
 		return vector2;
 	}
 
@@ -664,28 +673,9 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 	}
 
 	private void viewData(OrderInfoDto orderInfoDto, CustomerDto customerDto) throws ClassNotFoundException, SQLException{
-		
-		Vector allOrderInfoNum = new OrderInfoDao().getOrderListNum(customerDto.getCustomerNum());
-		Vector allOrderItem = null;
-		for(int i = 0; i<allOrderInfoNum.size(); i++) {
-			allOrderInfoNum.get(i); // 이 벡터의 주문번호들을 가지고 하위 주문'메뉴'를 검색
-			Vector rawItemData = new OrderItemDao().getSelectedOrderItem(Integer.parseInt((allOrderInfoNum.get(i)).toString()));
-			for(int j = 0; j<rawItemData.size();j++){ // 가져온 주문아이템들을 한줄씩 분해해서 최종 데이터에 넣는 for문
-				allOrderItem.add(rawItemData.get(j));
-			}
-		}
-		
-		for(int i = 0;i<allOrderItem.size();i++){
-			for(int j = 0;j<(allOrderItem.size()-1);j++){
-			
-				//벡터에 있는 값중 중복된 이름을 찾아서 먼저 그 안에 있는 데이터를 첫번째 이름 벡터 로우쪽 칼럼에 합산
-				//그 뒤에 벡터에서 해당 중복 로우를 삭제
-			
-			}
-		}
-		
-		
-				
+
+
+
 		//orderinfo
 		int orderInfoNum = orderInfoDto.getOrderInfoNum();
 		String orderInfoDate = orderInfoDto.getOrderInfoDate();
@@ -796,6 +786,25 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 
 	}
 
+	public void sum() throws ClassNotFoundException, SQLException {
+		//해당 주문번호로 하위 주문아이템 검색
+		//각 주문 아
+		int sum = 0;
+		int orderItemOrderInfoNum = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+		Vector getAllItem = new OrderItemDao().getSelectedOrderItem(orderItemOrderInfoNum);
+		for(int i = 0;i<getAllItem.size();i++){
+			Vector a = (Vector) getAllItem.elementAt(i);
+			String orderItemName = a.elementAt(2).toString();
+			int orderItemQty = Integer.parseInt(a.elementAt(3).toString());
+			int orderItemPrice = new MenuDao().getOneMenuPrice(orderItemName);
+			sum = sum + (orderItemQty*orderItemPrice);
+		}
+		System.out.println(sum);
+		
+		textField_5.setText(String.valueOf(sum));
+		textField_6.setText(String.valueOf(sum));
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -806,7 +815,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 
 		if(e.getSource()==button_8){
 			try {
-				jTableRefresh(new OrderInfoDao().orderInfoAllPart());
+				jTableRefresh(new OrderInfoDao().orderInfoAllPartPlus());
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -826,8 +835,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 
 				try {
 					//new OrderInfoDao().orderStatDateSearch(searchDateInit, searchDateEnd, searchElement, searchSort);
-					Vector customerDto = (new CustomerDao()).searchCustomerNum(searchElement);
-					this.jTableRefresh(customerDto);
+					Vector orderInfo = (new OrderInfoDao()).searchCustomerNum(searchElement);
+					this.jTableRefresh(orderInfo);
 					System.out.println("고객번호로 주문내역 검색 검색 완료");
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
@@ -835,8 +844,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 				}
 			}else if(searchSort.equals("전화번호")){
 				try {
-					Vector customerDto = (new CustomerDao()).searchCustomerPhoneNum(searchElement);
-					this.jTableRefresh(customerDto);
+					Vector orderInfo = (new OrderInfoDao()).searchCustomerPhoneNum(searchElement);
+					this.jTableRefresh(orderInfo);
 					System.out.println("전화번호로 주문내역 검색 완료");
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
@@ -857,7 +866,7 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 					if(result==0){
 						OrderItemDao orderItemDao = new OrderItemDao();
 						OrderInfoDao orderInfoDao = new OrderInfoDao();
-						
+
 						//OrderItem 목록 삭제 (주문번호로 검색한 하위 orderinfo_num들의 아래에 있는 결과들)
 						orderItemDao.deleteOrderItem(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
 
@@ -882,8 +891,8 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 			}
 		}
 	}
-	
-	
+
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -891,15 +900,12 @@ public class OrderMainView extends JFrame implements ActionListener, MouseListen
 			int r = table.getSelectedRow();
 			int orderInfoNum = Integer.parseInt(String.valueOf(table.getValueAt(r, 0)));
 			int orderInfoCustomerNum = Integer.parseInt(String.valueOf(table.getValueAt(r, 2)));
-			System.out.println(orderInfoNum);
 			try {
-				jTableRefresh1((new OrderItemDao().getSelectedOrderItem(orderInfoNum)));
-				System.out.println(orderInfoNum);
+				jTableRefresh1((new OrderItemDao().getSelectedOrderItemPlus(orderInfoNum)));
 				viewData((new OrderInfoDao()).getSelectedOrderInfo(orderInfoNum), (new CustomerDao()).getSelectedCustomerInfo(orderInfoCustomerNum));
-				System.out.println(orderInfoNum);
-
+				sum();
 			}catch(Exception e1){
-				JOptionPane.showMessageDialog(null, "테이블 선택 오류");
+				System.out.println("테이블 선택 오류");
 			}	
 		}
 	}

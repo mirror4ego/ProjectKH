@@ -150,7 +150,10 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 	Calendar cal;
 	DefaultTableModel model1 = new DefaultTableModel();
 	Calendar cal1 = Calendar.getInstance();
-	
+	DefaultTableModel model4 = new DefaultTableModel();
+	DefaultTableModel model5 = new DefaultTableModel();
+	DefaultTableModel model6 = new DefaultTableModel();
+	Vector vector4 = new Vector();
 	public OrderSheetView(CustomerDto customerDto) throws ClassNotFoundException, SQLException {
 		super("주문서");
 		this.init();
@@ -158,7 +161,13 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		getColumn1();
 		viewData(customerDto);
 		getColumn();
+		getColumn4();
 		jTableRefresh(new MenuDao().menuAllPart());
+		jTableRefresh4(new OrderItemDao().getBestSellingItem(Integer.parseInt(textField_3.getText().trim())));
+		jTableRefresh5(new OrderItemDao().getSellingItemDate3D(Integer.parseInt(textField_3.getText().trim())));
+		jTableRefresh6(new OrderItemDao().getSellingItemDateM(Integer.parseInt(textField_3.getText().trim())));
+
+		
 		this.start();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(1150,720);
@@ -562,6 +571,7 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 
 		table_4 = new JTable();
 		scrollPane_4.setViewportView(table_4);
+		textField_13.setText("0");
 		textField_13.setColumns(10);
 		textField_13.setBounds(79, 10, 90, 25);
 
@@ -639,6 +649,12 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		vector2.add("메뉴수량");
 		return vector2;
 	}
+	
+	public Vector getColumn4(){
+		vector4.add("메뉴이름");
+		vector4.add("구매수량");
+		return vector4;
+	}
 
 	public void jTableRefresh(Vector menuDto) throws ClassNotFoundException, SQLException{
 
@@ -654,9 +670,37 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		//table_1.setBackground(Color.getColor("F0F0F0"));
 		//TableColumn column4 = table_1.getColumnModel().getColumn(4);
 	}
+	public void jTableRefresh4(Vector menuDto) throws ClassNotFoundException, SQLException{
+
+		model4.setDataVector(menuDto, vector4);
+		table_4.setModel(model4);
+
+		//table_1.setBackground(Color.getColor("F0F0F0"));
+		//TableColumn column4 = table_1.getColumnModel().getColumn(4);
+	}
+	
+	public void jTableRefresh5(Vector menuDto) throws ClassNotFoundException, SQLException{
+
+		model5.setDataVector(menuDto, vector4);
+		table_2.setModel(model5);
+
+		//table_1.setBackground(Color.getColor("F0F0F0"));
+		//TableColumn column4 = table_1.getColumnModel().getColumn(4);
+	}
+	
+	public void jTableRefresh6(Vector menuDto) throws ClassNotFoundException, SQLException{
+
+		model6.setDataVector(menuDto, vector4);
+		table_3.setModel(model6);
+
+		//table_1.setBackground(Color.getColor("F0F0F0"));
+		//TableColumn column4 = table_1.getColumnModel().getColumn(4);
+	}
 	
 	private void viewData(CustomerDto customerDto) throws ClassNotFoundException, SQLException{
+	
 
+		
 		int customerNum = customerDto.getCustomerNum();
 		String a = customerDto.getCustomerAddState();
 		String b = customerDto.getCustomerAddCity();
@@ -688,7 +732,8 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		textField_9.setEditable(false);
 		textField_9.setHorizontalAlignment(SwingConstants.TRAILING);
 		textField_9.setText(customerPhoneNum);
-		
+
+		System.out.println(new OrderItemDao().getBestSellingItem(1));
 		Vector allUserIdList = new UserInfoDao().getAllUserIdList();
 		for(int i = 0;i<allUserIdList.size();i++){
 			textField_5.addItem(allUserIdList.get(i));;
@@ -699,10 +744,12 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		textField_14.setText(String.valueOf(orderInfoCount));
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+		int sumOrder = new OrderItemDao().getBestSellingItemSum(customerNum);
 		String time = format.format(cal.getTime());
 		textField_11.setText(time);
 		textArea.setText(customerNoteInfo);
+		textField_12.setText(String.valueOf(sumOrder));
+		
 		
 	}
 
@@ -772,6 +819,28 @@ public class OrderSheetView extends JFrame implements ActionListener, MouseListe
 		
 		if(e.getSource()==button_6){
 			model1.removeRow(table_1.getSelectedRow());
+			System.out.println("테이블에 리스너 작동");
+
+			System.out.println(table_1.getRowCount());
+			int sum = 0;
+			int discount = Integer.parseInt(textField_7.getText());
+			//sum = sum-discount;
+			for(int i = 0;i<table_1.getRowCount();i++){
+				System.out.println((table_1.getValueAt(i, 1)));
+				int price = Integer.parseInt((table_1.getValueAt(i, 1)).toString());
+				int num = Integer.parseInt((table_1.getValueAt(i, 3)).toString());
+				int subSum = (price * num);
+
+				sum += subSum;
+
+				textField.setText(String.valueOf(sum));
+				textField_1.setText(String.valueOf(sum-discount));
+				
+
+			
+			}
+			
+			
 		}
 		
 		if(e.getSource()==button){

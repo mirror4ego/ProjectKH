@@ -460,7 +460,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		jTextField1.setText("");
 		textField.setText("");
 		textField_1.setText("");
-		textField_2.setText("");
+		textField_2.setText("0");
 		rdbtnNewRadioButton.setSelected(false);
 		radioButton.setSelected(false);
 

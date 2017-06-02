@@ -233,6 +233,22 @@ public class MenuDao {
 		return data;
 	}
 	
-	
+	public int getOneMenuPrice(String menuName) throws ClassNotFoundException, SQLException { // 
+
+		Connection c = connectionMaker.makeConnection();
+		int data = 0;
+		try{
+			PreparedStatement ps = c.prepareStatement("select * from menu where menu_name = ?"); //
+			ps.setString(1, menuName);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				data = (rs.getInt("menu_price"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
 	
 }
