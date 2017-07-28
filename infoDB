@@ -1,0 +1,353 @@
+--------------------------------------
+
+
+	-- DB 정보 인덱스
+		-- DB 테이블 구성
+		-- DB 시퀀스 구성
+		-- 테이블 세부 구조
+		-- DB 기본 사용 설정 세팅
+		-- DB 생성 정보
+			-- 테이블 생성
+			-- 시퀀스 생성
+			-- 외래키 설정
+			-- 기본 데이터 생성
+			-- 최종 COMMIT;
+
+
+--------------------------------------
+
+
+
+	-- DB정보 (작성중)
+		-- DB 테이블 구성
+			-- CHANNEL
+						
+			
+		-- DB 시퀀스 구성	
+			-- MESSAGE_SEQ
+				
+		
+		-- 테이블 세부 구조
+			-- TBL_MEMBER
+				--USER_ID				NOT NULL VARCHAR2(50)	--PRIMARY KEY
+				--USER_PW				NOT NULL VARCHAR2(50)
+				--USER_NAME				NOT NULL VARCHAR2(50)
+				--USER_EMAIL			NOT NULL VARCHAR2(100)
+				--USER_REGDATE			DATE
+				--USER_UPDATEDATE		DATE
+
+
+		--DB세팅 관련 정보
+			----------주의 주의 주의 주의 주의 주의 주의 주의 주의 주의 -------------
+			-- 아래 코드는 해당 스키마의 모든 테이블, 시퀀스, 휴지통까지 지워버리는 명령 --
+			-- 데이터 베이스 생성 전 전체 테이블 구조와 데이터를 쉽게 삭제하고자 할 때 사용 --  
+			
+			-- sql>ed dropallsemikh.sql
+			
+			
+			
+			-- Begin
+			-- 		for c in (select table_name from user_tables)
+			-- 			loop
+			-- 				execute immediate ('drop table '||c.table_name||' cascade constraints');
+			-- 			end loop;
+			-- 		for c in (SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='kh')
+			-- 			loop
+			-- 				execute immediate 'drop SEQUENCE '||c.sequence_name;
+			-- 			end loop;
+			-- End;
+			-- /
+			-- purge recyclebin;
+			-- SELECT * FROM tab;
+			-- SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='kh';
+			
+			
+			
+			-- sql>@dropallsemikh.sql
+
+			
+			--- 위 코드는 해당 스키마의 모든 테이블, 시퀀스, 휴지통까지 지워버리는 명령 ---
+			----------주의 주의 주의 주의 주의 주의 주의 주의 주의 주의 -------------
+		
+		
+			-- 전체 테이블, 시퀀스 생성 쿼리를 이렇게 명령어로 저장해놓고 사용할 수도 있다
+			-- sql>ed createallsemikh.sql
+			-- 메모장에 아래의 쿼리 전체를 입력
+			-- sql>@createallsemikh.sql
+
+			
+			
+			
+----------------------------------------------------------------------------------------------			
+------------------------------------   아래의 내용을 붙여넣기 한다   ------------------------------------
+----------------------------------------------------------------------------------------------
+
+
+	-- DB 기본 사용 설정 세팅
+	SET LINESIZE 120;
+	SET SERVEROUTPUT ON;
+
+
+	-- 1. 채널 관련 DB 정보
+		-- 채널 테이블 생성
+		create table channel(
+		channel_name varchar2(50),		-- 채널 이름
+		channel_feature varchar2(100),	-- 채널 특징
+		primary key(channel_name)		-- 기본키 설정
+		);
+	
+		-- 채널 시퀀스 생성
+		-- 시퀀스 생성 필요 없음
+		
+		-- 채널 외래키 설정
+		-- 외래키 생성 필요 없음
+	
+		-- 채널 기본 데이터 생성
+		insert into channel values ('전화', '전화로 온 주문');
+		insert into channel values ('어플', '어플로 온 주문');
+		insert into channel values ('홈페이지', '홈페이지로 온 주문');
+		insert into channel values ('ARS', 'ARS로 온 주문');
+		insert into channel values ('문자', '문자로 온 주문');
+			
+		
+		
+	-- 2. 고객등급 관련 DB정보
+		-- 고객등급 테이블 생성
+		create table grade(
+		grade_name varchar2(100),		-- 등급 이름
+		grade_discount number(10),		-- 등급별 할인
+		primary key(grade_name)			-- 기본키 설정
+		);
+	
+		-- 고객등급 시퀀스 생성
+		-- 시퀀스 생성 필요 없음
+		
+		-- 고객등급 외래키 설정
+		-- 외래키 설정 필요 없음
+	
+		-- 고객등급 기본 데이터 생성
+		insert into grade values ('신규고객', 0);
+		insert into grade values ('우수고객', 10);
+		insert into grade values ('단골고객', 20);
+		insert into grade values ('VVIP고객', 30);
+			
+		
+		
+	-- 3. 고객 관련 DB 정보
+		-- 고객 테이블 생성
+		create table customer(
+		customer_num number(20),			-- 고유번호
+		customer_reg_date varchar2(20),		-- 등록일
+		customer_phone_num varchar2(30),	-- 전화번호
+		customer_add_state varchar2(100),	-- 주소(시도)
+		customer_add_city varchar2(100),	-- 주소(시군구)
+		customer_add_street varchar2(100),	-- 주소(읍면동)
+		customer_add_rest varchar2(200),	-- 주소(나머지)
+		customer_age_predict number(5),		-- 나이 예측
+		customer_gender number(5),			-- 성별
+		customer_noteinfo varchar2(50),		-- 고객정보
+		customer_grade_name varchar2(50),	-- 고객등급
+		primary key(customer_num)			-- 기본키 설정
+		);
+	
+		-- 고객 시퀀스 생성
+		CREATE SEQUENCE seq_customer_num START WiTH 1 INCREMENT BY 1;
+		
+		-- 채널 외래키 설정
+		ALTER TABLE customer ADD CONSTRAINT customer_grade_name_fk FOREIGN KEY(customer_grade_name)
+			REFERENCES grade(grade_name);
+	
+		-- 고객 기본 데이터 생성
+		insert into customer values (seq_customer_num.nextval, sysdate, '01023303837', '서울', '영등포구', '신길동', '299-33번지 2층', 33, 1, '빠른 배달원함', '신규고객');
+		
+		
+		
+	-- 4. 메뉴그룹 관련 DB 정보
+		-- 메뉴그룹 테이블 생성
+		create table menugroup(
+		menugroup_num number(10),	-- 메뉴그룹 번호
+		menugroup_name varchar2(100),	-- 메뉴그룹 이름
+		primary key(menugroup_name)		-- 기본키 설정
+		);
+	
+		-- 메뉴그룹 시퀀스 생성
+		CREATE SEQUENCE seq_menugroup_num START WiTH 1 INCREMENT BY 1;
+		
+		-- 메뉴그룹 외래키 설정
+		-- 외래키 생성 필요 없음
+	
+		-- 메뉴그룹 기본 데이터 생성
+		insert into menugroup values (seq_menugroup_num.nextval, '치킨류');
+		
+		
+		
+	-- 5. 메뉴 관련 DB 정보
+		-- 메뉴 테이블 생성
+		create table menu(
+		menu_name varchar2(50),			-- 메뉴명
+		menu_price number(10),			-- 가격
+		menugroup_name varchar2(50),	-- 메뉴그룹이름
+		primary key(menu_name)			-- 기본키 설정
+		);
+	
+		-- 메뉴 시퀀스 생성
+		-- 시퀀스 생성 필요 없음
+		
+		-- 메뉴 외래키 설정
+		ALTER TABLE menu ADD CONSTRAINT menu_menugroup_Name_fk FOREIGN KEY(menugroup_name)
+			REFERENCES menugroup(menugroup_name);
+	
+		-- 메뉴 기본 데이터 생성
+		insert into menu values ('후라이드', 12000, '치킨류');
+		
+			
+		
+	-- 6. 직원 관련 DB 정보
+		-- 직원 테이블 생성
+		create table userinfo(
+		userInfo_Id varchar2(100),					-- 아이디
+		userInfo_Password varchar2(100),			-- 패스워드
+		userInfo_Name varchar2(100),				-- 이름
+		userInfo_Num number(10),					-- 고유번호
+		userInfo_Phone varchar2(100),				-- 전화번호
+		userInfo_Task varchar2(100),				-- 업무
+		userInfo_Email varchar2(100),				-- 이메일
+		userInfo_Hire_Date varchar2(100),			-- 고용된 날짜
+		userInfo_Attendance_Time varchar2(100),		-- 출근시간
+		userInfo_Quitting_Time varchar2(100),		-- 퇴근시간
+		userInfo_Employ_Status varchar2(100),		-- 고용 상태
+		userInfo_Add_State varchar2(100),			-- 주소(시도)
+		userInfo_Add_City varchar2(100),			-- 주소(시군구)
+		userInfo_Add_Street varchar2(100),			-- 주소(읍면동)
+		userInfo_Add_Rest varchar2(200),			-- 주소(나머지)
+		userInfo_Gender varchar2(10),				-- 성별 정보
+		primary key(userInfo_id)					-- 기본키 설정
+		);
+	
+		-- 직원 시퀀스 생성
+		CREATE SEQUENCE seq_userinfo_num START WiTH 1 INCREMENT BY 1;
+		
+		-- 직원 외래키 설정
+		-- 외래키 설정 필요 없음
+	
+		-- 직원 기본 데이터 생성
+		insert into userinfo(userinfo_num, userinfo_id, userinfo_password) values(seq_userinfo_num.nextval, 'kh', 'kh');
+		
+		
+		
+	-- 7. 주문정보 관련 DB 정보
+		-- 주문정보 테이블 생성
+		create table orderinfo(
+		orderinfo_num number(10),								-- 주문정보 번호
+		orderinfo_Date varchar2(50),							-- 주문일자
+		orderinfo_loc_possibility varchar2(10),					-- 배달가능지역여부
+		orderInfo_Order_Possibility varchar2(10),				-- 주문가능여부
+		orderInfo_Request_Info varchar2(200),					-- 고객의 요청사항
+		orderInfo_Channel_Name varchar2(100),					-- 채널 이름
+		orderInfo_Request_Delivery varchar2(50),				-- 요청 배달시간
+		orderInfo_Pack_Completion varchar2(10) default 0,		-- 포장완료여부
+		orderInfo_Delivery_Completion varchar2(10) default 0,	-- 배달완료여부
+		orderInfo_Order_Completion varchar2(10) default 0,		-- 주문완료여부
+		orderInfo_Money_Collection varchar2(10),				-- 수금여부
+		orderInfo_Delivery_Predict varchar2(50),				-- 예측 배달시간
+		orderInfo_Customer_Num number(10),						-- 주문한 고객의 고객번호
+		orderInfo_UserInfo_Id varchar2(50),						-- 담당 직원 아이디
+		primary key(orderinfo_num)								-- 기본키 설정
+		);
+
+		-- 주문정보 시퀀스 생성
+		CREATE SEQUENCE seq_orderinfo_num START WiTH 1 INCREMENT BY 1;
+
+		-- 주문정보 외래키 설정
+		ALTER TABLE orderinfo ADD CONSTRAINT orderInfo_ChannelName_fk FOREIGN KEY(orderInfo_Channel_Name)
+			REFERENCES channel(channel_name);
+		ALTER TABLE orderinfo ADD CONSTRAINT orderInfo_customer_num_fk FOREIGN KEY(orderInfo_Customer_Num)
+			REFERENCES customer(customer_num);
+		ALTER TABLE orderinfo ADD CONSTRAINT orderInfo_UserInfo_Id_fk FOREIGN KEY(orderInfo_UserInfo_Id)
+			REFERENCES userinfo(userinfo_id);
+	
+		-- 주문정보 기본 데이터 생성
+		insert into orderinfo values (seq_orderinfo_num.nextval, sysdate, '1', '1', '빠르게 배달', '전화', sysdate, '0', '0', '0', '0', sysdate, 1, 'kh');
+		insert into orderinfo values (seq_orderinfo_num.nextval, sysdate, '1', '1', '빠르게 배달', '전화', sysdate, '0', '0', '0', '0', sysdate, 2, 'kh');
+		insert into orderinfo values (seq_orderinfo_num.nextval, sysdate, '1', '1', '빠르게 배달', '전화', sysdate, '0', '0', '0', '0', sysdate, 3, 'kh');
+		insert into orderinfo values (seq_orderinfo_num.nextval, sysdate, '1', '1', '빠르게 배달', '전화', sysdate, '0', '0', '0', '0', sysdate, 4, 'kh');
+		
+						
+	-- 8. 주문메뉴 관련 DB 정보
+		-- 주문메뉴 테이블 생성
+		create table orderitem(
+		orderitem_num number(10),			-- 주문메뉴 번호
+		orderitem_orderinfo_num number(10),	-- 주문메뉴가 연결된 주문정보의 고유번호
+		orderitem_menu_name varchar2(100),	-- 주문메뉴와 연결된 메뉴 이름
+		orderitem_quantity number(10),		-- 주문메뉴의 양
+		primary key(orderitem_num)			-- 기본키 설정
+		);
+	
+		-- 주문메뉴 시퀀스 생성
+		CREATE SEQUENCE seq_orderitem_num START WiTH 1 INCREMENT BY 1;
+		
+		-- 주문메뉴 외래키 설정
+		ALTER TABLE orderitem ADD CONSTRAINT orderitem_orderinfonum_fk FOREIGN KEY(orderitem_orderinfo_num)
+			REFERENCES orderinfo(orderinfo_num);
+		ALTER TABLE orderitem ADD CONSTRAINT orderitem_menuname_fk FOREIGN KEY(orderitem_menu_name)
+			REFERENCES menu(menu_name);
+	
+		-- 주문메뉴 기본 데이터 생성
+		insert into orderitem values (seq_orderitem_num.nextval, 3, '후라이드', 3);
+
+		
+		
+
+
+	-- 테스트 모음 --	
+	-- 1. 멤버 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_member;		
+	-- 총 데이터가 100개라면 성공적으로 입력 된 것
+	
+	-- 2. 게시판 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_board;
+	-- 총 데이터가 1000개라면 성공적으로 입력 된 것
+
+	-- 3. 댓글 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_reply;
+	-- 총 데이터가 1000개라면 성공적으로 입력 된 것
+
+	-- 4. 사용자 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_user;
+	-- 총 데이터가 100개라면 성공적으로 입력 된 것
+	
+	-- 5. 메세지 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_message;
+	-- 총 데이터가 100개라면 성공적으로 입력 된 것
+	
+	-- 6. 첨부파일 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_attach;
+	-- 총 데이터가 0개라면 성공적으로 입력 된 것
+
+	-- 7. 상품 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_product;
+	-- 총 데이터가 9개라면 성공적으로 입력 된 것	
+		
+	-- 8. 장바구니 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_cart;
+	-- 총 데이터가 800개라면 성공적으로 입력 된 것
+	
+	-- 9. 관리자 테스트 쿼리
+	SELECT COUNT(*) FROM tbl_admin;
+	-- 총 데이터가 1개라면 성공적으로 입력 된 것
+
+
+	
+	-- @ 최종 테이블, 시퀀스 구조 확인
+	SELECT * FROM tab;
+	SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='KH';
+	
+	
+	-- ****최종 커밋****
+	-- commit; -- 커밋 명령은 수동으로 입력하세요
+
+
+
+
+---------------------------------------------------------------------------------------------	
+	

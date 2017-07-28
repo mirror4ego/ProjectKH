@@ -219,14 +219,14 @@ public class CustomerDao {
 
 		rs.next();
 		CustomerDto customerDto = new CustomerDto();
-		customerDto.setCustomerNum(rs.getInt("customerNum"));
-		customerDto.setCustomerRegDate(rs.getString("customerRegDate"));
-		customerDto.setCustomerPhoneNum(rs.getString("customerPhoneNum"));
-		customerDto.setCustomerAddState(rs.getString("customerAddState"));
-		customerDto.setCustomerAddCity(rs.getString("customerAddCity"));
-		customerDto.setCustomerAddStreet(rs.getString("customerAddStreet"));
-		customerDto.setCustomerAddRest(rs.getString("customerAddRest"));
-		customerDto.setCustomerAgePredict(rs.getInt("customerAgePredict"));
+		customerDto.setCustomerNum(rs.getInt("customer_Num"));
+		customerDto.setCustomerRegDate(rs.getString("customer_Reg_Date"));
+		customerDto.setCustomerPhoneNum(rs.getString("customer_Phone_Num"));
+		customerDto.setCustomerAddState(rs.getString("customer_Add_State"));
+		customerDto.setCustomerAddCity(rs.getString("customer_Add_City"));
+		customerDto.setCustomerAddStreet(rs.getString("customer_Add_Street"));
+		customerDto.setCustomerAddRest(rs.getString("customer_Add_Rest"));
+		customerDto.setCustomerAgePredict(rs.getInt("customer_Age_Predict"));
 		customerDto.setCustomerGender(rs.getInt("customer_Gender"));
 		customerDto.setCustomerNoteInfo(rs.getString("customer_NoteInfo"));
 		customerDto.setCustomerGradeName(rs.getString("customer_Grade_Name"));
