@@ -51,7 +51,7 @@
 			-- 			loop
 			-- 				execute immediate ('drop table '||c.table_name||' cascade constraints');
 			-- 			end loop;
-			-- 		for c in (SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='kh')
+			-- 		for c in (SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='KH')
 			-- 			loop
 			-- 				execute immediate 'drop SEQUENCE '||c.sequence_name;
 			-- 			end loop;
@@ -59,7 +59,7 @@
 			-- /
 			-- purge recyclebin;
 			-- SELECT * FROM tab;
-			-- SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='kh';
+			-- SELECT * FROM all_sequences WHERE SEQUENCE_OWNER='KH';
 			
 			
 			
