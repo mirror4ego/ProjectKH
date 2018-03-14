@@ -12,7 +12,7 @@ public class ConnectionMakerKH implements ConnectionMaker {
 		// TODO Auto-generated method stub
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection c = DriverManager.getConnection(
-				"jdbc:oracle:thin:@mirror4ego.iptime.org:1521:server", "semikh", "semikh");
+				"jdbc:oracle:thin:@mirror4ego.iptime.org:1521:Server", "semikh", "semikh");
 		return c;
 	}
 }

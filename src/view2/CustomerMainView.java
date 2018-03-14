@@ -392,7 +392,7 @@ public class CustomerMainView extends JFrame implements MouseListener, ItemListe
 		jTextField1.setBounds(69, 45, 424, 25);
 		panel_6.add(jTextField1);
 		jTextField1.setColumns(10);
-		lblNewLabel_2.setIcon(new ImageIcon(CustomerMainView.class.getResource("/com/sun/deploy/uitoolkit/impl/fx/ui/resources/image/graybox_error.png")));
+		lblNewLabel_2.setIcon(new ImageIcon("img/icon_user.png"));
 
 		lblNewLabel_2.setBounds(92, 79, 255, 25);
 		panel_6.add(lblNewLabel_2);
